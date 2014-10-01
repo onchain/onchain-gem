@@ -8,6 +8,8 @@ class OnChain
       master = MoneyTree::Node.from_serialized_address(mpk)
       
       paths.each do |path|
+        address = master.node_for_path(path).to_address
+        puts address
       end
     end
   end
