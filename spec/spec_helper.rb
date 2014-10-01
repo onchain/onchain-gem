@@ -1,1 +1,4 @@
 require 'onchain'
+require 'money-tree'
+
+MPK = "xpub69n5sWwu7AAuyxEGp6MD5NeW58vBcUYoJB2CMFFsAjxJvpoJkQd78NSRVL3kzjd4rprvrLi2iKnm3QJCTfcTZSsfs5SnQgK7e2mu7EuUko9"
