@@ -1,3 +1,3 @@
-module OnchainGem
-  VERSION = "0.3.2"
+module Onchain
+  VERSION = "0.4.2"
 end

@@ -1,24 +1,36 @@
 require 'net/http'
+require 'json'
 
 class OnChain
   class << self
     
-    BALANCE_CACHE_FOR = 120.seconds
-    API_CACHE_FOR = 60.seconds
+    BALANCE_CACHE_FOR = 120
+    API_CACHE_FOR = 60
+    
+    @@cache = {}
+    
+    def cache_write(key, data, max_age=0)
+       @@cache[key] = [Time.now, data, max_age]
+    end
+    
+    def cache_read(key)
+       # if the API URL exists as a key in cache, we just return it
+       # we also make sure the data is fresh
+       if @@cache.has_key? key
+          return @@cache[key][1] if Time.now-@@cache[key][0] < @@cache[key][2]
+       end
+    end
+    
     
     def get_all_balances(addresses)
 
       if ! blockr_down?
-        Rails.logger.info "Using blockr_get_all_balances " + Time.now.to_s
         bal = blockr_get_all_balances(addresses)
-        Rails.logger.info "Exiting get_all_balances " + Time.now.to_s
         return bal
       end
       
       if ! blockchain_down?
-        Rails.logger.info "Using zootreeves_get_all_balances " + Time.now.to_s
-        bal = zootreeves_get_all_balances(addresses)
-        Rails.logger.info "Exiting get_all_balances " + Time.now.to_s
+        bal = blockinfo_get_all_balances(addresses)
         return bal
       end
     end
@@ -27,7 +39,7 @@ class OnChain
       
       # These guys make 300k per month so hammer them first.
       if ! blockchain_down?
-        bal = zootreeves_balance(address)
+        bal = blockinfo_balance(address)
         if ! bal.instance_of? String
           return bal
         end
@@ -72,7 +84,7 @@ class OnChain
       end
       
       if ! blockchain_down?
-        return zootreeves_unspent(address)
+        return blockinfo_unspent(address)
       end
       
       # OK I give up.
@@ -81,28 +93,28 @@ class OnChain
     end
 
     def blockchain_is_down
-      Rails.cache.write(:blockchainapi, 'it is down', :expires_in => 60.seconds)
+      cache_write(:blockchainapi, 'it is down', 60)
     end
 
     def blockchain_down?
-      if Rails.cache.read(:blockchainapi) != nil
+      if cache_read(:blockchainapi) != nil
         return true
       end
       return false
     end
 
     def blockr_is_down
-      Rails.cache.write(:blockrapi, 'it is down', :expires_in => 60.seconds)
+      cache_write(:blockrapi, 'it is down', 60)
     end
 
     def blockr_down?
-      if Rails.cache.read(:blockrapi) != nil
+      if cache_read(:blockrapi) != nil
         return true
       end
       return false
     end
 
-    def zootreeves_get_all_balances(addresses)
+    def blockinfo_get_all_balances(addresses)
       begin
         base = "https://blockchain.info/multiaddr?&simple=true&active="
         
@@ -114,7 +126,7 @@ class OnChain
         
         addresses.each do |address|
           bal = json[address]['final_balance'] / 100000000.0
-          Rails.cache.write(address, bal, :expires_in => BALANCE_CACHE_FOR)
+          cache_write(address, bal, BALANCE_CACHE_FOR)
         end
         
       rescue
@@ -122,7 +134,7 @@ class OnChain
       end
     end
 
-    def zootreeves_unspent(address)
+    def blockinfo_unspent(address)
       begin
         base_url = "http://blockchain.info/unspent?active=#{address}"
         json = fetch_response(base_url, true)
@@ -145,19 +157,19 @@ class OnChain
       end
     end
 
-    def zootreeves_balance(address)
+    def blockinfo_balance(address)
       begin
-        if Rails.cache.read(address) == nil
+        if cache_read(address) == nil
           puts "cache is empty"
           json = block_chain('address', address, "&limit=0")
           if json.key?('final_balance')
             bal = json['final_balance'] / 100000000.0
-            Rails.cache.write(address, bal, :expires_in => BALANCE_CACHE_FOR)
+            cache_write(address, bal, BALANCE_CACHE_FOR)
           else
-            Rails.cache.write(address, 'Error', :expires_in => BALANCE_CACHE_FOR)
+            cache_write(address, 'Error', BALANCE_CACHE_FOR)
           end
         end
-        bal = Rails.cache.read(address)
+        bal = cache_read(address)
         if bal.class == Fixnum
           bal = bal.to_f
         end
@@ -203,7 +215,7 @@ class OnChain
         json['data'].each do |data|
           bal = data['balance']
           addr = data['address']
-          Rails.cache.write(addr, bal, :expires_in => BALANCE_CACHE_FOR)
+          cache_write(addr, bal, BALANCE_CACHE_FOR)
         end
         
       rescue
@@ -213,16 +225,16 @@ class OnChain
 
     def blockr_balance(address)
       begin
-        if Rails.cache.read(address) == nil
+        if cache_read(address) == nil
           json = blockr('address/balance', address)
           if json.key?('data')
             bal = json['data']['balance'].to_f
-            Rails.cache.write(address, bal, :expires_in => BALANCE_CACHE_FOR)
+            cache_write(address, bal, BALANCE_CACHE_FOR)
           else
-            Rails.cache.write(address, 'Error', :expires_in => BALANCE_CACHE_FOR)
+            cache_write(address, 'Error', BALANCE_CACHE_FOR)
           end
         end
-        return Rails.cache.read(address) 
+        return cache_read(address) 
       rescue Exception => e  
         puts e
         'Balance could not be retrieved'

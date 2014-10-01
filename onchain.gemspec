@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "onchain"
   gem.require_paths = ["lib"]
-  gem.version       = OnchainGem::VERSION
+  gem.version       = Onchain::VERSION
   
   %w{rspec vcr ir_b guard-rspec webmock}.each do |gem_library|
     gem.add_development_dependency gem_library
