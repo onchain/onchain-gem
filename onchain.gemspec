@@ -15,7 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Onchain::VERSION
   
-  %w{rspec vcr ir_b guard-rspec webmock}.each do |gem_library|
-    gem.add_development_dependency gem_library
-  end
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rspec'
 end
