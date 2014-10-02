@@ -34,7 +34,6 @@ class OnChain
         "OP_EQUALVERIFY OP_CHECKSIG").to_payload)
       
       tx.add_out(txout)
-      puts tx.to_json
     end
     
   end

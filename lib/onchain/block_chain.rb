@@ -75,6 +75,27 @@ class OnChain
       return []
     end
     
+    def get_transactions(address)
+      begin
+        base_url = "http://btc.blockr.io/api/v1/address/txs/#{address}"
+        json = fetch_response(base_url, true)
+        
+        unspent = []
+        
+        json['data']['txs'].each do |data|
+          line = []
+          line << data['tx']
+          line << (data['amount'].to_f * 100000000).to_i
+          unspent << line
+        end
+        
+        return unspent
+      rescue Exception => e
+        puts e.to_s
+        'Unspent outputs could not be retrieved'
+      end
+    end
+    
     def get_unspent_outs(address)
 
       
@@ -236,7 +257,6 @@ class OnChain
         end
         return cache_read(address) 
       rescue Exception => e  
-        puts e
         'Balance could not be retrieved'
       end
     end
@@ -257,7 +277,6 @@ class OnChain
         begin
           base_url = "http://blockchain.info/#{cmd}/#{address}?format=json" + params
           
-          puts base_url
           fetch_response(base_url, true)
         rescue
           blockchain_is_down
