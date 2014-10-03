@@ -13,6 +13,9 @@ class OnChain
         total_amount = 0  
       
         payments.each do |payment|
+          if payment[1].is_a?(String)
+            payment[1] = payment[1].to_i
+          end
           total_amount = total_amount + payment[1]
         end
       

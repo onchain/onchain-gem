@@ -24,4 +24,14 @@ describe OnChain do
     
     expect(res.out.length).to eq(2)
   end
+
+  it "Should convert string amounts to integers" do
+    
+    payees = [['HELLO THIS IS WRONG', '1111000'], 
+      ['1MwVNWkpYRD9kuWMdUTBPdW8hVoQtG3Aot', '10000000']]
+      
+    res = OnChain.create_payment_tx('1BPqtqBKoUjEq8STWmJxhPqtsf3BKp5UyE', payees)
+    
+    expect(res.out.length).to eq(2)
+  end
 end
