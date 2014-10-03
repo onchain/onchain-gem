@@ -35,6 +35,10 @@ class OnChain
       end
     end
     
+    def get_balance_satoshi(address)
+      return (get_balance(address).to_f * 100000000).to_i
+    end
+    
     def get_balance(address)
       
       # These guys make 300k per month so hammer them first.
@@ -181,7 +185,6 @@ class OnChain
     def blockinfo_balance(address)
       begin
         if cache_read(address) == nil
-          puts "cache is empty"
           json = block_chain('address', address, "&limit=0")
           if json.key?('final_balance')
             bal = json['final_balance'] / 100000000.0
