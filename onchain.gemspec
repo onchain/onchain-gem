@@ -8,7 +8,8 @@ Gem::Specification.new do |gem|
   gem.description   = %q{Call 3rd party API's but also switch API's if a 3rd party is down}
   gem.homepage      = "https://github.com/onchain/onchain-gem"
 
-  gem.files         = ["lib/onchain.rb", "lib/onchain/block_chain.rb", "lib/onchain/sweeper.rb"]
+  gem.files         = ["lib/onchain.rb", "lib/onchain/block_chain.rb", 
+                      "lib/onchain/payments.rb", "lib/onchain/sweeper.rb"]
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "onchain"
