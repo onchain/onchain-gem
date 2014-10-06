@@ -1,12 +1,22 @@
 class OnChain
   class << self
     
+    def get_address_from_redemption_script(redemption_script)
+      
+      sbin = sbin = redemption_script.scan(/../).map { |x| x.hex }.pack('c*')
+      hex = sbin.unpack("H*")[0]
+      fund_address = Bitcoin.hash160_to_p2sh_address(Bitcoin.hash160(hex))
+      
+      return fund_address
+    end
     
     # With a bunch of HD wallet paths, build a transaction
     # That pays all the coins to a certain address
-    def create_payment_tx(fund_address, payments)
+    def create_payment_tx(redemption_script, payments)
       
       begin
+        
+        fund_address = get_address_from_redemption_script(redemption_script)
         
         tx = Bitcoin::Protocol::Tx.new
       
