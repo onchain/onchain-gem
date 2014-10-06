@@ -30,18 +30,18 @@ class OnChain
         amount_so_far = 0
         unspent = get_unspent_outs(fund_address)
         unspent.each do |spent|
-          
-          amount_so_far = amount_so_far + spent[3].to_i
-          if amount_so_far >= total_amount
-            next
-          end
-          
+
           txin = Bitcoin::Protocol::TxIn.new
 
           txin.prev_out = spent[0]
           txin.prev_out_index = spent[1]
       
           tx.add_in(txin)
+          
+          amount_so_far = amount_so_far + spent[3].to_i
+          if amount_so_far >= total_amount
+            next
+          end
         end
         change = amount_so_far - total_amount
         

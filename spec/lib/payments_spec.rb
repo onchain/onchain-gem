@@ -80,4 +80,19 @@ describe OnChain do
     
     expect(tx2.out[0].parsed_script.get_address).to eq('1STRonGxnFTeJiA7pgyneKknR29AwBM77')
   end
+
+  it "Should have some inputs" do
+    
+    tx1 = OnChain.create_payment_tx('1STRonGxnFTeJiA7pgyneKknR29AwBM77', [['1STRonGxnFTeJiA7pgyneKknR29AwBM77', 1000]])
+    
+    expect(tx1.in.length).to be > 0
+    
+    tx_hex = tx1.to_payload.each_byte.map { |b| b.to_s(16).rjust(2, "0") }.join
+    
+    tx_bin = tx_hex.scan(/../).map { |x| x.hex }.pack('c*')
+    
+    tx2 = Bitcoin::Protocol::Tx.new(tx_bin)
+    
+    expect(tx2.in.length).to be > 0
+  end
 end
