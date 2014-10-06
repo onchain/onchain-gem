@@ -99,6 +99,12 @@ describe OnChain do
   it "should give the correct address" do
     addr = OnChain.get_address_from_redemption_script(REDEMPTION_SCRIPT_WITH_BALANCE)
     
-    expect(addr).to eq("3F3QYfBbgDDbYFvxmKq1v2c2Nspp3nyjXd")
+    expect(addr).to eq("39b5DZa94G54WarMbYPzLox6xptiQJErhv")
+  end
+  
+  it "should create a multi sig script" do
+    script = OnChain.hex_to_script(REDEMPTION_SCRIPT_NO_BALANCE)
+    
+    expect(script.is_multisig?).to eq(true)
   end
 end

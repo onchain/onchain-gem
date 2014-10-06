@@ -3,11 +3,16 @@ class OnChain
     
     def get_address_from_redemption_script(redemption_script)
       
-      sbin = sbin = redemption_script.scan(/../).map { |x| x.hex }.pack('c*')
+      sbin = redemption_script.scan(/../).map { |x| x.hex }.pack('c*')
       hex = sbin.unpack("H*")[0]
       fund_address = Bitcoin.hash160_to_p2sh_address(Bitcoin.hash160(hex))
       
       return fund_address
+    end
+    
+    def hex_to_script(hex)
+      sbin = hex.scan(/../).map { |x| x.hex }.pack('c*')
+      return Bitcoin::Script.new(sbin)
     end
     
     # With a bunch of HD wallet paths, build a transaction
@@ -45,6 +50,7 @@ class OnChain
 
           txin.prev_out = spent[0]
           txin.prev_out_index = spent[1]
+          txin.script = hex_to_script(redemption_script).to_payload
       
           tx.add_in(txin)
           
