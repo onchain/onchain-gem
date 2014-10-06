@@ -47,11 +47,8 @@ class OnChain
         
         payments.each do |payment|
           
-          addr = Bitcoin.hash160_from_address(payment[0])
-          
-          txout = Bitcoin::Protocol::TxOut.new(payment[1], Bitcoin::Script.from_string(
-            "OP_DUP OP_HASH160 #{addr} " + 
-            "OP_EQUALVERIFY OP_CHECKSIG").to_payload)
+          txout = Bitcoin::Protocol::TxOut.new(payment[1], 
+            Bitcoin::Script.to_address_script(payment[0]))
       
           tx.add_out(txout)
         end
