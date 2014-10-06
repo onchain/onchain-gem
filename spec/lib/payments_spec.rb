@@ -34,4 +34,14 @@ describe OnChain do
     
     expect(res.out.length).to eq(2)
   end
+
+  it "Should fail when not enough funds for string amounts" do
+    
+    payees = [['HELLO THIS IS WRONG', '1111000'], 
+      ['1MwVNWkpYRD9kuWMdUTBPdW8hVoQtG3Aot', '10000000']]
+      
+    res = OnChain.create_payment_tx('3PP1YxyKyFU8urBC4fdd8d45aYk69irdLT', payees)
+    
+    expect(res).to start_with('Balance is not enough to cover payment')
+  end
 end
