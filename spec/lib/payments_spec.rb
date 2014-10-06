@@ -44,4 +44,18 @@ describe OnChain do
     
     expect(res).to start_with('Balance is not enough to cover payment')
   end
+
+  it "Should convert back and to from hex" do
+    
+    tx1 = OnChain.create_payment_tx('1BPqtqBKoUjEq8STWmJxhPqtsf3BKp5UyE', PAYMENT)
+    
+    
+    tx_hex = tx1.to_payload.each_byte.map { |b| b.to_s(16).rjust(2, "0") }.join
+    
+    tx_bin = tx_hex.scan(/../).map { |x| x.hex }.pack('c*')
+    
+    tx2 = Bitcoin::Protocol::Tx.new(tx_bin)
+    
+    expect(tx2.out.length).to eq(2)
+  end
 end
