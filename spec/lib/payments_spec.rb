@@ -134,7 +134,7 @@ describe OnChain do
     
     expect(tx2.in.length).to be == 1
     
-    prev = tx2.in[0].prev_out.each_byte.map { |b| b.to_s(16).rjust(2, "0") }.join
+    prev = tx2.in[0].prev_out.reverse.each_byte.map { |b| b.to_s(16).rjust(2, "0") }.join
     
     expect(prev).to be == unspent[0][0]
   end
