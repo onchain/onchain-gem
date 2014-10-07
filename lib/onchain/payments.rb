@@ -50,7 +50,7 @@ class OnChain
 
           txin = Bitcoin::Protocol::TxIn.new
 
-          txin.prev_out = spent[0]
+          txin.prev_out = spent[0].scan(/../).map { |x| x.hex }.pack('c*')
           txin.prev_out_index = spent[1]
           txin.script = hex_to_script(redemption_script).to_payload
       

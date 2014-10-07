@@ -113,4 +113,29 @@ describe OnChain do
     
     expect(tx.out.length).to be > 1
   end
+  
+  it "should have an input hash that corresponds to the unspent outs" do
+    
+    rs = '5121033cd4640df2a12dee1e74a649b05b698df30ea731cfd8056b33bcc66e419c91fc51ae'
+    tx = OnChain.create_payment_tx(rs, [['34UjVHJ73AsRcDCDV9vuVKiQ9mwy3d2ix2', 10000]])
+    
+    expect(tx.in.length).to be == 1
+    
+    fund_address = OnChain.get_address_from_redemption_script(rs)
+    unspent = OnChain.get_unspent_outs(fund_address)
+
+    
+    tx_hex = tx.to_payload.each_byte.map { |b| b.to_s(16).rjust(2, "0") }.join
+    
+    tx_bin = tx_hex.scan(/../).map { |x| x.hex }.pack('c*')
+    
+    tx2 = Bitcoin::Protocol::Tx.new(tx_bin)
+    
+    
+    expect(tx2.in.length).to be == 1
+    
+    prev = tx2.in[0].prev_out.each_byte.map { |b| b.to_s(16).rjust(2, "0") }.join
+    
+    expect(prev).to be == unspent[0][0]
+  end
 end
