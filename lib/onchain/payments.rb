@@ -1,7 +1,7 @@
 class OnChain
   class << self
     
-    FEE = 5000
+    FEE = 50000
     
     def get_address_from_redemption_script(redemption_script)
       
