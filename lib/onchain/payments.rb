@@ -1,6 +1,8 @@
 class OnChain
   class << self
     
+    FEE = 5000
+    
     def get_address_from_redemption_script(redemption_script)
       
       sbin = redemption_script.scan(/../).map { |x| x.hex }.pack('c*')
@@ -25,7 +27,7 @@ class OnChain
         
         tx = Bitcoin::Protocol::Tx.new
       
-        total_amount = 0  
+        total_amount = FEE  
       
         payments.each do |payment|
           if payment[1].is_a?(String)
@@ -65,6 +67,15 @@ class OnChain
           
           txout = Bitcoin::Protocol::TxOut.new(payment[1], 
             Bitcoin::Script.to_address_script(payment[0]))
+      
+          tx.add_out(txout)
+        end
+        
+        # Send the chnage back.
+        if total_in_fund > total_amount
+          
+          txout = Bitcoin::Protocol::TxOut.new(total_in_fund - total_amount, 
+            Bitcoin::Script.to_address_script(fund_address))
       
           tx.add_out(txout)
         end

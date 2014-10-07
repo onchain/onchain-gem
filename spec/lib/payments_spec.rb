@@ -22,7 +22,7 @@ describe OnChain do
     
     res = OnChain.create_payment_tx(REDEMPTION_SCRIPT_WITH_BALANCE, PAYMENT)
     
-    expect(res.out.length).to eq(2)
+    expect(res.out.length).to eq(3)
   end
 
   it "Should convert string amounts to integers" do
@@ -32,7 +32,7 @@ describe OnChain do
       
     res = OnChain.create_payment_tx(REDEMPTION_SCRIPT_WITH_BALANCE, payees)
     
-    expect(res.out.length).to eq(2)
+    expect(res.out.length).to eq(3)
   end
 
   it "Should fail when not enough funds for string amounts" do
@@ -55,7 +55,7 @@ describe OnChain do
     
     tx2 = Bitcoin::Protocol::Tx.new(tx_bin)
     
-    expect(tx2.out.length).to eq(2)
+    expect(tx2.out.length).to eq(3)
   end
 
   it "Should be able to retreive address" do
@@ -76,7 +76,7 @@ describe OnChain do
     
     tx2 = Bitcoin::Protocol::Tx.new(tx_bin)
     
-    expect(tx2.out.length).to eq(2)
+    expect(tx2.out.length).to eq(3)
     
     expect(tx2.out[0].parsed_script.get_address).to eq('1STRonGxnFTeJiA7pgyneKknR29AwBM77')
   end
@@ -106,5 +106,11 @@ describe OnChain do
     script = OnChain.hex_to_script(REDEMPTION_SCRIPT_NO_BALANCE)
     
     expect(script.is_multisig?).to eq(true)
+  end
+  
+  it "should have a miners fee" do
+    tx = OnChain.create_payment_tx(REDEMPTION_SCRIPT_WITH_BALANCE, [['1STRonGxnFTeJiA7pgyneKknR29AwBM77', 1000]])
+    
+    expect(tx.out.length).to be > 1
   end
 end
