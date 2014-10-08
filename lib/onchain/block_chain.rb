@@ -22,7 +22,7 @@ class OnChain::BlockChain
     
     def method_missing (method_name, *args, &block)
       
-      get_available_suppliers.each do |supplier|
+      get_available_suppliers(method_name).each do |supplier|
 
         real_method = "#{supplier.to_s}_#{method_name}"
         begin
@@ -48,10 +48,19 @@ class OnChain::BlockChain
       return (get_balance(address).to_f * 100000000).to_i
     end
     
-    def get_available_suppliers
+    def get_available_suppliers(method_name)
       available = []
       ALL_SUPPLIERS.each do |supplier|
         if cache_read(supplier.to_s) == nil
+          
+          if supplier == :blockinfo and method_name == 'push_tx'
+            next
+          end
+          
+          if supplier == :blockinfo and method_name == 'get_transactions'
+            next
+          end
+          
           available << supplier
         end
       end
