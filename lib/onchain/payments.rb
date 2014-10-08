@@ -36,7 +36,7 @@ class OnChain
           total_amount = total_amount + payment[1]
         end
       
-        total_in_fund = get_balance_satoshi(fund_address)
+        total_in_fund = OnChain::BlockChain.get_balance_satoshi(fund_address)
         
         # Do we have enough in the fund.
         if(total_amount > total_in_fund)
@@ -45,7 +45,7 @@ class OnChain
         
         # OK, let's get some inputs
         amount_so_far = 0
-        unspent = get_unspent_outs(fund_address)
+        unspent = OnChain::BlockChain.get_unspent_outs(fund_address)
         unspent.each do |spent|
 
           txin = Bitcoin::Protocol::TxIn.new

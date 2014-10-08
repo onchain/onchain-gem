@@ -122,7 +122,7 @@ describe OnChain do
     expect(tx.in.length).to be == 1
     
     fund_address = OnChain.get_address_from_redemption_script(rs)
-    unspent = OnChain.get_unspent_outs(fund_address)
+    unspent = OnChain::BlockChain.get_unspent_outs(fund_address)
 
     
     tx_hex = tx.to_payload.each_byte.map { |b| b.to_s(16).rjust(2, "0") }.join

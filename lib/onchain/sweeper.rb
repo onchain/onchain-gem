@@ -16,7 +16,7 @@ class OnChain
       
         address = master.node_for_path(path).to_address
       
-        unspent = get_unspent_outs(address)
+        unspent = OnChain::BlockChain.get_unspent_outs(address)
       
         unspent.each do |spent|
           txin = Bitcoin::Protocol::TxIn.new

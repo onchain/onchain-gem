@@ -9,16 +9,19 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/onchain/onchain-gem"
 
   gem.files         = ["lib/onchain.rb", "lib/onchain/block_chain.rb", 
-                      "lib/onchain/payments.rb", "lib/onchain/sweeper.rb"]
+                      "lib/onchain/payments.rb", "lib/onchain/sweeper.rb",
+                      "lib/onchain/providers/blockchaininfo_api.rb",
+                      "lib/onchain/providers/blockr_api.rb",
+                      "lib/onchain/providers/chaincom_api.rb"]
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "onchain"
   gem.require_paths = ["lib"]
   gem.version       = Onchain::VERSION
   
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rake', '~> 0'
+  gem.add_development_dependency 'rspec', '~> 0'
 
-  gem.add_dependency 'money-tree'
-  gem.add_dependency 'bitcoin-ruby'
+  gem.add_dependency 'money-tree', '~> 0'
+  gem.add_dependency 'bitcoin-ruby', '~> 0'
 end
