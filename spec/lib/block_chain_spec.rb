@@ -113,4 +113,11 @@ describe OnChain do
     expect(txs[0][1]).to eq(1000000)
     
   end
+  
+  it "should try to push a tx" do
+    
+    res = OnChain::BlockChain.send_tx('010000000193c642b373f0f202e292bd17588999b6a908dd4e4f8e55a9bbc507bab7d5935d00000000255121033cd4640df2a12dee1e74a649b05b698df30ea731cfd8056b33bcc66e419c91fc51aeffffffff02102700000000000017a9141e95aa85aec95ceb33250b1c9f445cc7b0341c9487409c00000000000017a914a69b6e946be609cc7c24f1b7d0b9e120a921915c8700000000')
+    
+    expect(res.body.to_s.include? "Did you sign your transaction").to eq(true)
+  end
 end
