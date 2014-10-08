@@ -68,7 +68,7 @@ class OnChain::BlockChain
       json = fetch_response(URI::encode(base))
       
       json['data'].each do |data|
-        bal = data['balance']
+        bal = data['balance'].to_f
         addr = data['address']
         cache_write(addr, bal, BALANCE_CACHE_FOR)
       end

@@ -55,7 +55,8 @@ describe OnChain do
     bal2 = OnChain::BlockChain.get_balance('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
     
     expect(bal1).to eq(bal2)
-    
+    expect(bal1.is_a? Float).to eq(true)
+    expect(bal2.is_a? Float).to eq(true)
     
     OnChain::BlockChain.cache_write('blockinfo', nil)
     OnChain::BlockChain.cache_write('chaincom', nil)
