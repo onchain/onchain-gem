@@ -19,9 +19,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Onchain::VERSION
   
-  gem.add_development_dependency 'rake', '~> 0'
-  gem.add_development_dependency 'rspec', '~> 0'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rspec', '~> 3.1.0'
 
-  gem.add_dependency 'money-tree', '~> 0'
-  gem.add_dependency 'bitcoin-ruby', '~> 0'
+  gem.add_dependency 'money-tree'
+  gem.add_dependency 'bitcoin-ruby'
+  gem.add_dependency 'chain-ruby'
 end

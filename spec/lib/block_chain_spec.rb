@@ -10,6 +10,13 @@ describe OnChain do
     expect(OnChain::BlockChain.cache_read('test-the-cache')).to eq('down')
   end
   
+  it "should give me a balance from chain.com" do
+    
+    bal1 = OnChain::BlockChain.chaincom_get_balance('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
+    
+    expect(bal1).to eq(0.02)
+  end
+  
   it "should let me temporarily switch off a service" do
     
     suppliers = OnChain::BlockChain.get_available_suppliers('get_balance')
