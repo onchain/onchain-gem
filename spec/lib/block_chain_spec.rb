@@ -17,6 +17,28 @@ describe OnChain do
     expect(bal1).to eq(0.02)
   end
   
+  it "should give unspent outs from chain.com" do
+    
+    outs1 = OnChain::BlockChain.chaincom_get_unspent_outs('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
+    
+    expect(outs1.count).to eq(2)
+    
+    outs2 = OnChain::BlockChain.blockr_get_unspent_outs('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
+    
+    expect(outs2.count).to eq(2)
+    
+    
+    outs1.sort! { |x,y| y[0] <=> x[0] }
+    outs2.sort! { |x,y| y[0] <=> x[0] }
+    
+    expect(outs1.count).to eq(outs2.count)
+    
+    expect(outs1[0][0]).to eq(outs2[0][0])
+    expect(outs1[0][1]).to eq(outs2[0][1])
+    expect(outs1[0][2]).to eq(outs2[0][2])
+    expect(outs1[0][3]).to eq(outs2[0][3])
+  end
+  
   it "should let me temporarily switch off a service" do
     
     suppliers = OnChain::BlockChain.get_available_suppliers('get_balance')
@@ -34,8 +56,8 @@ describe OnChain do
     
     suppliers = OnChain::BlockChain.get_available_suppliers('push_tx')
     
-    expect(suppliers.count).to eq(1)
-    expect(suppliers[0]).to eq(:blockr)
+    expect(suppliers.count).to eq(2)
+    expect(suppliers[0]).to eq(:chaincom)
   end
   
   it "Should have same balance for blockinfo and blockr" do
@@ -123,8 +145,12 @@ describe OnChain do
   
   it "should try to push a tx" do
     
-    res = OnChain::BlockChain.send_tx('010000000193c642b373f0f202e292bd17588999b6a908dd4e4f8e55a9bbc507bab7d5935d00000000255121033cd4640df2a12dee1e74a649b05b698df30ea731cfd8056b33bcc66e419c91fc51aeffffffff02102700000000000017a9141e95aa85aec95ceb33250b1c9f445cc7b0341c9487409c00000000000017a914a69b6e946be609cc7c24f1b7d0b9e120a921915c8700000000')
+    res1 = OnChain::BlockChain.chaincom_send_tx('010000000193c642b373f0f202e292bd17588999b6a908dd4e4f8e55a9bbc507bab7d5935d00000000255121033cd4640df2a12dee1e74a649b05b698df30ea731cfd8056b33bcc66e419c91fc51aeffffffff02102700000000000017a9141e95aa85aec95ceb33250b1c9f445cc7b0341c9487409c00000000000017a914a69b6e946be609cc7c24f1b7d0b9e120a921915c8700000000')
     
-    expect(res.body.to_s.include? "Did you sign your transaction").to eq(true)
+    expect(res1["status"]).to eq("failure")
+    
+    res2 = OnChain::BlockChain.blockr_send_tx('010000000193c642b373f0f202e292bd17588999b6a908dd4e4f8e55a9bbc507bab7d5935d00000000255121033cd4640df2a12dee1e74a649b05b698df30ea731cfd8056b33bcc66e419c91fc51aeffffffff02102700000000000017a9141e95aa85aec95ceb33250b1c9f445cc7b0341c9487409c00000000000017a914a69b6e946be609cc7c24f1b7d0b9e120a921915c8700000000')
+    
+    expect(res2["status"]).to eq("failure")
   end
 end

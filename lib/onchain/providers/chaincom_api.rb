@@ -4,11 +4,15 @@ class OnChain::BlockChain
   class << self
     
     def chaincom_send_tx(tx_hex)	
+      
       begin
         tx = Chain.send_transaction(tx_hex)
-        return tx["transaction_hash"]
+        tx_hash = tx["transaction_hash"]
+        ret = "{\"status\":\"success\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"\"}"
+        return JSON.parse(ret)
       rescue => e
-        return e.to_s
+        ret = "{\"status\":\"failure\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{e.to_s}\"}"
+        return JSON.parse(ret)
       end	
     end
 

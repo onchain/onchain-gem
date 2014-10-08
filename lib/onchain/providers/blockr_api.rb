@@ -7,8 +7,19 @@ class OnChain::BlockChain
 		
       request = Net::HTTP::Post.new(uri.request_uri)		
       request.body = '{"hex":"' + tx_hex + '"}'		
-      response = http.request(request)		
-      return response		
+      response = http.request(request)
+      
+      res = JSON.parse(response.body)
+
+      mess = res["message"]
+      stat = res["status"]
+      if stat == 'fail'
+        stat = 'failure'
+      end
+      
+      tx_hash = res["data"]
+      ret = "{\"status\":\"#{stat}\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{mess}\"}"	
+      return JSON.parse(ret)
     end
 
     def blockr_get_balance(address)
