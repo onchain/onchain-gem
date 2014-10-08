@@ -134,6 +134,8 @@ describe OnChain do
   
   it "Should get me a list of transactions" do
     
+    # This is wrong, probably needs to add every output int he transaction
+    # so we see how much the address really got
     txs = OnChain::BlockChain.get_transactions('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
     
     expect(txs.size).to eq(2)

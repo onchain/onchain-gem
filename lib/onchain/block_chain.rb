@@ -22,6 +22,11 @@ class OnChain::BlockChain
     
     def method_missing (method_name, *args, &block)
       
+      if ENV['YOUR-API-KEY-ID'] != nil
+        Chain.api_key_id = ENV['YOUR-API-KEY-ID']
+        Chain.api_key_secret = ENV['YOUR-API-KEY-SECRET']
+      end
+      
       get_available_suppliers(method_name).each do |supplier|
 
         real_method = "#{supplier.to_s}_#{method_name}"
