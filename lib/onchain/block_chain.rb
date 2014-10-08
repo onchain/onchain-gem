@@ -53,7 +53,7 @@ class OnChain::BlockChain
       ALL_SUPPLIERS.each do |supplier|
         if cache_read(supplier.to_s) == nil
           
-          if supplier == :blockinfo and method_name == 'push_tx'
+          if supplier == :blockinfo and method_name == 'send_tx'
             next
           end
           

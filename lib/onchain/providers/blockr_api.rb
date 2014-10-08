@@ -1,5 +1,15 @@
 class OnChain::BlockChain
   class << self
+    
+    def blockr_send_tx(tx_hex)	
+      uri = URI.parse("http://btc.blockr.io/api/v1/tx/push")		
+      http = Net::HTTP.new(uri.host, uri.port)		
+		
+      request = Net::HTTP::Post.new(uri.request_uri)		
+      request.body = '{"hex":"' + tx_hex + '"}'		
+      response = http.request(request)		
+      return response		
+    end
 
     def blockr_get_balance(address)
       if cache_read(address) == nil

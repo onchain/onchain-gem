@@ -23,7 +23,7 @@ describe OnChain do
     expect(suppliers.count).to be > suppliers2.count
   end
   
-  it "should use blockchain.info as a push_tx supplier" do
+  it "should not use blockchain.info as a push_tx supplier" do
     
     suppliers = OnChain::BlockChain.get_available_suppliers('push_tx')
     
