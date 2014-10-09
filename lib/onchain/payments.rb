@@ -1,4 +1,4 @@
-class OnChain
+class OnChain::Payments
   class << self
     
     FEE = 50000

@@ -1,4 +1,4 @@
-class OnChain
+class OnChain::Sweeper
   class << self
     
     
