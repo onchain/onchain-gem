@@ -78,6 +78,10 @@ class OnChain::BlockChain
             next
           end
           
+          if supplier == :blockr and method_name == 'address_history'
+            next
+          end
+          
           available << supplier
         end
       end

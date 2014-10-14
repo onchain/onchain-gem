@@ -2,6 +2,40 @@ require 'chain'
 
 class OnChain::BlockChain
   class << self
+  
+    def chaincom_address_history(address)
+      
+      txs = Chain.get_address_transactions(address)
+      
+      hist = []
+      txs.each do |tx|
+        row = {}
+        row[:time] = tx["block_time"]
+        row[:addr] = {}
+        row[:outs] = {}
+        inputs = tx['inputs']
+        val = 0
+        recv = "Y"
+        inputs.each do |input|
+          row[:addr][input["addresses"][0]] = input["addresses"][0]
+          if input["addresses"][0] == address
+            recv = "N"
+          end
+        end
+        tx["outputs"].each do |out|
+          row[:outs][out["addresses"][0] ] = out["addresses"][0] 
+          if recv == "Y" and out["addresses"][0]  == address
+            val = val + out["value"].to_f / 100000000.0
+          elsif recv == "N" and out["addresses"][0]  != address
+            val = val + out["value"].to_f / 100000000.0
+          end
+        end
+        row[:total] = val
+        row[:recv] = recv
+        hist << row
+      end
+      return hist
+    end
     
     def chaincom_send_tx(tx_hex)	
       

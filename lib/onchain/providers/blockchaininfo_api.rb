@@ -1,10 +1,49 @@
 class OnChain::BlockChain
   class << self
 
+  
+    def blockinfo_address_history(address)
+      
+      base_url = "http://blockchain.info/address/#{address}?format=json"
+      json = fetch_response(base_url, true)
+      
+      hist = []
+      if json.key?('txs')
+        txs = json['txs']
+        txs.each do |tx|
+          row = {}
+          row[:time] = tx["time"]
+          row[:addr] = {}
+          row[:outs] = {}
+          inputs = tx['inputs']
+          val = 0
+          recv = "Y"
+          inputs.each do |input|
+            row[:addr][input["prev_out"]["addr"]] = input["prev_out"]["addr"]
+            if input["prev_out"]["addr"] == address
+              recv = "N"
+            end
+          end
+          tx["out"].each do |out|
+            row[:outs][out["addr"]] = out["addr"]
+            if recv == "Y" and out["addr"] == address
+              val = val + out["value"].to_f / 100000000.0
+            elsif recv == "N" and out["addr"] != address
+              val = val + out["value"].to_f / 100000000.0
+            end
+          end
+          row[:total] = val
+          row[:recv] = recv
+          hist << row
+        end
+        return hist
+      else
+        'Error'
+      end
+    end
 
     def blockinfo_get_all_balances(addresses)
       base = "https://blockchain.info/multiaddr?&simple=true&active="
-      
       
       addr = get_uncached_addresses(addresses)
       

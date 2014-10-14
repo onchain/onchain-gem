@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe OnChain do
-
   
   it "should store stuff in the cache" do
     
@@ -183,5 +182,17 @@ describe OnChain do
     OnChain::BlockChain.blockr_get_all_balances(['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'])
     
     expect(OnChain::BlockChain.cache_read('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')).to_not eq(nil)
+  end
+  
+  it "should give me an address history" do
+    
+    hist = OnChain::BlockChain.blockinfo_address_history('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    
+    puts hist
+    
+    
+    hist = OnChain::BlockChain.chaincom_address_history('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    
+    puts hist
   end
 end
