@@ -63,14 +63,21 @@ class OnChain::BlockChain
 
     def chaincom_get_all_balances(addresses)
       
-      res = Chain.get_addresses(addresses)
+      addr = get_uncached_addresses(addresses)
       
-      res.each do |address|
+      if addr.length == 0
+        return
       end
       
-      json['data'].each do |addr|
-        bal = addr["balance"] / 100000000.0
-        cache_write(address, bal, BALANCE_CACHE_FOR)
+      res = Chain.get_addresses(addr)
+      
+      if ! res.kind_of?(Array)
+        res = [res]
+      end
+      
+      res.each do |address|
+        bal = address["balance"] / 100000000.0
+        cache_write(address["hash"], bal, BALANCE_CACHE_FOR)
       end
     end
   end

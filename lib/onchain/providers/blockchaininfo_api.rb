@@ -5,7 +5,14 @@ class OnChain::BlockChain
     def blockinfo_get_all_balances(addresses)
       base = "https://blockchain.info/multiaddr?&simple=true&active="
       
-      addresses.each do |address|
+      
+      addr = get_uncached_addresses(addresses)
+      
+      if addr.length == 0
+        return
+      end
+      
+      addr.each do |address|
         base = base + address + '|'
       end
       

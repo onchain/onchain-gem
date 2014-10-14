@@ -49,6 +49,18 @@ class OnChain::BlockChain
       
     end
     
+    # Given a list of addresses, return those
+    # that don't have balances in the cahce.
+    def get_uncached_addresses(addresses)
+      ret = []
+      addresses.each do |address|
+        if cache_read(address) == nil
+          ret << address
+        end
+      end
+      return ret
+    end
+    
     def get_balance_satoshi(address)
       return (get_balance(address).to_f * 100000000).to_i
     end

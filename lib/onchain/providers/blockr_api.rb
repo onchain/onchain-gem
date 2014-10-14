@@ -70,9 +70,16 @@ class OnChain::BlockChain
     end
 
     def blockr_get_all_balances(addresses)
+      
+      addr = get_uncached_addresses(addresses)
+      
+      if addr.length == 0
+        return
+      end
+      
       base = "https://blockr.io/api/v1/address/balance/"
       
-      addresses.each do |address|
+      addr.each do |address|
         base = base + address + ','
       end
       

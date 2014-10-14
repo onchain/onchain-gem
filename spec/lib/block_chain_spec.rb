@@ -155,4 +155,33 @@ describe OnChain do
     
     expect(res2["status"]).to eq("failure")
   end
+  
+  it "should add addresses in bulk into the cache" do
+    OnChain::BlockChain.cache_write('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW', nil)
+    
+    expect(OnChain::BlockChain.cache_read('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')).to eq(nil)
+    
+    OnChain::BlockChain.chaincom_get_all_balances(['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'])
+    
+    expect(OnChain::BlockChain.cache_read('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')).to_not eq(nil)
+    
+
+    OnChain::BlockChain.cache_write('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW', nil)
+    
+    expect(OnChain::BlockChain.cache_read('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')).to eq(nil)
+    
+    OnChain::BlockChain.blockinfo_get_all_balances(['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'])
+    
+    expect(OnChain::BlockChain.cache_read('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')).to_not eq(nil)
+    
+
+
+    OnChain::BlockChain.cache_write('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW', nil)
+    
+    expect(OnChain::BlockChain.cache_read('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')).to eq(nil)
+    
+    OnChain::BlockChain.blockr_get_all_balances(['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'])
+    
+    expect(OnChain::BlockChain.cache_read('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')).to_not eq(nil)
+  end
 end
