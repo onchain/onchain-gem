@@ -135,12 +135,19 @@ describe OnChain do
     
     # This is wrong, probably needs to add every output int he transaction
     # so we see how much the address really got
-    txs = OnChain::BlockChain.get_transactions('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
+    txs = OnChain::BlockChain.blockr_get_transactions('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
     
     expect(txs.size).to eq(2)
     
     expect(txs[0][0]).to eq('2009d4382d593d08842ad40bdf515446c4cd57c3e79489fb286a4c95c580e2a5')
-    expect(txs[0][1]).to eq(1000000)
+    expect(txs[0][1]).to eq(0.01)
+    
+    txs = OnChain::BlockChain.chaincom_get_transactions('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
+    
+    expect(txs.size).to eq(2)
+    
+    expect(txs[0][0]).to eq('2009d4382d593d08842ad40bdf515446c4cd57c3e79489fb286a4c95c580e2a5')
+    expect(txs[0][1]).to eq(0.01)
     
   end
   
@@ -188,11 +195,25 @@ describe OnChain do
     
     hist = OnChain::BlockChain.blockinfo_address_history('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
     
-    puts hist
-    
-    
+    expect(hist.length).to eq(3)   
+     
     hist = OnChain::BlockChain.chaincom_address_history('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
     
-    puts hist
+    expect(hist.length).to eq(3)   
+  end
+  
+  it "should have same number of outs" do
+    
+    outs1 = OnChain::BlockChain.blockinfo_get_unspent_outs('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    
+    expect(outs1.length).to eq(2)   
+     
+    outs2 = OnChain::BlockChain.chaincom_get_unspent_outs('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    
+    expect(outs2.length).to eq(2)   
+     
+    outs3 = OnChain::BlockChain.get_unspent_outs('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    
+    expect(outs3.length).to eq(2)   
   end
 end

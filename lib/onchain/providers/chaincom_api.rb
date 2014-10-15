@@ -70,7 +70,7 @@ class OnChain::BlockChain
       txs.each do |data|
         line = []
         line << data['hash']
-        line << data['amount'] / 100000000.0
+        line << data["outputs"][0]["value"] / 100000000.0
         unspent << line
       end
       

@@ -44,7 +44,7 @@ class OnChain::BlockChain
       json['data']['txs'].each do |data|
         line = []
         line << data['tx']
-        line << (data['amount'].to_f * 100000000).to_i
+        line << data['amount'].to_f 
         unspent << line
       end
       
