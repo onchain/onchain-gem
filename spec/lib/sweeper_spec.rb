@@ -13,7 +13,10 @@ describe OnChain do
     
   end
   
-  it "should sweep up coins" do
-    OnChain::Sweeper.sweep(['m/4', 'm/0'], MPK, '')
+  it "should sweep up coins given a bunch of mpks" do
+    
+    # MPKS, pattern, max_int
+    # search through 20 addresses.
+    OnChain::Sweeper.sweep([MPK1, MPK2, MPK3], 'm/#{index}', 20, 124324)
   end
 end
