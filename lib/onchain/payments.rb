@@ -5,15 +5,14 @@ class OnChain::Payments
     
     def get_address_from_redemption_script(redemption_script)
       
-      sbin = redemption_script.scan(/../).map { |x| x.hex }.pack('c*')
-      hex = sbin.unpack("H*")[0]
+      sbin = OnChain.hex_to_bin(redemption_script)
+      hex = OnChain.bin_to_hex(sbin)
       fund_address = Bitcoin.hash160_to_p2sh_address(Bitcoin.hash160(hex))
       
       return fund_address
     end
     
     def hex_to_script(hex)
-      sbin = hex.scan(/../).map { |x| x.hex }.pack('c*')
       return Bitcoin::Script.new(OnChain::hex_to_bin(hex))
     end
     

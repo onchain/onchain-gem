@@ -15,6 +15,7 @@ class OnChain
   class << self
   
     def bin_to_hex(bin)
+      return bin.unpack("H*")[0]
     end
   
     def hex_to_bin(hex)
