@@ -1,6 +1,18 @@
 class OnChain::Sweeper
   class << self
     
+    def multi_sig_node_for_path(redemption_script)
+      
+      rs = OnChain::Payments.hex_to_script(redemption_script)
+      
+      puts rs
+      
+      puts rs.get_multisig_pubkeys
+      # 1. get the public keys from the script
+      # 2. create hd wallet for each key
+      # 3. navigate down to path
+      # 4. Recreate redemption script and address
+    end
     
     # With a bunch of HD wallet paths, build a transaction
     # That pays all the coins to a certain address

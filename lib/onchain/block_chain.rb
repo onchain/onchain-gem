@@ -12,6 +12,15 @@ require 'json'
 # get_transactions(address)
 #
 class OnChain
+  class << self
+  
+    def bin_to_hex(bin)
+    end
+  
+    def hex_to_bin(hex)
+      return hex.scan(/../).map { |x| x.hex }.pack('c*')
+    end
+  end
 end
 
 class OnChain::BlockChain
