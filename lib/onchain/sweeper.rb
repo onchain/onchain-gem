@@ -39,14 +39,38 @@ class OnChain::Sweeper
       return Bitcoin.hash160_to_p2sh_address(hash160)
     end
     
+    def get_block_height
+      return Chain.get_latest_block["height"].to_i
+    end
+    
     # With a bunch of HD wallet paths, build a transaction
     # That pays all the coins to a certain address
     def sweep(mpks, path, limit, last_block_checked)
       
+      to_sweep = {}
+      # Get all the addresses we are interested in.
       for i in 0..limit do
         r = path.sub('#{index}', i.to_s)
         a = multi_sig_address_from_mpks(mpks, r)
-        puts a
+        # store address as lookup for path.
+        to_sweep[a] = r
+      end
+      
+      incoming_coins = []
+      
+      to_sweep.each do |address, path|
+        txs = Chain.get_address_transactions(address)
+        
+        txs.each do |tx|
+          
+          if tx["block_height"].to_i > last_block_checked
+            addresses = tx["outputs"]["addresses"]
+            
+          else
+            break
+          end
+          
+        end
       end
       
     end
