@@ -47,6 +47,8 @@ class OnChain::Sweeper
     # That pays all the coins to a certain address
     def sweep(mpks, path, limit, last_block_checked)
       
+      block_height_now = get_block_height
+      
       to_sweep = {}
       # Get all the addresses we are interested in.
       for i in 0..limit do
@@ -81,7 +83,7 @@ class OnChain::Sweeper
           
         end
       end
-      return incoming_coins
+      return incoming_coins, block_height_now
     end
     
   end

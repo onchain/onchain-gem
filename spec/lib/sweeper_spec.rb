@@ -19,7 +19,7 @@ describe OnChain do
     
     # MPKS, pattern, max_int
     # search through 20 addresses.
-    incoming = OnChain::Sweeper.sweep([MPK1, MPK2, MPK3], 'm/#{index}', 2, 325718)
+    incoming, block = OnChain::Sweeper.sweep([MPK1, MPK2, MPK3], 'm/#{index}', 2, 325718)
     
     expect(incoming.length).to eq(0)
     
@@ -27,12 +27,12 @@ describe OnChain do
     # Get each transaxction
     # Does the transaction contain one of our addresses.
     # If so log it.
-    incoming = OnChain::Sweeper.sweep([BITMPKP], 'm/#{index}', 2, 325718)
+    incoming, block = OnChain::Sweeper.sweep([BITMPKP], 'm/#{index}', 2, 325718)
     
     expect(incoming.length).to eq(1)
     expect(incoming[0][2] == 50000)
 
-    incoming = OnChain::Sweeper.sweep([BITMPKP], 'm/#{index}', 2, 325719)
+    incoming, block = OnChain::Sweeper.sweep([BITMPKP], 'm/#{index}', 2, 325719)
     
     expect(incoming.length).to eq(0)
     
