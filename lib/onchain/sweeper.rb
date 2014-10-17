@@ -59,12 +59,21 @@ class OnChain::Sweeper
       incoming_coins = []
       
       to_sweep.each do |address, path|
+        
         txs = Chain.get_address_transactions(address)
         
         txs.each do |tx|
           
-          if tx["block_height"].to_i > last_block_checked
-            addresses = tx["outputs"]["addresses"]
+          block_height = tx["block_height"].to_i 
+          if block_height > last_block_checked
+            
+            tx["outputs"].each do |output|
+              output["addresses"].each do |address|
+                if to_sweep[address] != nil
+                  incoming_coins << [address, to_sweep[address], output["value"]]
+                end
+              end
+            end
             
           else
             break
@@ -72,7 +81,7 @@ class OnChain::Sweeper
           
         end
       end
-      
+      return incoming_coins
     end
     
   end
