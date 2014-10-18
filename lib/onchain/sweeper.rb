@@ -72,7 +72,12 @@ class OnChain::Sweeper
             tx["outputs"].each do |output|
               output["addresses"].each do |address|
                 if to_sweep[address] != nil
-                  incoming_coins << [address, to_sweep[address], output["value"]]
+                  incoming_coins << [address, 
+                    to_sweep[address], 
+                    output["value"], 
+                    output["transaction_hash"], 
+                    output["output_index"], 
+                    output["script"]]
                 end
               end
             end
@@ -84,6 +89,35 @@ class OnChain::Sweeper
         end
       end
       return incoming_coins, block_height_now
+    end
+
+    def create_payment_tx_from_sweep(incoming, destination_address)
+        
+      tx = Bitcoin::Protocol::Tx.new
+      total_amount = 0
+        
+      incoming.each do |output|
+        
+        txin = Bitcoin::Protocol::TxIn.new
+
+        txin.prev_out = output[3].scan(/../).map { |x| x.hex }.pack('c*').reverse
+        txin.prev_out_index = output[4]
+        txin.script = Bitcoin::Script.binary_from_string(output[5])
+    
+        tx.add_in(txin)
+        
+        total_amount = total_amount + spent[2].to_i
+        
+      end
+      
+      
+      # Add an output and we're done.
+      txout = Bitcoin::Protocol::TxOut.new(total_amount, 
+        Bitcoin::Script.to_address_script(destination_address))
+  
+      tx.add_out(txout)
+      
+      return tx
     end
     
   end
