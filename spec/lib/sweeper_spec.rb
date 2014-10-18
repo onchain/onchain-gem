@@ -37,4 +37,14 @@ describe OnChain do
     expect(incoming.length).to eq(0)
     
   end
+  
+  it "should create a transaction form a sweep." do
+
+    incoming, block = OnChain::Sweeper.sweep([BITMPKP], 'm/#{index}', 2, 325718)
+    
+    tx = OnChain::Sweeper.create_payment_tx_from_sweep(incoming, "1STRonGxnFTeJiA7pgyneKknR29AwBM77")
+    
+    puts tx
+    
+  end
 end

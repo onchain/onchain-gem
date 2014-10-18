@@ -106,7 +106,7 @@ class OnChain::Sweeper
     
         tx.add_in(txin)
         
-        total_amount = total_amount + spent[2].to_i
+        total_amount = total_amount + output[2].to_i
         
       end
       
