@@ -110,6 +110,12 @@ class OnChain::Sweeper
         
       end
       
+      total_amount = total_amount - 100000
+      
+      if total_amount < 0
+        return "Not enough coins to create a transaction."
+      end
+      
       
       # Add an output and we're done.
       txout = Bitcoin::Protocol::TxOut.new(total_amount, 
