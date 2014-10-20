@@ -47,4 +47,15 @@ describe OnChain do
     puts tx
     
   end
+  
+  it "should generate a correct redemption script." do
+
+    IOCPUB = "03ed9c19aa7363c81bd803da4abe1b2221e2716c3b465f40c99b544f9493848496"
+    
+    pub = "03efae664511239eb463924ba073ff7f249485372b5706de05c75a97fe68ed3954"
+    
+    rs = OnChain::Sweeper.generate_redemption_script([pub, IOCPUB])
+    
+    expect(rs).to eq('522103efae664511239eb463924ba073ff7f249485372b5706de05c75a97fe68ed39542103ed9c19aa7363c81bd803da4abe1b2221e2716c3b465f40c99b544f949384849652ae')
+  end
 end
