@@ -110,7 +110,7 @@ class OnChain::Sweeper
         
       end
       
-      total_amount = total_amount - 100000
+      total_amount = total_amount - 10000
       
       if total_amount < 0
         return "Not enough coins to create a transaction."
@@ -123,7 +123,7 @@ class OnChain::Sweeper
   
       tx.add_out(txout)
       
-      return tx
+      return OnChain.bin_to_hex(tx.to_payload)
     end
     
   end
