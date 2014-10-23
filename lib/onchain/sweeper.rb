@@ -130,7 +130,9 @@ class OnChain::Sweeper
   
       tx.add_out(txout)
       
-      return OnChain.bin_to_hex(tx.to_payload)
+      paths = incoming.map { |i| i[1] }
+      
+      return OnChain.bin_to_hex(tx.to_payload), paths
     end
     
   end
