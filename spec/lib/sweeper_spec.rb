@@ -42,7 +42,7 @@ describe OnChain do
 
     incoming, block = OnChain::Sweeper.sweep([BITMPKP], 'm/#{index}', 2, 325718)
     
-    tx = OnChain::Sweeper.create_payment_tx_from_sweep(incoming, "1STRonGxnFTeJiA7pgyneKknR29AwBM77")
+    tx = OnChain::Sweeper.create_payment_tx_from_sweep(incoming, "1STRonGxnFTeJiA7pgyneKknR29AwBM77", [BITMPKP])
     
     puts tx
     

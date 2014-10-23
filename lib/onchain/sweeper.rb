@@ -5,6 +5,13 @@ class OnChain::Sweeper
     # i.e. derive the path.
     def multi_sig_address_from_mpks(mpks, path)
       
+      rs = generate_redemption_script_from_mpks(mpks, path)
+      
+      return generate_address_of_redemption_script(rs)
+    end
+    
+    def generate_redemption_script_from_mpks(mpks, path)
+      
       addresses = []
       mpks.each do |mpk|
         master = MoneyTree::Node.from_serialized_address(mpk)
@@ -12,9 +19,7 @@ class OnChain::Sweeper
         addresses << m.public_key.to_hex
       end
       
-      rs = generate_redemption_script(addresses)
-      
-      return generate_address_of_redemption_script(rs)
+      return generate_redemption_script(addresses)
     end
 
     def generate_redemption_script(addresses)
@@ -91,7 +96,7 @@ class OnChain::Sweeper
       return incoming_coins, block_height_now
     end
 
-    def create_payment_tx_from_sweep(incoming, destination_address)
+    def create_payment_tx_from_sweep(incoming, destination_address, mpks)
         
       tx = Bitcoin::Protocol::Tx.new
       total_amount = 0
@@ -99,10 +104,12 @@ class OnChain::Sweeper
       incoming.each do |output|
         
         txin = Bitcoin::Protocol::TxIn.new
+        
+        rs = generate_redemption_script_from_mpks(mpks, output[1])
 
         txin.prev_out = output[3].scan(/../).map { |x| x.hex }.pack('c*').reverse
         txin.prev_out_index = output[4]
-        txin.script = Bitcoin::Script.binary_from_string(output[5])
+        txin.script = OnChain.hex_to_bin(rs)
     
         tx.add_in(txin)
         
