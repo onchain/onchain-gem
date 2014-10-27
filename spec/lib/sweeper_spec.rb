@@ -58,10 +58,8 @@ describe OnChain do
     raw_tx = Bitcoin::Protocol::Tx.new OnChain.hex_to_bin(tx)
     expect(raw_tx.in.size).to eq(1)
     
-    puts raw_tx.in[0].hash
-    #puts paths
+    # Does our tx match the one I created on fiddle ?
     expect(tx).to eq('0100000001dee4e391ee41a0f3dc3f458a524115ad50a2f4d057fd11278709cdbc805b471700000000255121024869c2dbd85fd7af9d833309ba6f3de04415d6f4b842c9c84dc695b18d099a6851aeffffffff01409c00000000000017a914a7cd6fbb008d8de20be48f932dca9a4ccce357c08700000000')
-    #puts tx
     
   end
   
