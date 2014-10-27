@@ -11,6 +11,16 @@ describe OnChain do
     
     expect(addr).to eq('349JjM6ToV5KEsXTxqcJAwEvLn6fgcYQQJ')
     
+    addr = OnChain::Sweeper.multi_sig_address_from_mpks([BITMPKP], "m/2")
+    
+    expect(addr).to eq('32bbCLMbHe9GPV7Ymmj2CKVZWYhQ5ZNCAu')
+    
+  end
+  
+  it "should generate the correct redemptions script" do
+    rs = OnChain::Sweeper.generate_redemption_script_from_mpks([BITMPKP], "m/2")
+    
+    expect(rs).to eq('5121024869c2dbd85fd7af9d833309ba6f3de04415d6f4b842c9c84dc695b18d099a6851ae')
   end
   
   it "should sweep up coins given a bunch of mpks" do
@@ -38,14 +48,20 @@ describe OnChain do
     
   end
   
+  # Compare against BitcoinJS fiddle. http://jsfiddle.net/t78vmyL0/
   it "should create a transaction form a sweep." do
 
     incoming, block = OnChain::Sweeper.sweep([BITMPKP], 'm/#{index}', 2, 325718)
     
     tx, paths = OnChain::Sweeper.create_payment_tx_from_sweep(incoming, "3GzGsZ5zFWsFR5LU8TYntptkZqvZrPWzw5", [BITMPKP])
     
-    puts paths
-    puts tx
+    raw_tx = Bitcoin::Protocol::Tx.new OnChain.hex_to_bin(tx)
+    expect(raw_tx.in.size).to eq(1)
+    
+    puts raw_tx.in[0].hash
+    #puts paths
+    expect(tx).to eq('0100000001dee4e391ee41a0f3dc3f458a524115ad50a2f4d057fd11278709cdbc805b471700000000255121024869c2dbd85fd7af9d833309ba6f3de04415d6f4b842c9c84dc695b18d099a6851aeffffffff01409c00000000000017a914a7cd6fbb008d8de20be48f932dca9a4ccce357c08700000000')
+    #puts tx
     
   end
   
