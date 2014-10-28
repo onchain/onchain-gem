@@ -107,7 +107,7 @@ class OnChain::Sweeper
         
         rs = generate_redemption_script_from_mpks(mpks, output[1])
 
-        txin.prev_out = output[3].scan(/../).map { |x| x.hex }.pack('c*').reverse
+        txin.prev_out = OnChain.hex_to_bin(output[3]).reverse
         txin.prev_out_index = output[4]
         txin.script = OnChain.hex_to_bin(rs)
     
