@@ -111,7 +111,7 @@ class OnChain::BlockChain
       
       res.each do |address|
         bal = address["balance"] / 100000000.0
-        cache_write(address["hash"], bal, BALANCE_CACHE_FOR)
+        cache_write(address["address"], bal, BALANCE_CACHE_FOR)
       end
     end
   end
