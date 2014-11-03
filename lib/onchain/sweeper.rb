@@ -1,3 +1,5 @@
+require 'rest_client'
+
 class OnChain::Sweeper
   class << self
     
@@ -133,6 +135,10 @@ class OnChain::Sweeper
       paths = incoming.map { |i| i[1] }
       
       return OnChain.bin_to_hex(tx.to_payload), paths
+    end
+    
+    def post_tx_for_signing(tx_hex, meta)
+      RestClient.post 'https://onchain.io/api/v1/transaction', :tx => tx_hex, :meta_data => meta
     end
     
   end
