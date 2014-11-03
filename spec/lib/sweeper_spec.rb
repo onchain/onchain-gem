@@ -73,4 +73,19 @@ describe OnChain do
     
     expect(rs).to eq('522103efae664511239eb463924ba073ff7f249485372b5706de05c75a97fe68ed39542103ed9c19aa7363c81bd803da4abe1b2221e2716c3b465f40c99b544f949384849652ae')
   end
+  
+  it "should post a tx to onchain." do
+
+    tx = 'rubbish'
+    paths = ['m/1']
+    
+    ENV['ONCHAIN_TOKEN'] = 'y1sy5ZG'
+    ENV['ONCHAIN_EMAIL'] = 'test@test.com'
+    
+    begin
+      r = OnChain::Sweeper.post_tx_for_signing(tx, paths)
+      return true
+    rescue => e
+    end
+  end
 end

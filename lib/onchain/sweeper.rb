@@ -125,7 +125,6 @@ class OnChain::Sweeper
         return "Not enough coins to create a transaction."
       end
       
-      
       # Add an output and we're done.
       txout = Bitcoin::Protocol::TxOut.new(total_amount, 
         Bitcoin::Script.to_address_script(destination_address))
@@ -137,8 +136,20 @@ class OnChain::Sweeper
       return OnChain.bin_to_hex(tx.to_payload), paths
     end
     
-    def post_tx_for_signing(tx_hex, meta)
-      RestClient.post 'https://onchain.io/api/v1/transaction', :tx => tx_hex, :meta_data => meta
+    def post_tx_for_signing(tx_hex, paths)
+      
+      meta = ''
+      if paths != nil
+        paths.each do |path|
+          meta = meta + path
+        end
+      end
+      
+      
+      res = RestClient.post 'https://onchain.io/api/v1/transaction', :tx => tx_hex, 
+        :meta_data => meta,
+        :user_email => ENV['ONCHAIN_EMAIL'],
+        :user_token => ENV['ONCHAIN_TOKEN']   
     end
     
   end
