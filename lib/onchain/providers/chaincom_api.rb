@@ -54,8 +54,10 @@ class OnChain::BlockChain
       if cache_read(address) == nil
         
         addr = Chain.get_address(address)
-        bal = addr["balance"] / 100000000.0
-        cache_write(address, bal, BALANCE_CACHE_FOR)
+        if addr.count > 0
+          bal = addr[0]["total"]["balance"].to_i / 100000000.0
+          cache_write(address, bal, BALANCE_CACHE_FOR)
+        end
         
       end
       return cache_read(address) 
@@ -110,7 +112,7 @@ class OnChain::BlockChain
       end
       
       res.each do |address|
-        bal = address["balance"] / 100000000.0
+        bal = address["total"]["balance"] / 100000000.0
         cache_write(address["address"], bal, BALANCE_CACHE_FOR)
       end
     end
