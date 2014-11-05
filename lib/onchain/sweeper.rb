@@ -1,4 +1,4 @@
-require 'rest_client'
+require 'httparty'
 
 class OnChain::Sweeper
   class << self
@@ -145,11 +145,11 @@ class OnChain::Sweeper
         end
       end
       
-      
-      res = RestClient.post 'https://onchain.io/api/v1/transaction', :tx => tx_hex, 
+      return HTTParty.post('https://onchain.io/api/v1/transaction', 
+        :body => { :tx => tx_hex, 
         :meta_data => meta,
         :user_email => ENV['ONCHAIN_EMAIL'],
-        :user_token => ENV['ONCHAIN_TOKEN']   
+        :user_token => ENV['ONCHAIN_TOKEN'] }) 
     end
     
   end
