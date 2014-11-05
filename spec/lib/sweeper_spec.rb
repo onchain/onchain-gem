@@ -84,10 +84,8 @@ describe OnChain do
     
     begin
       r = OnChain::Sweeper.post_tx_for_signing(tx, paths)
-      puts r
       return true
     rescue => e
-      puts e
     end
   end
 end

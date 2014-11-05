@@ -75,14 +75,6 @@ class OnChain::BlockChain
       return ret
     end
     
-    def get_history_for_addresses(addresses)
-      history = []
-      addresses.each do |address|
-        history << address_history(address)
-      end
-      return history
-    end
-    
     def get_balance_satoshi(address)
       return (get_balance(address).to_f * 100000000).to_i
     end
@@ -101,6 +93,10 @@ class OnChain::BlockChain
           end
           
           if supplier == :blockr and method_name == 'address_history'
+            next
+          end
+          
+          if supplier == :blockr and method_name == 'get_history_for_addresses'
             next
           end
           

@@ -1,11 +1,27 @@
 class OnChain::BlockChain
   class << self
 
+    
+    def blockinfo_get_history_for_addresses(addresses)
+      history = []
+      addresses.each do |address|
+        res = blockinfo_address_history(address)
+        res.each do |r|
+          history << r
+        end
+      end
+      return history
+    end
   
     def blockinfo_address_history(address)
       
       base_url = "http://blockchain.info/address/#{address}?format=json"
       json = fetch_response(base_url, true)
+      
+      blockinfo_parse_address_tx(address, json)
+    end
+    
+    def blockinfo_parse_address_tx(address, json)
       
       hist = []
       if json.key?('txs')
@@ -40,6 +56,7 @@ class OnChain::BlockChain
       else
         'Error'
       end
+      return hist
     end
 
     def blockinfo_get_all_balances(addresses)

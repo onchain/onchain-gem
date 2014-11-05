@@ -2,15 +2,34 @@ require 'chain'
 
 class OnChain::BlockChain
   class << self
-  
+
+    
+    def chaincom_get_history_for_addresses(addresses)
+      
+      array_tx_objects = Chain.get_address_transactions(addresses)
+      
+      history = []
+      for i in 0..addresses.count
+        res = chaincom_parse_address_tx(addresses[i], array_tx_objects[i])
+        res.each do |r|
+          history << r
+        end
+      end
+      return history
+    end
+    
     def chaincom_address_history(address)
       
       txs = Chain.get_address_transactions(address)
       
+      return chaincom_parse_address_tx(address, txs)
+    end
+    
+    def chaincom_parse_address_tx(address, txs)
       hist = []
       txs.each do |tx|
         row = {}
-        row[:time] = tx["block_time"]
+        row[:time] = Date.parse(Time.at(tx["block_time"].to_i).to_s)
         row[:addr] = {}
         row[:outs] = {}
         inputs = tx['inputs']

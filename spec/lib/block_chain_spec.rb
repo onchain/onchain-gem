@@ -219,7 +219,8 @@ describe OnChain do
   
   it "should give me histories for addresses" do
     
-    hist = OnChain::BlockChain.get_history_for_addresses(['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW', '1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'])
+    hist = OnChain::BlockChain.chaincom_get_history_for_addresses(['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW', '1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'])
     
+    expect(hist.count).to eq(6)
   end
 end
