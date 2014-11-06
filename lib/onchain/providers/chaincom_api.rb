@@ -24,6 +24,7 @@ class OnChain::BlockChain
         row[:time] = Date.parse(tx["block_time"]).to_s
         row[:addr] = {}
         row[:outs] = {}
+        
         inputs = tx['inputs']
         val = 0
         recv = "Y"
