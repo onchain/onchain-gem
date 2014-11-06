@@ -84,19 +84,18 @@ class OnChain::BlockChain
       ALL_SUPPLIERS.each do |supplier|
         if cache_read(supplier.to_s) == nil
           
-          if supplier == :blockinfo and method_name == 'send_tx'
+          if supplier == :blockinfo and method_name.to_s == 'send_tx'
             next
           end
           
-          if supplier == :blockinfo and method_name == 'get_transactions'
+          if supplier == :blockinfo and method_name.to_s == 'get_transactions'
             next
           end
           
-          if supplier == :blockr and method_name == 'address_history'
+          if supplier == :blockr and method_name.to_s == 'address_history'
             next
           end
-          
-          if supplier == :blockr and method_name == 'get_history_for_addresses'
+          if supplier == :blockr and method_name.to_s == 'get_history_for_addresses'
             next
           end
           
