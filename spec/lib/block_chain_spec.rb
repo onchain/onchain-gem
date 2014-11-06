@@ -221,6 +221,6 @@ describe OnChain do
     
     hist = OnChain::BlockChain.chaincom_get_history_for_addresses(['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW', '1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'])
     
-    expect(hist.count).to eq(6)
+    expect(hist.count).to eq(3)
   end
 end

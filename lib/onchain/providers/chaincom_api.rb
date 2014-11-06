@@ -5,31 +5,23 @@ class OnChain::BlockChain
 
     
     def chaincom_get_history_for_addresses(addresses)
+      txs = Chain.get_addresses_transactions(addresses)
       
-      array_tx_objects = Chain.get_address_transactions(addresses)
-      
-      history = []
-      for i in 0..addresses.count
-        res = chaincom_parse_address_tx(addresses[i], array_tx_objects[i])
-        res.each do |r|
-          history << r
-        end
-      end
-      return history
+      return chaincom_parse_address_tx(addresses, txs)
     end
     
     def chaincom_address_history(address)
       
       txs = Chain.get_address_transactions(address)
       
-      return chaincom_parse_address_tx(address, txs)
+      return chaincom_parse_address_tx([address], txs)
     end
     
-    def chaincom_parse_address_tx(address, txs)
+    def chaincom_parse_address_tx(addresses, txs)
       hist = []
       txs.each do |tx|
         row = {}
-        row[:time] = Date.parse(Time.at(tx["block_time"].to_i).to_s)
+        row[:time] = Date.parse(tx["block_time"]).to_s
         row[:addr] = {}
         row[:outs] = {}
         inputs = tx['inputs']
@@ -37,15 +29,15 @@ class OnChain::BlockChain
         recv = "Y"
         inputs.each do |input|
           row[:addr][input["addresses"][0]] = input["addresses"][0]
-          if input["addresses"][0] == address
+          if addresses.include? input["addresses"][0]
             recv = "N"
           end
         end
         tx["outputs"].each do |out|
           row[:outs][out["addresses"][0] ] = out["addresses"][0] 
-          if recv == "Y" and out["addresses"][0]  == address
+          if recv == "Y" and addresses.include? out["addresses"][0]
             val = val + out["value"].to_f / 100000000.0
-          elsif recv == "N" and out["addresses"][0]  != address
+          elsif recv == "N" and addresses.include? out["addresses"][0] 
             val = val + out["value"].to_f / 100000000.0
           end
         end
