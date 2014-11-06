@@ -145,7 +145,7 @@ class OnChain::Sweeper
         end
       end
       
-      return HTTParty.post('https://onchain.io/api/v1/transaction', 
+      return HTTParty.post('https://onchain.herokuapp.com/api/v1/transaction', 
         :body => { :tx => tx_hex, 
         :meta_data => meta,
         :user_email => ENV['ONCHAIN_EMAIL'],
