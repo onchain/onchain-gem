@@ -16,8 +16,6 @@ class OnChain::Payments
       return Bitcoin::Script.new(OnChain::hex_to_bin(hex))
     end
     
-    # With a bunch of HD wallet paths, build a transaction
-    # That pays all the coins to a certain address
     def create_payment_tx(redemption_script, payments)
       
       begin

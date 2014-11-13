@@ -75,6 +75,37 @@ class OnChain::BlockChain
       return ret
     end
     
+    def get_unspent_for_amount(addresses, amount_in_satoshi)
+      
+      unspents = []
+      indexes = []
+      amount_so_far = 0
+      
+      addresses.each_with_index do |address, index|
+
+        if amount_so_far >= amount_in_satoshi
+          break
+        end
+        
+        unspent_outs = get_unspent_outs(address)
+        
+        unspent_outs.each do |spent|
+
+          unspents << spent
+          indexes << index
+          
+          amount_so_far = amount_so_far + spent[3].to_i
+          if amount_so_far >= amount_in_satoshi
+            break
+          end
+        end
+      end
+      
+      change = amount_so_far - amount_in_satoshi 
+      return unspents, indexes, change
+      
+    end
+    
     def get_balance_satoshi(address)
       return (get_balance(address).to_f * 100000000).to_i
     end

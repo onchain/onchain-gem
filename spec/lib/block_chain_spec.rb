@@ -232,4 +232,21 @@ describe OnChain do
       
     expect(hist.count).to eq(50)
   end
+  
+  it "should give me unspent for an amount" do
+    
+    addresses = ['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW']
+    
+    unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, 10001)
+    
+    expect(unspents.length).to eq(2)  
+    expect(change).to eq(100000 - 10001) 
+    
+    unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, 1000)
+    
+    expect(unspents.length).to eq(1)  
+    expect(change).to eq(9000) 
+    expect(indexes.length).to eq(1)  
+    expect(indexes[0]).to eq(0)
+  end
 end
