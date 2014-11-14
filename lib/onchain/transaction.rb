@@ -19,7 +19,7 @@ class OnChain::Transaction
       tx = Bitcoin::Protocol::Tx.new
       
       # Process the unpsent outs.
-      meta_data = {}
+      hashes = []
       unspents.each_with_index do |spent, index|
 
         script = redemption_scripts[indexes[index]]
@@ -28,7 +28,13 @@ class OnChain::Transaction
         txin.script_sig = OnChain::hex_to_bin(script)
         tx.add_in(txin)
         
-        meta_data['m/' + indexes[index].to_s] = true
+        hash = tx.signature_hash_for_input(tx.in.count - 1, OnChain::hex_to_bin(script), 1)
+        
+        rs_script = Bitcoin::Script.new OnChain::hex_to_bin(script)
+        rs_script.get_multisig_pubkeys.each do |key|
+          hashes << OnChain.bin_to_hex(key) +  ':' + OnChain::bin_to_hex(hash)
+        end
+        
       end
       
       # Do we have enough in the fund.
@@ -51,10 +57,8 @@ class OnChain::Transaction
   
         tx.add_out(txout)
       end
-        
-      meta = meta_data.keys.join(",")
     
-      return OnChain::bin_to_hex(tx.to_payload), meta
+      return OnChain::bin_to_hex(tx.to_payload), hashes
     end
     
     def signTransaction(tx, pubkeys, sigs)
