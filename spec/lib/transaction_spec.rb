@@ -48,6 +48,8 @@ describe OnChain do
         end
         
       end
+      
+      OnChain::Transaction.sign_transaction(tx, signed_hashes)
 
       puts signed_hashes
     end
