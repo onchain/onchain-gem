@@ -61,7 +61,12 @@ class OnChain::Transaction
       return OnChain::bin_to_hex(tx.to_payload), hashes
     end
     
-    def signTransaction(tx, pubkeys, sigs)
+    def signTransaction(transaction_hex, pubkeys, sigs)
+      
+      tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(transaction_hex)
+      
+      
+      
     end
     
     private
