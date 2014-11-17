@@ -73,7 +73,7 @@ class OnChain::Transaction
           if inputs_to_sign[index] == nil
             inputs_to_sign[index] = {}
           end
-          inputs_to_sign[index][OnChain.bin_to_hex(key)] = {:hash => OnChain::bin_to_hex(hash)}
+          inputs_to_sign[index][OnChain.bin_to_hex(key)] = {'hash' => OnChain::bin_to_hex(hash)}
         end
       end
     
@@ -85,8 +85,8 @@ class OnChain::Transaction
     #
     # Signatures should be in the format
     #
-    # [0]{034000.....' => {:hash => '345435345....', :sig => '435fgdf4553...'}}
-    # [0]{02fee.....' => {:hash => '122133445....', :sig => '435fgdf4553...'}}
+    # [0]{034000.....' => {'hash' => '345435345....', 'sig' => '435fgdf4553...'}}
+    # [0]{02fee.....' => {'hash' => '122133445....', 'sig' => '435fgdf4553...'}}
     #
     def sign_transaction(transaction_hex, sig_list)
       
@@ -102,10 +102,10 @@ class OnChain::Transaction
         rscript.get_multisig_pubkeys.each do |key|
           
           hkey = OnChain.bin_to_hex(key)
-          if sig_list[index][hkey] != nil and sig_list[index][hkey][:sig] != nil
+          if sig_list[index][hkey] != nil and sig_list[index][hkey]['sig'] != nil
             
             # Add the signature to the list.
-            sigs << OnChain.hex_to_bin(sig_list[index][hkey][:sig])
+            sigs << OnChain.hex_to_bin(sig_list[index][hkey]['sig'])
             
           end
         end
