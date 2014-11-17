@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (2.0.0)
+    onchain (2.0.1)
       bitcoin-ruby
       chain-ruby
       httparty
@@ -16,7 +16,7 @@ GEM
       chain-bitcoin-ruby (= 0.0.1)
     diff-lcs (1.2.5)
     ffi (1.9.6)
-    httparty (0.13.2)
+    httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     json (1.8.1)
