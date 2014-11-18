@@ -78,6 +78,28 @@ describe OnChain do
     expect(tx_signed.length).to be > tx.length
   end
   
+  it "should work with some keys we generated online" do
+    
+    key1 = Bitcoin::Key.from_base58('5KAovUBbq3uBUQBPPr6RABJVnh4fy6E49dbQjqhwE8HEoCDTA19')
+    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
+
+    expect(key1.addr).to eq('1MWr2FY4XLfEzZ7PQPELNwFkog83vwh6a1')
+    expect(key2.addr).to eq('1CZn88sLyLNe6zwJsPLYkj9DTsHXVWi3TU')
+    
+    rs = "524104f38a0124afe10f06cad3d4cbf9159f63443a63d4219d9316a411901348b4ccff517a812ba2578ef97bf8d0cd1a18d5f1de0a697529186c26e51ffb895a1c9e51410498ef09c13a496507999e6b08cbebc059f4751c94929388108e421c93bf7520216eabdfca6216b579e48c7a830e09e7343a277e59236be72e920a5a9bd021d2ae410476c3b254aec505f7aefa5ba172d85f4df6a03bba905a89775dadee5a07e283f9035d13572f8a345b66052111b20c75a106750bcac946f3c24a3355ba9e65e94453ae"
+    
+    addr = "13qu9Dn64kX4W7KrAs9ZwwxvW5HRu4KNL2"
+    
+    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 120000, 10000)
+    
+    sign_with_eckey(sig_list, key1)
+    
+    sign_with_eckey(sig_list, key2)
+    
+    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
+    
+  end
+  
   def sign_with_eckey(inputs_to_sign, pk)
     
     pub_hex = pk.pub
