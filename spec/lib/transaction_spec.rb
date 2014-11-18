@@ -65,6 +65,19 @@ describe OnChain do
     expect(OnChain::Transaction.do_we_have_all_the_signatures(inputs_to_sign)).to eq(true)
   end
   
+  it "should work with a fully filled in sig list" do
+    
+    tx = "010000000132448fc909b395d7f9e393d830c56b80bb0609d9977be173f1fdff03c51515390000000047522102fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc42102388085f9b6bbfb1c353b2664cf1857ff6d11c3f93b0635a31204bcbbb9e0403d52aeffffffff02a0860100000000001976a914ef7aeda00f357959ad628405753b41cfb778bde188ac0a5700000000000017a9143b04977278415be296acc65f83084341871ef9f08700000000"
+    
+    meta =  "[{\"02388085f9b6bbfb1c353b2664cf1857ff6d11c3f93b0635a31204bcbbb9e0403d\":{\"hash\":\"fff5fad59856c594e5d226212712777a32f6c0cd5db384656ee08504a382c5db\",\"sig\":\"3046022100f6309c26186de8fbc020df9e7aee13b90ce1b9f195f7638c36e36b079189c17e022100bd14a491fb4916dee84d73ae1ed867dd3e3fa80f1e2e6dc507d3cfcb90348f1e\"},\"02fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc4\":{\"hash\":\"fff5fad59856c594e5d226212712777a32f6c0cd5db384656ee08504a382c5db\",\"sig\":\"30440220584C636D197D49709689C323F094550CE14DC75B9C80110D30FC8ED7C7ED869B02200848DF218C83CB8A62BE0A19C4D5EF88D40F0233220596784632B7ED43E31240\"}}]" 
+    
+    inputs_to_sign = JSON.parse(meta)
+    
+    tx_signed = OnChain::Transaction.sign_transaction(tx, inputs_to_sign)
+    
+    expect(tx_signed.length).to be > tx.length
+  end
+  
   def sign_with_key(inputs_to_sign, key)
     
     node = MoneyTree::Node.from_serialized_address key
