@@ -78,6 +78,23 @@ describe OnChain do
     expect(tx_signed.length).to be > tx.length
   end
   
+  def sign_with_eckey(inputs_to_sign, pk)
+    
+    pub_hex = pk.pub
+    
+    inputs_to_sign.each do |input|
+      
+      if input[pub_hex] != nil
+        
+        hash_to_sign = input[pub_hex]["hash"]
+        
+        sig =  OnChain.bin_to_hex(pk.sign(OnChain.hex_to_bin(hash_to_sign)))
+        
+        input[pub_hex]["sig"] = sig
+      end
+    end
+  end
+  
   def sign_with_key(inputs_to_sign, key)
     
     node = MoneyTree::Node.from_serialized_address key
