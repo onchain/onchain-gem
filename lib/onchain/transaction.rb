@@ -117,5 +117,20 @@ class OnChain::Transaction
       
       return OnChain::bin_to_hex(tx.to_payload)
     end
+    
+    # Run through the signature list and check it is all signed.
+    def do_we_have_all_the_signatures(sig_list)
+      
+      sig_list.each do |input|
+        input.each_key do |public_key|
+          if input[public_key]['hash'] == nil or input[public_key]['sig'] == nil
+            return false
+          end
+        end
+      end
+      
+      return true
+    end
+    
   end
 end

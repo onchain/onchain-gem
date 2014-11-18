@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (2.0.1)
+    onchain (2.0.2)
       bitcoin-ruby
       chain-ruby
       httparty

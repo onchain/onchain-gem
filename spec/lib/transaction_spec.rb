@@ -49,6 +49,22 @@ describe OnChain do
     expect(tx_signed.length).to be > tx.length
   end
   
+  it "should know when everything is signed" do
+    
+    json =  "[{\"0396e42d3c584da0300ee44dcbaee0eccaa0e6ae2264fdd2554af6d2953f95bf99\":{\"hash\":\"fddf486c62c0c89eb9d8bd054e6bffb504fdf70239e315074676d9f65c49bd1b\",\"sig\":\"304502200a2bff6a4da53e3376c36d943dc9d43addc18b667f5892411e55ccaea8b3b779022100f4f2a1c121e75cd80137b2c38fdf90f4da634ab6c159005d530eb9cfe3e93f60\"},\"02fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc4\":{\"hash\":\"fddf486c62c0c89eb9d8bd054e6bffb504fdf70239e315074676d9f65c49bd1b\",\"sig\":\"3044022068A4089837868A66CB0FB57B42402B7737A545C7C9C477AC0C32014B071AA6F00220496817E80491BF50B470E4873F7209DE381EC5CB0282B2FD72D179EB4D73B3E5\"}},{\"034000cea8f9cbaf88095d3ef539ee438e3cefea9ed9585e2e182b45496f071a83\":{\"hash\":\"2fb8960eecf2fe2a9268953cb564e27b669e570fc39c7b100f9706e6339ffdf5\",\"sig\":\"3044022079dda685df2d0294d076b52b42fc298d2dc7a1300b93bec3216470bdc2619af2022028f2c97aa412933d515e82596b45b57c33463be63812cb60acad981f9505a021\"},\"02fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc4\":{\"hash\":\"2fb8960eecf2fe2a9268953cb564e27b669e570fc39c7b100f9706e6339ffdf5\",\"sig\":\"3044022070F80D04FE1513F9F303B2F8E327EFD1F3267C82109F6CCBC555393F80B617E6022004BC584B859810D0E7636320B4AFE86FB9C74E8BEFB478AFAFC10A0CD7CB8A95\"}}]"
+    inputs_to_sign = JSON.parse(json)
+    
+    sign_with_key(inputs_to_sign, HANDY_KEY)
+    
+    tx = "01000000029fd77c01b4f81f142e7e066eb9abeb4952ec5fdea51036acbb22b5ffeb57fd5f0100000047522102fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc4210396e42d3c584da0300ee44dcbaee0eccaa0e6ae2264fdd2554af6d2953f95bf9952aeffffffffc0161c6d62ac75f36bf95fcb2a8222f2274e86c2dcaec3434a0b6b6e0a6b60800000000047522102fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc421034000cea8f9cbaf88095d3ef539ee438e3cefea9ed9585e2e182b45496f071a8352aeffffffff0156050000000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac00000000"
+    
+    tx_signed = OnChain::Transaction.sign_transaction(tx, inputs_to_sign)
+    
+    expect(tx_signed.length).to be > tx.length
+    
+    expect(OnChain::Transaction.do_we_have_all_the_signatures(inputs_to_sign)).to eq(true)
+  end
+  
   def sign_with_key(inputs_to_sign, key)
     
     node = MoneyTree::Node.from_serialized_address key
