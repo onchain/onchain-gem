@@ -92,15 +92,7 @@ describe OnChain do
     
     tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 10000, 0)
     
-    puts tx
-    
-    sign_with_eckey(sig_list, key1)
-    
-    sign_with_eckey(sig_list, key2)
-    
     signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
-    
-    puts signed_tx
     
   end
   
