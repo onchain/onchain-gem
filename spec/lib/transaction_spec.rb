@@ -90,7 +90,9 @@ describe OnChain do
     
     addr = "13qu9Dn64kX4W7KrAs9ZwwxvW5HRu4KNL2"
     
-    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 120000, 10000)
+    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 10000, 0)
+    
+    puts tx
     
     sign_with_eckey(sig_list, key1)
     
@@ -98,6 +100,64 @@ describe OnChain do
     
     signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
     
+    puts signed_tx
+    
+  end
+  
+  it "should verify the signatures" do
+    
+    sig_list = '[{"04f38a0124afe10f06cad3d4cbf9159f63443a63d4219d9316a411901348b4ccff517a812ba2578ef97bf8d0cd1a18d5f1de0a697529186c26e51ffb895a1c9e51":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"304402200cd8a52cae53fce9860bd47468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac6801"},"0498ef09c13a496507999e6b08cbebc059f4751c94929388108e421c93bf7520216eabdfca6216b579e48c7a830e09e7343a277e59236be72e920a5a9bd021d2ae":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"3046022100c20ecf3b129a04967a05e3508cf0b85af65b0bafe7e1264d56dddce2c2d68010022100b054e0482d28dfc80539b96729fde99cbaaad59653127ce860b6472671a37b0e01"},"0476c3b254aec505f7aefa5ba172d85f4df6a03bba905a89775dadee5a07e283f9035d13572f8a345b66052111b20c75a106750bcac946f3c24a3355ba9e65e944":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c"}}]'
+    
+
+    key1 = Bitcoin::Key.from_base58('5KAovUBbq3uBUQBPPr6RABJVnh4fy6E49dbQjqhwE8HEoCDTA19')
+    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
+    
+    expect(verify_sigs(JSON.parse(sig_list), [key1, key2])).to eq(true)
+    
+    wrong_sig_list = '[{"04f38a0124afe10f06cad3d4cbf9159f63443a63d4219d9316a411901348b4ccff517a812ba2578ef97bf8d0cd1a18d5f1de0a697529186c26e51ffb895a1c9e51":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"304402200cd8a52cae53fce9860bd47468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac6901"},"0498ef09c13a496507999e6b08cbebc059f4751c94929388108e421c93bf7520216eabdfca6216b579e48c7a830e09e7343a277e59236be72e920a5a9bd021d2ae":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"3046022100c20ecf3b129a04967a05e3508cf0b85af65b0bafe7e1264d56dddce2c2d68010022100b054e0482d28dfc80539b96729fde99cbaaad59653127ce860b6472671a37b0e01"},"0476c3b254aec505f7aefa5ba172d85f4df6a03bba905a89775dadee5a07e283f9035d13572f8a345b66052111b20c75a106750bcac946f3c24a3355ba9e65e944":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c"}}]'
+
+    expect(verify_sigs(JSON.parse(wrong_sig_list), [key1, key2])).to eq(false)
+    
+    hash = "7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c"
+    sig = "304402200cd8a52cae53fce9860bd47468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac6801"
+    
+    expect(key1.verify(OnChain.hex_to_bin(hash), OnChain.hex_to_bin(sig))).to eq(true)
+    
+    sig_without_push = "304402200cd8a52cae53fce9860bd47468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac68"
+    
+    expect(key1.verify(OnChain.hex_to_bin(hash), OnChain.hex_to_bin(sig_without_push))).to eq(true)
+    
+    chnage_sig = "304402200cd8a52cae53fce9860bd48468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac68"
+    
+    expect(key1.verify(OnChain.hex_to_bin(hash), OnChain.hex_to_bin(chnage_sig))).to eq(false)
+  end
+  
+  
+  def verify_sigs(signed_inputs, keys)
+    
+    signed_inputs.each do |input|
+      
+      keys.each do |key|
+        
+        pub_hex = key.pub
+      
+        if input[pub_hex] != nil
+        
+          hash_to_sign = input[pub_hex]["hash"]
+          sig = input[pub_hex]["sig"]
+
+          if sig != nil
+            
+            res = key.verify(OnChain.hex_to_bin(hash_to_sign), OnChain.hex_to_bin(sig))
+            
+            if res == false
+              return false
+            end
+          end
+        end
+      end
+    end
+    return true
   end
   
   def sign_with_eckey(inputs_to_sign, pk)
