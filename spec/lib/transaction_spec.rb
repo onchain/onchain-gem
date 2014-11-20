@@ -169,6 +169,72 @@ describe OnChain do
     expect(signed_tx.length).to be > tx.length
   end
   
+  it "should work with 2 of 2 address from handy key" do
+
+    # Using the handy key.
+    node = MoneyTree::Master.from_serialized_address HANDY_KEY
+    wif = node.private_key.to_hex
+    key1 = Bitcoin::Key.new wif
+    
+    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
+    
+    # If you want the pub keys in hex, jsut do key1.pub etc..
+
+    expect(key1.addr).to eq('12DRYpGnHbwgogprfwbM1NKd9Brr79KGyM')
+    expect(key2.addr).to eq('1CZn88sLyLNe6zwJsPLYkj9DTsHXVWi3TU')
+    
+    rs = OnChain::Sweeper.generate_redemption_script(2, [key1.pub, key2.pub])
+    
+    addr = OnChain::Sweeper.generate_address_of_redemption_script(rs)
+    expect(addr).to eq('3BWVzVCo9DejAeFsZvkV6AysnTLHzyMYWk')
+    
+    addr = "13qu9Dn64kX4W7KrAs9ZwwxvW5HRu4KNL2"
+    
+    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 10000, 10000)
+    
+    sign_with_eckey(sig_list, key1)
+    sign_with_eckey(sig_list, key2)
+    
+    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
+    
+    # The signed 2 of 2 TX created here does broadcast.
+    
+    expect(signed_tx.length).to be > tx.length
+    
+    puts signed_tx
+  end
+  
+  it "should work with 2 of 2 address from onchain js" do
+
+    # Generated from onchain
+    key1 = Bitcoin::Key.from_base58('L1qmBUV5BpdQ1dU6kziEBWsvvrsp3JUmgSNRg6u85sULH2GcFvSQ')
+    
+    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
+    
+    # If you want the pub keys in hex, jsut do key1.pub etc..
+
+    expect(key1.addr).to eq('1ymRJ9tHJvgeu8VDBCUMfgJdHnAFUrV38')
+    expect(key2.addr).to eq('1CZn88sLyLNe6zwJsPLYkj9DTsHXVWi3TU')
+    
+    rs = OnChain::Sweeper.generate_redemption_script(2, [key1.pub, key2.pub])
+    
+    addr = OnChain::Sweeper.generate_address_of_redemption_script(rs)
+    expect(addr).to eq('3N7KLdtWDJkfzPWPgs6JY8zXgTuY6tpw3o')
+    
+    addr = "13qu9Dn64kX4W7KrAs9ZwwxvW5HRu4KNL2"
+    
+    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 10000, 10000)
+    
+    sign_with_eckey(sig_list, key1)
+    sign_with_eckey(sig_list, key2)
+    
+    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
+    
+    # The signed 2 of 2 TX created here does broadcast.
+    
+    expect(signed_tx.length).to be > tx.length
+  end
+  
   it "should sign with onchian and handy keys" do
     
     # We have the HANDY PK and the onchain pk used in JS.
@@ -179,7 +245,9 @@ describe OnChain do
     key1 = Bitcoin::Key.new wif
     
     key2 = Bitcoin::Key.from_base58 'L1qmBUV5BpdQ1dU6kziEBWsvvrsp3JUmgSNRg6u85sULH2GcFvSQ'
-    
+
+    expect(key1.addr).to eq('12DRYpGnHbwgogprfwbM1NKd9Brr79KGyM')
+    expect(key2.addr).to eq('1ymRJ9tHJvgeu8VDBCUMfgJdHnAFUrV38')
     
     rs = OnChain::Sweeper.generate_redemption_script(2, [key1.pub, key2.pub])
     
@@ -190,11 +258,10 @@ describe OnChain do
     
     tx, sig_list = OnChain::Transaction.create_transaction(
       [rs], 
-      '1NqFm3uosZ3qT26AvCFrKRhpNZfEpTSrX4', 100000, 10000)
+      '1NqFm3uosZ3qT26AvCFrKRhpNZfEpTSrX4', 10000, 10000)
     
     sign_with_eckey(sig_list, key1)
     sign_with_eckey(sig_list, key2)
-    
     
     expect(verify_sigs(sig_list, [key1, key2])).to eq(true)
     
@@ -203,8 +270,8 @@ describe OnChain do
     expect(signed_tx.length).to be > tx.length
     
     
-    # Why doesn't this broadcast.
-    puts signed_tx
+    # Why doesn't this broadcast?
+    #puts signed_tx
   end
   
   
