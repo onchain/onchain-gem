@@ -5,14 +5,14 @@ class OnChain::Sweeper
     
     # Turn a bunch of master keys into a redemption scriopt
     # i.e. derive the path.
-    def multi_sig_address_from_mpks(mpks, path)
+    def multi_sig_address_from_mpks(minimum_sigs, mpks, path)
       
-      rs = generate_redemption_script_from_mpks(mpks, path)
+      rs = generate_redemption_script_from_mpks(minimum_sigs, mpks, path)
       
       return generate_address_of_redemption_script(rs)
     end
     
-    def generate_redemption_script_from_mpks(mpks, path)
+    def generate_redemption_script_from_mpks(minimum_sigs, mpks, path)
       
       addresses = []
       mpks.each do |mpk|
@@ -21,23 +21,12 @@ class OnChain::Sweeper
         addresses << m.public_key.to_hex
       end
       
-      return generate_redemption_script(addresses)
+      return generate_redemption_script(minimum_sigs, addresses)
     end
 
-    def generate_redemption_script(addresses)
-    
-      rs = (80 + addresses.length).to_s(16) 
-    
-      addresses.each do |address|
-        rs = rs + (address.length / 2).to_s(16)
-        rs = rs + address
-      end
-    
-      rs = rs + (80 + addresses.length).to_s(16) 
-    
-      rs = rs + 'ae'
-    
-      return rs
+    def generate_redemption_script(minimum_sigs, addresses)
+      address, redeem_script = Bitcoin.pubkeys_to_p2sh_multisig_address(minimum_sigs, *addresses)
+      return redeem_script.hth
     end
   
     def generate_address_of_redemption_script(redemption_script)
@@ -52,7 +41,7 @@ class OnChain::Sweeper
     
     # With a bunch of HD wallet paths, build a transaction
     # That pays all the coins to a certain address
-    def sweep(mpks, path, limit, last_block_checked)
+    def sweep(minimum_sigs, mpks, path, limit, last_block_checked)
       
       block_height_now = get_block_height
       
@@ -60,7 +49,7 @@ class OnChain::Sweeper
       # Get all the addresses we are interested in.
       for i in 0..limit do
         r = path.sub('#{index}', i.to_s)
-        a = multi_sig_address_from_mpks(mpks, r)
+        a = multi_sig_address_from_mpks(minimum_sigs, mpks, r)
         # store address as lookup for path.
         to_sweep[a] = r
       end
@@ -98,7 +87,7 @@ class OnChain::Sweeper
       return incoming_coins, block_height_now
     end
 
-    def create_payment_tx_from_sweep(incoming, destination_address, mpks)
+    def create_payment_tx_from_sweep(minimum_sigs, incoming, destination_address, mpks)
         
       tx = Bitcoin::Protocol::Tx.new
       total_amount = 0
@@ -107,7 +96,7 @@ class OnChain::Sweeper
         
         txin = Bitcoin::Protocol::TxIn.new
         
-        rs = generate_redemption_script_from_mpks(mpks, output[1])
+        rs = generate_redemption_script_from_mpks(minimum_sigs, mpks, output[1])
 
         txin.prev_out = OnChain.hex_to_bin(output[3]).reverse
         txin.prev_out_index = output[4]

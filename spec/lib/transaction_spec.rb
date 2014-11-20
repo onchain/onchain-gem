@@ -78,28 +78,9 @@ describe OnChain do
     expect(tx_signed.length).to be > tx.length
   end
   
-  it "should work with some keys we generated online" do
-    
-    key1 = Bitcoin::Key.from_base58('5KAovUBbq3uBUQBPPr6RABJVnh4fy6E49dbQjqhwE8HEoCDTA19')
-    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
-
-    expect(key1.addr).to eq('1MWr2FY4XLfEzZ7PQPELNwFkog83vwh6a1')
-    expect(key2.addr).to eq('1CZn88sLyLNe6zwJsPLYkj9DTsHXVWi3TU')
-    
-    rs = "524104f38a0124afe10f06cad3d4cbf9159f63443a63d4219d9316a411901348b4ccff517a812ba2578ef97bf8d0cd1a18d5f1de0a697529186c26e51ffb895a1c9e51410498ef09c13a496507999e6b08cbebc059f4751c94929388108e421c93bf7520216eabdfca6216b579e48c7a830e09e7343a277e59236be72e920a5a9bd021d2ae410476c3b254aec505f7aefa5ba172d85f4df6a03bba905a89775dadee5a07e283f9035d13572f8a345b66052111b20c75a106750bcac946f3c24a3355ba9e65e94453ae"
-    
-    addr = "13qu9Dn64kX4W7KrAs9ZwwxvW5HRu4KNL2"
-    
-    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 10000, 0)
-    
-    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
-    
-  end
-  
   it "should verify the signatures" do
     
     sig_list = '[{"04f38a0124afe10f06cad3d4cbf9159f63443a63d4219d9316a411901348b4ccff517a812ba2578ef97bf8d0cd1a18d5f1de0a697529186c26e51ffb895a1c9e51":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"304402200cd8a52cae53fce9860bd47468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac6801"},"0498ef09c13a496507999e6b08cbebc059f4751c94929388108e421c93bf7520216eabdfca6216b579e48c7a830e09e7343a277e59236be72e920a5a9bd021d2ae":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"3046022100c20ecf3b129a04967a05e3508cf0b85af65b0bafe7e1264d56dddce2c2d68010022100b054e0482d28dfc80539b96729fde99cbaaad59653127ce860b6472671a37b0e01"},"0476c3b254aec505f7aefa5ba172d85f4df6a03bba905a89775dadee5a07e283f9035d13572f8a345b66052111b20c75a106750bcac946f3c24a3355ba9e65e944":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c"}}]'
-    
 
     key1 = Bitcoin::Key.from_base58('5KAovUBbq3uBUQBPPr6RABJVnh4fy6E49dbQjqhwE8HEoCDTA19')
     key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
@@ -122,6 +103,74 @@ describe OnChain do
     chnage_sig = "304402200cd8a52cae53fce9860bd48468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac68"
     
     expect(key1.verify(OnChain.hex_to_bin(hash), OnChain.hex_to_bin(chnage_sig))).to eq(false)
+  end
+  
+  # The addresses here were generate by
+  # https://coinb.in/multisig/
+  it "should work with some keys we generated online" do
+    
+    key1 = Bitcoin::Key.from_base58('5KAovUBbq3uBUQBPPr6RABJVnh4fy6E49dbQjqhwE8HEoCDTA19')
+    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
+    # key3, even though we only need 2 to sign.
+    key3 = Bitcoin::Key.from_base58('5JqeHF3fUmdNXukL5yXpdkZs4d4PwXrW6C1qB2CMcd6Axn19BJ6')
+    
+    # If you want the pub keys in hex, jsut do key1.pub etc..
+
+    expect(key1.addr).to eq('1MWr2FY4XLfEzZ7PQPELNwFkog83vwh6a1')
+    expect(key2.addr).to eq('1CZn88sLyLNe6zwJsPLYkj9DTsHXVWi3TU')
+    expect(key3.addr).to eq('1CGTzS1etxKMRP16eys6nyYsh7xDjnMyw6')
+    
+    rs = OnChain::Sweeper.generate_redemption_script(2, [key1.pub, key2.pub, key3.pub])
+    
+    addr = OnChain::Sweeper.generate_address_of_redemption_script(rs)
+    expect(addr).to eq('32x4ufepcDX9MtgxWMbi6RQgJuxGW5fjc7')
+    
+    addr = "13qu9Dn64kX4W7KrAs9ZwwxvW5HRu4KNL2"
+    
+    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 10000, 10000)
+    
+    sign_with_eckey(sig_list, key1)
+    sign_with_eckey(sig_list, key2)
+    
+    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
+    
+    # The signed TX created here does broadcast.
+    
+    expect(signed_tx.length).to be > tx.length
+    
+  end
+  
+  it "should sign owith onchian and handy keys" do
+    
+    # We have the HANDY PK and the onchain pk used in JS.
+    # Can we do this in ruby ?
+
+    node = MoneyTree::Master.from_serialized_address HANDY_KEY
+    wif = node.private_key.to_hex
+    key1 = Bitcoin::Key.new wif
+    
+    key2 = Bitcoin::Key.from_base58 'L1qmBUV5BpdQ1dU6kziEBWsvvrsp3JUmgSNRg6u85sULH2GcFvSQ'
+    
+    
+    rs = OnChain::Sweeper.generate_redemption_script(2, [key1.pub, key2.pub])
+    
+    addr = OnChain::Sweeper.generate_address_of_redemption_script(rs)
+    expect(addr).to eq('3755Htdj1i61xiToskjurApvVZGLMRXzSp')
+    
+    expect(rs).to eq("522102fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc42102388085f9b6bbfb1c353b2664cf1857ff6d11c3f93b0635a31204bcbbb9e0403d52ae")
+    
+    tx, sig_list = OnChain::Transaction.create_transaction(
+      [rs], 
+      '1NqFm3uosZ3qT26AvCFrKRhpNZfEpTSrX4', 100000, 10000)
+    
+    sign_with_eckey(sig_list, key1)
+    sign_with_eckey(sig_list, key2)
+    
+    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
+    
+    expect(signed_tx.length).to be > tx.length
+    
+    puts signed_tx
   end
   
   
