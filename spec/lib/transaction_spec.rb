@@ -140,7 +140,36 @@ describe OnChain do
     
   end
   
-  it "should sign owith onchian and handy keys" do
+  it "should work with 2 of 2 address" do
+    
+    key1 = Bitcoin::Key.from_base58('5KAovUBbq3uBUQBPPr6RABJVnh4fy6E49dbQjqhwE8HEoCDTA19')
+    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
+    
+    # If you want the pub keys in hex, jsut do key1.pub etc..
+
+    expect(key1.addr).to eq('1MWr2FY4XLfEzZ7PQPELNwFkog83vwh6a1')
+    expect(key2.addr).to eq('1CZn88sLyLNe6zwJsPLYkj9DTsHXVWi3TU')
+    
+    rs = OnChain::Sweeper.generate_redemption_script(2, [key1.pub, key2.pub])
+    
+    addr = OnChain::Sweeper.generate_address_of_redemption_script(rs)
+    expect(addr).to eq('3JkJ2LdCssWJBDbq5tpRdN8D5wwgdHt6KY')
+    
+    addr = "13qu9Dn64kX4W7KrAs9ZwwxvW5HRu4KNL2"
+    
+    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 10000, 10000)
+    
+    sign_with_eckey(sig_list, key1)
+    sign_with_eckey(sig_list, key2)
+    
+    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
+    
+    # The signed 2 of 2 TX created here does broadcast.
+    
+    expect(signed_tx.length).to be > tx.length
+  end
+  
+  it "should sign with onchian and handy keys" do
     
     # We have the HANDY PK and the onchain pk used in JS.
     # Can we do this in ruby ?
@@ -166,10 +195,15 @@ describe OnChain do
     sign_with_eckey(sig_list, key1)
     sign_with_eckey(sig_list, key2)
     
+    
+    expect(verify_sigs(sig_list, [key1, key2])).to eq(true)
+    
     signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
     
     expect(signed_tx.length).to be > tx.length
     
+    
+    # Why doesn't this broadcast.
     puts signed_tx
   end
   
