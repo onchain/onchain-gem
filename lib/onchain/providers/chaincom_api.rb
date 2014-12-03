@@ -1,4 +1,5 @@
 require 'chain'
+require 'time'
 
 class OnChain::BlockChain
   class << self
@@ -21,7 +22,7 @@ class OnChain::BlockChain
       hist = []
       txs.each do |tx|
         row = {}
-        row[:time] = Date.parse(tx["block_time"]).to_s
+        row[:time] = Time.parse(tx["block_time"]).to_i
         row[:addr] = {}
         row[:outs] = {}
         
