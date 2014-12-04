@@ -125,7 +125,7 @@ class OnChain::Sweeper
       return OnChain.bin_to_hex(tx.to_payload), paths
     end
     
-    def post_tx_for_signing(tx_hex, paths)
+    def post_tx_for_signing(tx_hex, paths, address)
       
       meta = ''
       if paths != nil
@@ -136,6 +136,7 @@ class OnChain::Sweeper
       
       return HTTParty.post('https://onchain.herokuapp.com/api/v1/transaction', 
         :body => { :tx => tx_hex, 
+        :address => address,
         :meta_data => meta,
         :user_email => ENV['ONCHAIN_EMAIL'],
         :user_token => ENV['ONCHAIN_TOKEN'] }) 

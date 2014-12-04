@@ -200,8 +200,6 @@ describe OnChain do
     # The signed 2 of 2 TX created here does broadcast.
     
     expect(signed_tx.length).to be > tx.length
-    
-    puts signed_tx
   end
   
   it "should work with 2 of 2 address from onchain js" do
