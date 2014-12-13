@@ -74,6 +74,20 @@ describe OnChain do
     expect(rs).to eq('522103efae664511239eb463924ba073ff7f249485372b5706de05c75a97fe68ed39542103ed9c19aa7363c81bd803da4abe1b2221e2716c3b465f40c99b544f949384849652ae')
   end
   
+  it "should generate valid keys." do
+    
+    mpk = 'xpub69GZWTQPtwQRriHyYuYJpDgAUrHHRD8ksBbQ61QpY1CbSUrcW7udYcZ1YLuLVtSQx9xW5QApiGidDfmFVLEz4Lep3AoCGD2HQmfvXwH1GMt'
+    
+    keys = [mpk]
+    master = MoneyTree::Node.from_serialized_address(mpk)
+    
+    for i in 0..19 do
+      path = "m/#{i}"
+      m = master.node_for_path(path)
+      address = m.public_key.to_hex
+    end
+  end
+  
   it "should post a tx to onchain." do
 
     tx = 'rubbish'

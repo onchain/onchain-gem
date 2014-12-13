@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (2.0.5)
+    onchain (2.0.6)
       bitcoin-ruby
       chain-ruby
       httparty
@@ -20,10 +20,10 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     json (1.8.1)
-    money-tree (0.8.7)
+    money-tree (0.8.8)
       ffi
     multi_xml (0.5.5)
-    rake (10.3.2)
+    rake (10.4.2)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
