@@ -272,6 +272,28 @@ describe OnChain do
     #puts signed_tx
   end
   
+  it "should generate the correct fee" do
+    
+    fee = OnChain::Transaction.calculate_fee(100000000, 1)
+    expect(fee).to eq(1000000)
+    
+    fee = OnChain::Transaction.calculate_fee(1000000, 1)
+    expect(fee).to eq(10000)
+    
+    # When it gets below the miners fee, stop adding.
+    fee = OnChain::Transaction.calculate_fee(10000, 1)
+    expect(fee).to eq(0)
+  end
+
+  
+  it "should generate a create single address transaction" do
+    
+    tx = OnChain::Transaction.create_single_address_transaction('1STRonGxnFTeJiA7pgyneKknR29AwBM77', 
+      '3PY8HZjiM7MhwvdbJZYVEymKXzHHcZnvy1', 10000, 1, '1STRonGxnFTeJiA7pgyneKknR29AwBM77')
+      
+    puts tx
+    
+  end
   
   def verify_sigs(signed_inputs, keys)
     

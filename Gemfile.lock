@@ -3,7 +3,7 @@ PATH
   specs:
     onchain (2.0.6)
       bitcoin-ruby
-      chain-ruby
+      chain-ruby (~> 2.0.1)
       httparty
       money-tree
 

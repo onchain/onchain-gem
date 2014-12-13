@@ -1,6 +1,51 @@
 class OnChain::Transaction
   class << self
     
+    def create_single_address_transaction(orig_addr, dest_addr, amount, fee_percent, fee_addr)
+    
+      tx = Bitcoin::Protocol::Tx.new
+  
+      total_amount = amount + calculate_fee(amount, fee_percent)
+      
+      unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(
+        [orig_addr], total_amount)
+    
+      
+      # Process the unpsent outs.
+      unspents.each_with_index do |spent, index|
+
+        txin = Bitcoin::Protocol::TxIn.new([ spent[0] ].pack('H*').reverse, spent[1])
+        txin.script_sig = Bitcoin::Script.to_pubkey_script(orig_addr)
+        tx.add_in(txin)
+      end
+
+      txout = Bitcoin::Protocol::TxOut.new(amount, Bitcoin::Script.to_address_script(dest_addr))
+  
+      tx.add_out(txout)
+    
+      # Send the change back.
+      if change > 0
+      
+        txout = Bitcoin::Protocol::TxOut.new(change, 
+          Bitcoin::Script.to_address_script(orig_addr))
+  
+        tx.add_out(txout)
+      end
+      
+      return OnChain::bin_to_hex(tx.to_payload)
+    end
+    
+    def calculate_fee(amount, fee_percent)
+      
+      fee = (amount * (fee_percent / 100.0)).to_i
+      
+      if fee < 10000
+        return 0
+      end
+      
+      return fee
+    end
+    
     # Given a send address and an amount produce a transaction 
     # and a list of hashes that need to be signed.
     # 
@@ -17,8 +62,6 @@ class OnChain::Transaction
     # 
     def create_transaction(redemption_scripts, address, amount_in_satoshi, miners_fee)
     
-      tx = Bitcoin::Protocol::Tx.new
-  
       total_amount = miners_fee
   
       total_amount = total_amount + amount_in_satoshi

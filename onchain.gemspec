@@ -25,6 +25,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'money-tree'
   gem.add_dependency 'bitcoin-ruby'
-  gem.add_dependency 'chain-ruby'
+  gem.add_dependency 'chain-ruby', '~> 2.0.1'
   gem.add_dependency 'httparty'
 end
