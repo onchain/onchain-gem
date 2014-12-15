@@ -288,10 +288,17 @@ describe OnChain do
   
   it "should generate a create single address transaction" do
     
-    tx = OnChain::Transaction.create_single_address_transaction('1STRonGxnFTeJiA7pgyneKknR29AwBM77', 
-      '3PY8HZjiM7MhwvdbJZYVEymKXzHHcZnvy1', 10000, 1, '1STRonGxnFTeJiA7pgyneKknR29AwBM77')
+    tx, inputs_to_sign = OnChain::Transaction.create_single_address_transaction(
+      '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 
+      '3PY8HZjiM7MhwvdbJZYVEymKXzHHcZnvy1', 
+      10000, 1, 
+      '1STRonGxnFTeJiA7pgyneKknR29AwBM77')
       
     puts tx
+    
+    puts
+    
+    puts inputs_to_sign
     
   end
   

@@ -31,8 +31,10 @@ class OnChain::Transaction
   
         tx.add_out(txout)
       end
+
+      inputs_to_sign = get_inputs_to_sign(tx)
       
-      return OnChain::bin_to_hex(tx.to_payload)
+      return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
     end
     
     def calculate_fee(amount, fee_percent)
@@ -44,6 +46,34 @@ class OnChain::Transaction
       end
       
       return fee
+    end
+    
+    def get_public_keys_from_script(script)
+
+      if script.is_pubkey?
+        return [script.get_pubkey]
+      end
+      
+      return script.get_multisig_pubkeys
+    end
+    
+    def get_inputs_to_sign(tx)
+      inputs_to_sign = []
+      tx.in.each_with_index do |txin, index|
+        hash = tx.signature_hash_for_input(index, txin.script, 1)
+        
+        script = Bitcoin::Script.new txin.script
+        
+        pubkeys = get_public_keys_from_script(script)
+        pubkeys.each do |key|
+          
+          if inputs_to_sign[index] == nil
+            inputs_to_sign[index] = {}
+          end
+          inputs_to_sign[index][OnChain.bin_to_hex(key)] = {'hash' => OnChain::bin_to_hex(hash)}
+        end
+      end
+      return inputs_to_sign
     end
     
     # Given a send address and an amount produce a transaction 
@@ -106,19 +136,7 @@ class OnChain::Transaction
         tx.add_out(txout)
       end
 
-      inputs_to_sign = []
-      tx.in.each_with_index do |txin, index|
-        hash = tx.signature_hash_for_input(index, txin.script, 1)
-        
-        rsscript = Bitcoin::Script.new txin.script
-        rsscript.get_multisig_pubkeys.each do |key|
-          
-          if inputs_to_sign[index] == nil
-            inputs_to_sign[index] = {}
-          end
-          inputs_to_sign[index][OnChain.bin_to_hex(key)] = {'hash' => OnChain::bin_to_hex(hash)}
-        end
-      end
+      inputs_to_sign = get_inputs_to_sign tx
     
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
     end

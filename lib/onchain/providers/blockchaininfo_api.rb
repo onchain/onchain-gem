@@ -15,7 +15,7 @@ class OnChain::BlockChain
   
     def blockinfo_address_history(address)
       
-      base_url = "http://blockchain.info/address/#{address}?format=json"
+      base_url = "https://blockchain.info/address/#{address}?format=json"
       json = fetch_response(base_url, true)
       
       blockinfo_parse_address_tx(address, json)
@@ -81,7 +81,7 @@ class OnChain::BlockChain
     end
 
     def blockinfo_get_unspent_outs(address)
-      base_url = "http://blockchain.info/unspent?active=#{address}"
+      base_url = "https://blockchain.info/unspent?active=#{address}"
       json = fetch_response(base_url, true)
       
       unspent = []
@@ -116,7 +116,7 @@ class OnChain::BlockChain
     end
   
     def block_chain(cmd, address, params = "")
-      base_url = "http://blockchain.info/#{cmd}/#{address}?format=json" + params
+      base_url = "https://blockchain.info/#{cmd}/#{address}?format=json" + params
       
       fetch_response(base_url, true)
     end
