@@ -294,11 +294,7 @@ describe OnChain do
       10000, 1, 
       '1STRonGxnFTeJiA7pgyneKknR29AwBM77')
       
-    puts tx
-    
-    puts
-    
-    puts inputs_to_sign
+    expect(inputs_to_sign.count).to be > 0
     
   end
   
