@@ -290,11 +290,23 @@ describe OnChain do
     
     tx, inputs_to_sign = OnChain::Transaction.create_single_address_transaction(
       '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 
-      '3PY8HZjiM7MhwvdbJZYVEymKXzHHcZnvy1', 
+      '13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd', 
       10000, 1, 
       '1STRonGxnFTeJiA7pgyneKknR29AwBM77')
       
     expect(inputs_to_sign.count).to be > 0
+    
+  end
+  
+  it "should sign a single address transaction" do
+    
+    json = "[{\"1STRonGxnFTeJiA7pgyneKknR29AwBM77\":{\"hash\":\"fbd48b6d1940da8ccb8286561830b9cbcb4c129016793d5fb3303b58b333d0c5\",\"sig\":\"3046022100d50a69539df486b47921239180e1089cf9c95bda5ce9b30d72eb0100e0020641022100c855737ae37401e3cba6529a118bf792988b405e2e68fedc71acd644ec935c0f\"}}]" 
+    inputs_to_sign = JSON.parse(json)
+    
+    tx = "01000000013a0415682f816627c0b95c7f71347c7be291f8c08ee1c783a99961f003455ef8010000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488acffffffff02a0860100000000001976a9142036296ef496e5550369f46d2b3258e21ad342de88ace0930400000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac00000000"
+    tx_signed = OnChain::Transaction.sign_transaction(tx, inputs_to_sign, "0428a450cfd9cc029658a7588d6bd515201d6231275b5431b0a6fc420606b0fecd34d3b804335c64f8fcb481eadccc8cb85078f2a0d27f0c86748f3d832c894a2d")
+    
+    expect(tx_signed.length).to be > tx.length
     
   end
   

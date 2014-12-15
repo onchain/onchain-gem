@@ -2,7 +2,7 @@ class OnChain::Transaction
   class << self
     
     def create_single_address_transaction(orig_addr, dest_addr, amount, fee_percent, fee_addr)
-    
+
       tx = Bitcoin::Protocol::Tx.new
   
       total_amount = amount + calculate_fee(amount, fee_percent)
@@ -16,19 +16,16 @@ class OnChain::Transaction
 
         txin = Bitcoin::Protocol::TxIn.new([ spent[0] ].pack('H*').reverse, spent[1])
         txin.script_sig = OnChain.hex_to_bin(spent[2])
-        
         tx.add_in(txin)
       end
-
       txout = Bitcoin::Protocol::TxOut.new(amount, Bitcoin::Script.to_address_script(dest_addr))
   
       tx.add_out(txout)
     
       # Send the change back.
       if change > 0
-      
-        txout = Bitcoin::Protocol::TxOut.new(change, 
-          Bitcoin::Script.to_address_script(orig_addr))
+        
+        txout = Bitcoin::Protocol::TxOut.new(change, Bitcoin::Script.to_address_script(orig_addr))
   
         tx.add_out(txout)
       end
@@ -155,7 +152,7 @@ class OnChain::Transaction
     # [0]{034000.....' => {'hash' => '345435345....', 'sig' => '435fgdf4553...'}}
     # [0]{02fee.....' => {'hash' => '122133445....', 'sig' => '435fgdf4553...'}}
     #
-    def sign_transaction(transaction_hex, sig_list)
+    def sign_transaction(transaction_hex, sig_list, pubkey = nil)
       
       tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(transaction_hex)
       
@@ -179,8 +176,16 @@ class OnChain::Transaction
         end
         
         if sigs.count > 0
-          txin.script = Bitcoin::Script.to_p2sh_multisig_script_sig(rscript.to_payload, sigs)
+          in_script = Bitcoin::Script.new txin.script
+          if in_script.is_hash160?
+            sig = sigs[0]
+            txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, OnChain.hex_to_bin(pubkey))
+          else
+            txin.script = Bitcoin::Script.to_p2sh_multisig_script_sig(rscript.to_payload, sigs)
+          end
         end
+      
+        #raise "Signature error " + index.to_s  if ! tx.verify_input_signature(index, in_script.to_payload)
       end
       
       return OnChain::bin_to_hex(tx.to_payload)
