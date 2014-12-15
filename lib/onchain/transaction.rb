@@ -15,7 +15,8 @@ class OnChain::Transaction
       unspents.each_with_index do |spent, index|
 
         txin = Bitcoin::Protocol::TxIn.new([ spent[0] ].pack('H*').reverse, spent[1])
-        txin.script_sig = Bitcoin::Script.to_pubkey_script(orig_addr)
+        txin.script_sig = OnChain.hex_to_bin(spent[2])
+        
         tx.add_in(txin)
       end
 
@@ -50,8 +51,8 @@ class OnChain::Transaction
     
     def get_public_keys_from_script(script)
 
-      if script.is_pubkey?
-        return [Bitcoin.hash160_to_address(script.get_pubkey)]
+      if script.is_hash160?
+        return [Bitcoin.hash160_to_address(script.get_hash160)]
       end
       
       pubs = []
