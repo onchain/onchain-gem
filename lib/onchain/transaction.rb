@@ -51,10 +51,15 @@ class OnChain::Transaction
     def get_public_keys_from_script(script)
 
       if script.is_pubkey?
-        return [script.get_pubkey]
+        return [Bitcoin.hash160_to_address(script.get_pubkey)]
       end
       
-      return script.get_multisig_pubkeys
+      pubs = []
+      script.get_multisig_pubkeys.each do |pub|
+        pub_hex = OnChain.bin_to_hex(pub)
+        pubs << Bitcoin.hash160_to_address(Bitcoin.hash160(pub_hex))
+      end
+      return pubs
     end
     
     def get_inputs_to_sign(tx)
@@ -70,7 +75,7 @@ class OnChain::Transaction
           if inputs_to_sign[index] == nil
             inputs_to_sign[index] = {}
           end
-          inputs_to_sign[index][OnChain.bin_to_hex(key)] = {'hash' => OnChain::bin_to_hex(hash)}
+          inputs_to_sign[index][key] = {'hash' => OnChain::bin_to_hex(hash)}
         end
       end
       return inputs_to_sign
@@ -160,9 +165,10 @@ class OnChain::Transaction
         sigs = []
         
         rscript = Bitcoin::Script.new txin.script
-        rscript.get_multisig_pubkeys.each do |key|
+        
+        pub_keys = get_public_keys_from_script(rscript)
+        pub_keys.each do |hkey|
           
-          hkey = OnChain.bin_to_hex(key)
           if sig_list[index][hkey] != nil and sig_list[index][hkey]['sig'] != nil
             
             # Add the signature to the list.
