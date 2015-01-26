@@ -282,19 +282,81 @@ describe OnChain do
     
     # When it gets below the miners fee, stop adding.
     fee = OnChain::Transaction.calculate_fee(10000, 1)
-    expect(fee).to eq(0)
+    expect(fee).to eq(10000)
   end
 
   
   it "should generate a create single address transaction" do
     
+    # Bitcoin.hash160_to_address('04d075b3f501deeef5565143282b6cfe8fad5e94') = 1STRonGxnFTeJiA7pgyneKknR29AwBM77
     tx, inputs_to_sign = OnChain::Transaction.create_single_address_transaction(
-      '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 
+      '1MuYkciQTfRsU94ReAe5MiAfUpCrbLBcFR', 
       '13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd', 
-      10000, 1, 
+      20000000, 1, 
       '1STRonGxnFTeJiA7pgyneKknR29AwBM77')
       
     expect(inputs_to_sign.count).to be > 0
+    
+    tx2 = Bitcoin::Protocol::Tx.new(OnChain.hex_to_bin(tx))
+    
+    expect(tx2.out.size).to eq(3)
+    
+    # Does it send to the 13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd address ?
+    expect(tx2.out[0].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 2036296ef496e5550369f46d2b3258e21ad342de OP_EQUALVERIFY OP_CHECKSIG')
+    # StrongCoin fee
+    expect(tx2.out[1].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 04d075b3f501deeef5565143282b6cfe8fad5e94 OP_EQUALVERIFY OP_CHECKSIG')
+    # Change
+    expect(tx2.out[2].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 e552a6a2afa8ae80a773dc9bb95f8c25c5b3bdd3 OP_EQUALVERIFY OP_CHECKSIG')
+    
+    # Bitcoin.hash160_to_address('04d075b3f501deeef5565143282b6cfe8fad5e94') = 1STRonGxnFTeJiA7pgyneKknR29AwBM77
+    tx, inputs_to_sign = OnChain::Transaction.create_single_address_transaction(
+      '1MuYkciQTfRsU94ReAe5MiAfUpCrbLBcFR', 
+      '13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd', 
+      1000000, 1, 
+      '1STRonGxnFTeJiA7pgyneKknR29AwBM77')
+      
+    expect(inputs_to_sign.count).to be > 0
+    
+    tx2 = Bitcoin::Protocol::Tx.new(OnChain.hex_to_bin(tx))
+    
+    # No wallet fees when amounts are low
+    expect(tx2.out.size).to eq(2)
+    
+    # Does it send to the 13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd address ?
+    expect(tx2.out[0].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 2036296ef496e5550369f46d2b3258e21ad342de OP_EQUALVERIFY OP_CHECKSIG')
+    # Chnage
+    expect(tx2.out[1].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 e552a6a2afa8ae80a773dc9bb95f8c25c5b3bdd3 OP_EQUALVERIFY OP_CHECKSIG')
+    
+  end
+
+  
+  it "should generate a create single address transaction for affiliates" do
+    
+    # Bitcoin.hash160_to_address('04d075b3f501deeef5565143282b6cfe8fad5e94') = 1STRonGxnFTeJiA7pgyneKknR29AwBM77
+    tx, inputs_to_sign = OnChain::Transaction.create_single_address_transaction(
+      '1MuYkciQTfRsU94ReAe5MiAfUpCrbLBcFR', 
+      '13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd', 
+      20000000, 1, 
+      ['1STRonGxnFTeJiA7pgyneKknR29AwBM77', '15akUMqYsKMwJzYKdEK4WKYzMpCruNV3pr'])
+      
+    expect(inputs_to_sign.count).to be > 0
+    
+    tx2 = Bitcoin::Protocol::Tx.new(OnChain.hex_to_bin(tx))
+    
+    #tx2.out.each do |out|
+    #  puts out.to_hash
+    #end
+    
+    expect(tx2.out.size).to eq(4)
+    
+    # Does it send to the 13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd address ?
+    expect(tx2.out[0].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 2036296ef496e5550369f46d2b3258e21ad342de OP_EQUALVERIFY OP_CHECKSIG')
+    # StrongCoin fee
+    expect(tx2.out[1].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 04d075b3f501deeef5565143282b6cfe8fad5e94 OP_EQUALVERIFY OP_CHECKSIG')
+    # Affiliate fee
+    expect(tx2.out[2].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 324284aacf28eb70923de6236806c30f99193e2c OP_EQUALVERIFY OP_CHECKSIG')
+    # Change
+    expect(tx2.out[3].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 e552a6a2afa8ae80a773dc9bb95f8c25c5b3bdd3 OP_EQUALVERIFY OP_CHECKSIG')
     
   end
   

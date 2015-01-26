@@ -4,8 +4,10 @@ class OnChain::Transaction
     def create_single_address_transaction(orig_addr, dest_addr, amount, fee_percent, fee_addr)
 
       tx = Bitcoin::Protocol::Tx.new
+      
+      fee = calculate_fee(amount, fee_percent)
   
-      total_amount = amount + calculate_fee(amount, fee_percent)
+      total_amount = amount + fee
       
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(
         [orig_addr], total_amount)
@@ -21,6 +23,25 @@ class OnChain::Transaction
       txout = Bitcoin::Protocol::TxOut.new(amount, Bitcoin::Script.to_address_script(dest_addr))
   
       tx.add_out(txout)
+      
+      # Add wallet fee
+      if fee > 0 and (fee - 10000) > 0
+        
+        # Take the miners fee from the wallet fees
+        fee = fee - 10000
+        
+        # Check for affiliate
+        if fee_addr.kind_of?(Array)
+          affil_fee = fee / 2
+          txout1 = Bitcoin::Protocol::TxOut.new(affil_fee, Bitcoin::Script.to_address_script(fee_addr[0]))
+          txout2 = Bitcoin::Protocol::TxOut.new(affil_fee, Bitcoin::Script.to_address_script(fee_addr[1]))
+          tx.add_out(txout1)
+          tx.add_out(txout2)
+        else
+          txout = Bitcoin::Protocol::TxOut.new(fee, Bitcoin::Script.to_address_script(fee_addr))
+          tx.add_out(txout)
+        end
+      end
     
       # Send the change back.
       if change > 0
@@ -40,7 +61,7 @@ class OnChain::Transaction
       fee = (amount * (fee_percent / 100.0)).to_i
       
       if fee < 10000
-        return 0
+        return 10000
       end
       
       return fee
