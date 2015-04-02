@@ -25,6 +25,24 @@ class OnChain::Transaction
       tx.add_out(txout)
       
       # Add wallet fee
+      add_fee_to_tx(fee, fee_addr, tx)
+    
+      # Send the change back.
+      if change > 0
+        
+        txout = Bitcoin::Protocol::TxOut.new(change, Bitcoin::Script.to_address_script(orig_addr))
+  
+        tx.add_out(txout)
+      end
+
+      inputs_to_sign = get_inputs_to_sign(tx)
+      
+      return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
+    end
+    
+    def add_fee_to_tx(fee, fee_addr, tx)
+      
+      # Add wallet fee
       if fee > 0 and (fee - 10000) > 0
         
         # Take the miners fee from the wallet fees
@@ -42,17 +60,55 @@ class OnChain::Transaction
           tx.add_out(txout)
         end
       end
+      
+    end
+    
+    # Like create_single_address_transaction but for multi sig wallets.
+    def create_transaction_with_fee(redemption_scripts, address, amount, fee_percent, fee_addr)
+    
+      fee = calculate_fee(amount, fee_percent)
+  
+      total_amount = amount + fee
+      
+      addresses = redemption_scripts.map { |rs| 
+        OnChain::Sweeper.generate_address_of_redemption_script(rs)
+      }
+      
+      unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, total_amount)
+      
+      # OK, let's build a transaction.
+      tx = Bitcoin::Protocol::Tx.new
+      
+      # Process the unpsent outs.
+      unspents.each_with_index do |spent, index|
+
+        script = redemption_scripts[indexes[index]]
+        
+        txin = Bitcoin::Protocol::TxIn.new([ spent[0] ].pack('H*').reverse, spent[1])
+        txin.script_sig = OnChain::hex_to_bin(script)
+        tx.add_in(txin)
+      end
+      
+      # Add wallet fee
+      add_fee_to_tx(fee, fee_addr, tx)
+
+      txout = Bitcoin::Protocol::TxOut.new(amount, Bitcoin::Script.to_address_script(address))
+  
+      tx.add_out(txout)
+      
+      change_address = addresses[0]
     
       # Send the change back.
       if change > 0
-        
-        txout = Bitcoin::Protocol::TxOut.new(change, Bitcoin::Script.to_address_script(orig_addr))
+      
+        txout = Bitcoin::Protocol::TxOut.new(change, 
+          Bitcoin::Script.to_address_script(change_address))
   
         tx.add_out(txout)
       end
 
-      inputs_to_sign = get_inputs_to_sign(tx)
-      
+      inputs_to_sign = get_inputs_to_sign tx
+    
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
     end
     
