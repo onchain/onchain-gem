@@ -78,33 +78,6 @@ describe OnChain do
     expect(tx_signed.length).to be > tx.length
   end
   
-  it "should verify the signatures" do
-    
-    sig_list = '[{"04f38a0124afe10f06cad3d4cbf9159f63443a63d4219d9316a411901348b4ccff517a812ba2578ef97bf8d0cd1a18d5f1de0a697529186c26e51ffb895a1c9e51":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"304402200cd8a52cae53fce9860bd47468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac6801"},"0498ef09c13a496507999e6b08cbebc059f4751c94929388108e421c93bf7520216eabdfca6216b579e48c7a830e09e7343a277e59236be72e920a5a9bd021d2ae":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"3046022100c20ecf3b129a04967a05e3508cf0b85af65b0bafe7e1264d56dddce2c2d68010022100b054e0482d28dfc80539b96729fde99cbaaad59653127ce860b6472671a37b0e01"},"0476c3b254aec505f7aefa5ba172d85f4df6a03bba905a89775dadee5a07e283f9035d13572f8a345b66052111b20c75a106750bcac946f3c24a3355ba9e65e944":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c"}}]'
-
-    key1 = Bitcoin::Key.from_base58('5KAovUBbq3uBUQBPPr6RABJVnh4fy6E49dbQjqhwE8HEoCDTA19')
-    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
-    
-    expect(verify_sigs(JSON.parse(sig_list), [key1, key2])).to eq(true)
-    
-    wrong_sig_list = '[{"04f38a0124afe10f06cad3d4cbf9159f63443a63d4219d9316a411901348b4ccff517a812ba2578ef97bf8d0cd1a18d5f1de0a697529186c26e51ffb895a1c9e51":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"304402200cd8a52cae53fce9860bd47468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac6901"},"0498ef09c13a496507999e6b08cbebc059f4751c94929388108e421c93bf7520216eabdfca6216b579e48c7a830e09e7343a277e59236be72e920a5a9bd021d2ae":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c","sig":"3046022100c20ecf3b129a04967a05e3508cf0b85af65b0bafe7e1264d56dddce2c2d68010022100b054e0482d28dfc80539b96729fde99cbaaad59653127ce860b6472671a37b0e01"},"0476c3b254aec505f7aefa5ba172d85f4df6a03bba905a89775dadee5a07e283f9035d13572f8a345b66052111b20c75a106750bcac946f3c24a3355ba9e65e944":{"hash":"7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c"}}]'
-
-    expect(verify_sigs(JSON.parse(wrong_sig_list), [key1, key2])).to eq(false)
-    
-    hash = "7cb61d8a1420d0d6dfb560c018b796d77ac5600e9a02d378fa023f94b8b5d34c"
-    sig = "304402200cd8a52cae53fce9860bd47468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac6801"
-    
-    expect(key1.verify(OnChain.hex_to_bin(hash), OnChain.hex_to_bin(sig))).to eq(true)
-    
-    sig_without_push = "304402200cd8a52cae53fce9860bd47468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac68"
-    
-    expect(key1.verify(OnChain.hex_to_bin(hash), OnChain.hex_to_bin(sig_without_push))).to eq(true)
-    
-    chnage_sig = "304402200cd8a52cae53fce9860bd48468ee137216aa2cf3f1d98f9abb520e3940598b4c02202f27a5ab0d5a75c3e4958cf72373b59865f71899798208d482d2329e0773ac68"
-    
-    expect(key1.verify(OnChain.hex_to_bin(hash), OnChain.hex_to_bin(chnage_sig))).to eq(false)
-  end
-  
   # The addresses here were generate by
   # https://coinb.in/multisig/
   it "should work with some keys we generated online" do
@@ -233,45 +206,6 @@ describe OnChain do
     expect(signed_tx.length).to be > tx.length
   end
   
-  it "should sign with onchian and handy keys" do
-    
-    # We have the HANDY PK and the onchain pk used in JS.
-    # Can we do this in ruby ?
-
-    node = MoneyTree::Master.from_serialized_address HANDY_KEY
-    wif = node.private_key.to_hex
-    key1 = Bitcoin::Key.new wif
-    
-    key2 = Bitcoin::Key.from_base58 'L1qmBUV5BpdQ1dU6kziEBWsvvrsp3JUmgSNRg6u85sULH2GcFvSQ'
-
-    expect(key1.addr).to eq('12DRYpGnHbwgogprfwbM1NKd9Brr79KGyM')
-    expect(key2.addr).to eq('1ymRJ9tHJvgeu8VDBCUMfgJdHnAFUrV38')
-    
-    rs = OnChain::Sweeper.generate_redemption_script(2, [key1.pub, key2.pub])
-    
-    addr = OnChain::Sweeper.generate_address_of_redemption_script(rs)
-    expect(addr).to eq('3755Htdj1i61xiToskjurApvVZGLMRXzSp')
-    
-    expect(rs).to eq("522102fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc42102388085f9b6bbfb1c353b2664cf1857ff6d11c3f93b0635a31204bcbbb9e0403d52ae")
-    
-    tx, sig_list = OnChain::Transaction.create_transaction(
-      [rs], 
-      '1NqFm3uosZ3qT26AvCFrKRhpNZfEpTSrX4', 10000, 10000)
-    
-    sign_with_eckey(sig_list, key1)
-    sign_with_eckey(sig_list, key2)
-    
-    expect(verify_sigs(sig_list, [key1, key2])).to eq(true)
-    
-    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
-    
-    expect(signed_tx.length).to be > tx.length
-    
-    
-    # Why doesn't this broadcast?
-    #puts signed_tx
-  end
-  
   it "should generate the correct fee" do
     
     fee = OnChain::Transaction.calculate_fee(100000000, 1)
@@ -315,14 +249,12 @@ describe OnChain do
     
     tx2 = Bitcoin::Protocol::Tx.new(OnChain.hex_to_bin(tx))
     
-    expect(tx2.out.size).to eq(3)
+    expect(tx2.out.size).to be > 1
     
     # Does it send to the 13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd address ?
     expect(tx2.out[0].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 2036296ef496e5550369f46d2b3258e21ad342de OP_EQUALVERIFY OP_CHECKSIG')
     # StrongCoin fee
     expect(tx2.out[1].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 04d075b3f501deeef5565143282b6cfe8fad5e94 OP_EQUALVERIFY OP_CHECKSIG')
-    # Change
-    expect(tx2.out[2].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 e552a6a2afa8ae80a773dc9bb95f8c25c5b3bdd3 OP_EQUALVERIFY OP_CHECKSIG')
     
     # Bitcoin.hash160_to_address('04d075b3f501deeef5565143282b6cfe8fad5e94') = 1STRonGxnFTeJiA7pgyneKknR29AwBM77
     tx, inputs_to_sign = OnChain::Transaction.create_single_address_transaction(
@@ -336,12 +268,10 @@ describe OnChain do
     tx2 = Bitcoin::Protocol::Tx.new(OnChain.hex_to_bin(tx))
     
     # No wallet fees when amounts are low
-    expect(tx2.out.size).to eq(2)
+    expect(tx2.out.size).to be > 0
     
     # Does it send to the 13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd address ?
     expect(tx2.out[0].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 2036296ef496e5550369f46d2b3258e21ad342de OP_EQUALVERIFY OP_CHECKSIG')
-    # Chnage
-    expect(tx2.out[1].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 e552a6a2afa8ae80a773dc9bb95f8c25c5b3bdd3 OP_EQUALVERIFY OP_CHECKSIG')
     
   end
 
@@ -363,7 +293,7 @@ describe OnChain do
     #  puts out.to_hash
     #end
     
-    expect(tx2.out.size).to eq(4)
+    expect(tx2.out.size).to be > 2
     
     # Does it send to the 13wKWNT8WcH12dXCuQQiH7KeDnsDgJs4Qd address ?
     expect(tx2.out[0].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 2036296ef496e5550369f46d2b3258e21ad342de OP_EQUALVERIFY OP_CHECKSIG')
@@ -371,8 +301,6 @@ describe OnChain do
     expect(tx2.out[1].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 04d075b3f501deeef5565143282b6cfe8fad5e94 OP_EQUALVERIFY OP_CHECKSIG')
     # Affiliate fee
     expect(tx2.out[2].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 324284aacf28eb70923de6236806c30f99193e2c OP_EQUALVERIFY OP_CHECKSIG')
-    # Change
-    expect(tx2.out[3].to_hash['scriptPubKey']).to eq('OP_DUP OP_HASH160 e552a6a2afa8ae80a773dc9bb95f8c25c5b3bdd3 OP_EQUALVERIFY OP_CHECKSIG')
     
   end
   
@@ -386,33 +314,6 @@ describe OnChain do
     
     expect(tx_signed.length).to be > tx.length
     
-  end
-  
-  def verify_sigs(signed_inputs, keys)
-    
-    signed_inputs.each do |input|
-      
-      keys.each do |key|
-        
-        pub_hex = key.pub
-      
-        if input[pub_hex] != nil
-        
-          hash_to_sign = input[pub_hex]["hash"]
-          sig = input[pub_hex]["sig"]
-
-          if sig != nil
-            
-            res = key.verify(OnChain.hex_to_bin(hash_to_sign), OnChain.hex_to_bin(sig))
-            
-            if res == false
-              return false
-            end
-          end
-        end
-      end
-    end
-    return true
   end
   
   def sign_with_eckey(inputs_to_sign, pk)
