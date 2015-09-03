@@ -235,8 +235,6 @@ class OnChain::Transaction
       
       tx.in.each_with_index do |txin, index|
         
-        hash = OnChain.bin_to_hex(tx.signature_hash_for_input(index, txin.script, 1))
-        
         sigs = []
         
         rscript = Bitcoin::Script.new txin.script
@@ -256,7 +254,7 @@ class OnChain::Transaction
           in_script = Bitcoin::Script.new txin.script
           if in_script.is_hash160?
             sig = sigs[0]
-            txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, OnChain.hex_to_bin(pubkey))
+            txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, OnChain.hex_to_bin(pub_keys[0]))
           else
             txin.script = Bitcoin::Script.to_p2sh_multisig_script_sig(rscript.to_payload, sigs)
           end
