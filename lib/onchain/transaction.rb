@@ -254,7 +254,7 @@ class OnChain::Transaction
           in_script = Bitcoin::Script.new txin.script
           if in_script.is_hash160?
             sig = sigs[0]
-            txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, OnChain.hex_to_bin(pub_keys[0]))
+            txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, OnChain.hex_to_bin(pubkey))
           else
             txin.script = Bitcoin::Script.to_p2sh_multisig_script_sig(rscript.to_payload, sigs)
           end
