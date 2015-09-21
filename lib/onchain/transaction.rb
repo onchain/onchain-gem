@@ -1,11 +1,11 @@
 class OnChain::Transaction
   class << self
     
-    def create_single_address_transaction(orig_addr, dest_addr, amount, fee_percent, fee_addr)
+    def create_single_address_transaction(orig_addr, dest_addr, amount, fee_percent, fee_addr, min_fee_satoshi)
 
       tx = Bitcoin::Protocol::Tx.new
       
-      fee = calculate_fee(amount, fee_percent)
+      fee = calculate_fee(amount, fee_percent, min_fee_satoshi)
   
       total_amount = amount + fee
       
@@ -112,12 +112,12 @@ class OnChain::Transaction
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
     end
     
-    def calculate_fee(amount, fee_percent)
+    def calculate_fee(amount, fee_percent, min_fee_satoshi)
       
       fee = (amount * (fee_percent / 100.0)).to_i
       
-      if fee < 10000
-        return 10000
+      if fee < min_fee_satoshi
+        return min_fee_satoshi
       end
       
       return fee
