@@ -1,6 +1,7 @@
 require 'chain'
 require 'time'
 
+# No longer works as Chain.com pivoted into a blockchain company.
 class OnChain::BlockChain
   class << self
 
