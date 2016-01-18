@@ -59,6 +59,18 @@ class OnChain::BlockChain
       return hist
     end
 
+    def blockinfo_get_address_info(address)
+      
+      base = "https://blockchain.info/multiaddr?&simple=true&active=" + address
+      
+      json = fetch_response(URI::encode(base))
+      
+      return { received: json[address]['total_received'], 
+        balance: json[address]['final_balance'],
+        confirmed: json[address]['final_balance'] }
+      
+    end
+
     def blockinfo_get_all_balances(addresses)
       base = "https://blockchain.info/multiaddr?&simple=true&active="
       

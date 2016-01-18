@@ -35,6 +35,16 @@ class OnChain::BlockChain
       return cache_read(address) 
     end
 
+    def blockr_get_address_info(address)
+      
+      json = blockr('address/balance', address)
+      
+      return { received: json[address]['total_received'], 
+        balance: json[address]['final_balance'],
+        confirmed: json[address]['final_balance'] }
+      
+    end
+
     def blockr_get_transactions(address)
       base_url = "http://btc.blockr.io/api/v1/address/txs/#{address}"
       json = fetch_response(base_url, true)

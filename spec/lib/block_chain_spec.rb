@@ -185,4 +185,11 @@ describe OnChain do
     expect(unspents.length).to eq(1)  
     expect(change).to eq(79999) 
   end
+  
+  it "should give me more balance info" do
+    
+    OnChain::BlockChain.get_address_info('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    
+    
+  end
 end

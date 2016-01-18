@@ -125,6 +125,11 @@ class OnChain::BlockChain
           if supplier == :blockr and method_name.to_s == 'address_history'
             next
           end
+          
+          if supplier == :blockr and method_name.to_s == 'get_address_info'
+            next
+          end
+          
           if supplier == :blockr and method_name.to_s == 'get_history_for_addresses'
             next
           end
