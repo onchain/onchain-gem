@@ -66,7 +66,7 @@ class OnChain::Transaction
     # Like create_single_address_transaction but for multi sig wallets.
     def create_transaction_with_fee(redemption_scripts, address, amount, fee_percent, fee_addr)
     
-      fee = calculate_fee(amount, fee_percent)
+      fee = calculate_fee(amount, fee_percent, 10000)
   
       total_amount = amount + fee
       
