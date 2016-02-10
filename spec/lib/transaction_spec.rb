@@ -114,36 +114,6 @@ describe OnChain do
     
   end
   
-  it "should work with 2 of 2 address" do
-    
-    key1 = Bitcoin::Key.from_base58('5KAovUBbq3uBUQBPPr6RABJVnh4fy6E49dbQjqhwE8HEoCDTA19')
-    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
-    
-    # If you want the pub keys in hex, jsut do key1.pub etc..
-
-    expect(key1.addr).to eq('1MWr2FY4XLfEzZ7PQPELNwFkog83vwh6a1')
-    expect(key2.addr).to eq('1CZn88sLyLNe6zwJsPLYkj9DTsHXVWi3TU')
-    
-    rs = OnChain::Sweeper.generate_redemption_script(2, [key1.pub, key2.pub])
-    
-    addr = OnChain::Sweeper.generate_address_of_redemption_script(rs)
-    expect(addr).to eq('3JkJ2LdCssWJBDbq5tpRdN8D5wwgdHt6KY')
-    
-    addr = "13qu9Dn64kX4W7KrAs9ZwwxvW5HRu4KNL2"
-    
-    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 10000, 10000)
-    
-    sign_with_eckey(sig_list, key1)
-    sign_with_eckey(sig_list, key2)
-    
-    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
-    
-    # The signed 2 of 2 TX created here does broadcast.
-    
-    # Private keys have long been spent.
-    #expect(signed_tx.length).to be > tx.length
-  end
-  
   it "should generate the correct fee" do
     
     fee = OnChain::Transaction.calculate_fee(100000000, 1, 10000)
@@ -171,6 +141,9 @@ describe OnChain do
     expect(inputs_to_sign[0]['13Rshy6vqefuVggz3YQdh2yhBtWZegXyJV']['hash']).to eq('355ab58049169af3ab36486e0b8251279027f5c0e195422fcd25c36668d3c0e7')
     expect(inputs_to_sign[1]['12DRYpGnHbwgogprfwbM1NKd9Brr79KGyM']['hash']).to eq('f14b88c7d42f10e23f307fd14ee997870e8f8825d0fc2092be5aabd8eec81735')
     expect(inputs_to_sign[1]['1HA9vP25L61dVBVA8CpK7fAyWj2kRHWeuQ']['hash']).to eq('f14b88c7d42f10e23f307fd14ee997870e8f8825d0fc2092be5aabd8eec81735')
+  end
+  
+  it "should generate the same hashes each time" do
   end
   
   def sign_with_eckey(inputs_to_sign, pk)
