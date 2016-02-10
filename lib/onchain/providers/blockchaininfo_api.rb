@@ -126,6 +126,11 @@ class OnChain::BlockChain
       end
       return bal
     end
+
+    def blockinfo_get_transaction(txhash)
+      base = "https://blockchain.info/rawtx/#{txhash}?format=hex"
+      return fetch_response(URI::encode(base))
+    end
   
     def block_chain(cmd, address, params = "")
       base_url = "https://blockchain.info/#{cmd}/#{address}?format=json" + params

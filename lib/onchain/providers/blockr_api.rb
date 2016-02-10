@@ -101,6 +101,11 @@ class OnChain::BlockChain
         cache_write(addr, bal, BALANCE_CACHE_FOR)
       end
     end
+
+    def blockr_get_transaction(txhash)
+      base = "https://blockr.io/api/v1/tx/raw/" + txhash
+      return fetch_response(URI::encode(base))['data']['tx']['hex']
+    end
   
     def blockr(cmd, address, params = "")
 

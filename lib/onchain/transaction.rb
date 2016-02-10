@@ -1,6 +1,33 @@
 class OnChain::Transaction
   class << self
     
+    # Check a transactions inputs only spend enough to cover fees and amount
+    # Basically if onchain creates an incorrect transaction the client
+    # can identify it here.
+    def check_integrity(txhex, amount, orig_addresses, dest_addr, tolerence)
+      
+      tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(txhex)
+      
+      input_amount = 0
+      # Let's add up the value of all the inputs.
+      tx.in.each_with_index do |txin, index|
+        prev_hash = txin.to_hash['prev_out']['hash']
+        prev_index = txin.to_hash['prev_out']['n']
+        
+        # Get the amount for the previous output
+        prevhex = OnChain::BlockChain.get_transaction(prev_hash)
+        prev_tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(prevhex)
+        input_amount += prev_tx.out[prev_index].value
+      end
+      
+      tolerence = (amount * (1 + tolerence)) 
+      if input_amount > tolerence
+        raise "Transaction has more input value (#{input_amount}) than the tolerence #{tolerence}"
+      end
+      
+      return true
+    end
+    
     def create_single_address_transaction(orig_addr, dest_addr, amount, fee_percent, fee_addr, min_fee_satoshi)
 
       tx = Bitcoin::Protocol::Tx.new
@@ -11,6 +38,7 @@ class OnChain::Transaction
       
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(
         [orig_addr], total_amount)
+      indexes = nil
     
       
       # Process the unpsent outs.
