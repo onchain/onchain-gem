@@ -18,6 +18,10 @@ class OnChain::Transaction
         prevhex = OnChain::BlockChain.get_transaction(prev_hash)
         prev_tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(prevhex)
         input_amount += prev_tx.out[prev_index].value
+        
+        if ! orig_addresses.include? prev_tx.out[prev_index].parsed_script.get_hash160_address
+          raise "One of the inputs is not from from our list of valid originating addresses"
+        end
       end
       
       tolerence = (amount * (1 + tolerence)) 
