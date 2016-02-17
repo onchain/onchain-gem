@@ -24,15 +24,7 @@ describe OnChain do
     rescue => e
       error = e.message
     end
-    expect(error).to eq("Transaction has more input value (8300000) than the tolerence 1.1")
-    
-    error = nil
-    begin
-      OnChain::Transaction.check_integrity(tx, 8217000, [orig_addr], dest_addr, 0.01)
-    rescue => e
-      error = e.message
-    end
-    expect(error).to eq("Transaction has more input value (8300000) than the tolerence 8299170.0")
+    expect(error).to eq("Transaction has more input value (6500000) than the tolerence 1.1")
     
     error = nil
     begin

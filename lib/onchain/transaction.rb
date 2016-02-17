@@ -17,10 +17,18 @@ class OnChain::Transaction
         # Get the amount for the previous output
         prevhex = OnChain::BlockChain.get_transaction(prev_hash)
         prev_tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(prevhex)
+        
         input_amount += prev_tx.out[prev_index].value
         
         if ! orig_addresses.include? prev_tx.out[prev_index].parsed_script.get_hash160_address
           raise "One of the inputs is not from from our list of valid originating addresses"
+        end
+      end
+      
+      # subtract the the chnage amounts
+      tx.out.each do |txout|
+        if orig_addresses.include? txout.parsed_script.get_address
+          input_amount = input_amount - txout.value
         end
       end
       
