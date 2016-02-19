@@ -1,8 +1,15 @@
 class OnChain::BlockChain
   class << self
     
+    def get_url
+      if OnChain.network == :bitcoin
+        return "http://btc.blockr.io/api/v1/"
+      end
+      return "http://tbtc.blockr.io/api/v1/"
+    end
+    
     def blockr_send_tx(tx_hex)	
-      uri = URI.parse("http://btc.blockr.io/api/v1/tx/push")		
+      uri = URI.parse(get_url + "tx/push")		
       http = Net::HTTP.new(uri.host, uri.port)		
 		
       request = Net::HTTP::Post.new(uri.request_uri)		
@@ -46,7 +53,7 @@ class OnChain::BlockChain
     end
 
     def blockr_get_transactions(address)
-      base_url = "http://btc.blockr.io/api/v1/address/txs/#{address}"
+      base_url = get_url + "address/txs/#{address}"
       json = fetch_response(base_url, true)
       
       unspent = []
@@ -62,7 +69,7 @@ class OnChain::BlockChain
     end
 
     def blockr_get_unspent_outs(address)
-      base_url = "http://btc.blockr.io/api/v1/address/unspent/#{address}"
+      base_url = get_url + "address/unspent/#{address}"
       json = fetch_response(base_url, true)
       
       unspent = []
@@ -87,7 +94,7 @@ class OnChain::BlockChain
         return
       end
       
-      base = "https://blockr.io/api/v1/address/balance/"
+      base = get_url + "address/balance/"
       
       addr.each do |address|
         base = base + address + ','
@@ -103,13 +110,13 @@ class OnChain::BlockChain
     end
 
     def blockr_get_transaction(txhash)
-      base = "https://blockr.io/api/v1/tx/raw/" + txhash
+      base = get_url + "tx/raw/" + txhash
       return fetch_response(URI::encode(base))['data']['tx']['hex']
     end
   
     def blockr(cmd, address, params = "")
 
-      base_url = "http://blockr.io/api/v1/#{cmd}/#{address}" + params
+      base_url = get_url + "#{cmd}/#{address}" + params
       fetch_response(base_url, true)
 
     end

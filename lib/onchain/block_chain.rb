@@ -22,6 +22,17 @@ class OnChain
       return hex.scan(/../).map { |x| x.hex }.pack('c*')
     end
   end
+  
+  @network = :bitcoin
+  
+  def self.network=(name)
+    @network = name.to_sym
+    @network
+  end
+  
+  def self.network
+    return @network
+  end
 end
 
 class OnChain::BlockChain
@@ -113,6 +124,10 @@ class OnChain::BlockChain
       available = []
       ALL_SUPPLIERS.each do |supplier|
         if cache_read(supplier.to_s) == nil
+          
+          if supplier == :blockinfo and OnChain.network == :testnet3
+            next
+          end
           
           if supplier == :blockinfo and method_name.to_s == 'send_tx'
             next
