@@ -10,6 +10,8 @@ describe OnChain do
     
     expect(bal1).to eq(0.001)
     
+    OnChain.network = :bitcoin
+    
   end
   
 end
