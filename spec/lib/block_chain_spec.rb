@@ -11,20 +11,20 @@ describe OnChain do
   
   it "should let me temporarily switch off a service" do
     
-    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance')
+    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
     
     expect(suppliers.count).to be > 1
     
     OnChain::BlockChain.cache_write('blockinfo', 'down', 60)
     
-    suppliers2 = OnChain::BlockChain.get_available_suppliers('get_balance')
+    suppliers2 = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
     
     expect(suppliers.count).to be > suppliers2.count
   end
   
   it "should not use blockchain.info as a push_tx supplier" do
     
-    suppliers = OnChain::BlockChain.get_available_suppliers('push_tx')
+    suppliers = OnChain::BlockChain.get_available_suppliers('push_tx', :bitcoin)
     
     expect(suppliers.count).to eq(1)
   end
@@ -35,7 +35,7 @@ describe OnChain do
     OnChain::BlockChain.cache_write('chaincom', 'down', 60)
     OnChain::BlockChain.cache_write('blockr', nil)
       
-    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance')
+    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
     
     expect(suppliers.count).to eq(1)
     
@@ -45,7 +45,7 @@ describe OnChain do
     OnChain::BlockChain.cache_write('chaincom', 'down', 60)
     OnChain::BlockChain.cache_write('blockr', 'down', 60)
       
-    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance')
+    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
     
     expect(suppliers.count).to eq(1)
     expect(suppliers[0].to_s).to eq('blockinfo')
@@ -68,7 +68,7 @@ describe OnChain do
     OnChain::BlockChain.cache_write('chaincom', 'down', 60)
     OnChain::BlockChain.cache_write('blockr', nil)
       
-    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance')
+    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
     
     expect(suppliers.count).to eq(1)
     
@@ -78,7 +78,7 @@ describe OnChain do
     OnChain::BlockChain.cache_write('chaincom', 'down', 60)
     OnChain::BlockChain.cache_write('blockr', 'down', 60)
       
-    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance')
+    suppliers = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
     
     expect(suppliers.count).to eq(1)
     expect(suppliers[0].to_s).to eq('blockinfo')

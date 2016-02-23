@@ -22,17 +22,6 @@ class OnChain
       return hex.scan(/../).map { |x| x.hex }.pack('c*')
     end
   end
-  
-  @network = :bitcoin
-  
-  def self.network=(name)
-    @network = name.to_sym
-    @network
-  end
-  
-  def self.network
-    return @network
-  end
 end
 
 class OnChain::BlockChain
@@ -51,7 +40,14 @@ class OnChain::BlockChain
         end
       end
       
-      get_available_suppliers(method_name).each do |supplier|
+      network = :bitcoin
+      if  args.length > 0
+        if args[args.length - 1] == :testnet3
+          network = :testnet3
+        end
+      end
+      
+      get_available_suppliers(method_name, network).each do |supplier|
 
         real_method = "#{supplier.to_s}_#{method_name}"
         begin
@@ -120,12 +116,12 @@ class OnChain::BlockChain
       return (get_balance(address).to_f * 100000000).to_i
     end
     
-    def get_available_suppliers(method_name)
+    def get_available_suppliers(method_name, network)
       available = []
       ALL_SUPPLIERS.each do |supplier|
         if cache_read(supplier.to_s) == nil
           
-          if supplier == :blockinfo and OnChain.network == :testnet3
+          if supplier == :blockinfo and network == :testnet3
             next
           end
           
