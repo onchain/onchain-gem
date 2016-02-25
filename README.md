@@ -1,4 +1,4 @@
-onchain-gem
+OnChain Gem
 ===========
 
 The onchain gem gives you access to the very basic blockchain data you need to run web wallets and other Bitcoin applications.
