@@ -40,7 +40,8 @@ class OnChain::Transaction
       return true
     end
     
-    def create_single_address_transaction(orig_addr, dest_addr, amount, fee_percent, fee_addr, min_fee_satoshi)
+    def create_single_address_transaction(orig_addr, dest_addr, amount, 
+      fee_percent, fee_addr, min_fee_satoshi, network = :bitcoin)
 
       tx = Bitcoin::Protocol::Tx.new
       
@@ -49,7 +50,7 @@ class OnChain::Transaction
       total_amount = amount + fee
       
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(
-        [orig_addr], total_amount)
+        [orig_addr], total_amount, network)
       indexes = nil
     
       
@@ -60,17 +61,17 @@ class OnChain::Transaction
         txin.script_sig = OnChain.hex_to_bin(spent[2])
         tx.add_in(txin)
       end
-      txout = Bitcoin::Protocol::TxOut.new(amount, Bitcoin::Script.to_address_script(dest_addr))
+      txout = Bitcoin::Protocol::TxOut.new(amount, to_address_script(dest_addr, network))
   
       tx.add_out(txout)
       
       # Add wallet fee
-      add_fee_to_tx(fee, fee_addr, tx)
+      add_fee_to_tx(fee, fee_addr, tx, network)
     
       # Send the change back.
       if change > 0
         
-        txout = Bitcoin::Protocol::TxOut.new(change, Bitcoin::Script.to_address_script(orig_addr))
+        txout = Bitcoin::Protocol::TxOut.new(change, to_address_script(orig_addr, network))
   
         tx.add_out(txout)
       end
@@ -80,7 +81,19 @@ class OnChain::Transaction
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
     end
     
-    def add_fee_to_tx(fee, fee_addr, tx)
+    # The bitcoin ruby methods are not thread safe when switching between
+    # testnet and the bitcoin network.
+    def to_address_script(orig_addr, network = :bitcoin)
+      
+      # TODO add thread safety.
+      Bitcoin.network = network
+      address = Bitcoin::Script.to_address_script(orig_addr)
+      Bitcoin.network = :bitcoin
+      
+      return address
+    end
+    
+    def add_fee_to_tx(fee, fee_addr, tx, network = :bitcoin)
       
       # Add wallet fee
       if fee > 0 and (fee - 10000) > 0
@@ -91,12 +104,12 @@ class OnChain::Transaction
         # Check for affiliate
         if fee_addr.kind_of?(Array)
           affil_fee = fee / 2
-          txout1 = Bitcoin::Protocol::TxOut.new(affil_fee, Bitcoin::Script.to_address_script(fee_addr[0]))
-          txout2 = Bitcoin::Protocol::TxOut.new(affil_fee, Bitcoin::Script.to_address_script(fee_addr[1]))
+          txout1 = Bitcoin::Protocol::TxOut.new(affil_fee, to_address_script(fee_addr[0], network))
+          txout2 = Bitcoin::Protocol::TxOut.new(affil_fee, to_address_script(fee_addr[1], network))
           tx.add_out(txout1)
           tx.add_out(txout2)
         else
-          txout = Bitcoin::Protocol::TxOut.new(fee, Bitcoin::Script.to_address_script(fee_addr))
+          txout = Bitcoin::Protocol::TxOut.new(fee, to_address_script(fee_addr, network))
           tx.add_out(txout)
         end
       end

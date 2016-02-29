@@ -81,7 +81,7 @@ class OnChain::BlockChain
       return ret
     end
     
-    def get_unspent_for_amount(addresses, amount_in_satoshi)
+    def get_unspent_for_amount(addresses, amount_in_satoshi, network = :bitcoin)
       
       unspents = []
       indexes = []
@@ -93,7 +93,7 @@ class OnChain::BlockChain
           break
         end
         
-        unspent_outs = get_unspent_outs(address)
+        unspent_outs = get_unspent_outs(address, network)
         
         unspent_outs.each do |spent|
 
