@@ -223,17 +223,17 @@ class OnChain::Transaction
     # [0][034000....][:hash => '345435345...'] 
     # [0][02fee.....][:hash => '122133445....']
     # 
-    def create_transaction(redemption_scripts, address, amount_in_satoshi, miners_fee)
+    def create_transaction(redemption_scripts, address, amount_in_satoshi, miners_fee, network = :bitcoin)
     
       total_amount = miners_fee
   
       total_amount = total_amount + amount_in_satoshi
       
       addresses = redemption_scripts.map { |rs| 
-        OnChain::Sweeper.generate_address_of_redemption_script(rs)
+        generate_address_of_redemption_script(rs, network)
       }
       
-      unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, total_amount)
+      unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, total_amount, network)
       
       # OK, let's build a transaction.
       tx = Bitcoin::Protocol::Tx.new
@@ -254,7 +254,7 @@ class OnChain::Transaction
       #end
 
       txout = Bitcoin::Protocol::TxOut.new(amount_in_satoshi, 
-          Bitcoin::Script.to_address_script(address))
+          to_address_script(address, network))
   
       tx.add_out(txout)
       
@@ -264,7 +264,7 @@ class OnChain::Transaction
       if change > 0
       
         txout = Bitcoin::Protocol::TxOut.new(change, 
-          Bitcoin::Script.to_address_script(change_address))
+          to_address_script(change_address, network))
   
         tx.add_out(txout)
       end
@@ -272,6 +272,16 @@ class OnChain::Transaction
       inputs_to_sign = get_inputs_to_sign tx
     
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
+    end
+  
+    def generate_address_of_redemption_script(redemption_script, network = :bitcoin)
+      
+      Bitcoin.network = network
+      hash160 = Bitcoin.hash160(redemption_script)
+      addr =  Bitcoin.hash160_to_p2sh_address(hash160)
+      Bitcoin.network = :bitcoin
+      
+      return addr
     end
     
     # Given a transaction in hex string format, apply
