@@ -2,7 +2,7 @@ class OnChain::BlockChain
   class << self
 
     
-    def blockinfo_get_history_for_addresses(addresses)
+    def blockinfo_get_history_for_addresses(addresses, network = :testnet3)
       history = []
       addresses.each do |address|
         res = blockinfo_address_history(address)
