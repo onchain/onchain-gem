@@ -50,6 +50,7 @@ class OnChain::BlockChain
           end
           row[:total] = val
           row[:recv] = recv
+          row[:hash] = tx["hash"]
           hist << row
         end
         return hist

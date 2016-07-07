@@ -192,4 +192,10 @@ describe OnChain do
     
     
   end
+  
+  it "should have transactions in the history" do
+    hist = OnChain::BlockChain.address_history('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    
+    expect(hist[0][:hash]).to eq('2b64582888848b52baa57bbb422b7b4b6c67e46202bd1c1d403cea41aaf45a41')
+  end
 end
