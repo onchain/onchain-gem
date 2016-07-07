@@ -46,10 +46,6 @@ describe OnChain do
     
     tx, siglist = OnChain::Transaction.create_transaction(
       redemption_scripts, 'myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', 4000000, 10000, :testnet3)
-      
-    puts tx
-    
-    puts siglist
   end
   
 end
