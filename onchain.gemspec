@@ -12,8 +12,7 @@ Gem::Specification.new do |gem|
                       "lib/onchain/payments.rb", "lib/onchain/sweeper.rb", 
                       "lib/onchain/transaction.rb",
                       "lib/onchain/providers/blockchaininfo_api.rb",
-                      "lib/onchain/providers/blockr_api.rb",
-                      "lib/onchain/providers/chaincom_api.rb"]
+                      "lib/onchain/providers/blockr_api.rb"]
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "onchain"
@@ -25,6 +24,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'money-tree'
   gem.add_dependency 'bitcoin-ruby'
-  gem.add_dependency 'chain-ruby', '~> 2.0.1'
   gem.add_dependency 'httparty'
 end

@@ -1,7 +1,6 @@
 require 'onchain/block_chain.rb'
 require 'onchain/providers/blockchaininfo_api.rb'
 require 'onchain/providers/blockr_api.rb'
-require 'onchain/providers/chaincom_api.rb'
 require 'onchain/sweeper.rb'
 require 'onchain/payments.rb'
 require 'onchain/transaction.rb'

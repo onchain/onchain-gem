@@ -1,21 +1,17 @@
 PATH
   remote: .
   specs:
-    onchain (2.2)
+    onchain (2.10)
       bitcoin-ruby
-      chain-ruby (~> 2.0.1)
       httparty
       money-tree
 
 GEM
   remote: https://rubygems.org/
   specs:
-    bitcoin-ruby (0.0.7)
-    chain-bitcoin-ruby (0.0.1)
-    chain-ruby (2.0.1)
-      chain-bitcoin-ruby (= 0.0.1)
+    bitcoin-ruby (0.0.8)
     diff-lcs (1.2.5)
-    ffi (1.9.10)
+    ffi (1.9.13)
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -46,4 +42,4 @@ DEPENDENCIES
   rspec (~> 3.1.0)
 
 BUNDLED WITH
-   1.10.6
+   1.12.5
