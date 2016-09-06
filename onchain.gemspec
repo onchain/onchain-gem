@@ -2,8 +2,8 @@
 require File.expand_path('../lib/onchain/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Ian Purton"]
-  gem.email         = ["ian@onchain.io"]
+  gem.authors       = ["Number 6"]
+  gem.email         = ["support@onchain.io"]
   gem.summary       = %q{Ruby wrapper for various 3rd-party bitcoin APIs}
   gem.description   = %q{Call 3rd party API's but also switch API's if a 3rd party is down}
   gem.homepage      = "https://github.com/onchain/onchain-gem"
