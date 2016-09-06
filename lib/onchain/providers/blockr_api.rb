@@ -22,7 +22,7 @@ class OnChain::BlockChain
         txs = json['data']['txs']
         txs.each do |tx|
           row = {}
-          row[:time] = tx["time_utc"]
+          row[:time] = DateTime.parse(tx["time_utc"]).to_time.to_i
           row[:addr] = {}
           row[:outs] = {}
           row[:hash] = tx["tx"]

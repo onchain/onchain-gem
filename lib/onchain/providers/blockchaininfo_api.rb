@@ -1,7 +1,7 @@
 class OnChain::BlockChain
   class << self
   
-    def blockinfo_address_history(address)
+    def blockinfo_address_history(address, network = :bitcoin)
       
       base_url = "https://blockchain.info/address/#{address}?format=json"
       json = fetch_response(base_url, true)

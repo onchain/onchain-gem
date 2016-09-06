@@ -135,7 +135,7 @@ class OnChain::BlockChain
             next
           end
           
-          if supplier == :blockrand and network == :bitcoin and method_name.to_s == 'address_history'
+          if supplier == :blockr and network == :bitcoin and method_name.to_s == 'address_history'
             next
           end
           
@@ -143,7 +143,7 @@ class OnChain::BlockChain
             next
           end
           
-          if supplier == :blockr and method_name.to_s == 'get_history_for_addresses'
+          if supplier == :blockr and network == :bitcoin and method_name.to_s == 'get_history_for_addresses'
             next
           end
           
