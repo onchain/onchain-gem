@@ -55,4 +55,11 @@ describe OnChain do
     expect(hist.length).to eq(3)   
   end
   
+  it "should get history for addresses" do
+  
+    hist = OnChain::BlockChain.get_history_for_addresses(['2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca'], :testnet3)
+    
+    expect(hist.length).to eq(3)   
+  end
+  
 end
