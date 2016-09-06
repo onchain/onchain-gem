@@ -8,6 +8,56 @@ class OnChain::BlockChain
       return "http://tbtc.blockr.io/api/v1/"
     end
     
+    def blockr_address_history(address, network = :bitcoin)
+      
+        json = blockr('address/txs', address, network)
+        
+        return parse_address_tx(address, json, network)
+    end
+    
+    def parse_address_tx(address, json, network)
+      
+      hist = []
+      if json.key?('data')
+        txs = json['data']['txs']
+        txs.each do |tx|
+          row = {}
+          row[:time] = tx["time_utc"]
+          row[:addr] = {}
+          row[:outs] = {}
+          row[:hash] = tx["tx"]
+          
+          # OK, go and get the actual transaction
+          tx_json = blockr('tx/info', tx["tx"], network)
+          
+          inputs = tx_json['data']['trade']['vins']
+          val = 0
+          recv = "Y"
+          inputs.each do |input|
+            row[:addr][input["address"]] = input["address"]
+            if input["address"] == address
+              recv = "N"
+            end
+          end
+          tx_json['data']['trade']["vouts"].each do |out|
+            row[:outs][out["address"]] = out["address"]
+            if recv == "Y" and out["address"] == address
+              val = val + out["amount"].to_f
+            elsif recv == "N" and out["address"] != address
+              val = val + out["amount"].to_f
+            end
+          end
+          row[:total] = val
+          row[:recv] = recv
+          hist << row
+        end
+        return hist
+      else
+        'Error'
+      end
+      return hist
+    end
+    
     def blockr_send_tx(tx_hex, network = :bitcoin)	
       uri = URI.parse(get_url(network) + "tx/push")		
       http = Net::HTTP.new(uri.host, uri.port)		

@@ -48,4 +48,11 @@ describe OnChain do
       redemption_scripts, 'myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', 4000000, 10000, :testnet3)
   end
   
+  it "should give me a history for an address" do
+  
+    hist = OnChain::BlockChain.address_history('2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca', :testnet3)
+    
+    expect(hist.length).to eq(3)   
+  end
+  
 end

@@ -31,15 +31,6 @@ class OnChain::BlockChain
     
     def method_missing (method_name, *args, &block)
       
-      if ENV['CHAIN-API-KEY-ID'] != nil
-        begin
-          Chain.api_key_id = ENV['CHAIN-API-KEY-ID']
-          Chain.api_key_secret = ENV['CHAIN-API-KEY-SECRET']
-        rescue
-          # Had problems setting this so get arou d it.
-        end
-      end
-      
       network = :bitcoin
       if  args.length > 0
         if args[args.length - 1] == :testnet3
@@ -133,7 +124,7 @@ class OnChain::BlockChain
             next
           end
           
-          if supplier == :blockr and method_name.to_s == 'address_history'
+          if supplier == :blockrand and network == :bitcoin and method_name.to_s == 'address_history'
             next
           end
           
