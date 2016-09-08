@@ -37,5 +37,5 @@ We currently support :bitcoin and :testnet3 for the Bitcoin and Testnet networks
 The transaction should be signed.
 
 ```
-OnChain::BlockChain.address_history('0100000002d8c8df6a6fdd2addaf589a83d860f18b44872d13ee6ec35....', :testnet3)
+OnChain::BlockChain.send_tx('0100000002d8c8df6a6fdd2addaf589a83d860f18b44872d13ee6ec35....', :testnet3)
 ```
