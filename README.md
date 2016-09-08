@@ -8,21 +8,23 @@ The onchain gem actually uses 2 API's in the background (blockchain.info and blo
 Usage
 =====
 
-Get Address Balance
+We currently support :bitcoin and :testnet3 for the Bitcoin and Testnet networks respectively. 
+
+### Get Address Balance
 
 ```
 2.3.0 :001 > OnChain::BlockChain.get_balance('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', :testnet3)
  => 0.216 
 ```
 
-Get Unspent Outs
+### Get Unspent Outs
 
 ```
 2.3.0 :002 > OnChain::BlockChain.get_unspent_outs('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', :testnet3)
  => [["c3d2189220a68c89a41a5c01e19a81c607c8cb62c5292fcf8dfe26bb89c5c972", 1, "76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac", 5700000], ["f6b192e6cd0cda81822c4a59506a3ac4113d43530d7d0d16d7ee663a8d3d23da", 1, "76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac", 5800000], ["525d2f71e299fc0aa903ebd196b8c2c94d9be64880aa228d057fc6f2697901ac", 0, "76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac", 10000000], ["93c8e1d06de7a95cacfaa8b9ba2e541d344523761f6818587ccf391493808712", 0, "76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac", 100000]] 
 ```
 
-Get the history of an address.
+### Get the history of an address.
 
 ```
 2.3.0 :003 > OnChain::BlockChain.address_history('2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca', :testnet3)
