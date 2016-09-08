@@ -31,3 +31,11 @@ We currently support :bitcoin and :testnet3 for the Bitcoin and Testnet networks
  
 => [{:time=>1473081774, :addr=>{"2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca"=>"2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca"}, :outs=>{"2N1dPLcuQVVyPfLHqkAm7gLBSv8ruiQ3SDN"=>"2N1dPLcuQVVyPfLHqkAm7gLBSv8ruiQ3SDN"}, :hash=>"bbcf34ada24a9b0276ea04733c3551b09aff6606d256cb415abf80bf32c9fb85", :total=>0.001, :recv=>"N"}, {:time=>1473080572, :addr=>{"2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca"=>"2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca"}, :outs=>{"2N1dPLcuQVVyPfLHqkAm7gLBSv8ruiQ3SDN"=>"2N1dPLcuQVVyPfLHqkAm7gLBSv8ruiQ3SDN"}, :hash=>"f26de6b67398e53142944e0a74579478a36ba0c8dbea1b611df54358c9eb194e", :total=>0.01, :recv=>"N"}, {:time=>1472812912, :addr=>{"2N4Jv96riyC7AYuyWDNLijnLhm7goHy41Wr"=>"2N4Jv96riyC7AYuyWDNLijnLhm7goHy41Wr"}, :outs=>{"2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca"=>"2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca", "2N25HtxzRBwB6EcNorWP9agFxLYvndeUiBn"=>"2N25HtxzRBwB6EcNorWP9agFxLYvndeUiBn"}, :hash=>"50f84562bf9abcec14cd4c93728822b65698f52f3584f5408bb023be23d44f30", :total=>0.09, :recv=>"Y"}] 
 ```
+
+### Send a transaction to the network.
+
+The transaction should be signed.
+
+```
+OnChain::BlockChain.address_history('0100000002d8c8df6a6fdd2addaf589a83d860f18b44872d13ee6ec35....', :testnet3)
+```
