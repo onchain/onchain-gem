@@ -4,6 +4,8 @@ class OnChain::BlockChain
     def get_insight_url(network)
       if network == :bitcoin
         return "https://insight.bitpay.com/api/"
+      elsif network == :zcash_testnet
+        return "https://explorer.testnet.z.cash/api/"
       end
       return "https://test-insight.bitpay.com/api/"
     end
@@ -85,15 +87,15 @@ class OnChain::BlockChain
 
     def insight_get_balance(address, network = :bitcoin)
         
-      if cache_read(address) == nil
+      if cache_read(address + network.to_s) == nil
         
         base_url = get_insight_url(network) + "addr/#{address}/balance" 
         bal_string = fetch_response(base_url, false) 
         bal = bal_string.to_i / 100000000.0
-        cache_write(address, bal, BALANCE_CACHE_FOR)
+        cache_write(address + network.to_s, bal, BALANCE_CACHE_FOR)
       end
       
-      return cache_read(address) 
+      return cache_read(address + network.to_s) 
     end
 
     def insight_get_unspent_outs(address, network = :bitcoin)

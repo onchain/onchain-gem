@@ -33,14 +33,15 @@ class OnChain::BlockChain
       
       network = :bitcoin
       if  args.length > 0
-        if args[args.length - 1] == :testnet3
-          network = :testnet3
+        if args[args.length - 1] == :testnet3 or args[args.length - 1] == :zcash_testnet
+          network = args[args.length - 1]
         end
       end
       
       get_available_suppliers(method_name, network).each do |supplier|
 
         real_method = "#{supplier.to_s}_#{method_name}"
+        
         begin
           method = self.method(real_method)
           begin
@@ -124,6 +125,14 @@ class OnChain::BlockChain
         if cache_read(supplier.to_s) == nil
           
           if supplier == :blockinfo and network == :testnet3
+            next
+          end
+          
+          if supplier == :blockinfo and network == :zcash_testnet
+            next
+          end
+          
+          if supplier == :blockr and network == :zcash_testnet
             next
           end
           
