@@ -27,7 +27,7 @@ end
 class OnChain::BlockChain
   class << self
     
-    ALL_SUPPLIERS = [ :blockr, :blockinfo ] 
+    ALL_SUPPLIERS = [ :blockr, :blockinfo, :insight ] 
     
     def method_missing (method_name, *args, &block)
       

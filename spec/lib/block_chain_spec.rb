@@ -26,13 +26,14 @@ describe OnChain do
     
     suppliers = OnChain::BlockChain.get_available_suppliers('push_tx', :bitcoin)
     
-    expect(suppliers.count).to eq(1)
+    expect(suppliers[0]).not_to eq(:blockinfo)
+    expect(suppliers[1]).not_to eq(:blockinfo)
   end
   
   it "Should have same balance for blockinfo and blockr" do
     
     OnChain::BlockChain.cache_write('blockinfo', 'down', 60)
-    OnChain::BlockChain.cache_write('chaincom', 'down', 60)
+    OnChain::BlockChain.cache_write('insight', 'down', 60)
     OnChain::BlockChain.cache_write('blockr', nil)
       
     suppliers = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
@@ -42,7 +43,7 @@ describe OnChain do
     bal1 = OnChain::BlockChain.get_balance('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
     
     OnChain::BlockChain.cache_write('blockinfo', nil)
-    OnChain::BlockChain.cache_write('chaincom', 'down', 60)
+    OnChain::BlockChain.cache_write('insight', 'down', 60)
     OnChain::BlockChain.cache_write('blockr', 'down', 60)
       
     suppliers = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
@@ -57,7 +58,7 @@ describe OnChain do
     expect(bal2.is_a? Float).to eq(true)
     
     OnChain::BlockChain.cache_write('blockinfo', nil)
-    OnChain::BlockChain.cache_write('chaincom', nil)
+    OnChain::BlockChain.cache_write('insight', nil)
     OnChain::BlockChain.cache_write('blockr', nil)
     
   end
@@ -65,7 +66,7 @@ describe OnChain do
   it "Should have same unpsent outs blockinfo and blockr" do
     
     OnChain::BlockChain.cache_write('blockinfo', 'down', 60)
-    OnChain::BlockChain.cache_write('chaincom', 'down', 60)
+    OnChain::BlockChain.cache_write('insight', 'down', 60)
     OnChain::BlockChain.cache_write('blockr', nil)
       
     suppliers = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
@@ -75,7 +76,7 @@ describe OnChain do
     out1 = OnChain::BlockChain.get_unspent_outs('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
     
     OnChain::BlockChain.cache_write('blockinfo', nil)
-    OnChain::BlockChain.cache_write('chaincom', 'down', 60)
+    OnChain::BlockChain.cache_write('insight', 'down', 60)
     OnChain::BlockChain.cache_write('blockr', 'down', 60)
       
     suppliers = OnChain::BlockChain.get_available_suppliers('get_balance', :bitcoin)
@@ -96,7 +97,7 @@ describe OnChain do
     expect(out1[0][3]).to eq(out2[0][3])
     
     OnChain::BlockChain.cache_write('blockinfo', nil)
-    OnChain::BlockChain.cache_write('chaincom', nil)
+    OnChain::BlockChain.cache_write('insight', nil)
     OnChain::BlockChain.cache_write('blockr', nil)
     
   end
