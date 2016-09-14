@@ -14,4 +14,12 @@ describe OnChain do
     
   end
   
+  it "should cache the addresses" do
+    
+    addresses = ['myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8']
+    
+    OnChain::BlockChain.get_all_balances(addresses, :zcash_testnet)
+    
+  end
+  
 end

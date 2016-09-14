@@ -98,6 +98,13 @@ class OnChain::BlockChain
       return cache_read(address + network.to_s) 
     end
 
+    def insight_get_all_balances(addresses, network = :bitcoin)
+      
+      addresses.each do |address|
+        insight_get_balance(address, network)
+      end
+    end
+
     def insight_get_unspent_outs(address, network = :bitcoin)
         
       base_url = get_insight_url(network) + "addr/#{address}/utxo"
