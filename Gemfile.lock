@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (2.16)
+    onchain (2.18)
       bitcoin-ruby
       httparty
       money-tree

@@ -18,6 +18,10 @@ describe OnChain do
     
     addresses = ['myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8']
     
+    bal1 = OnChain::BlockChain.get_balance_satoshi(addresses[0], :zcash_testnet)
+    
+    expect(bal1).to eq(21600000)
+    
     OnChain::BlockChain.get_all_balances(addresses, :zcash_testnet)
     
   end
