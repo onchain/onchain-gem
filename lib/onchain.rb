@@ -7,3 +7,19 @@ require 'onchain/payments.rb'
 require 'onchain/transaction.rb'
 require 'money-tree'
 require 'bitcoin'
+
+
+# Setup the bitcoin gem for zcash
+module Bitcoin
+
+  NETWORKS[:zcash_testnet] = NETWORKS[:testnet3].merge({
+      address_version: "1D25",
+      p2sh_version: "1CBA"
+  })
+
+  NETWORKS[:zcash] = NETWORKS[:bitcoin].merge({
+      address_version: "1CB8",
+      p2sh_version: "1CBD"
+  })
+
+end
