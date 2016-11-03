@@ -115,8 +115,7 @@ class OnChain::BlockChain
     end
 
     def bitcoind_get_transaction(txhash, network = :bitcoin)
-      base = get_insight_url(network) + "rawtx/" + txhash
-      return fetch_response(URI::encode(base))['rawtx']
+      return execute_remote_command('getrawtransaction ' + txhash, network)
     end
     
     private
@@ -141,7 +140,7 @@ class OnChain::BlockChain
         # ssh.close
       end
       
-      return stdout
+      return stdout.chomp
     end
     
   end

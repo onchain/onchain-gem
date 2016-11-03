@@ -52,6 +52,10 @@ describe OnChain do
     unspent =  OnChain::BlockChain.get_unspent_outs('t1JGmphaYLiAJ4CUx7qZirWNsMhsCk74idX', :zcash)
     
     expect(unspent.count).to eq(2)
+    
+    rawtx = OnChain::BlockChain.get_transaction('f9e2cb9cba139af2019adad7639a8b18e8895b6427956542afb7fb4ac0d451f6', :zcash)
+    
+    expect(rawtx).to eq('01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1002b30e0c8ee30c00000000002f4e614effffffff02593b380b000000001976a9140461c2fa917ecaa5d2e54bba0d473b3b151b86e788ac3cbccd020000000017a9147d46a730d31f97b1930d3368a967c309bd4d136a8700000000')
      
   end
   
