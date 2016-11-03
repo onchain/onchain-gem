@@ -84,15 +84,7 @@ class OnChain::BlockChain
 
     def bitcoind_get_balance(address, network = :bitcoin)
         
-      if cache_read(address + network.to_s) == nil
-        
-        base_url = get_insight_url(network) + "addr/#{address}/balance" 
-        bal_string = fetch_response(base_url, false) 
-        bal = bal_string.to_i / 100000000.0
-        cache_write(address + network.to_s, bal, BALANCE_CACHE_FOR)
-      end
-      
-      return cache_read(address + network.to_s) 
+      return execute_remote_command('zcash-cli getinfo', network)
     end
 
     def bitcoind_get_all_balances(addresses, network = :bitcoin)
@@ -131,6 +123,24 @@ class OnChain::BlockChain
     # Run the command via ssh. For this to work you need
     # to create the follwing ENV vars.
     def execute_remote_command(cmd, network)
+
+      host = ENV[network.to_s.upcase + '_HOST']
+      username = ENV[network.to_s.upcase + '_USER']
+      password = ENV[network.to_s.upcase + '_PASSWORD']
+      
+      cmd = ENV[network.to_s.upcase + '_LOCATION'] + cmd 
+
+      stdout  = ""
+      stderr = ""
+      Net::SSH.start(host, username, password: password)  do |ssh|
+        ssh.exec! cmd do |channel, stream, data|
+          stdout << data if stream == :stdout
+          stderr << data if stream == :stderr
+        end
+        # ssh.close
+      end
+      
+      return stdout
     end
     
   end

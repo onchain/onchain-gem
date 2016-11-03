@@ -1,4 +1,5 @@
 require 'net/http'
+require 'net/ssh'
 require 'json'
 
 # We support a number of blockchain API providers,
@@ -34,7 +35,7 @@ class OnChain::BlockChain
       network = :bitcoin
       # List of allowable networks.
       if  args.length > 0
-        if [:testnet3, :zcash_testnet, :zcash].contain? args[args.length - 1]
+        if [:testnet3, :zcash_testnet, :zcash].include? args[args.length - 1]
           network = args[args.length - 1]
         end
       end

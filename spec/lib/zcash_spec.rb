@@ -45,10 +45,12 @@ describe OnChain do
   
   it "should give me a balance for a zcash address" do
     
-    bal1 = OnChain::BlockChain.get_balance('t1JGmphaYLiAJ4CUx7qZirWNsMhsCk74idX', :zcash)
+    # We need ENV variables setup or the tests don't work
+    expect(ENV['ZCASH_HOST']).to be_truthy   
     
     
-    
+    puts OnChain::BlockChain.get_balance('t1JGmphaYLiAJ4CUx7qZirWNsMhsCk74idX', :zcash)
+     
   end
   
 end
