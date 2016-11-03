@@ -32,8 +32,9 @@ class OnChain::BlockChain
     def method_missing (method_name, *args, &block)
       
       network = :bitcoin
+      # List of allowable networks.
       if  args.length > 0
-        if args[args.length - 1] == :testnet3 or args[args.length - 1] == :zcash_testnet
+        if [:testnet3, :zcash_testnet, :zcash].contain? args[args.length - 1]
           network = args[args.length - 1]
         end
       end
