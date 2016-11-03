@@ -27,7 +27,7 @@ end
 class OnChain::BlockChain
   class << self
     
-    ALL_SUPPLIERS = [ :blockinfo, :insight, :blockr ] 
+    ALL_SUPPLIERS = [ :blockinfo, :insight, :blockr, :bitcoind ] 
     
     def method_missing (method_name, *args, &block)
       
@@ -124,15 +124,19 @@ class OnChain::BlockChain
       ALL_SUPPLIERS.each do |supplier|
         if cache_read(supplier.to_s) == nil
           
-          if supplier == :blockinfo and network == :testnet3
+          if supplier == :blockinfo and ! [:bitcoin].include? network
             next
           end
           
-          if supplier == :blockinfo and network == :zcash_testnet
+          if supplier == :blockr and ! [:bitcoin, :testnet3].include? network
             next
           end
           
-          if supplier == :blockr and network == :zcash_testnet
+          if supplier == :insight and ! [:bitcoin, :testnet3].include? network
+            next
+          end
+          
+          if supplier == :bitcoind and ENV[network.to_s.upcase + '_HOST'] == nil
             next
           end
           
