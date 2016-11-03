@@ -49,7 +49,9 @@ describe OnChain do
     expect(ENV['ZCASH_HOST']).to be_truthy   
     
     
-    puts OnChain::BlockChain.get_balance('t1JGmphaYLiAJ4CUx7qZirWNsMhsCk74idX', :zcash)
+    unspent =  OnChain::BlockChain.get_unspent_outs('t1JGmphaYLiAJ4CUx7qZirWNsMhsCk74idX', :zcash)
+    
+    expect(unspent.count).to eq(2)
      
   end
   

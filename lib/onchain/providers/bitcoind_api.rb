@@ -84,7 +84,7 @@ class OnChain::BlockChain
 
     def bitcoind_get_balance(address, network = :bitcoin)
         
-      return execute_remote_command('zcash-cli getinfo', network)
+      return execute_remote_command('getinfo', network)
     end
 
     def bitcoind_get_all_balances(addresses, network = :bitcoin)
@@ -96,8 +96,9 @@ class OnChain::BlockChain
 
     def bitcoind_get_unspent_outs(address, network = :bitcoin)
         
-      base_url = get_insight_url(network) + "addr/#{address}/utxo"
-      json = fetch_response(base_url, true)
+      result = execute_remote_command('listallunspent ' + address + ' 1', network)
+      
+      json = JSON.parse result
       
       unspent = []
       
@@ -105,7 +106,7 @@ class OnChain::BlockChain
         line = []
         line << data['txid']
         line << data['vout']
-        line << data['scriptPubKey']
+        line << data['scriptPubKey']['hex']
         line << (data['amount'].to_f * 100000000).to_i
         unspent << line
       end
@@ -128,7 +129,7 @@ class OnChain::BlockChain
       username = ENV[network.to_s.upcase + '_USER']
       password = ENV[network.to_s.upcase + '_PASSWORD']
       
-      cmd = ENV[network.to_s.upcase + '_LOCATION'] + cmd 
+      cmd = ENV[network.to_s.upcase + '_CLI_CMD'] + ' ' + cmd 
 
       stdout  = ""
       stderr = ""
