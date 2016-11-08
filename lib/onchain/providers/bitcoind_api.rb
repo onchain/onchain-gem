@@ -90,7 +90,7 @@ class OnChain::BlockChain
     def bitcoind_get_all_balances(addresses, network = :bitcoin)
       
       addresses.each do |address|
-        insight_get_balance(address, network)
+        bitcoind_get_balance(address, network)
       end
     end
 
