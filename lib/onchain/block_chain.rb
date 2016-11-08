@@ -35,7 +35,7 @@ class OnChain::BlockChain
       network = :bitcoin
       # List of allowable networks.
       if  args.length > 0
-        if [:testnet3, :zcash_testnet, :zcash].include? args[args.length - 1]
+        if [:testnet3, :zcash_testnet, :zcash, :zclassic].include? args[args.length - 1]
           network = args[args.length - 1]
         end
       end

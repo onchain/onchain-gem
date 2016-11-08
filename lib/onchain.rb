@@ -23,4 +23,9 @@ module Bitcoin
       p2sh_version: "1CBD"
   })
 
+  NETWORKS[:zclassic] = NETWORKS[:bitcoin].merge({
+      address_version: "1CB8",
+      p2sh_version: "1CBD"
+  })
+
 end
