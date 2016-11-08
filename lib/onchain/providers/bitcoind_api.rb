@@ -83,8 +83,16 @@ class OnChain::BlockChain
     end
 
     def bitcoind_get_balance(address, network = :bitcoin)
+      
+      outs = bitcoind_get_unspent_outs(address, network)
+      
+      total = 0
+      outs.each do |out|
+        total += out['amount']
+      end
+      
+      return total
         
-      return execute_remote_command('getinfo', network)
     end
 
     def bitcoind_get_all_balances(addresses, network = :bitcoin)
@@ -118,26 +126,32 @@ class OnChain::BlockChain
       return execute_remote_command('getrawtransaction ' + txhash, network)
     end
     
-    private
-    
     # Run the command via ssh. For this to work you need
     # to create the follwing ENV vars.
     def execute_remote_command(cmd, network)
 
       host = ENV[network.to_s.upcase + '_HOST']
       username = ENV[network.to_s.upcase + '_USER']
-      password = ENV[network.to_s.upcase + '_PASSWORD']
       
       cmd = ENV[network.to_s.upcase + '_CLI_CMD'] + ' ' + cmd 
 
       stdout  = ""
       stderr = ""
-      Net::SSH.start(host, username, password: password)  do |ssh|
-        ssh.exec! cmd do |channel, stream, data|
-          stdout << data if stream == :stdout
-          stderr << data if stream == :stderr
+      begin
+        Net::SSH.start(host, username)  do |ssh|
+          ssh.exec! cmd do |channel, stream, data|
+            stdout << data if stream == :stdout
+            stderr << data if stream == :stderr
+          end
         end
-        # ssh.close
+      rescue Timeout::Error
+        return "{ 'error':'Timed out' }"
+      rescue Errno::EHOSTUNREACH
+        return "{ 'error':'Host unreachable' }"
+      rescue Errno::ECONNREFUSED
+        return "{ 'error':'Connection refused }"
+      rescue Net::SSH::AuthenticationFailed
+        return "{ 'error':'Authentication failure' }"
       end
       
       return stdout.chomp
