@@ -60,6 +60,14 @@ describe OnChain do
     balance =  OnChain::BlockChain.get_balance('t1JGmphaYLiAJ4CUx7qZirWNsMhsCk74idX', :zcash)
     
     expect(balance).to eq(0)
+  
+  end
+  
+  it "should give me a history for a zcash address" do
+    
+    hist = OnChain::BlockChain.address_history('t1JGmphaYLiAJ4CUx7qZirWNsMhsCk74idX', :zcash)
+    
+    expect(hist.length).to be > 1
   end
   
 end

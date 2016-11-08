@@ -2,59 +2,53 @@
 # i.e. https://github.com/dexX7/bitcoin
 class OnChain::BlockChain
   class << self
-      
+     
+    # Get last 20 transactions  
     def bitcoind_address_history(address, network = :bitcoin)
         
-      base_url = get_insight_url(network) + "addr/" + address
-      json = fetch_response(base_url, true) 
+      result = execute_remote_command('searchrawtransactions ' + address + ' 1 0 20 0', network)
       
-      return parse_insight_address_tx(address, json, network)
+      json = JSON.parse result 
+      
+      return parse_bitcoind_address_tx(address, json, network)
         
     end
     
     def parse_bitcoind_address_tx(address, json, network)
       
       hist = []
-      if json.key?('transactions')
-        txs = json['transactions']
-        txs.each do |tx|
-          row = {}
-          row[:hash] = tx[tx]
-          
-          # OK, go and get the actual transaction
-          base_url = get_insight_url(network) + "tx/" + tx
-          tx_json = fetch_response(base_url, true) 
-          
-          row[:time] = tx_json["time"]
-          row[:addr] = {}
-          row[:outs] = {}
-          
-          inputs = tx_json['vin']
-          val = 0
-          recv = "Y"
-          inputs.each do |input|
-            row[:addr][input["addr"]] = input["addr"]
-            if input["addr"] == address
-              recv = "N"
-            end
+      json.each do |tx|
+        
+        
+        row = {}
+        row[:hash] = tx['txid']
+        
+        row[:time] = tx['time']
+        row[:addr] = {}
+        row[:outs] = {}
+        
+        inputs = tx['vin']
+        val = 0
+        recv = "Y"
+        inputs.each do |input|
+          row[:addr][input["addr"]] = input["addr"]
+          if input["addr"] == address
+            recv = "N"
           end
-          
-          tx_json["vout"].each do |out|
-            out_addr = out["scriptPubKey"]["addresses"][0]
-            row[:outs][out_addr] = out_addr
-            if recv == "Y" and out_addr == address
-              val = val + out["value"].to_f
-            elsif recv == "N" and out_addr != address
-              val = val + out["value"].to_f
-            end
-          end
-          row[:total] = val
-          row[:recv] = recv
-          hist << row
         end
-        return hist
-      else
-        'Error'
+        
+        tx['vout'].each do |out|
+          out_addr = out["scriptPubKey"]["addresses"][0]
+          row[:outs][out_addr] = out_addr
+          if recv == "Y" and out_addr == address
+            val = val + out["value"].to_f
+          elsif recv == "N" and out_addr != address
+            val = val + out["value"].to_f
+          end
+        end
+        row[:total] = val
+        row[:recv] = recv
+        hist << row
       end
       return hist
     end
@@ -84,14 +78,23 @@ class OnChain::BlockChain
 
     def bitcoind_get_balance(address, network = :bitcoin)
       
-      outs = bitcoind_get_unspent_outs(address, network)
+      if cache_read(address) == nil
       
-      total = 0
-      outs.each do |out|
-        total += out['amount']
+        outs = bitcoind_get_unspent_outs(address, network)
+        
+        bal = 0
+        outs.each do |out|
+          bal += out['amount']
+        end
+        
+        cache_write(address, bal, BALANCE_CACHE_FOR)
       end
       
-      return total
+      bal = cache_read(address)
+      if bal.class == Fixnum
+        bal = bal.to_f
+      end
+      return bal
         
     end
 
