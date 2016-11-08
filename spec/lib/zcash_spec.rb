@@ -70,4 +70,11 @@ describe OnChain do
     expect(hist.length).to be > 1
   end
   
+  it "should send a transaction" do
+    
+    hist = OnChain::BlockChain.send_tx('01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1002b30e0c8ee30c00000000002f4e614effffffff02593b380b000000001976a9140461c2fa917ecaa5d2e54bba0d473b3b151b86e788ac3cbccd020000000017a9147d46a730d31f97b1930d3368a967c309bd4d136a8700000000', :zcash)
+    
+    puts hist
+  end
+  
 end

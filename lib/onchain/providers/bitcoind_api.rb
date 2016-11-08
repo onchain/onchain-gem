@@ -55,25 +55,16 @@ class OnChain::BlockChain
     
     def bitcoind_send_tx(tx_hex, network = :bitcoin)
       
-      return OnChain::BlockChain.blockr_send_tx(tx_hex, network)
-        
-      #uri = URI.parse(get_url(network) + "tx/send")		
-      #http = Net::HTTP.new(uri.host, uri.port)		
-		
-      #request = Net::HTTP::Post.new(uri.request_uri)		
-      #request.body = '{"rawtx":"' + tx_hex + '"}'		
-      #response = http.request(request)
+      remote = execute_remote_command('sendrawtransaction ' + tx_hex, network)
       
-      #res = JSON.parse(response.body)
+      #res = JSON.parse(remote)
 
-      #mess = 'Unknown'
-      #stat = 'Unknown'
-      #tx_hash = res["txid"]
+      mess = 'Unknown'
+      stat = 'Unknown'
+      tx_hash = 'Unknown'
       
-      #puts 'Call insight_send_tx ' + tx_hex.to_s
-      
-      #ret = "{\"status\":\"#{stat}\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{mess}\"}"	
-      #return JSON.parse(ret)	
+      ret = "{\"status\":\"#{stat}\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{mess}\"}"	
+      return JSON.parse(ret)	
     end
 
     def bitcoind_get_balance(address, network = :bitcoin)
