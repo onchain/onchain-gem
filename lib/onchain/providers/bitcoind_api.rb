@@ -126,13 +126,17 @@ class OnChain::BlockChain
 
       host = ENV[network.to_s.upcase + '_HOST']
       username = ENV[network.to_s.upcase + '_USER']
-      
+      password = ENV[network.to_s.upcase + '_PASSWORD']
       cmd = ENV[network.to_s.upcase + '_CLI_CMD'] + ' ' + cmd 
 
       stdout  = ""
       stderr = ""
       begin
-        Net::SSH.start(host, username)  do |ssh|
+        Net::SSH.start(host, username, 
+          :password => password,
+          :auth_methods => [ 'password' ],
+          :number_of_password_prompts => 0)  do |ssh|
+            
           ssh.exec! cmd do |channel, stream, data|
             stdout << data if stream == :stdout
             stderr << data if stream == :stderr
