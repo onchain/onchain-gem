@@ -73,9 +73,11 @@ class OnChain::BlockChain
       
         outs = bitcoind_get_unspent_outs(address, network)
         
+        puts outs.to_s
+        
         bal = 0
         outs.each do |out|
-          bal += out['amount']
+          bal += out[3].to_i
         end
         
         cache_write(address, bal, BALANCE_CACHE_FOR)
