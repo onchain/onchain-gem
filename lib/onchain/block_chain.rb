@@ -123,7 +123,7 @@ class OnChain::BlockChain
             next
           end
           
-          if supplier == :insight and ! [:bitcoin, :testnet3].include? network
+          if supplier == :insight and ! [:bitcoin].include? network
             next
           end
           
