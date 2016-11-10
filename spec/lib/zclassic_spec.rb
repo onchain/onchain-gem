@@ -31,5 +31,11 @@ describe OnChain do
     
     expect(history.length).to be > 0
   end
+  
+  it "should get the balance in satoshi" do
+    
+    puts OnChain::BlockChain.get_balance_satoshi("t3VpBRHDLrQL8oDJuTaYNPJPcmFuW1L7yxx", :zclassic)
+    
+  end
 
 end

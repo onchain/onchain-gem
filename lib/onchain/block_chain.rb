@@ -107,7 +107,7 @@ class OnChain::BlockChain
     end
     
     def get_balance_satoshi(address, network = :bitcoin)
-      return (get_balance(address, network = :bitcoin).to_f * 100000000).to_i
+      return (get_balance(address, network).to_f * 100000000).to_i
     end
     
     def get_available_suppliers(method_name, network)
