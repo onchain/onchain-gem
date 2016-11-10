@@ -5,8 +5,13 @@ class OnChain::BlockChain
      
     # Get last 20 transactions  
     def bitcoind_address_history(address, network = :bitcoin)
-        
-      result = execute_remote_command('searchrawtransactions ' + address + ' 1 0 20 0', network)
+      
+      if cache_read(network.to_s + ' history ' + address) == nil  
+        result = execute_remote_command('searchrawtransactions ' + address + ' 1 0 20 0', network)
+        cache_write(network.to_s + ' history ' + address, result, BALANCE_CACHE_FOR)
+      end
+      
+      result = cache_read(network.to_s + ' history ' + address)
       
       json = JSON.parse result 
       
@@ -15,6 +20,21 @@ class OnChain::BlockChain
     end
 
     def bitcoind_get_history_for_addresses(addresses, network = :bitcoin)
+      
+      commands  = []
+      if cache_read(network.to_s + ' history ' + addresses[0]) == nil
+        addresses.each do |address|
+          commands << 'searchrawtransactions ' + address + ' 1 0 20 0'
+        end
+        histories = OnChain::BlockChain.execute_remote_command(commands, :zclassic)
+        
+        index = 0
+        histories.each_line do |history|
+          cache_write(network.to_s + ' history ' + addresses[index], history, BALANCE_CACHE_FOR)
+          index = index + 1
+        end
+      end
+      
       history = []
       addresses.each do |address|
         res = bitcoind_address_history(address, network)
@@ -66,12 +86,10 @@ class OnChain::BlockChain
     
     def bitcoind_send_tx(tx_hex, network = :bitcoin)
       
-      remote = execute_remote_command('sendrawtransaction ' + tx_hex, network)
-      
-      #res = JSON.parse(remote)
+      execute_remote_command('sendrawtransaction ' + tx_hex, network)
 
-      mess = 'Unknown'
-      stat = 'Unknown'
+      mess = 'Sent'
+      stat = 'Sent'
       tx_hash = 'Unknown'
       
       ret = "{\"status\":\"#{stat}\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{mess}\"}"	
@@ -152,7 +170,6 @@ class OnChain::BlockChain
       prefix = ENV[network.to_s.upcase + '_CLI_CMD'] 
 
       stdout  = ""
-      stderr = ""
       begin
         Net::SSH.start(host, username, 
           :password => password,
@@ -164,10 +181,15 @@ class OnChain::BlockChain
           end
           
           commands.each do |command|
+            
+            cmdout = ""
+            
             ssh.exec! prefix + ' '+ command do |channel, stream, data|
-              stdout << data if stream == :stdout
-              stderr << data if stream == :stderr
+              cmdout << data if stream == :stdout
             end
+            
+            stdout << cmdout.tr("\n","")
+            stdout << "\n"
           end
         end
       rescue Timeout::Error
