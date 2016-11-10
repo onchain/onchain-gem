@@ -69,21 +69,14 @@ class OnChain::BlockChain
 
     def bitcoind_get_balance(address, network = :bitcoin)
       
-      if cache_read(address) == nil
+      if cache_read(network.to_s + ' ' + address) == nil
       
-        outs = bitcoind_get_unspent_outs(address, network)
+        bal = execute_remote_command('getallbalance ' + address + ' 0', network)
         
-        puts outs.to_s
-        
-        bal = 0
-        outs.each do |out|
-          bal += out[3].to_i
-        end
-        
-        cache_write(address, bal, BALANCE_CACHE_FOR)
+        cache_write(network.to_s + ' ' + address, bal.to_i / 100000000, BALANCE_CACHE_FOR)
       end
       
-      bal = cache_read(address)
+      bal = cache_read(network.to_s + ' ' + address)
       if bal.class == Fixnum
         bal = bal.to_f
       end
@@ -93,6 +86,22 @@ class OnChain::BlockChain
 
     def bitcoind_get_all_balances(addresses, network = :bitcoin)
       
+      
+      # if first address is missing get them all.
+      commands  = []
+      if cache_read(network.to_s + ' ' + addresses[0]) == nil
+        addresses.each do |address|
+          commands << 'getallbalance ' + address + ' 0'
+        end
+        balances = OnChain::BlockChain.execute_remote_command(commands, :zclassic)
+        
+        index = 0
+        balances.each_line do |line|
+          cache_write(network.to_s + ' ' + addresses[index], line.to_f, BALANCE_CACHE_FOR)
+          index = index + 1
+        end
+      end
+      
       addresses.each do |address|
         bitcoind_get_balance(address, network)
       end
@@ -100,7 +109,7 @@ class OnChain::BlockChain
 
     def bitcoind_get_unspent_outs(address, network = :bitcoin)
         
-      result = execute_remote_command('listallunspent ' + address + ' 1', network)
+      result = execute_remote_command('listallunspent ' + address + ' 1 0', network)
       
       json = JSON.parse result
       
@@ -124,12 +133,12 @@ class OnChain::BlockChain
     
     # Run the command via ssh. For this to work you need
     # to create the follwing ENV vars.
-    def execute_remote_command(cmd, network)
+    def execute_remote_command(commands, network)
 
       host = ENV[network.to_s.upcase + '_HOST']
       username = ENV[network.to_s.upcase + '_USER']
       password = ENV[network.to_s.upcase + '_PASSWORD']
-      cmd = ENV[network.to_s.upcase + '_CLI_CMD'] + ' ' + cmd 
+      prefix = ENV[network.to_s.upcase + '_CLI_CMD'] 
 
       stdout  = ""
       stderr = ""
@@ -138,10 +147,16 @@ class OnChain::BlockChain
           :password => password,
           :auth_methods => [ 'password' ],
           :number_of_password_prompts => 0)  do |ssh|
-            
-          ssh.exec! cmd do |channel, stream, data|
-            stdout << data if stream == :stdout
-            stderr << data if stream == :stderr
+          
+          if ! commands.is_a?(Array)
+            commands = [commands]
+          end
+          
+          commands.each do |command|
+            ssh.exec! prefix + ' '+ command do |channel, stream, data|
+              stdout << data if stream == :stdout
+              stderr << data if stream == :stderr
+            end
           end
         end
       rescue Timeout::Error
