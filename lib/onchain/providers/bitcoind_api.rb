@@ -13,6 +13,17 @@ class OnChain::BlockChain
       return parse_bitcoind_address_tx(address, json, network)
         
     end
+
+    def bitcoind_get_history_for_addresses(addresses, network = :bitcoin)
+      history = []
+      addresses.each do |address|
+        res = bitcoind_address_history(address, network)
+        res.each do |r|
+          history << r
+        end
+      end
+      return history
+    end
     
     def parse_bitcoind_address_tx(address, json, network)
       
@@ -73,7 +84,7 @@ class OnChain::BlockChain
       
         bal = execute_remote_command('getallbalance ' + address + ' 0', network)
         
-        cache_write(network.to_s + ' ' + address, bal.to_i / 100000000, BALANCE_CACHE_FOR)
+        cache_write(network.to_s + ' ' + address, bal.to_f, BALANCE_CACHE_FOR)
       end
       
       bal = cache_read(network.to_s + ' ' + address)

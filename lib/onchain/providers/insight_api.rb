@@ -18,6 +18,17 @@ class OnChain::BlockChain
       return parse_insight_address_tx(address, json, network)
         
     end
+
+    def insight_get_history_for_addresses(addresses, network = :bitcoin)
+      history = []
+      addresses.each do |address|
+        res = insight_address_history(address, network)
+        res.each do |r|
+          history << r
+        end
+      end
+      return history
+    end
     
     def parse_insight_address_tx(address, json, network)
       
