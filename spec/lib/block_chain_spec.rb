@@ -181,10 +181,10 @@ describe OnChain do
     
     addresses = ['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW']
     
-    unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, 10001)
+    unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, 10001, :bitcoin)
     
-    expect(unspents.length).to eq(1)  
-    expect(change).to eq(79999) 
+    expect(unspents.length).to eq(2)  
+    expect(change).to eq(89999) 
   end
   
   it "should give me more balance info" do

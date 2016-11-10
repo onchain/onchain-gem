@@ -34,8 +34,9 @@ describe OnChain do
   
   it "should get the balance in satoshi" do
     
-    puts OnChain::BlockChain.get_balance_satoshi("t3VpBRHDLrQL8oDJuTaYNPJPcmFuW1L7yxx", :zclassic)
+    bal_satoshi = OnChain::BlockChain.get_balance_satoshi("t3VpBRHDLrQL8oDJuTaYNPJPcmFuW1L7yxx", :zclassic)
     
+    expect(bal_satoshi).to be > 0
   end
 
 end

@@ -147,6 +147,10 @@ class OnChain::BlockChain
             next
           end
           
+          if supplier == :insight and method_name.to_s == 'get_address_info'
+            next
+          end
+          
           if supplier == :blockr and network == :bitcoin and method_name.to_s == 'get_history_for_addresses'
             next
           end

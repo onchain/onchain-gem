@@ -92,7 +92,7 @@ class OnChain::BlockChain
       end
     end
 
-    def blockinfo_get_unspent_outs(address)
+    def blockinfo_get_unspent_outs(address, network = :bitcoin)
       base_url = "https://blockchain.info/unspent?active=#{address}"
       json = fetch_response(base_url, true)
       
