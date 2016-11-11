@@ -101,7 +101,7 @@ class OnChain::BlockChain
     end
 
     def insight_get_balance(address, network = :bitcoin)
-        puts "here"
+      
       if cache_read(address + network.to_s) == nil
         
         base_url = get_insight_url(network) + "addr/#{address}/balance" 
