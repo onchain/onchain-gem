@@ -107,42 +107,6 @@ describe OnChain do
     expect(tx_signed.length).to be > tx.length
   end
   
-  # The addresses here were generate by
-  # https://coinb.in/multisig/
-  it "should work with some keys we generated online" do
-    
-    key1 = Bitcoin::Key.from_base58('5KAovUBbq3uBUQBPPr6RABJVnh4fy6E49dbQjqhwE8HEoCDTA19')
-    key2 = Bitcoin::Key.from_base58('5JefEur75YYjxHJjmJDaTRAL8hY8GWvLxTwHn11HZQWwcySKfrn')
-    # key3, even though we only need 2 to sign.
-    key3 = Bitcoin::Key.from_base58('5JqeHF3fUmdNXukL5yXpdkZs4d4PwXrW6C1qB2CMcd6Axn19BJ6')
-    
-    # If you want the pub keys in hex, jsut do key1.pub etc..
-
-    expect(key1.addr).to eq('1MWr2FY4XLfEzZ7PQPELNwFkog83vwh6a1')
-    expect(key2.addr).to eq('1CZn88sLyLNe6zwJsPLYkj9DTsHXVWi3TU')
-    expect(key3.addr).to eq('1CGTzS1etxKMRP16eys6nyYsh7xDjnMyw6')
-    
-    rs = OnChain::Sweeper.generate_redemption_script(2, [key1.pub, key2.pub, key3.pub])
-    
-    addr = OnChain::Sweeper.generate_address_of_redemption_script(rs)
-    expect(addr).to eq('32x4ufepcDX9MtgxWMbi6RQgJuxGW5fjc7')
-    
-    addr = "13qu9Dn64kX4W7KrAs9ZwwxvW5HRu4KNL2"
-    
-    tx, sig_list = OnChain::Transaction.create_transaction([rs], addr, 10000, 10000)
-    
-    sign_with_eckey(sig_list, key1)
-    sign_with_eckey(sig_list, key2)
-    
-    signed_tx = OnChain::Transaction.sign_transaction(tx, sig_list)
-    
-    # The signed TX created here does broadcast.
-    
-    # Private keys have long been spent.
-    #expect(signed_tx.length).to be > tx.length
-    
-  end
-  
   it "should generate the correct fee" do
     
     fee = OnChain::Transaction.calculate_fee(100000000, 1, 10000)

@@ -9,7 +9,6 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/onchain/onchain-gem"
 
   gem.files         = ["lib/onchain.rb", "lib/onchain/block_chain.rb", 
-                      "lib/onchain/payments.rb", "lib/onchain/sweeper.rb", 
                       "lib/onchain/transaction.rb",
                       "lib/onchain/providers/blockchaininfo_api.rb",
                       "lib/onchain/providers/insight_api.rb",
