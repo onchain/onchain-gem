@@ -9,7 +9,7 @@ class OnChain::ExchangeRate
     
     BALANCE_RATE_FOR = 120
 
-    def exchange_rate(currency)
+    def bitcoin_exchange_rate(currency)
       begin
         ticker = "BTC-" + currency.to_s
 
@@ -65,6 +65,21 @@ class OnChain::ExchangeRate
         '0'
       end
 
+    end
+    
+    def alt_exchange_rate(alt_currency)
+      
+      url = 'https://api.coinmarketcap.com/v1/ticker/' + alt_currency.to_s + '/'
+      
+      begin
+       resp = OnChain::BlockChain.fetch_response(url)
+       
+       return resp[0]['price_btc'].to_f
+      rescue => e
+        puts e.to_s
+        return 0.0
+      end
+      
     end
 
   end
