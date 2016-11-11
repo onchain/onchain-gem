@@ -10,6 +10,7 @@ Gem::Specification.new do |gem|
 
   gem.files         = ["lib/onchain.rb", "lib/onchain/block_chain.rb", 
                       "lib/onchain/transaction.rb",
+                      "lib/onchain/exchange_rates.rb",
                       "lib/onchain/providers/blockchaininfo_api.rb",
                       "lib/onchain/providers/insight_api.rb",
                       "lib/onchain/providers/bitcoind_api.rb",
@@ -27,4 +28,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'bitcoin-ruby'
   gem.add_dependency 'httparty'
   gem.add_dependency 'net-ssh'
+  gem.add_dependency 'google_currency'
 end
