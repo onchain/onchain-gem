@@ -9,16 +9,6 @@ describe OnChain do
     
     expect(bal1).to eq(0.216)
     
-    bal1 = OnChain::BlockChain.get_balance('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8')
-    OnChain::BlockChain.cache_write('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', nil)
-    
-    expect(bal1).to eq(0.0)
-    
-    bal1 = OnChain::BlockChain.get_balance('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', :bitcoin)
-    OnChain::BlockChain.cache_write('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', nil)
-    
-    expect(bal1).to eq(0.0)
-    
   end
   
   it "should give me the unspent outs" do
