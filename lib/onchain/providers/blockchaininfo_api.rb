@@ -59,7 +59,7 @@ class OnChain::BlockChain
       return hist
     end
 
-    def blockinfo_get_address_info(address)
+    def blockinfo_get_address_info(address, network = :bitcoin)
       
       base = "https://blockchain.info/multiaddr?&simple=true&active=" + address
       
@@ -71,7 +71,7 @@ class OnChain::BlockChain
       
     end
 
-    def blockinfo_get_all_balances(addresses)
+    def blockinfo_get_all_balances(addresses, network = :bitcoin)
       base = "https://blockchain.info/multiaddr?&simple=true&active="
       
       addr = get_uncached_addresses(addresses)

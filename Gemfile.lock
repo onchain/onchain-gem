@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (3.21)
+    onchain (3.22)
       bitcoin-ruby
       google_currency
       httparty
