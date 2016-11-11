@@ -11,6 +11,8 @@ describe OnChain do
   
   it "should get the price of Bitcoin" do
     
+    rate = OnChain::ExchangeRate.bitcoin_exchange_rate(:EUR).to_f
+    rate = OnChain::ExchangeRate.bitcoin_exchange_rate(:GBP).to_f
     rate = OnChain::ExchangeRate.bitcoin_exchange_rate(:USD).to_f
     
     expect(rate).to be > 0.1

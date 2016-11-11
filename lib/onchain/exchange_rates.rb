@@ -30,7 +30,7 @@ class OnChain::ExchangeRate
 
             Money.default_bank = Money::Bank::GoogleCurrency.new
             
-            btc_usd = exchange_rate(:USD).to_f
+            btc_usd = bitcoin_exchange_rate(:USD).to_f
             
             money = Money.new(1_00, "USD") 
             
@@ -44,7 +44,7 @@ class OnChain::ExchangeRate
 
             Money.default_bank = Money::Bank::GoogleCurrency.new
             
-            btc_usd = exchange_rate(:USD).to_f
+            btc_usd = bitcoin_exchange_rate(:USD).to_f
             
             money = Money.new(1_00, "USD") 
             
