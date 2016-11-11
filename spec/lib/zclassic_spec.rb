@@ -9,11 +9,11 @@ describe OnChain do
     expect(hist.length).to be > 0
   end
   
-  it "should give me a balance for a zcash address" do
+  it "should give me a balance for a zclassic address" do
     
     bal = OnChain::BlockChain.get_balance('t3VpBRHDLrQL8oDJuTaYNPJPcmFuW1L7yxx', :zclassic)
     
-    expect(bal).to eq(1.0)
+    expect(bal).to eq(0.9999)
   end
   
   it "should get all balances" do
