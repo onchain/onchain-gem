@@ -110,7 +110,7 @@ class OnChain::BlockChain
       return unspent
     end
 
-    def blockinfo_get_balance(address)
+    def blockinfo_get_balance(address, network = :bitcoin)
       if cache_read(address) == nil
         json = block_chain('address', address, "&limit=0")
         if json.key?('final_balance')

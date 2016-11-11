@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe OnChain do
   
+  it "should get a satoshi balance" do
+    OnChain::BlockChain.get_balance('3CwaQwoCt5YYCaG1X9jFFVHhWbiRKJDGDu', :bitcoin)
+  end
+  
   it "should get the price of Bitcoin" do
     
     rate = OnChain::ExchangeRate.bitcoin_exchange_rate(:USD).to_f
