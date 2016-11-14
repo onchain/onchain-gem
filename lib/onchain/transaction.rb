@@ -150,7 +150,7 @@ class OnChain::Transaction
     
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
     end
-    
+  
     # Given a transaction in hex string format, apply
     # the given signature list to it.
     #
@@ -159,7 +159,7 @@ class OnChain::Transaction
     # [0]{034000.....' => {'hash' => '345435345....', 'sig' => '435fgdf4553...'}}
     # [0]{02fee.....' => {'hash' => '122133445....', 'sig' => '435fgdf4553...'}}
     #
-    def sign_transaction(transaction_hex, sig_list, pubkey = nil)
+    def sign_transaction(transaction_hex, sig_list)
       
       tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(transaction_hex)
       
@@ -186,7 +186,25 @@ class OnChain::Transaction
             sig = sigs[0]
             txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, OnChain.hex_to_bin(pubkey))
           else
-            txin.script = Bitcoin::Script.to_p2sh_multisig_script_sig(rscript.to_payload, sigs)
+            
+            # I replace the call to Bitcoin::Script.to_p2sh_multisig_script_sig
+            # as it didn't work for my smaller 2 of 2 redemption scripts
+            sig_script = '00'
+            sigs.each do |sigg|
+              sigg << 1
+              sig_script += sigg.length.to_s(16)
+              sig_script += OnChain.bin_to_hex(sigg)
+            end
+            if rscript.to_payload.length < 76
+              sig_script += rscript.to_payload.length.to_s(16)
+              sig_script += OnChain.bin_to_hex(rscript.to_payload)
+            else
+              sig_script += 76.to_s(16)
+              sig_script += rscript.to_payload.length.to_s(16)
+              sig_script += OnChain.bin_to_hex(rscript.to_payload)
+            end
+              
+            txin.script = OnChain.hex_to_bin(sig_script)
           end
         end
       
@@ -247,15 +265,14 @@ class OnChain::Transaction
     end
     
     def get_public_keys_from_script(script)
-
+  
       if script.is_hash160?
         return [Bitcoin.hash160_to_address(script.get_hash160)]
       end
       
       pubs = []
       script.get_multisig_pubkeys.each do |pub|
-        pub_hex = OnChain.bin_to_hex(pub)
-        pubs << Bitcoin.hash160_to_address(Bitcoin.hash160(pub_hex))
+        pubs << OnChain.bin_to_hex(pub)
       end
       return pubs
     end
