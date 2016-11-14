@@ -82,145 +82,6 @@ class OnChain::Transaction
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
     end
     
-    # The bitcoin ruby methods are not thread safe when switching between
-    # testnet and the bitcoin network.
-    def to_address_script(orig_addr, network = :bitcoin)
-      
-      # TODO add thread safety.
-      Bitcoin.network = network
-      address = Bitcoin::Script.to_address_script(orig_addr)
-      Bitcoin.network = :bitcoin
-      
-      return address
-    end
-    
-    def add_fee_to_tx(fee, fee_addr, tx, network = :bitcoin)
-      
-      # Add wallet fee
-      if fee > 0 and (fee - 10000) > 0
-        
-        # Take the miners fee from the wallet fees
-        fee = fee - 10000
-        
-        # Check for affiliate
-        if fee_addr.kind_of?(Array)
-          affil_fee = fee / 2
-          txout1 = Bitcoin::Protocol::TxOut.new(affil_fee, to_address_script(fee_addr[0], network))
-          txout2 = Bitcoin::Protocol::TxOut.new(affil_fee, to_address_script(fee_addr[1], network))
-          tx.add_out(txout1)
-          tx.add_out(txout2)
-        else
-          txout = Bitcoin::Protocol::TxOut.new(fee, to_address_script(fee_addr, network))
-          tx.add_out(txout)
-        end
-      end
-      
-    end
-    
-    def generate_redemption_script(minimum_sigs, addresses)
-      address, redeem_script = Bitcoin.pubkeys_to_p2sh_multisig_address(minimum_sigs, *addresses)
-      return redeem_script.hth
-    end
-    
-    def generate_address_of_redemption_script(redemption_script)
-      hash160 = Bitcoin.hash160(redemption_script)
-    
-      return Bitcoin.hash160_to_p2sh_address(hash160)
-    end
-    
-    # Like create_single_address_transaction but for multi sig wallets.
-    def create_transaction_with_fee(redemption_scripts, address, amount, fee_percent, fee_addr)
-    
-      fee = calculate_fee(amount, fee_percent, 10000)
-  
-      total_amount = amount + fee
-      
-      addresses = redemption_scripts.map { |rs| 
-        generate_address_of_redemption_script(rs)
-      }
-      
-      unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, total_amount)
-      
-      # OK, let's build a transaction.
-      tx = Bitcoin::Protocol::Tx.new
-      
-      # Process the unpsent outs.
-      unspents.each_with_index do |spent, index|
-
-        script = redemption_scripts[indexes[index]]
-        
-        txin = Bitcoin::Protocol::TxIn.new([ spent[0] ].pack('H*').reverse, spent[1])
-        txin.script_sig = OnChain::hex_to_bin(script)
-        tx.add_in(txin)
-      end
-      
-      # Add wallet fee
-      add_fee_to_tx(fee, fee_addr, tx)
-
-      txout = Bitcoin::Protocol::TxOut.new(amount, Bitcoin::Script.to_address_script(address))
-  
-      tx.add_out(txout)
-      
-      change_address = addresses[0]
-    
-      # Send the change back.
-      if change > 0
-      
-        txout = Bitcoin::Protocol::TxOut.new(change, 
-          Bitcoin::Script.to_address_script(change_address))
-  
-        tx.add_out(txout)
-      end
-
-      inputs_to_sign = get_inputs_to_sign tx
-    
-      return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
-    end
-    
-    def calculate_fee(amount, fee_percent, min_fee_satoshi)
-      
-      fee = (amount * (fee_percent / 100.0)).to_i
-      
-      if fee < min_fee_satoshi
-        return min_fee_satoshi
-      end
-      
-      return fee
-    end
-    
-    def get_public_keys_from_script(script)
-
-      if script.is_hash160?
-        return [Bitcoin.hash160_to_address(script.get_hash160)]
-      end
-      
-      pubs = []
-      script.get_multisig_pubkeys.each do |pub|
-        pub_hex = OnChain.bin_to_hex(pub)
-        pubs << Bitcoin.hash160_to_address(Bitcoin.hash160(pub_hex))
-      end
-      return pubs
-    end
-    
-    def get_inputs_to_sign(tx)
-      inputs_to_sign = []
-      tx.in.each_with_index do |txin, index|
-        hash = tx.signature_hash_for_input(index, txin.script, 1)
-        
-        script = Bitcoin::Script.new txin.script
-        
-        pubkeys = get_public_keys_from_script(script)
-        pubkeys.each do |key|
-          
-          if inputs_to_sign[index] == nil
-            inputs_to_sign[index] = {}
-          end
-          inputs_to_sign[index][key] = {'hash' => OnChain::bin_to_hex(hash)}
-        end
-      end
-      return inputs_to_sign
-    end
-    
     # Given a send address and an amount produce a transaction 
     # and a list of hashes that need to be signed.
     # 
@@ -235,11 +96,12 @@ class OnChain::Transaction
     # [0][034000....][:hash => '345435345...'] 
     # [0][02fee.....][:hash => '122133445....']
     # 
-    def create_transaction(redemption_scripts, address, amount_in_satoshi, miners_fee, network = :bitcoin)
+    def create_transaction(redemption_scripts, address, amount_in_satoshi, 
+      miners_fee, fee_percent, fee_addr, network = :bitcoin)
     
-      total_amount = miners_fee
+      fee = calculate_fee(amount_in_satoshi, fee_percent, miners_fee)
   
-      total_amount = total_amount + amount_in_satoshi
+      total_amount = amount_in_satoshi + fee
       
       addresses = redemption_scripts.map { |rs| 
         generate_address_of_redemption_script(rs, network)
@@ -259,6 +121,9 @@ class OnChain::Transaction
         txin.script_sig = OnChain::hex_to_bin(script)
         tx.add_in(txin)
       end
+      
+      # Add wallet fee
+      add_fee_to_tx(fee, fee_addr, tx)
       
       # Do we have enough in the fund.
       #if(total_amount > btc_balance)
@@ -284,16 +149,6 @@ class OnChain::Transaction
       inputs_to_sign = get_inputs_to_sign tx
     
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
-    end
-  
-    def generate_address_of_redemption_script(redemption_script, network = :bitcoin)
-      
-      Bitcoin.network = network
-      hash160 = Bitcoin.hash160(redemption_script)
-      addr =  Bitcoin.hash160_to_p2sh_address(hash160)
-      Bitcoin.network = :bitcoin
-      
-      return addr
     end
     
     # Given a transaction in hex string format, apply
@@ -355,5 +210,111 @@ class OnChain::Transaction
       return true
     end
     
+    private
+    
+    #def generate_redemption_script(minimum_sigs, addresses)
+    #  address, redeem_script = Bitcoin.pubkeys_to_p2sh_multisig_address(minimum_sigs, *addresses)
+    #  return redeem_script.hth
+    #end
+    
+    #def generate_address_of_redemption_script(redemption_script)
+    #  hash160 = Bitcoin.hash160(redemption_script)
+    #
+    #  return Bitcoin.hash160_to_p2sh_address(hash160)
+    #end
+    
+    def add_fee_to_tx(fee, fee_addr, tx, network = :bitcoin)
+      
+      # Add wallet fee
+      if fee > 0 and (fee - 10000) > 0
+        
+        # Take the miners fee from the wallet fees
+        fee = fee - 10000
+        
+        # Check for affiliate
+        if fee_addr.kind_of?(Array)
+          affil_fee = fee / 2
+          txout1 = Bitcoin::Protocol::TxOut.new(affil_fee, to_address_script(fee_addr[0], network))
+          txout2 = Bitcoin::Protocol::TxOut.new(affil_fee, to_address_script(fee_addr[1], network))
+          tx.add_out(txout1)
+          tx.add_out(txout2)
+        else
+          txout = Bitcoin::Protocol::TxOut.new(fee, to_address_script(fee_addr, network))
+          tx.add_out(txout)
+        end
+      end
+      
+    end
+    
+    def calculate_fee(amount, fee_percent, min_fee_satoshi)
+      
+      fee = (amount * (fee_percent / 100.0)).to_i
+      
+      if fee < min_fee_satoshi
+        return min_fee_satoshi
+      end
+      
+      return fee
+    end
+    
+    def get_public_keys_from_script(script)
+
+      if script.is_hash160?
+        return [Bitcoin.hash160_to_address(script.get_hash160)]
+      end
+      
+      pubs = []
+      script.get_multisig_pubkeys.each do |pub|
+        pub_hex = OnChain.bin_to_hex(pub)
+        pubs << Bitcoin.hash160_to_address(Bitcoin.hash160(pub_hex))
+      end
+      return pubs
+    end
+    
+    def get_inputs_to_sign(tx)
+      inputs_to_sign = []
+      tx.in.each_with_index do |txin, index|
+        hash = tx.signature_hash_for_input(index, txin.script, 1)
+        
+        script = Bitcoin::Script.new txin.script
+        
+        pubkeys = get_public_keys_from_script(script)
+        pubkeys.each do |key|
+          
+          if inputs_to_sign[index] == nil
+            inputs_to_sign[index] = {}
+          end
+          inputs_to_sign[index][key] = {'hash' => OnChain::bin_to_hex(hash)}
+        end
+      end
+      return inputs_to_sign
+    end
+  
+    def generate_address_of_redemption_script(script, network = :bitcoin)
+      
+      p2sh_version = Bitcoin::NETWORKS[network][:p2sh_version]
+      address = Bitcoin.encode_address(Bitcoin.hash160(script), p2sh_version)
+      
+      return address
+    end
+  
+    # This was created as the method in bitcoin ruby was not network aware.
+    def to_address_script(address, network_to_use = :bitcoin)
+      
+      size = Bitcoin::NETWORKS[network_to_use][:p2sh_version].length
+      
+      address_type = :hash160
+      if Bitcoin.decode_base58(address)[0...size] == Bitcoin::NETWORKS[network_to_use][:p2sh_version].downcase
+        address_type = :p2sh
+      end
+      
+      hash160 = Bitcoin.decode_base58(address)[size...(40 + size)]
+      
+      case address_type
+      when :hash160; Bitcoin::Script.to_hash160_script(hash160)
+      when :p2sh;    Bitcoin::Script.to_p2sh_script(hash160)
+      end
+    end
+      
   end
 end
