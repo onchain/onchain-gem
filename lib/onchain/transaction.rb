@@ -212,17 +212,6 @@ class OnChain::Transaction
     
     private
     
-    #def generate_redemption_script(minimum_sigs, addresses)
-    #  address, redeem_script = Bitcoin.pubkeys_to_p2sh_multisig_address(minimum_sigs, *addresses)
-    #  return redeem_script.hth
-    #end
-    
-    #def generate_address_of_redemption_script(redemption_script)
-    #  hash160 = Bitcoin.hash160(redemption_script)
-    #
-    #  return Bitcoin.hash160_to_p2sh_address(hash160)
-    #end
-    
     def add_fee_to_tx(fee, fee_addr, tx, network = :bitcoin)
       
       # Add wallet fee
