@@ -12,11 +12,11 @@ describe OnChain do
     fee_addr = nil
     
     tx, inputs_to_sign = OnChain::Transaction.create_transaction(redemption_scripts, 
-      address, amount, 10000, fee_percent, fee_addr, :zclassic)
+      address, amount, 0, fee_percent, fee_addr, :zclassic)
       
     expect(inputs_to_sign.count).to be > 0
     
-    expect(tx).to eq("0100000001ac44d6e1935594f948f3392d76f07054f79f206b445045147578299c0421e62b00000000475221032c6c755d5da9c9e442bc4fdd08680d27e52b55bdefe8f664e7df2726686a2bf72102076355b7f2267a2c5f5cfeafa64e7906eda719ced2a4d1bc86c11ab5831e291952aeffffffff0240420f00000000001976a914cbdfd0ae6c5f64e9c2db4245d1eecbc37dd07df288ac302d89000000000017a9147b6a53ff1a55244897532dd9d16cdf422cf6408d8700000000")
+    expect(tx).to eq("01000000014cfaefea18e52d0d66183529c5a7d1bd00f25f54508403fda26be4c62201b22101000000475221032c6c755d5da9c9e442bc4fdd08680d27e52b55bdefe8f664e7df2726686a2bf72102076355b7f2267a2c5f5cfeafa64e7906eda719ced2a4d1bc86c11ab5831e291952aeffffffff0240420f00000000001976a914cbdfd0ae6c5f64e9c2db4245d1eecbc37dd07df288ac00a60e000000000017a9147b6a53ff1a55244897532dd9d16cdf422cf6408d8700000000")
     
   end
   
@@ -31,7 +31,7 @@ describe OnChain do
     
     bal = OnChain::BlockChain.get_balance('t3VpBRHDLrQL8oDJuTaYNPJPcmFuW1L7yxx', :zclassic)
     
-    expect(bal).to eq(0.9999)
+    expect(bal).to eq(0.0197337)
   end
   
   it "should get all balances" do

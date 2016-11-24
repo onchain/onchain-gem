@@ -20,8 +20,6 @@ class OnChain::Transaction
       
       estimated_miners_fee = size_in_bytes * MINERS_BYTE_FEE
       
-      puts estimated_miners_fee
-      
       fee = (amount * (fee_percent / 100.0)).to_i
       
       if fee < estimated_miners_fee 
@@ -73,13 +71,11 @@ class OnChain::Transaction
     end
     
     def create_single_address_transaction(orig_addr, dest_addr, amount, 
-      fee_percent, fee_addr, miners_fee, network = :bitcoin)
+      fee_in_satoshi, fee_addr, miners_fee, network = :bitcoin)
 
       tx = Bitcoin::Protocol::Tx.new
       
-      fee = calculate_fee(amount, fee_percent, miners_fee)
-  
-      total_amount = amount + fee
+      total_amount = amount + fee_in_satoshi + miners_fee
       
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(
         [orig_addr], total_amount, network)
@@ -97,8 +93,8 @@ class OnChain::Transaction
   
       tx.add_out(txout)
       
-      # Add wallet fee
-      add_fee_to_tx(fee, fee_addr, tx, miners_fee, network)
+      # Add an output for the fee
+      add_fee_to_tx(fee_in_satoshi, fee_addr, tx, network)
     
       # Send the change back.
       if change > 0
@@ -128,11 +124,9 @@ class OnChain::Transaction
     # [0][02fee.....][:hash => '122133445....']
     # 
     def create_transaction(redemption_scripts, address, amount_in_satoshi, 
-      miners_fee, fee_percent, fee_addr, network = :bitcoin)
+      miners_fee, fee_in_satoshi, fee_addr, network = :bitcoin)
     
-      fee = calculate_fee(amount_in_satoshi, fee_percent, miners_fee)
-  
-      total_amount = amount_in_satoshi + fee
+      total_amount = amount_in_satoshi + fee_in_satoshi + miners_fee
       
       addresses = redemption_scripts.map { |rs| 
         generate_address_of_redemption_script(rs, network)
@@ -152,19 +146,14 @@ class OnChain::Transaction
         txin.script_sig = OnChain::hex_to_bin(script)
         tx.add_in(txin)
       end
-      
-      # Add wallet fee
-      add_fee_to_tx(fee, fee_addr, tx, miners_fee)
-      
-      # Do we have enough in the fund.
-      #if(total_amount > btc_balance)
-      #  raise 'Balance is not enough to cover payment'
-      #end
 
+      # Add an output for the main transfer
       txout = Bitcoin::Protocol::TxOut.new(amount_in_satoshi, 
           to_address_script(address, network))
-  
       tx.add_out(txout)
+      
+      # Add an output for the fee
+      add_fee_to_tx(fee_in_satoshi, fee_addr, tx, network)
       
       change_address = addresses[0]
     
@@ -261,13 +250,10 @@ class OnChain::Transaction
     
     private
     
-    def add_fee_to_tx(fee, fee_addr, tx, miners_fee, network = :bitcoin)
+    def add_fee_to_tx(fee, fee_addr, tx, network = :bitcoin)
       
       # Add wallet fee
-      if fee > 0 and (fee - miners_fee) > 0
-        
-        # Take the miners fee from the wallet fees
-        fee = fee - miners_fee
+      if fee > 0 
         
         # Check for affiliate
         if fee_addr.kind_of?(Array)
@@ -282,17 +268,6 @@ class OnChain::Transaction
         end
       end
       
-    end
-    
-    def calculate_fee(amount, fee_percent, min_fee_satoshi)
-      
-      fee = (amount * (fee_percent / 100.0)).to_i
-      
-      if fee < min_fee_satoshi
-        return min_fee_satoshi
-      end
-      
-      return fee
     end
     
     def get_public_keys_from_script(script)

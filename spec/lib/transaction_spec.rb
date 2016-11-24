@@ -11,12 +11,9 @@ describe OnChain do
     
     orig_addr = '1HMTY59ZaVB9L4rh7PjMjEca2fiT1TucGH'
     
-    puts OnChain::Transaction.calculate_miners_fee([orig_addr], 1000000, 1)
+    fee = OnChain::Transaction.calculate_miners_fee([orig_addr], 1000000, 1)
     
-    tx = '010000000168e118d870ce6c30a6fc2f857f1a55909a500551e7d441ff368e595ce062dd26020000008a47304402207d687b513ee58c6cb9348613735d20320b74e9c80845db44f8032ec75125a7a5022058bb5f1d705d0b5701583aac690c0ff1b537e5f24342093e8d559b30681c96920141047299bb198fbcd6992000e1557fd63278feb44b313b7a2c4f735ca99fb73e65de24aa9a17858686942e63b4db467f60d50ef77c362b1b50ac6ca2a7eacfe85f3cffffffff03808d5b00000000001976a9141969dd3c9f1765fd923c8c9c1ad52a26410ed12688ac801a0600000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac40771b00000000001976a914b3607b90aa91452f234d85ec2809d0037e71f38788ac00000000'
-    
-    puts tx.length * 100
-  
+    expect(fee).to eq(10000)
   end
   
   
@@ -120,26 +117,11 @@ describe OnChain do
     expect(tx_signed.length).to be > tx.length
   end
   
-  it "should generate the correct fee" do
-    
-    # It's a private method, but call it anyway.
-    fee = OnChain::Transaction.instance_eval{ calculate_fee(100000000, 1, 10000) } 
-    expect(fee).to eq(1000000)
-    
-    fee = OnChain::Transaction.instance_eval{ calculate_fee(1000000, 1, 10000)} 
-    expect(fee).to eq(10000)
-    
-    # When it gets below the miners fee, stop adding.
-    fee = OnChain::Transaction.instance_eval{ calculate_fee(10000, 1, 10000)} 
-    expect(fee).to eq(10000)
-  end
-  
-  
   it "should create a valid transaction with affiliate fee" do
     
     tx, inputs_to_sign = OnChain::Transaction.create_transaction(
       REDEMPTION_SCRIPTS, 
-      '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 11366,  10000, 1, 
+      '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 11366,  0, 0, 
       ['1STRonGxnFTeJiA7pgyneKknR29AwBM77', '15akUMqYsKMwJzYKdEK4WKYzMpCruNV3pr'])
       
     expect(tx).to eq("01000000029fd77c01b4f81f142e7e066eb9abeb4952ec5fdea51036acbb22b5ffeb57fd5f0100000047522102fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc4210396e42d3c584da0300ee44dcbaee0eccaa0e6ae2264fdd2554af6d2953f95bf9952aeffffffffc0161c6d62ac75f36bf95fcb2a8222f2274e86c2dcaec3434a0b6b6e0a6b60800000000047522102fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc421034000cea8f9cbaf88095d3ef539ee438e3cefea9ed9585e2e182b45496f071a8352aeffffffff01662c0000000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac00000000")
