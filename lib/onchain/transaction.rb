@@ -1,6 +1,37 @@
 class OnChain::Transaction
   class << self
     
+    MINERS_BYTE_FEE = 100
+      
+    # Count up unspents to give a rough TX size. We only return a miners fee
+    # Less than 1% of TX value, otherwise just return 1% TX value.
+    # In some cases this might not be enough to pay for the TX.
+    # Assume fee is 100 satoshi per byte.
+    def calculate_miners_fee(addresses, amount, fee_percent, network = :bitcoin)
+      
+      unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, amount, network)
+      indexes ,change = nil
+      
+      # Assume each input is 275 bytes.
+      size_in_bytes = unspents.count * 265
+      
+      # Add on 3 outputs of assumed size 50 bytes.
+      size_in_bytes = size_in_bytes + (3 * 50)
+      
+      estimated_miners_fee = size_in_bytes * MINERS_BYTE_FEE
+      
+      puts estimated_miners_fee
+      
+      fee = (amount * (fee_percent / 100.0)).to_i
+      
+      if fee < estimated_miners_fee 
+        return fee
+      end
+      
+      return estimated_miners_fee
+      
+    end
+    
     # Check a transactions inputs only spend enough to cover fees and amount
     # Basically if onchain creates an incorrect transaction the client
     # can identify it here.
