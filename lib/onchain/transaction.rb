@@ -42,11 +42,11 @@ class OnChain::Transaction
     end
     
     def create_single_address_transaction(orig_addr, dest_addr, amount, 
-      fee_percent, fee_addr, min_fee_satoshi, network = :bitcoin)
+      fee_percent, fee_addr, miners_fee, network = :bitcoin)
 
       tx = Bitcoin::Protocol::Tx.new
       
-      fee = calculate_fee(amount, fee_percent, min_fee_satoshi)
+      fee = calculate_fee(amount, fee_percent, miners_fee)
   
       total_amount = amount + fee
       
@@ -67,7 +67,7 @@ class OnChain::Transaction
       tx.add_out(txout)
       
       # Add wallet fee
-      add_fee_to_tx(fee, fee_addr, tx, network)
+      add_fee_to_tx(fee, fee_addr, tx, miners_fee, network)
     
       # Send the change back.
       if change > 0
@@ -123,7 +123,7 @@ class OnChain::Transaction
       end
       
       # Add wallet fee
-      add_fee_to_tx(fee, fee_addr, tx)
+      add_fee_to_tx(fee, fee_addr, tx, miners_fee)
       
       # Do we have enough in the fund.
       #if(total_amount > btc_balance)
@@ -230,13 +230,13 @@ class OnChain::Transaction
     
     private
     
-    def add_fee_to_tx(fee, fee_addr, tx, network = :bitcoin)
+    def add_fee_to_tx(fee, fee_addr, tx, miners_fee, network = :bitcoin)
       
       # Add wallet fee
-      if fee > 0 and (fee - 10000) > 0
+      if fee > 0 and (fee - miners_fee) > 0
         
         # Take the miners fee from the wallet fees
-        fee = fee - 10000
+        fee = fee - miners_fee
         
         # Check for affiliate
         if fee_addr.kind_of?(Array)
