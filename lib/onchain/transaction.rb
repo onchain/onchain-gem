@@ -80,7 +80,9 @@ class OnChain::Transaction
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(
         [orig_addr], total_amount, network)
       indexes = nil
-    
+      
+      # Take the miiners fee from the change.
+      change = change - miners_fee
       
       # Process the unpsent outs.
       unspents.each_with_index do |spent, index|
@@ -133,6 +135,9 @@ class OnChain::Transaction
       }
       
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, total_amount, network)
+      
+      # Take the miiners fee from the change.
+      change = change - miners_fee
       
       # OK, let's build a transaction.
       tx = Bitcoin::Protocol::Tx.new
