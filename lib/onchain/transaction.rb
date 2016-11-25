@@ -81,9 +81,6 @@ class OnChain::Transaction
         [orig_addr], total_amount, network)
       indexes = nil
       
-      # Take the miiners fee from the change.
-      change = change - miners_fee
-      
       # Process the unpsent outs.
       unspents.each_with_index do |spent, index|
 
@@ -91,8 +88,8 @@ class OnChain::Transaction
         txin.script_sig = OnChain.hex_to_bin(spent[2])
         tx.add_in(txin)
       end
+      
       txout = Bitcoin::Protocol::TxOut.new(amount, to_address_script(dest_addr, network))
-  
       tx.add_out(txout)
       
       # Add an output for the fee
@@ -135,9 +132,6 @@ class OnChain::Transaction
       }
       
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, total_amount, network)
-      
-      # Take the miiners fee from the change.
-      change = change - miners_fee
       
       # OK, let's build a transaction.
       tx = Bitcoin::Protocol::Tx.new
