@@ -13,7 +13,7 @@ describe OnChain do
     
     fee = OnChain::Transaction.calculate_miners_fee([orig_addr], 1000000, 1)
     
-    expect(fee).to eq(10000)
+    expect(fee).to eq(68000)
   end
   
   it "should interrogate a transaction" do
