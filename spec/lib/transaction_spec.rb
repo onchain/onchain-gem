@@ -16,6 +16,25 @@ describe OnChain do
     expect(fee).to eq(10000)
   end
   
+  it "should interrogate a transaction" do
+    
+    txhex = "01000000016b631e692ec8481265a73a7ce643722c72145049bb0696bb2e8ada67f7a751cb0000000047522103ae9006247d18249116381e0fd1f87df3ce5295995873a81394a9dfb4a96096dd210221b9cb16c1cb3f1d493cbe73f3dd79c8483fd54b7335f5057427a00aacb23ab552aeffffffff0300e1f5050000000017a9140c01e8d5ed4d6de3719e9a11af596bc242bfae698724a00e00000000001976a914c040cbbcdbf5cb6a06ffd800b51990381fa8b2df88ac89ad2b020000000017a914ca97c2df84cb614feab88f0f6369b1017be80b818700000000"
+    
+    unspent = JSON.parse '[[["cb51a7f767da8a2ebb9606bb495014722c7243e67c3aa7651248c82e691e636b",0,"a914ca97c2df84cb614feab88f0f6369b1017be80b8187",137416905]],[0],137416904]'
+    
+    result = OnChain::Transaction.interrogate_transaction(txhex, 
+      ['3LAEDr9PuQkU2hnKERaHATgJ1SrDdVzWd3'], 
+      ['1JXYMviGfEvjYGP2ZGfDJku6EjnPPEgtr6'], unspent)
+      
+    expect(result[:miners_fee]).to eq(0.000415)
+    expect(result[:total_change]).to eq(0.36416905)
+    expect(result[:total_to_send]).to eq(1.37416905)
+    expect(result[:our_fees]).to eq(0.009585)
+    expect(result[:destination]).to eq("32nWKXBDkEV8vb2B4ZKR54mwzN897WpCnS")
+    expect(result[:unrecognised_destination]).to eq(0.0)
+    expect(result[:primary_send]).to eq(1.0)
+    
+  end
   
   it "should sanity check a transaction" do
     

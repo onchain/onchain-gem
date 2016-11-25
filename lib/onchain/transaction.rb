@@ -24,6 +24,65 @@ class OnChain::Transaction
       
     end
     
+    # Once a transaction is created we rip it aaprt again to make sure it is not
+    # overspending the users funds.
+    def interrogate_transaction(txhex, wallet_addresses, fee_addresses, 
+      unspent_outs, network = :bitcoin)
+      
+      tx_bin = txhex.scan(/../).map { |x| x.hex }.pack('c*')
+      tx_to_sign = Bitcoin::Protocol::Tx.new(tx_bin)
+      
+      total_to_send = 0
+      primary_send = 0
+      our_fees = 0
+      unrecognised_destination = 0
+      total_change = 0
+      miners_fee = 0
+      address = ''
+      
+      # The total to send should be the sum of all the inputs.
+      unspent_outs[0].each do |us|
+        total_to_send = total_to_send + us[3]
+      end
+      
+      tx_to_sign.out.each do |txout|
+        
+        dest = get_address_from_script(Bitcoin::Script.new(txout.script), network)
+        
+        #@total_to_send += txout.value
+        
+        # Is it the users key i.e. a change address
+        if wallet_addresses.include? dest 
+          total_change += txout.value
+        else
+          # The first address in the TX is the one the user wants to pay.
+          if address == '' or address == dest
+            primary_send += txout.value
+            address = dest
+          elsif fee_addresses.include? dest
+            our_fees += txout.value
+          else
+            unrecognised_destination += txout.value
+          end
+        end
+      end
+      
+      miners_fee = total_to_send - our_fees - primary_send - total_change
+      total_change = total_change / 100000000.0
+      total_to_send = total_to_send / 100000000.0
+      our_fees = our_fees / 100000000.0
+      unrecognised_destination = unrecognised_destination / 100000000.0
+      miners_fee = miners_fee / 100000000.0
+      primary_send = primary_send / 100000000.0
+      
+      return { miners_fee: miners_fee, total_change: total_change,
+        total_to_send: total_to_send, our_fees: our_fees,
+        destination: address, unrecognised_destination: unrecognised_destination, 
+        primary_send: primary_send 
+      }
+    
+    end
+    
     # Check a transactions inputs only spend enough to cover fees and amount
     # Basically if onchain creates an incorrect transaction the client
     # can identify it here.
@@ -261,6 +320,18 @@ class OnChain::Transaction
         end
       end
       
+    end
+    
+    # This runs when we are decoding a transaction
+    def get_address_from_script(script, network)
+      
+      if script.is_p2sh?
+        p2sh_version = Bitcoin::NETWORKS[network][:p2sh_version]
+        return Bitcoin.encode_address script.get_hash160, p2sh_version
+      else
+        address_version = Bitcoin::NETWORKS[network][:address_version]
+        return Bitcoin.encode_address(script.get_hash160, address_version)
+      end
     end
     
     def get_public_keys_from_script(script)
