@@ -7,7 +7,7 @@ class OnChain::Transaction
     # Less than 1% of TX value, otherwise just return 1% TX value.
     # In some cases this might not be enough to pay for the TX.
     # Assume fee is 100 satoshi per byte.
-    def calculate_miners_fee(addresses, amount, fee_percent, network = :bitcoin)
+    def calculate_miners_fee(addresses, amount, network = :bitcoin)
       
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, amount, network)
       indexes ,change = nil
@@ -19,12 +19,6 @@ class OnChain::Transaction
       size_in_bytes = size_in_bytes + (3 * 50)
       
       estimated_miners_fee = size_in_bytes * MINERS_BYTE_FEE
-      
-      fee = (amount * (fee_percent / 100.0)).to_i
-      
-      if fee < estimated_miners_fee 
-        return fee
-      end
       
       return estimated_miners_fee
       
