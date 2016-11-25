@@ -27,23 +27,17 @@ class OnChain::Transaction
     # Once a transaction is created we rip it aaprt again to make sure it is not
     # overspending the users funds.
     def interrogate_transaction(txhex, wallet_addresses, fee_addresses, 
-      unspent_outs, network = :bitcoin)
+      total_to_send, network = :bitcoin)
       
       tx_bin = txhex.scan(/../).map { |x| x.hex }.pack('c*')
       tx_to_sign = Bitcoin::Protocol::Tx.new(tx_bin)
       
-      total_to_send = 0
       primary_send = 0
       our_fees = 0
       unrecognised_destination = 0
       total_change = 0
       miners_fee = 0
       address = ''
-      
-      # The total to send should be the sum of all the inputs.
-      unspent_outs[0].each do |us|
-        total_to_send = total_to_send + us[3]
-      end
       
       tx_to_sign.out.each do |txout|
         
@@ -134,11 +128,13 @@ class OnChain::Transaction
         [orig_addr], total_amount, network)
       indexes = nil
       
+      total_input_value = 0
       # Process the unpsent outs.
       unspents.each_with_index do |spent, index|
 
         txin = Bitcoin::Protocol::TxIn.new([ spent[0] ].pack('H*').reverse, spent[1])
         txin.script_sig = OnChain.hex_to_bin(spent[2])
+        total_input_value = total_input_value + spent[3].to_i
         tx.add_in(txin)
       end
       
@@ -158,7 +154,7 @@ class OnChain::Transaction
 
       inputs_to_sign = get_inputs_to_sign(tx)
       
-      return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
+      return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign, total_input_value
     end
     
     # Given a send address and an amount produce a transaction 
@@ -189,6 +185,7 @@ class OnChain::Transaction
       # OK, let's build a transaction.
       tx = Bitcoin::Protocol::Tx.new
       
+      total_input_value = 0
       # Process the unpsent outs.
       unspents.each_with_index do |spent, index|
 
@@ -196,6 +193,7 @@ class OnChain::Transaction
         
         txin = Bitcoin::Protocol::TxIn.new([ spent[0] ].pack('H*').reverse, spent[1])
         txin.script_sig = OnChain::hex_to_bin(script)
+        total_input_value = total_input_value + spent[3].to_i
         tx.add_in(txin)
       end
 
@@ -220,7 +218,7 @@ class OnChain::Transaction
 
       inputs_to_sign = get_inputs_to_sign tx
     
-      return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign
+      return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign, total_input_value
     end
   
     # Given a transaction in hex string format, apply
