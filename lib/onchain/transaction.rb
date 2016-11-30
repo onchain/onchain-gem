@@ -229,7 +229,9 @@ class OnChain::Transaction
     # [0]{034000.....' => {'hash' => '345435345....', 'sig' => '435fgdf4553...'}}
     # [0]{02fee.....' => {'hash' => '122133445....', 'sig' => '435fgdf4553...'}}
     #
-    def sign_transaction(transaction_hex, sig_list)
+    # For transactions coming from non multi sig wallets we need to set
+    # the pubkey parameter to the full public hex key of the address.
+    def sign_transaction(transaction_hex, sig_list, pubkey = nil)
       
       tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(transaction_hex)
       
