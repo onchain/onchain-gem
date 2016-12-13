@@ -51,6 +51,27 @@ describe OnChain do
     
   end
   
+  it "should interrogate an affiliate transaction" do
+    
+    txhex = "010000000275fe229c43fa1a89412e793bb0048e8cd72cc377c462ae2c4e953811b950f794020000001976a914bc9efe4aa8d545bb0bf6c4587eca592c101d941788acffffffff0afe22c61aa6ad6b066245ae4fca4f1e2f083e61b3d1c58d17ac3173e9ce7b4b000000001976a914bc9efe4aa8d545bb0bf6c4587eca592c101d941788acffffffff04a0860100000000001976a914c040cbbcdbf5cb6a06ffd800b51990381fa8b2df88ac30e60200000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac30e60200000000001976a9147a2e64eec19154ed1792c3b9c07bae900e5e74df88aca0860100000000001976a914bc9efe4aa8d545bb0bf6c4587eca592c101d941788ac00000000"
+    
+    total_input_value = 600_000
+    
+    result = OnChain::Transaction.interrogate_transaction(txhex, 
+      ['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'], 
+      ['1STRonGxnFTeJiA7pgyneKknR29AwBM77', 
+      '1C931w9YKHeogc8N4zRUKSvitoPcTPKPFf'], total_input_value)
+      
+    expect(result[:miners_fee]).to eq(0.0002)
+    expect(result[:total_change]).to eq(0.001)
+    expect(result[:total_to_send]).to eq(0.006)
+    expect(result[:our_fees]).to eq(0.0038)
+    expect(result[:destination]).to eq("1JXYMviGfEvjYGP2ZGfDJku6EjnPPEgtr6")
+    expect(result[:unrecognised_destination]).to eq(0.0)
+    expect(result[:primary_send]).to eq(0.001)
+    
+  end
+  
   it "should sanity check a transaction" do
     
     tx = '010000000168e118d870ce6c30a6fc2f857f1a55909a500551e7d441ff368e595ce062dd26020000008a47304402207d687b513ee58c6cb9348613735d20320b74e9c80845db44f8032ec75125a7a5022058bb5f1d705d0b5701583aac690c0ff1b537e5f24342093e8d559b30681c96920141047299bb198fbcd6992000e1557fd63278feb44b313b7a2c4f735ca99fb73e65de24aa9a17858686942e63b4db467f60d50ef77c362b1b50ac6ca2a7eacfe85f3cffffffff03808d5b00000000001976a9141969dd3c9f1765fd923c8c9c1ad52a26410ed12688ac801a0600000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac40771b00000000001976a914b3607b90aa91452f234d85ec2809d0037e71f38788ac00000000'
