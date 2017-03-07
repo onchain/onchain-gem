@@ -3,7 +3,7 @@ class OnChain::Transaction
     
     MINERS_BYTE_FEE = 100
     CACHE_KEY = 'Bitcoin21Fees'
-    CACHE_FOR = 120 # 2 hours
+    CACHE_FOR = 10 # 10 minutes, roughly each block.
       
     def calculate_miners_fee(addresses, amount, network = :bitcoin)
       
