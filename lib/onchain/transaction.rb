@@ -26,7 +26,7 @@ class OnChain::Transaction
         
         return OnChain::BlockChain.cache_read(CACHE_KEY)
       rescue => e
-        fees = {"fastestFee":200,"halfHourFee":180,"hourFee":160}
+        fees = {"fastestFee" => 200,"halfHourFee" => 180,"hourFee" => 160}
         OnChain::BlockChain.cache_write(CACHE_KEY, fees, CACHE_FOR)
         return OnChain::BlockChain.cache_read(CACHE_KEY)
       end
