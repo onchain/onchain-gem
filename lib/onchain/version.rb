@@ -1,3 +1,3 @@
 module Onchain
-  VERSION = "3.35"
+  VERSION = "3.36"
 end
