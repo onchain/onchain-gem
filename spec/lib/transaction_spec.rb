@@ -7,13 +7,26 @@ describe OnChain do
     
   HANDY_KEY = "xprv9vHD6wsW4Zxo354gwDBGWfAJk4LFY3M19Eq64Th11mwE4mjPXRC6hopudBbHzWDuJp9m3b4HtYwJR3QfBPMM6tYJvZeMFaMt5iDcP1sqoWw"
   
+  
+  it "get recommended transaction fee" do
+    fee = OnChain::Transaction.get_recommended_tx_fee["fastestFee"]
+    
+    expect(fee).to be > 0
+  end
+  
+  it "should estimate transaction sizes" do
+    orig_addr = '13H8HWUgyaeMXJoDnKeUFMcXLJbCQ7s7V5'
+    
+    OnChain::Transaction.estimate_transaction_size([orig_addr], 0.38 * 100_000_000, 1)
+  end
+  
   it "should calculate the miners fee" do
     
     orig_addr = '1HMTY59ZaVB9L4rh7PjMjEca2fiT1TucGH'
     
     fee = OnChain::Transaction.calculate_miners_fee([orig_addr], 1000000, 1)
     
-    expect(fee).to eq(68000)
+    expect(fee).to be > 1000
   end
   
   it "should sign a hash160 style transaction" do

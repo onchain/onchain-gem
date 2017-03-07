@@ -2,25 +2,55 @@ class OnChain::Transaction
   class << self
     
     MINERS_BYTE_FEE = 100
+    CACHE_KEY = 'Bitcoin21Fees'
+    CACHE_FOR = 120 # 2 hours
       
-    # Count up unspents to give a rough TX size. We only return a miners fee
-    # Less than 1% of TX value, otherwise just return 1% TX value.
-    # In some cases this might not be enough to pay for the TX.
-    # Assume fee is 100 satoshi per byte.
     def calculate_miners_fee(addresses, amount, network = :bitcoin)
+      
+      tx_size = estimate_transaction_size(addresses, amount, network)
+      
+      tx_fee = get_recommended_tx_fee["fastestFee"]
+      
+      return tx_size * tx_fee
+      
+    end
+    
+    def get_recommended_tx_fee
+      
+      begin
+      
+        if OnChain::BlockChain.cache_read(CACHE_KEY) == nil
+          fees = OnChain::BlockChain.fetch_response('https://bitcoinfees.21.co/api/v1/fees/recommended', true)
+          OnChain::BlockChain.cache_write(CACHE_KEY, fees, CACHE_FOR)
+        end
+        
+        return OnChain::BlockChain.cache_read(CACHE_KEY)
+      rescue => e
+        fees = {"fastestFee":200,"halfHourFee":180,"hourFee":160}
+        OnChain::BlockChain.cache_write(CACHE_KEY, fees, CACHE_FOR)
+        return OnChain::BlockChain.cache_read(CACHE_KEY)
+      end
+    end
+    
+    # http://bitcoin.stackexchange.com/questions/1195/how-to-calculate-transaction-size-before-sending
+    # in*148 + out*34 + 10 plus or minus 'in'
+    def estimate_transaction_size(addresses, amount, network = :bitcoin)
       
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, amount, network)
       indexes ,change = nil
       
       # Assume each input is 275 bytes.
-      size_in_bytes = unspents.count * 265
+      size_in_bytes = unspents.count * 180
       
       # Add on 3 outputs of assumed size 50 bytes.
-      size_in_bytes = size_in_bytes + (3 * 50)
+      size_in_bytes = size_in_bytes + (3 * 34)
       
-      estimated_miners_fee = size_in_bytes * MINERS_BYTE_FEE
+      # Add on 50 bytes for good luck
+      size_in_bytes += unspents.count
       
-      return estimated_miners_fee
+      size_in_bytes += 10
+      
+      return size_in_bytes
       
     end
     
