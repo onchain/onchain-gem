@@ -2,6 +2,14 @@ require 'spec_helper'
 
 describe OnChain do
   
+  it "Add the number of confirmations to address history" do
+    
+    test =  OnChain::BlockChain.blockinfo_address_history('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
+    
+    expect(test[0][:block_height]).to be > 0
+    
+  end
+  
   it "should store stuff in the cache" do
     
     OnChain::BlockChain.cache_write('test-the-cache', 'down', 60)
@@ -147,7 +155,7 @@ describe OnChain do
     
     hist = OnChain::BlockChain.blockinfo_address_history('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
     
-    expect(hist.length).to eq(3)   
+    expect(hist.length).to eq(6)   
   end
   
   it "should have same number of outs" do
@@ -183,7 +191,7 @@ describe OnChain do
     
     unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, 10001, :bitcoin)
     
-    expect(unspents.length).to eq(2)  
+    expect(unspents.length).to eq(1)  
     expect(change).to eq(89999) 
   end
   
@@ -197,6 +205,6 @@ describe OnChain do
   it "should have transactions in the history" do
     hist = OnChain::BlockChain.address_history('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
     
-    expect(hist[0][:hash]).to eq('2b64582888848b52baa57bbb422b7b4b6c67e46202bd1c1d403cea41aaf45a41')
+    expect(hist[0][:hash]).to eq('4b7bcee97331ac178dc5d1b3613e082f1e4fca4fae4562066bada61ac622fe0a')
   end
 end
