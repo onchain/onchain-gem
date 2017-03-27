@@ -4,9 +4,19 @@ class OnChain::BlockChain
     def blockinfo_address_history(address, network = :bitcoin)
       
       base_url = "https://blockchain.info/address/#{address}?format=json"
+      
+      base_url = base_url + get_api_key_params
+      
       json = fetch_response(base_url, true)
       
       blockinfo_parse_address_tx(address, json)
+    end
+    
+    def get_api_key_params
+      if ENV['BLOCKCHAIN_INFO_API_KEY'] != nil
+        return "&api_code=#{ENV['BLOCKCHAIN_INFO_API_KEY']}"
+      end
+      return ""
     end
 
     def blockinfo_get_history_for_addresses(addresses, network = :bitcoin)
@@ -64,6 +74,8 @@ class OnChain::BlockChain
       
       base = "https://blockchain.info/multiaddr?&simple=true&active=" + address
       
+      base = base + get_api_key_params
+      
       json = fetch_response(URI::encode(base))
       
       return { received: json[address]['total_received'], 
@@ -85,6 +97,8 @@ class OnChain::BlockChain
         base = base + address + '|'
       end
       
+      base = base + get_api_key_params
+      
       json = fetch_response(URI::encode(base))
       
       addresses.each do |address|
@@ -95,6 +109,9 @@ class OnChain::BlockChain
 
     def blockinfo_get_unspent_outs(address, network = :bitcoin)
       base_url = "https://blockchain.info/unspent?active=#{address}"
+      
+      base_url = base_url + get_api_key_params
+      
       json = fetch_response(base_url, true)
       
       unspent = []
@@ -130,11 +147,16 @@ class OnChain::BlockChain
 
     def blockinfo_get_transaction(txhash)
       base = "https://blockchain.info/rawtx/#{txhash}?format=hex"
+      
+      base = base + get_api_key_params
+      
       return fetch_response(URI::encode(base), false)
     end
   
     def block_chain(cmd, address, params = "")
       base_url = "https://blockchain.info/#{cmd}/#{address}?format=json" + params
+      
+      base_url = base_url + get_api_key_params
       
       fetch_response(base_url, true)
     end
