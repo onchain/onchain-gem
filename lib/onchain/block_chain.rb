@@ -54,6 +54,7 @@ class OnChain::BlockChain
             # service is down.
             cache_write(supplier.to_s, 'down', SERVICE_DOWN_FOR)
             puts e2.to_s
+            puts e2.backtrace
           end
         rescue => e
           puts "there's no method called '#{real_method}'"

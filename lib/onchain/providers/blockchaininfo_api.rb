@@ -44,17 +44,21 @@ class OnChain::BlockChain
           val = 0
           recv = "Y"
           inputs.each do |input|
-            row[:addr][input["prev_out"]["addr"]] = input["prev_out"]["addr"]
-            if input["prev_out"]["addr"] == address
-              recv = "N"
+            if input["prev_out"] != nil and input["prev_out"]["addr"] != nil
+              row[:addr][input["prev_out"]["addr"]] = input["prev_out"]["addr"]
+              if input["prev_out"]["addr"] == address
+                recv = "N"
+              end
             end
           end
           tx["out"].each do |out|
-            row[:outs][out["addr"]] = out["addr"]
-            if recv == "Y" and out["addr"] == address
-              val = val + out["value"].to_f / 100000000.0
-            elsif recv == "N" and out["addr"] != address
-              val = val + out["value"].to_f / 100000000.0
+            if out['addr'] != nil
+              row[:outs][out["addr"]] = out["addr"]
+              if recv == "Y" and out["addr"] == address
+                val = val + out["value"].to_f / 100000000.0
+              elsif recv == "N" and out["addr"] != address
+                val = val + out["value"].to_f / 100000000.0
+              end
             end
           end
           row[:total] = val
