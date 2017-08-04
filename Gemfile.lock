@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (3.41)
+    onchain (4.00)
       bitcoin-ruby
       google_currency
       money-tree
