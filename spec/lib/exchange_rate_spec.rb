@@ -22,7 +22,7 @@ describe OnChain do
     
     rate = OnChain::ExchangeRate.alt_exchange_rate(:zclassic)
     
-    expect(rate).to be > 0.001
+    expect(rate).to be > 0.0000001
     
   end
 

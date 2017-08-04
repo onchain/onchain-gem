@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (3.40)
+    onchain (3.41)
       bitcoin-ruby
       google_currency
       httparty
@@ -13,7 +13,7 @@ GEM
   specs:
     bitcoin-ruby (0.0.9)
     diff-lcs (1.2.5)
-    ffi (1.9.17)
+    ffi (1.9.18)
     google_currency (3.3.0)
       money (~> 6.7)
     httparty (0.14.0)
