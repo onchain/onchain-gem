@@ -1,148 +1,163 @@
-class OnChain::BlockChain
-  class << self
+class OnChain::Insight
     
-    def get_insight_url(network)
-      if network == :bitcoin
-        return "https://insight.bitpay.com/api/"
-      elsif network == :zcash_testnet
-        return "https://explorer.testnet.z.cash/api/"
-      end
-      return "https://test-insight.bitpay.com/api/"
-    end
-      
-    def insight_address_history(address, network = :bitcoin)
-        
-      base_url = get_insight_url(network) + "addr/" + address
-      json = fetch_response(base_url, true) 
-      
-      return parse_insight_address_tx(address, json, network)
-        
-    end
-
-    def insight_get_history_for_addresses(addresses, network = :bitcoin)
-      history = []
-      addresses.each do |address|
-        res = insight_address_history(address, network)
-        res.each do |r|
-          history << r
-        end
-      end
-      return history
-    end
+  def initialize(url)
+    @url = url
+  end
+  
+  ############################################################################
+  # The provider methods
+  def get_balance(address)
+    insight_get_balance(address)
+  end
+  
+  def address_history(address)
+    insight_address_history(address)
+  end
+  
+  def send_tx(tx_hex)
+    insight_send_tx(tx_hex)
+  end
+  
+  def get_unspent_outs(address)
+    insight_get_unspent_outs(address)
+  end
+  
+  def get_transaction(tx_id)
+    insight_get_transaction(tx_id)
+  end
+  
+  def get_all_balances(addresses)
+    insight_get_all_balances(addresses)
+  end
+  
+  def url
+    return @url
+  end
+  ############################################################################
+  
+  private
     
-    def parse_insight_address_tx(address, json, network)
+  def insight_address_history(address, network = :bitcoin)
       
-      hist = []
-      if json.key?('transactions')
-        txs = json['transactions']
-        txs.each do |tx|
-          row = {}
-          row[:hash] = tx[tx]
-          
-          # OK, go and get the actual transaction
-          base_url = get_insight_url(network) + "tx/" + tx
-          tx_json = fetch_response(base_url, true) 
-          
-          row[:time] = tx_json["time"]
-          row[:addr] = {}
-          row[:outs] = {}
-          
-          inputs = tx_json['vin']
-          val = 0
-          recv = "Y"
-          inputs.each do |input|
-            row[:addr][input["addr"]] = input["addr"]
-            if input["addr"] == address
-              recv = "N"
-            end
+    base_url = @url + "addr/" + address
+    json = OnChain::BlockChain.fetch_response(base_url, true) 
+    
+    return parse_insight_address_tx(address, json, network)
+      
+  end
+  
+  def parse_insight_address_tx(address, json, network)
+    
+    hist = []
+    if json.key?('transactions')
+      txs = json['transactions']
+      txs.each do |tx|
+        row = {}
+        row[:hash] = tx[tx]
+        
+        # OK, go and get the actual transaction
+        base_url = @url + "tx/" + tx
+        tx_json = OnChain::BlockChain.fetch_response(base_url, true) 
+        
+        row[:time] = tx_json["time"]
+        row[:addr] = {}
+        row[:outs] = {}
+        
+        inputs = tx_json['vin']
+        val = 0
+        recv = "Y"
+        inputs.each do |input|
+          row[:addr][input["addr"]] = input["addr"]
+          if input["addr"] == address
+            recv = "N"
           end
-          
-          tx_json["vout"].each do |out|
-            out_addr = out["scriptPubKey"]["addresses"][0]
-            row[:outs][out_addr] = out_addr
-            if recv == "Y" and out_addr == address
-              val = val + out["value"].to_f
-            elsif recv == "N" and out_addr != address
-              val = val + out["value"].to_f
-            end
-          end
-          row[:total] = val
-          row[:recv] = recv
-          hist << row
         end
-        return hist
-      else
-        'Error'
+        
+        tx_json["vout"].each do |out|
+          out_addr = out["scriptPubKey"]["addresses"][0]
+          row[:outs][out_addr] = out_addr
+          if recv == "Y" and out_addr == address
+            val = val + out["value"].to_f
+          elsif recv == "N" and out_addr != address
+            val = val + out["value"].to_f
+          end
+        end
+        row[:total] = val
+        row[:recv] = recv
+        hist << row
       end
       return hist
+    else
+      'Error'
     end
-    
-    def insight_send_tx(tx_hex, network = :bitcoin)
-      
-      return OnChain::BlockChain.blockr_send_tx(tx_hex, network)
-        
-      #uri = URI.parse(get_url(network) + "tx/send")		
-      #http = Net::HTTP.new(uri.host, uri.port)		
-		
-      #request = Net::HTTP::Post.new(uri.request_uri)		
-      #request.body = '{"rawtx":"' + tx_hex + '"}'		
-      #response = http.request(request)
-      
-      #res = JSON.parse(response.body)
-
-      #mess = 'Unknown'
-      #stat = 'Unknown'
-      #tx_hash = res["txid"]
-      
-      #puts 'Call insight_send_tx ' + tx_hex.to_s
-      
-      #ret = "{\"status\":\"#{stat}\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{mess}\"}"	
-      #return JSON.parse(ret)	
-    end
-
-    def insight_get_balance(address, network = :bitcoin)
-      
-      if cache_read(address + network.to_s) == nil
-        
-        base_url = get_insight_url(network) + "addr/#{address}/balance" 
-        bal_string = fetch_response(base_url, false) 
-        bal = bal_string.to_i / 100000000.0
-        cache_write(address + network.to_s, bal, BALANCE_CACHE_FOR)
-      end
-      
-      return cache_read(address + network.to_s) 
-    end
-
-    def insight_get_all_balances(addresses, network = :bitcoin)
-      
-      addresses.each do |address|
-        insight_get_balance(address, network)
-      end
-    end
-
-    def insight_get_unspent_outs(address, network = :bitcoin)
-        
-      base_url = get_insight_url(network) + "addr/#{address}/utxo"
-      json = fetch_response(base_url, true)
-      
-      unspent = []
-      
-      json.each do |data|
-        line = []
-        line << data['txid']
-        line << data['vout']
-        line << data['scriptPubKey']
-        line << (data['amount'].to_f * 100000000).to_i
-        unspent << line
-      end
-      
-      return unspent
-    end
-
-    def insight_get_transaction(txhash, network = :bitcoin)
-      base = get_insight_url(network) + "rawtx/" + txhash
-      return fetch_response(URI::encode(base))['rawtx']
-    end
-    
+    return hist
   end
+  
+  def insight_send_tx(tx_hex, network = :bitcoin)
+    
+    return OnChain::BlockChain.blockr_send_tx(tx_hex, network)
+      
+    #uri = URI.parse(get_url(network) + "tx/send")		
+    #http = Net::HTTP.new(uri.host, uri.port)		
+	
+    #request = Net::HTTP::Post.new(uri.request_uri)		
+    #request.body = '{"rawtx":"' + tx_hex + '"}'		
+    #response = http.request(request)
+    
+    #res = JSON.parse(response.body)
+
+    #mess = 'Unknown'
+    #stat = 'Unknown'
+    #tx_hash = res["txid"]
+    
+    #puts 'Call insight_send_tx ' + tx_hex.to_s
+    
+    #ret = "{\"status\":\"#{stat}\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{mess}\"}"	
+    #return JSON.parse(ret)	
+  end
+
+  def insight_get_balance(address, network = :bitcoin)
+    
+    if OnChain::BlockChain.cache_read(address + network.to_s) == nil
+      
+      base_url = @url + "addr/#{address}/balance" 
+      bal_string = OnChain::BlockChain.fetch_response(base_url, false) 
+      bal = bal_string.to_i / 100000000.0
+      OnChain::BlockChain.cache_write(address + network.to_s, bal, 120)
+    end
+    
+    return OnChain::BlockChain.cache_read(address + network.to_s) 
+  end
+
+  def insight_get_all_balances(addresses, network = :bitcoin)
+    
+    addresses.each do |address|
+      insight_get_balance(address, network)
+    end
+  end
+
+  def insight_get_unspent_outs(address, network = :bitcoin)
+      
+    base_url = @url + "addr/#{address}/utxo"
+    json = OnChain::BlockChain.fetch_response(base_url, true)
+    
+    unspent = []
+    
+    json.each do |data|
+      line = []
+      line << data['txid']
+      line << data['vout']
+      line << data['scriptPubKey']
+      line << (data['amount'].to_f * 100000000).to_i
+      unspent << line
+    end
+    
+    return unspent
+  end
+
+  def insight_get_transaction(txhash, network = :bitcoin)
+    base = @url + "rawtx/" + txhash
+    return OnChain::BlockChain.fetch_response(URI::encode(base))['rawtx']
+  end
+    
 end

@@ -1,8 +1,11 @@
-require 'onchain/block_chain.rb'
+class OnChain
+end
+
 require 'onchain/providers/blockchaininfo_api.rb'
 require 'onchain/providers/blockr_api.rb'
 require 'onchain/providers/insight_api.rb'
 require 'onchain/providers/bitcoind_api.rb'
+require 'onchain/block_chain.rb'
 require 'onchain/transaction.rb'
 require 'onchain/exchange_rates.rb'
 require 'money-tree'

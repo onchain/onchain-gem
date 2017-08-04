@@ -2,9 +2,15 @@ require 'spec_helper'
 
 describe OnChain do
   
+  before(:each) do
+    # testnet3
+    @insight = OnChain::Insight.new('https://test-insight.bitpay.com/api/')
+  end
+  
   it "should give me a balance for a testnet address" do
     
-    bal1 = OnChain::BlockChain.insight_get_balance('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', :testnet3)
+    bal1 = @insight.get_balance('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8')
+    
     OnChain::BlockChain.cache_write('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', nil)
     
     expect(bal1).to eq(0.216)
@@ -13,7 +19,7 @@ describe OnChain do
   
   it "should give me the unspent outs" do
     
-    out1 = OnChain::BlockChain.insight_get_unspent_outs('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', :testnet3)
+    out1 = @insight.get_unspent_outs('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8')
     
     expect(out1.count).to eq(4)
     
@@ -30,7 +36,7 @@ describe OnChain do
   
   it "should give me a history for an address" do
   
-    hist = OnChain::BlockChain.insight_address_history('2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca', :testnet3)
+    hist = @insight.address_history('2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca')
     
     expect(hist.length).to eq(3)  
     
@@ -45,7 +51,8 @@ describe OnChain do
   end
   
   it "should bring back a raw transaction in hex" do
-    tx =  OnChain::BlockChain.insight_get_transaction('93c8e1d06de7a95cacfaa8b9ba2e541d344523761f6818587ccf391493808712', :testnet3)
+    
+    tx =  @insight.get_transaction('93c8e1d06de7a95cacfaa8b9ba2e541d344523761f6818587ccf391493808712')
     
     expect(tx).to eq('010000000101ee9e72ac53c71265056f9678a698913c0f07de17ee98b93a03234d7ae6c638000000006a47304402205a1aa8ef7fb07f4878cbe0103163b37bbf8a5c5df2109d9029788b36c056030d02201d64d8f079c1091e3904230b172377d67d2e462eaf9a4d1f3496cd333bdf700e01210203fd215615e20b1c50c4ccae39623dec86b064723ab14657a46f93389f77873bffffffff02a0860100000000001976a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac58060600000000001976a914b6588798023037135a20583ce2c6610e36c6ead888ac00000000')
   end

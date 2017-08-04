@@ -12,6 +12,7 @@ require 'json'
 # send_tx(tx_hex)
 # get_transactions(address)
 #
+
 class OnChain
   class << self
   
@@ -27,41 +28,138 @@ end
 
 class OnChain::BlockChain
   class << self
+  
+    # APIS are stored in order of preference.
+    COINS = {
+      :bitcoin => {
+        :apis => [
+          { :provider => OnChain::BlockChaininfo.new,
+            # Exclude send_tx as it doesn't support multi sig.
+            :excludes => [:send_tx]},
+          { :provider => OnChain::Blockr.new('http://btc.blockr.io/api/v1/') },
+          { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/') }
+        ]
+      },
+      :testnet3 => {
+        :apis => [
+          { :provider => OnChain::Blockr.new('http://tbtc.blockr.io/api/v1/') },
+          { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/') }
+        ]
+      },
+      :zcash_testnet => {
+        :apis => [
+          { :provider => OnChain::Insight.new('https://explorer.testnet.z.cash/api/') }
+        ] 
+      },
+      :zcash => {
+        :apis => [
+          { :provider => OnChain::Insight.new('https://explorer.z.cash/api/') }
+        ] 
+      },
+      :bitcoin_cash => {
+        :apis => [
+          { :provider => OnChain::Insight.new('http://blockdozer.com/insight-api/') }
+        ] 
+      }
+    }
     
-    ALL_SUPPLIERS = [ :blockinfo, :insight, :blockr, :bitcoind ] 
+    ############################################################################
+    # The provider methods
+    def get_balance(address, network = :bitcoin)
+      return call_api_method(:get_balance, network, address)
+    end
     
-    def method_missing (method_name, *args, &block)
-      
-      network = :bitcoin
-      # List of allowable networks.
-      if  args.length > 0
-        if [:testnet3, :zcash_testnet, :zcash, :zclassic].include? args[args.length - 1]
-          network = args[args.length - 1]
-        end
+    def address_history(address, network = :bitcoin)
+      return call_api_method(:address_history, network, address)
+    end
+    
+    def send_tx(tx_hex, network = :bitcoin)
+      return call_api_method(:send_tx, network, tx_hex)
+    end
+    
+    def get_unspent_outs(address, network = :bitcoin)
+      return call_api_method(:get_unspent_outs, network, address)
+    end
+    
+    def get_transaction(tx_id, network = :bitcoin)
+      return call_api_method(:get_transaction, network, tx_id)
+    end
+  
+    def get_all_balances(addresses, network = :bitcoin)
+      return call_api_method(:get_all_balances, network, addresses)
+    end
+    ############################################################################
+    
+    def call_api_method (method_name, network, *args)
+       
+      if COINS[network] == nil
+        raise 'Network ' + network.to_s + ' not supported'
       end
       
-      get_available_suppliers(method_name, network).each do |supplier|
-
-        real_method = "#{supplier.to_s}_#{method_name}"
+      providers = get_available_suppliers(method_name, network)
+      
+      # Call each provider until we get an answer
+      providers.each do |provider|
+        
+        method = provider.method(method_name)
+        
+        if ! provider.class.method_defined? method_name
+          raise "Provider doesn't have method " + method_name
+        end
         
         begin
-          method = self.method(real_method)
-          begin
-            result = method.call(*args)
-            return result
-          rescue => e2
-            # We have the method but it errored. Assume
-            # service is down.
-            cache_write(supplier.to_s, 'down', SERVICE_DOWN_FOR)
-            puts e2.to_s
-            puts e2.backtrace
-          end
-        rescue => e
-          puts "there's no method called '#{real_method}'"
-          puts e.backtrace
+          result = method.call(*args)
+          return result
+        rescue => e2
+          # We have the method but it errored. Assume
+          # service is down.
+          cache_write(provider.url, 'down', SERVICE_DOWN_FOR)
+          puts e2.to_s
+          puts e2.backtrace
         end
+        
       end
       
+      raise "No available providers for #{metho_name.to_s} : #{network.to_s}"
+      
+    end
+    
+    def get_available_suppliers(method_name, network)
+      
+      if COINS[network] == nil
+        raise 'Network ' + network.to_s + ' not supported'
+      end
+      
+      providers = []
+      
+      COINS[network][:apis].each do |api|
+        
+        # Is the service temporarily down?
+        if cache_read(api[:provider].url) != nil
+          next
+        end  
+          
+        # we can exclude some providers
+        if api[:excludes] != nil and api[:excludes].include? method_name
+          next
+        end
+        
+        providers << api[:provider]
+        
+      end
+      
+      return providers
+    end
+
+    def get_history_for_addresses(addresses, network = :bitcoin)
+      history = []
+      addresses.each do |address|
+        res = address_history(address, network)
+        res.each do |r|
+          history << r
+        end
+      end
+      return history
     end
     
     # Given a list of addresses, return those
@@ -111,57 +209,6 @@ class OnChain::BlockChain
       return (get_balance(address, network).to_f * 100000000).to_i
     end
     
-    def get_available_suppliers(method_name, network)
-      available = []
-      ALL_SUPPLIERS.each do |supplier|
-        if cache_read(supplier.to_s) == nil
-          
-          if supplier == :blockinfo and ! [:bitcoin].include? network
-            next
-          end
-          
-          if supplier == :blockr and ! [:bitcoin, :testnet3].include? network
-            next
-          end
-          
-          if supplier == :insight and ! [:bitcoin].include? network
-            next
-          end
-          
-          if supplier == :bitcoind and ENV[network.to_s.upcase + '_HOST'] == nil
-            next
-          end
-          
-          if supplier == :blockinfo and method_name.to_s == 'send_tx'
-            next
-          end
-          
-          if supplier == :blockinfo and method_name.to_s == 'get_transactions'
-            next
-          end
-          
-          if supplier == :blockr and network == :bitcoin and method_name.to_s == 'address_history'
-            next
-          end
-          
-          if supplier == :blockr and method_name.to_s == 'get_address_info'
-            next
-          end
-          
-          if supplier == :insight and method_name.to_s == 'get_address_info'
-            next
-          end
-          
-          if supplier == :blockr and network == :bitcoin and method_name.to_s == 'get_history_for_addresses'
-            next
-          end
-          
-          available << supplier
-        end
-      end
-      return available
-    end
-    
     BALANCE_CACHE_FOR = 120
     API_CACHE_FOR = 60
     SERVICE_DOWN_FOR = 60
@@ -185,7 +232,7 @@ class OnChain::BlockChain
       data = resp.body
     
       if do_json
-        result = JSON.parse(data)
+        JSON.parse(data)
       else
         data
       end
