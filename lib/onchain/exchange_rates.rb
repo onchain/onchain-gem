@@ -1,5 +1,3 @@
-require 'httparty'
-require 'cgi'
 require 'money'
 require 'money/bank/google_currency'
 
@@ -16,14 +14,12 @@ class OnChain::ExchangeRate
         if OnChain::BlockChain.cache_read(ticker) == nil
           if currency == :USD 
             begin
-              r = HTTParty.get("https://www.bitstamp.net/api/ticker/")    
-              j = JSON.parse r.response.body   
-              rate = j["last"]
+              r = OnChain::BlockChain.fetch_response("https://www.bitstamp.net/api/ticker/")   
+              rate = r["last"]
               OnChain::BlockChain.cache_write(ticker, rate, BALANCE_RATE_FOR)
             rescue
-              r = HTTParty.get("https://blockchain.info/ticker")
-              j = JSON.parse r.response.body
-              OnChain::BlockChain.cache_write(ticker, j["USD"]["last"], BALANCE_RATE_FOR)
+              r = OnChain::BlockChain.fetch_response("https://blockchain.info/ticker")
+              OnChain::BlockChain.cache_write(ticker, r["USD"]["last"], BALANCE_RATE_FOR)
             end
 
           elsif currency == :EUR

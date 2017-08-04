@@ -26,7 +26,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'money-tree'
   gem.add_dependency 'bitcoin-ruby'
-  gem.add_dependency 'httparty'
-  gem.add_dependency 'net-ssh'
   gem.add_dependency 'google_currency'
 end

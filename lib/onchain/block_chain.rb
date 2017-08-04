@@ -1,5 +1,4 @@
 require 'net/http'
-require 'net/ssh'
 require 'json'
 
 # We support a number of blockchain API providers,
