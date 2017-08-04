@@ -17,14 +17,14 @@ describe OnChain do
   it "should estimate transaction sizes" do
     orig_addr = '13H8HWUgyaeMXJoDnKeUFMcXLJbCQ7s7V5'
     
-    OnChain::Transaction.estimate_transaction_size([orig_addr], 0.38 * 100_000_000, 1)
+    OnChain::Transaction.estimate_transaction_size([orig_addr], 0.38 * 100_000_000)
   end
   
   it "should calculate the miners fee" do
     
     orig_addr = '1HMTY59ZaVB9L4rh7PjMjEca2fiT1TucGH'
     
-    fee = OnChain::Transaction.calculate_miners_fee([orig_addr], 1000000, 1)
+    fee = OnChain::Transaction.calculate_miners_fee([orig_addr], 1000000)
     
     expect(fee).to be > 1000
   end
