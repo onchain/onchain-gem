@@ -56,6 +56,11 @@ class OnChain::BlockChain
           { :provider => OnChain::Insight.new('https://explorer.z.cash/api/') }
         ] 
       },
+      :zclassic => {
+        :apis => [
+          { :provider => OnChain::Insight.new('https://aayani.tech/api/') }
+        ] 
+      },
       :bitcoin_cash => {
         :apis => [
           { :provider => OnChain::Insight.new('http://blockdozer.com/insight-api/') }
@@ -120,7 +125,7 @@ class OnChain::BlockChain
         
       end
       
-      raise "No available providers for #{metho_name.to_s} : #{network.to_s}"
+      raise "No available providers for #{method_name.to_s} : #{network.to_s}"
       
     end
     

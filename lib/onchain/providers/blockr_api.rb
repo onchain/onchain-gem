@@ -184,7 +184,7 @@ class OnChain::Blockr
     json['data'].each do |data|
       bal = data['balance'].to_f
       addr = data['address']
-      cache_write(addr, bal, BALANCE_CACHE_FOR)
+      OnChain::BlockChain.cache_write(addr, bal, 120)
     end
   end
 

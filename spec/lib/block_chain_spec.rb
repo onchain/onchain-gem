@@ -152,7 +152,7 @@ describe OnChain do
     
     expect(OnChain::BlockChain.cache_read('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')).to eq(nil)
     
-    OnChain::BlockChain.blockr_get_all_balances(['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'])
+    @blockr.get_all_balances(['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'])
     
     expect(OnChain::BlockChain.cache_read('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')).to_not eq(nil)
   end
@@ -203,7 +203,7 @@ describe OnChain do
   
   it "should give me more balance info" do
     
-    OnChain::BlockChain.get_address_info('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    @blockinfo.get_address_info('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
     
     
   end
