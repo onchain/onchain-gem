@@ -107,8 +107,9 @@ class OnChain::Insight
       http.use_ssl = true	
     end
 	
-    request = Net::HTTP::Post.new(uri.request_uri)		
-    request.body = "rawtx: #{tx_hex}"		
+    request = Net::HTTP::Post.new(uri.request_uri)
+    msg = "{\"rawtx\": \"#{tx_hex}\"}"
+    request.body = msg
     response = http.request(request)
     
     begin 
