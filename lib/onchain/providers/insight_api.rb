@@ -101,25 +101,28 @@ class OnChain::Insight
   
   def insight_send_tx(tx_hex, network = :bitcoin)
     
-    return OnChain::BlockChain.blockr_send_tx(tx_hex, network)
-      
-    #uri = URI.parse(get_url(network) + "tx/send")		
-    #http = Net::HTTP.new(uri.host, uri.port)		
+    uri = URI.parse(@url + "tx/send")		
+    http = Net::HTTP.new(uri.host, uri.port)
+    if @url.start_with? 'https'
+      http.use_ssl = true	
+    end
 	
-    #request = Net::HTTP::Post.new(uri.request_uri)		
-    #request.body = '{"rawtx":"' + tx_hex + '"}'		
-    #response = http.request(request)
+    request = Net::HTTP::Post.new(uri.request_uri)		
+    request.body = "rawtx: #{tx_hex}"		
+    response = http.request(request)
     
-    #res = JSON.parse(response.body)
+    begin 
+      res = JSON.parse(response.body)
+      tx_hash = res["txid"]
+    rescue  
+      tx_hash = response.body.strip
+    end
 
-    #mess = 'Unknown'
-    #stat = 'Unknown'
-    #tx_hash = res["txid"]
+    mess = 'Unknown'
+    stat = 'Unknown'
     
-    #puts 'Call insight_send_tx ' + tx_hex.to_s
-    
-    #ret = "{\"status\":\"#{stat}\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{mess}\"}"	
-    #return JSON.parse(ret)	
+    ret = "{\"status\":\"#{stat}\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{mess}\"}"	
+    return JSON.parse(ret)	
   end
 
   def insight_get_balance(address, network = :bitcoin)
