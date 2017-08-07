@@ -101,16 +101,18 @@ class OnChain::Insight
   
   def insight_send_tx(tx_hex, network = :bitcoin)
     
-    uri = URI.parse(@url + "tx/send")		
-    http = Net::HTTP.new(uri.host, uri.port)
-    if @url.start_with? 'https'
-      http.use_ssl = true	
-    end
+    uri = URI(@url + "tx/send")		
+    request = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
 	
-    request = Net::HTTP::Post.new(uri.request_uri)
-    msg = "{\"rawtx\": \"#{tx_hex}\"}"
+    msg = {rawtx: tx_hex}.to_json
     request.body = msg
-    response = http.request(request)
+    ssl = false
+    if @url.start_with? 'https'
+      ssl = true
+    end
+    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: ssl) do |http|
+      http.request(request)
+    end
     
     begin 
       res = JSON.parse(response.body)

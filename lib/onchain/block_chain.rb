@@ -29,10 +29,6 @@ class OnChain::BlockChain
   
   # APIS are stored in order of preference.
   # TODO switch on send_tx for insight
-  
-  # Note send_tx disabled on all insight nodes as not able to get the post
-  # request to work. Perhaps push is closed off somehow.
-  # Seems to work from the UI though https://localbitcoinschain.com/tx/send
   COINS = {
     :bitcoin => {
       :apis => [
@@ -40,27 +36,23 @@ class OnChain::BlockChain
           # Exclude send_tx as it doesn't support multi sig.
           :excludes => [:send_tx]},
         { :provider => OnChain::Blockr.new('http://btc.blockr.io/api/v1/') },
-        { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/'),
-          :excludes => [:send_tx]}
+        { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/') }
       ]
     },
     :testnet3 => {
       :apis => [
         { :provider => OnChain::Blockr.new('http://tbtc.blockr.io/api/v1/') },
-        { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/'),
-          :excludes => [:send_tx]}
+        { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/') }
       ]
     },
     :zcash_testnet => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://explorer.testnet.z.cash/api/'),
-          :excludes => [:send_tx]}
+        { :provider => OnChain::Insight.new('https://explorer.testnet.z.cash/api/') }
       ] 
     },
     :zcash => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://explorer.z.cash/api/'),
-          :excludes => [:send_tx] }
+        { :provider => OnChain::Insight.new('https://explorer.z.cash/api/') }
       ] 
     },
     :bitcoin_cash => {
