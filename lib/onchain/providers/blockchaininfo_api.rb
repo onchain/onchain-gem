@@ -1,5 +1,9 @@
 class OnChain::BlockChaininfo
   
+  def initialize(history_limit = 20)
+    @history_limit = history_limit
+  end
+  
   ############################################################################
   # The provider methods
   def get_balance(address)
@@ -50,7 +54,7 @@ class OnChain::BlockChaininfo
   
   def blockinfo_address_history(address, network = :bitcoin)
     
-    base_url = "https://blockchain.info/address/#{address}?format=json"
+    base_url = "https://blockchain.info/address/#{address}?format=json&limit=#{@history_limit}"
     
     base_url = base_url + get_api_key_params
     

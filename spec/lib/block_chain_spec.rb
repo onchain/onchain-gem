@@ -8,6 +8,14 @@ describe OnChain do
     @blockr = OnChain::Blockr.new('http://btc.blockr.io/api/v1/')
   end
   
+  it "Should truncate a vast history" do
+    
+    test =  OnChain::BlockChain.address_history('1JNSXU4k1F3LJptBMaR7vBG9yWX1svrGdv')
+    
+    expect(test.length).to eq(20)
+    
+  end
+  
   it "Add the number of confirmations to address history" do
     
     test =  @blockinfo.address_history('1EscrowubAdwjYvRtpYLR2p6JRndNmjef3')
@@ -188,7 +196,7 @@ describe OnChain do
       '3NWnAx1bD3PgoHZ7pJo6emMJn71Ee2vSpB', 
       '38BqfF4LUgpbvoYbGpyYAw44qrpS841GA1'])
       
-    expect(hist.count).to eq(101)
+    expect(hist.count).to eq(70)
   end
   
   it "should give me unspent for an amount" do
