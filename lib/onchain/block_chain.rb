@@ -29,6 +29,10 @@ class OnChain::BlockChain
   
   # APIS are stored in order of preference.
   # TODO switch on send_tx for insight
+  
+  # Note send_tx disabled on all insight nodes as not able to get the post
+  # request to work. Perhaps push is closed off somehow.
+  # Seems to work from the UI though https://localbitcoinschain.com/tx/send
   COINS = {
     :bitcoin => {
       :apis => [
