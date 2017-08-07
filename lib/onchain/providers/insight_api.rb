@@ -1,7 +1,9 @@
 class OnChain::Insight
-    
-  def initialize(url)
+  
+  # We limit the history as it makes repeated calls back to the API.  
+  def initialize(url, history_limit = 6)
     @url = url
+    @history_limit = history_limit
   end
   
   ############################################################################
@@ -85,6 +87,10 @@ class OnChain::Insight
         row[:total] = val
         row[:recv] = recv
         hist << row
+        
+        if hist.count == @history_limit
+          break
+        end
       end
       return hist
     else

@@ -26,41 +26,48 @@ class OnChain
 end
 
 class OnChain::BlockChain
-  class << self
   
-    # APIS are stored in order of preference.
-    COINS = {
-      :bitcoin => {
-        :apis => [
-          { :provider => OnChain::BlockChaininfo.new,
-            # Exclude send_tx as it doesn't support multi sig.
-            :excludes => [:send_tx]},
-          { :provider => OnChain::Blockr.new('http://btc.blockr.io/api/v1/') },
-          { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/') }
-        ]
-      },
-      :testnet3 => {
-        :apis => [
-          { :provider => OnChain::Blockr.new('http://tbtc.blockr.io/api/v1/') },
-          { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/') }
-        ]
-      },
-      :zcash_testnet => {
-        :apis => [
-          { :provider => OnChain::Insight.new('https://explorer.testnet.z.cash/api/') }
-        ] 
-      },
-      :zcash => {
-        :apis => [
-          { :provider => OnChain::Insight.new('https://explorer.z.cash/api/') }
-        ] 
-      },
-      :bitcoin_cash => {
-        :apis => [
-          { :provider => OnChain::Insight.new('http://blockdozer.com/insight-api/') }
-        ] 
-      }
+  # APIS are stored in order of preference.
+  # TODO switch on send_tx for insight
+  COINS = {
+    :bitcoin => {
+      :apis => [
+        { :provider => OnChain::BlockChaininfo.new,
+          # Exclude send_tx as it doesn't support multi sig.
+          :excludes => [:send_tx]},
+        { :provider => OnChain::Blockr.new('http://btc.blockr.io/api/v1/') },
+        { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/'),
+          :excludes => [:send_tx]}
+      ]
+    },
+    :testnet3 => {
+      :apis => [
+        { :provider => OnChain::Blockr.new('http://tbtc.blockr.io/api/v1/') },
+        { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/'),
+          :excludes => [:send_tx]}
+      ]
+    },
+    :zcash_testnet => {
+      :apis => [
+        { :provider => OnChain::Insight.new('https://explorer.testnet.z.cash/api/'),
+          :excludes => [:send_tx]}
+      ] 
+    },
+    :zcash => {
+      :apis => [
+        { :provider => OnChain::Insight.new('https://explorer.z.cash/api/'),
+          :excludes => [:send_tx] }
+      ] 
+    },
+    :bitcoin_cash => {
+      :apis => [
+        { :provider => OnChain::Insight.new('http://blockdozer.com/insight-api/'),
+          :excludes => [:send_tx]}
+      ] 
     }
+  }
+  
+  class << self
     
     ############################################################################
     # The provider methods
