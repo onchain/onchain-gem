@@ -129,9 +129,9 @@ class OnChain::Blockr
     
     json = blockr('address/balance', address, network)
     
-    return { received: json[address]['total_received'], 
-      balance: json[address]['final_balance'],
-      confirmed: json[address]['final_balance'] }
+    return { received: json['data']['balance'], 
+      balance: json['data']['balance'],
+      confirmed: json['data']['balance'] }
     
   end
 

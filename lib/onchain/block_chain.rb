@@ -100,6 +100,19 @@ class OnChain::BlockChain
     end
     ############################################################################
     
+    # We assume these are the exception if the provider is having an issue.
+    NET_HTTP_RESCUES = [ Errno::EINVAL,
+      Errno::ECONNRESET,
+      EOFError,
+      Net::HTTPBadResponse,
+      Net::HTTPHeaderSyntaxError,
+      Net::ProtocolError,
+      Net::OpenTimeout,
+      Net::HTTPServerException,
+      Net::HTTPFatalError,
+      Errno::EHOSTUNREACH,
+      Net::HTTPRetriableError ]
+      
     def call_api_method (method_name, network, *args)
        
       if COINS[network] == nil
@@ -120,12 +133,14 @@ class OnChain::BlockChain
         begin
           result = method.call(*args)
           return result
-        rescue => e2
+        rescue JSON::ParserError => e
+          # It's fine continue to the next provider
+          puts e.to_s
+        rescue StandardError => e2
           # We have the method but it errored. Assume
           # service is down.
           cache_write(provider.url, 'down', SERVICE_DOWN_FOR)
           puts e2.to_s
-          puts e2.backtrace
         end
         
       end

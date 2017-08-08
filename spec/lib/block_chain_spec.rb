@@ -205,13 +205,14 @@ describe OnChain do
     
     unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, 10001, :bitcoin)
     
+    expect(indexes).to_not be_nil
     expect(unspents.length).to eq(1)  
     expect(change).to eq(89999) 
   end
   
   it "should give me more balance info" do
     
-    info =@blockinfo.get_address_info('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    info = @blockinfo.get_address_info('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
     
     expect(info).to_not be_nil
     
@@ -219,11 +220,14 @@ describe OnChain do
       
     # Blockinfo will still raise an error, but we go to the next provider and 
     # get the result we want
+    expect(OnChain::BlockChain.get_available_suppliers(:get_address_info, :bitcoin).count).to eq(2)
     
-    info = OnChain::BlockChain.get_address_info('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    info = OnChain::BlockChain.get_address_info('1FGrkPhVAxBxKM8PJHjW4Z4qLSdNoK3PWr')
     
     expect(info).to_not be_nil
-  
+    
+    # Blockinfo blows up on this address, but we still want it as a provider
+    expect(OnChain::BlockChain.get_available_suppliers(:get_address_info, :bitcoin).count).to eq(2)
   end
   
   it "should have transactions in the history" do
