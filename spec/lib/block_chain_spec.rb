@@ -211,9 +211,19 @@ describe OnChain do
   
   it "should give me more balance info" do
     
-    @blockinfo.get_address_info('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    info =@blockinfo.get_address_info('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
     
+    expect(info).to_not be_nil
     
+    expect { @blockinfo.get_address_info('1FGrkPhVAxBxKM8PJHjW4Z4qLSdNoK3PWr') }.to raise_error
+      
+    # Blockinfo will still raise an error, but we go to the next provider and 
+    # get the result we want
+    
+    info = OnChain::BlockChain.get_address_info('1JCLW7cvVv2aHvcCUc4284unoaKXciftzW')
+    
+    expect(info).to_not be_nil
+  
   end
   
   it "should have transactions in the history" do

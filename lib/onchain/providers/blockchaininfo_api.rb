@@ -30,13 +30,19 @@ class OnChain::BlockChaininfo
     blockinfo_get_all_balances(addresses)
   end
   
+  def get_address_info(address)
+    blockinfo_get_address_info(address)
+  end
+  
   def url
     'https://blockchain.info'
   end
   ############################################################################
   
-  # Only supported by this provider
-  def get_address_info(address, network = :bitcoin)
+  # Sometimes this fails as it looks like blockchain.info tracks addresses.
+  # A security issue effects address ADDRESS. 
+  # Please Archive It and Contact support@blockchain.zendesk.com
+  def blockinfo_get_address_info(address, network = :bitcoin)
     
     base = "https://blockchain.info/multiaddr?&simple=true&active=" + address
     

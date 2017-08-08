@@ -28,7 +28,7 @@ end
 class OnChain::BlockChain
   
   # APIS are stored in order of preference.
-  # TODO switch on send_tx for insight
+  # TODO get_address_info for insight and test send_tx for blockchain.info
   COINS = {
     :bitcoin => {
       :apis => [
@@ -36,29 +36,33 @@ class OnChain::BlockChain
           # Exclude send_tx as it doesn't support multi sig.
           :excludes => [:send_tx]},
         { :provider => OnChain::Blockr.new('http://btc.blockr.io/api/v1/') },
-        { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/') }
+        { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/'),
+          :excludes => [:get_address_info] }
       ]
     },
     :testnet3 => {
       :apis => [
         { :provider => OnChain::Blockr.new('http://tbtc.blockr.io/api/v1/') },
-        { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/') }
+        { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/'),
+          :excludes => [:get_address_info] }
       ]
     },
     :zcash_testnet => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://explorer.testnet.z.cash/api/') }
+        { :provider => OnChain::Insight.new('https://explorer.testnet.z.cash/api/'),
+          :excludes => [:get_address_info] }
       ] 
     },
     :zcash => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://explorer.z.cash/api/') }
+        { :provider => OnChain::Insight.new('https://explorer.z.cash/api/'),
+          :excludes => [:get_address_info] }
       ] 
     },
     :bitcoin_cash => {
       :apis => [
         { :provider => OnChain::Insight.new('http://blockdozer.com/insight-api/'),
-          :excludes => [:send_tx]}
+          :excludes => [:get_address_info]}
       ] 
     }
   }
@@ -89,6 +93,10 @@ class OnChain::BlockChain
   
     def get_all_balances(addresses, network = :bitcoin)
       return call_api_method(:get_all_balances, network, addresses)
+    end
+  
+    def get_address_info(addresses, network = :bitcoin)
+      return call_api_method(:get_address_info, network, addresses)
     end
     ############################################################################
     

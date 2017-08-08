@@ -30,6 +30,10 @@ class OnChain::Blockr
     blockr_get_all_balances(addresses)
   end
   
+  def get_address_info(address)
+    blockr_get_address_info(address)
+  end
+  
   def url
     return @url
   end
