@@ -1,0 +1,553 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2MxARaew1a1XbKKoEXzETaRqhJFvn3JYPBL
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:57 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=de67fabbf8558325d4a245a96ad927a1c1502206909; expires=Wed, 08-Aug-18
+        15:41:49 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:46:57 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3950346ea3c5f-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2MxARaew1a1XbKKoEXzETaRqhJFvn3JYPBL","unspent":[{"tx":"19aced60b72e136d6abf12836e7efbd5da2ac1281871d7a26fae5954c99286c6","amount":"0.00890000","n":1,"confirmations":290382,"script":"a91435f039e361b6dcc054b7dcfb8dcb9283a1c1636587"}]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:57 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2NC1CFifgXNJ7TbTW3bEARhn6UeaLf1wscT
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:42:03 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d85d2f202197218b6bfc89db90b8d8dd21502206917; expires=Wed, 08-Aug-18
+        15:41:57 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:47:03 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3953424ee0908-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2NC1CFifgXNJ7TbTW3bEARhn6UeaLf1wscT","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:42:03 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2N7U7CjdGSNbafWQw7pRUJMn2Tv5XW6rUdt
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:42:09 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=de1ea13552acdf219ebc79d0be57d530b1502206923; expires=Wed, 08-Aug-18
+        15:42:03 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:47:09 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3955a30481031-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2N7U7CjdGSNbafWQw7pRUJMn2Tv5XW6rUdt","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:42:09 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2NDqwDbuBaVSJBVXJNhxp7BVbyobeLUSmmy
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:42:17 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d92338c7b916e561c370e3af4b69343651502206929; expires=Wed, 08-Aug-18
+        15:42:09 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:47:17 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b39580776d08de-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2NDqwDbuBaVSJBVXJNhxp7BVbyobeLUSmmy","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:42:17 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2MwfxrdanpPJRPTgsX5BM3DqDMR2k3e1yff
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:42:23 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d5528087be8e129ac34153de64357c6e31502206937; expires=Wed, 08-Aug-18
+        15:42:17 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:47:23 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b395afc47d1055-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2MwfxrdanpPJRPTgsX5BM3DqDMR2k3e1yff","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:42:23 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2NDAaxHue77CtbnidT47PfMPE8cRuvkHTnK
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:42:26 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d108da6d4075a6b2d97bde7605911a29d1502206943; expires=Wed, 08-Aug-18
+        15:42:23 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:47:26 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b395d546e83c5f-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2NDAaxHue77CtbnidT47PfMPE8cRuvkHTnK","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:42:26 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2NCsqGxriiYr2wLE1RjWpHzMAwo6HyDuahD
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:42:33 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=debd9bc9ebd751c3f539c7d68279e51dc1502206946; expires=Wed, 08-Aug-18
+        15:42:26 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:47:33 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b395e954631037-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2NCsqGxriiYr2wLE1RjWpHzMAwo6HyDuahD","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:42:33 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2N9DhiSwpZe5h9ST2gHFf6ourMFFUMLAyU6
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:42:42 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=dc0d68278f0d66c3f7484ff1e97e026881502206953; expires=Wed, 08-Aug-18
+        15:42:33 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:47:42 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3961603f03c65-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2N9DhiSwpZe5h9ST2gHFf6ourMFFUMLAyU6","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:42:42 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2MzFiohCKuKCybgxPjHWCTLWNkg9Je1dqjw
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:42:49 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=dd809d3c992c4d2accc9c4f66572a9d931502206962; expires=Wed, 08-Aug-18
+        15:42:42 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:47:49 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3964a545808de-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2MzFiohCKuKCybgxPjHWCTLWNkg9Je1dqjw","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:42:49 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2NAEFoup2hSW13r9XAxxwvRJMEU9bHTdLZT
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:42:59 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=db32f3e1f553cafef8a8476fefc9970541502206969; expires=Wed, 08-Aug-18
+        15:42:49 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:47:59 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3967824f26950-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2NAEFoup2hSW13r9XAxxwvRJMEU9bHTdLZT","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:42:59 GMT
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/2MuRVP3kb6d6J81D52k7xKGjd5WjBsF8U8W
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:43:06 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d136379049df260dde5907c92409244c51502206979; expires=Wed, 08-Aug-18
+        15:42:59 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:48:06 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b396b6139914df-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"2MuRVP3kb6d6J81D52k7xKGjd5WjBsF8U8W","unspent":[]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:43:06 GMT
+recorded_with: VCR 3.0.3

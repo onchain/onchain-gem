@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.coinmarketcap.com/v1/ticker/zclassic/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.coinmarketcap.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:28 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d10d8f6eb54044584eee72a06a213859e1502206888; expires=Wed, 08-Aug-18
+        15:41:28 GMT; path=/; domain=.coinmarketcap.com; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3947b4dae1055-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: "[\n    {\n        \"id\": \"zclassic\", \n        \"name\": \"ZClassic\",
+        \n        \"symbol\": \"ZCL\", \n        \"rank\": \"285\", \n        \"price_usd\":
+        \"1.32988\", \n        \"price_btc\": \"0.0003914\", \n        \"24h_volume_usd\":
+        \"80522.1\", \n        \"market_cap_usd\": \"2406817.0\", \n        \"available_supply\":
+        \"1809800.0\", \n        \"total_supply\": \"1809800.0\", \n        \"percent_change_1h\":
+        \"1.55\", \n        \"percent_change_24h\": \"-10.19\", \n        \"percent_change_7d\":
+        \"14.22\", \n        \"last_updated\": \"1502206755\"\n    }\n]"
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:28 GMT
+recorded_with: VCR 3.0.3

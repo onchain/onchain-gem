@@ -1,0 +1,357 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://blockdozer.com/insight-api/addr/1EscrowubAdwjYvRtpYLR2p6JRndNmjef3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockdozer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.3 (Ubuntu)
+      Date:
+      - Tue, 08 Aug 2017 15:41:11 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '408'
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - Express
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"198-+49vFDtjDJXAlNhXh+v5gq2QkBU"
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: '{"addrStr":"1EscrowubAdwjYvRtpYLR2p6JRndNmjef3","balance":0.02,"balanceSat":2000000,"totalReceived":0.02,"totalReceivedSat":2000000,"totalSent":0,"totalSentSat":0,"unconfirmedBalance":0,"unconfirmedBalanceSat":0,"unconfirmedTxApperances":0,"txApperances":2,"transactions":["2009d4382d593d08842ad40bdf515446c4cd57c3e79489fb286a4c95c580e2a5","6b0aa3b09e1ee831a570fca770094941432d6820698f3eb0691134387908b24a"]}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:11 GMT
+- request:
+    method: get
+    uri: http://blockdozer.com/insight-api/tx/2009d4382d593d08842ad40bdf515446c4cd57c3e79489fb286a4c95c580e2a5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockdozer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.3 (Ubuntu)
+      Date:
+      - Tue, 08 Aug 2017 15:41:11 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - Express
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"8b8-dK3cfqxNb+28++6E+c9r8/Q9kSc"
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"txid":"2009d4382d593d08842ad40bdf515446c4cd57c3e79489fb286a4c95c580e2a5","version":1,"locktime":0,"vin":[{"txid":"6b0aa3b09e1ee831a570fca770094941432d6820698f3eb0691134387908b24a","vout":2,"sequence":4294967295,"n":0,"scriptSig":{"hex":"4730440220372bfa10d6e5add3a768b69341d1bc6665c4456f284d99e085b5a4e8934cb1720220475c75e7974dcb9300191b5d69412335cd6ed641a259e7dac5dc73c77231eb87014104af2343974a75464ef22e3e8224388c363ebec65357c5ed4b27cd9716aeddc0bcd6d7301740f89c65513dc7f03fe75cb376ca9d9828922671cb8ec927497bee24","asm":"30440220372bfa10d6e5add3a768b69341d1bc6665c4456f284d99e085b5a4e8934cb1720220475c75e7974dcb9300191b5d69412335cd6ed641a259e7dac5dc73c77231eb87[ALL]
+        04af2343974a75464ef22e3e8224388c363ebec65357c5ed4b27cd9716aeddc0bcd6d7301740f89c65513dc7f03fe75cb376ca9d9828922671cb8ec927497bee24"},"addr":"1Kj1tYmWs5YGJRnTMuBpbH7EgMstNUxqZ1","valueSat":20800000,"value":0.208,"doubleSpentTxID":null}],"vout":[{"value":"0.01000000","n":0,"scriptPubKey":{"hex":"76a914982c5ddef5bb0addf05e3c336004495d95446b0688ac","asm":"OP_DUP
+        OP_HASH160 982c5ddef5bb0addf05e3c336004495d95446b06 OP_EQUALVERIFY OP_CHECKSIG","addresses":["1EscrowubAdwjYvRtpYLR2p6JRndNmjef3"],"type":"pubkeyhash"},"spentTxId":null,"spentIndex":null,"spentHeight":null},{"value":"0.00250000","n":1,"scriptPubKey":{"hex":"76a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac","asm":"OP_DUP
+        OP_HASH160 04d075b3f501deeef5565143282b6cfe8fad5e94 OP_EQUALVERIFY OP_CHECKSIG","addresses":["1STRonGxnFTeJiA7pgyneKknR29AwBM77"],"type":"pubkeyhash"},"spentTxId":"213f1a58289110ed82b2de7ffb6cbd21fbc127cdd7b84589e5430ee49dd49413","spentIndex":81,"spentHeight":289311},{"value":"0.19300000","n":2,"scriptPubKey":{"hex":"76a914cd6479f52dda783c1d984f6d254f8d43ad720e3288ac","asm":"OP_DUP
+        OP_HASH160 cd6479f52dda783c1d984f6d254f8d43ad720e32 OP_EQUALVERIFY OP_CHECKSIG","addresses":["1Kj1tYmWs5YGJRnTMuBpbH7EgMstNUxqZ1"],"type":"pubkeyhash"},"spentTxId":"e8f0037332c6bc7904f6476ec09cfd609b381df2d7852f0e4ccf4950d90d372b","spentIndex":0,"spentHeight":250916}],"blockhash":"000000000000010b1090fb1b8f8b37bbe7db92d1c7a1c2fa2c21d0a692ce7372","blockheight":238838,"confirmations":239958,"time":1369991479,"blocktime":1369991479,"valueOut":0.2055,"size":291,"valueIn":0.208,"fees":0.0025}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:11 GMT
+- request:
+    method: get
+    uri: http://blockdozer.com/insight-api/tx/6b0aa3b09e1ee831a570fca770094941432d6820698f3eb0691134387908b24a
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockdozer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.3 (Ubuntu)
+      Date:
+      - Tue, 08 Aug 2017 15:41:12 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - Express
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"8b5-+D4pK6HAsaZBxqQAUnXhKXYNumU"
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"txid":"6b0aa3b09e1ee831a570fca770094941432d6820698f3eb0691134387908b24a","version":1,"locktime":0,"vin":[{"txid":"2cf99692f879eb4e28295a910ef7c4d2405f47b3f11966bfcfa612d391d353a1","vout":2,"sequence":4294967295,"n":0,"scriptSig":{"hex":"4730440220d64aa4563443b94bb68ccc43cc4a3a0e80fcebe2df06ed7f59a6a15552ce4f6b02204e230aba7f9176ffa1224ffff5752cfad549a9e6c78ec120e68749cbf157e5f3014104af2343974a75464ef22e3e8224388c363ebec65357c5ed4b27cd9716aeddc0bcd6d7301740f89c65513dc7f03fe75cb376ca9d9828922671cb8ec927497bee24","asm":"30440220d64aa4563443b94bb68ccc43cc4a3a0e80fcebe2df06ed7f59a6a15552ce4f6b02204e230aba7f9176ffa1224ffff5752cfad549a9e6c78ec120e68749cbf157e5f301
+        04af2343974a75464ef22e3e8224388c363ebec65357c5ed4b27cd9716aeddc0bcd6d7301740f89c65513dc7f03fe75cb376ca9d9828922671cb8ec927497bee24"},"addr":"1Kj1tYmWs5YGJRnTMuBpbH7EgMstNUxqZ1","valueSat":22300000,"value":0.223,"doubleSpentTxID":null}],"vout":[{"value":"0.01000000","n":0,"scriptPubKey":{"hex":"76a914982c5ddef5bb0addf05e3c336004495d95446b0688ac","asm":"OP_DUP
+        OP_HASH160 982c5ddef5bb0addf05e3c336004495d95446b06 OP_EQUALVERIFY OP_CHECKSIG","addresses":["1EscrowubAdwjYvRtpYLR2p6JRndNmjef3"],"type":"pubkeyhash"},"spentTxId":null,"spentIndex":null,"spentHeight":null},{"value":"0.00250000","n":1,"scriptPubKey":{"hex":"76a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac","asm":"OP_DUP
+        OP_HASH160 04d075b3f501deeef5565143282b6cfe8fad5e94 OP_EQUALVERIFY OP_CHECKSIG","addresses":["1STRonGxnFTeJiA7pgyneKknR29AwBM77"],"type":"pubkeyhash"},"spentTxId":"a08bf1146943631ef49acad7cbf885a6f086dc814b25c63983d5c3ae367a8b21","spentIndex":81,"spentHeight":285829},{"value":"0.20800000","n":2,"scriptPubKey":{"hex":"76a914cd6479f52dda783c1d984f6d254f8d43ad720e3288ac","asm":"OP_DUP
+        OP_HASH160 cd6479f52dda783c1d984f6d254f8d43ad720e32 OP_EQUALVERIFY OP_CHECKSIG","addresses":["1Kj1tYmWs5YGJRnTMuBpbH7EgMstNUxqZ1"],"type":"pubkeyhash"},"spentTxId":"2009d4382d593d08842ad40bdf515446c4cd57c3e79489fb286a4c95c580e2a5","spentIndex":0,"spentHeight":238838}],"blockhash":"000000000000001ef733737bd7d1afbd1619d6b65d2b21d04a69f8ff8d9bb7cd","blockheight":238835,"confirmations":239961,"time":1369990132,"blocktime":1369990132,"valueOut":0.2205,"size":291,"valueIn":0.223,"fees":0.0025}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:12 GMT
+- request:
+    method: get
+    uri: https://blockchain.info/address/1EscrowubAdwjYvRtpYLR2p6JRndNmjef3?format=json&limit=20
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:12 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Content-Length:
+      - '1068'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d7b216c1894df8bdd0cccde71e15560921502206872; expires=Wed, 08-Aug-18
+        15:41:12 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://blockchain.info; style-src ''self'' ''unsafe-inline'';
+        frame-src ''self''; child-src ''self''; script-src ''self''; connect-src ''self''
+        *.blockchain.info wss://*.blockchain.info https://blockchain.info wss://ws.blockchain.info;
+        object-src ''none''; media-src ''none''; font-src ''self'';'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      X-Blockchain-Ms:
+      - 'true'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Blockchain-Cp-F:
+      - sdl4 0.013
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b39416f9073c35-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+            "hash160":"982c5ddef5bb0addf05e3c336004495d95446b06",
+            "address":"1EscrowubAdwjYvRtpYLR2p6JRndNmjef3",
+            "n_tx":2,
+            "total_received":2000000,
+            "total_sent":0,
+            "final_balance":2000000,
+            "txs":[
+
+        {
+           "ver":1,
+           "inputs":[
+              {
+                 "sequence":4294967295,
+                 "prev_out":{
+                    "spent":true,
+                    "tx_index":22459898,
+                    "type":0,
+                    "addr":"1Kj1tYmWs5YGJRnTMuBpbH7EgMstNUxqZ1",
+                    "value":20800000,
+                    "n":2,
+                    "script":"76a914cd6479f52dda783c1d984f6d254f8d43ad720e3288ac"
+                 },
+                 "script":"4730440220372bfa10d6e5add3a768b69341d1bc6665c4456f284d99e085b5a4e8934cb1720220475c75e7974dcb9300191b5d69412335cd6ed641a259e7dac5dc73c77231eb87014104af2343974a75464ef22e3e8224388c363ebec65357c5ed4b27cd9716aeddc0bcd6d7301740f89c65513dc7f03fe75cb376ca9d9828922671cb8ec927497bee24"
+              }
+           ],
+           "block_height":238838,
+           "relayed_by":"127.0.0.1",
+           "out":[
+              {
+                 "spent":false,
+                 "tx_index":22460376,
+                 "type":0,
+                 "addr":"1EscrowubAdwjYvRtpYLR2p6JRndNmjef3",
+                 "value":1000000,
+                 "n":0,
+                 "script":"76a914982c5ddef5bb0addf05e3c336004495d95446b0688ac"
+              },
+              {
+                 "addr_tag_link":"http:\/\/strongcoin.com",
+                 "addr_tag":"Strongcoin",
+                 "spent":true,
+                 "tx_index":22460376,
+                 "type":0,
+                 "addr":"1STRonGxnFTeJiA7pgyneKknR29AwBM77",
+                 "value":250000,
+                 "n":1,
+                 "script":"76a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac"
+              },
+              {
+                 "spent":true,
+                 "tx_index":22460376,
+                 "type":0,
+                 "addr":"1Kj1tYmWs5YGJRnTMuBpbH7EgMstNUxqZ1",
+                 "value":19300000,
+                 "n":2,
+                 "script":"76a914cd6479f52dda783c1d984f6d254f8d43ad720e3288ac"
+              }
+           ],
+           "lock_time":0,
+           "result":0,
+           "size":291,
+           "time":1369990895,
+           "tx_index":22460376,
+           "vin_sz":1,
+           "hash":"2009d4382d593d08842ad40bdf515446c4cd57c3e79489fb286a4c95c580e2a5",
+           "vout_sz":3
+        },
+
+        {
+           "ver":1,
+           "inputs":[
+              {
+                 "sequence":4294967295,
+                 "prev_out":{
+                    "spent":true,
+                    "tx_index":20959683,
+                    "type":0,
+                    "addr":"1Kj1tYmWs5YGJRnTMuBpbH7EgMstNUxqZ1",
+                    "value":22300000,
+                    "n":2,
+                    "script":"76a914cd6479f52dda783c1d984f6d254f8d43ad720e3288ac"
+                 },
+                 "script":"4730440220d64aa4563443b94bb68ccc43cc4a3a0e80fcebe2df06ed7f59a6a15552ce4f6b02204e230aba7f9176ffa1224ffff5752cfad549a9e6c78ec120e68749cbf157e5f3014104af2343974a75464ef22e3e8224388c363ebec65357c5ed4b27cd9716aeddc0bcd6d7301740f89c65513dc7f03fe75cb376ca9d9828922671cb8ec927497bee24"
+              }
+           ],
+           "block_height":238835,
+           "relayed_by":"127.0.0.1",
+           "out":[
+              {
+                 "spent":false,
+                 "tx_index":22459898,
+                 "type":0,
+                 "addr":"1EscrowubAdwjYvRtpYLR2p6JRndNmjef3",
+                 "value":1000000,
+                 "n":0,
+                 "script":"76a914982c5ddef5bb0addf05e3c336004495d95446b0688ac"
+              },
+              {
+                 "addr_tag_link":"http:\/\/strongcoin.com",
+                 "addr_tag":"Strongcoin",
+                 "spent":true,
+                 "tx_index":22459898,
+                 "type":0,
+                 "addr":"1STRonGxnFTeJiA7pgyneKknR29AwBM77",
+                 "value":250000,
+                 "n":1,
+                 "script":"76a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac"
+              },
+              {
+                 "spent":true,
+                 "tx_index":22459898,
+                 "type":0,
+                 "addr":"1Kj1tYmWs5YGJRnTMuBpbH7EgMstNUxqZ1",
+                 "value":20800000,
+                 "n":2,
+                 "script":"76a914cd6479f52dda783c1d984f6d254f8d43ad720e3288ac"
+              }
+           ],
+           "lock_time":0,
+           "result":1000000,
+           "size":291,
+           "time":1369990028,
+           "tx_index":22459898,
+           "vin_sz":1,
+           "hash":"6b0aa3b09e1ee831a570fca770094941432d6820698f3eb0691134387908b24a",
+           "vout_sz":3
+        }]
+        }
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:12 GMT
+recorded_with: VCR 3.0.3

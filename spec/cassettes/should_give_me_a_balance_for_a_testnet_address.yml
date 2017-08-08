@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/balance/myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:42 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d3c4232f5e421c0b45f0bef0395b738381502206894; expires=Wed, 08-Aug-18
+        15:41:34 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - EXPIRED
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:46:42 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b394a2603d1025-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8","balance":0.216,"balance_multisig":0},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:42 GMT
+recorded_with: VCR 3.0.3

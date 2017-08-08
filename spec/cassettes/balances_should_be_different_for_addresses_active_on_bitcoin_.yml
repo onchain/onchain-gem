@@ -1,0 +1,127 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://blockdozer.com/insight-api/addr/1STRonGxnFTeJiA7pgyneKknR29AwBM77/balance
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockdozer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.3 (Ubuntu)
+      Date:
+      - Tue, 08 Aug 2017 15:41:12 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '7'
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - Express
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"7-2revbGqLFJCFzMNnre/+4zxbSYI"
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: '7097240'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:12 GMT
+- request:
+    method: get
+    uri: https://blockchain.info/address/1STRonGxnFTeJiA7pgyneKknR29AwBM77?format=json&limit=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:12 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d63c7a5357d11aa1f9d1a1dbc88e900791502206872; expires=Wed, 08-Aug-18
+        15:41:12 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://blockchain.info; style-src ''self'' ''unsafe-inline'';
+        frame-src ''self''; child-src ''self''; script-src ''self''; connect-src ''self''
+        *.blockchain.info wss://*.blockchain.info https://blockchain.info wss://ws.blockchain.info;
+        object-src ''none''; media-src ''none''; font-src ''self'';'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Blockchain-Ms:
+      - 'true'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Blockchain-Cp-F:
+      - w5d8 0.294
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b39418ca1b3c2f-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+            "hash160":"04d075b3f501deeef5565143282b6cfe8fad5e94",
+            "address":"1STRonGxnFTeJiA7pgyneKknR29AwBM77",
+            "n_tx":33572,
+            "total_received":50099748000,
+            "total_sent":50048824822,
+            "final_balance":50923178,
+            "txs":[]
+        }
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:12 GMT
+recorded_with: VCR 3.0.3

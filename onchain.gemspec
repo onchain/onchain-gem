@@ -22,6 +22,8 @@ Gem::Specification.new do |gem|
   gem.version       = Onchain::VERSION
   
   gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'vcr'
+  gem.add_development_dependency 'webmock'
   gem.add_development_dependency 'rspec', '~> 3.1.0'
 
   gem.add_dependency 'money-tree'

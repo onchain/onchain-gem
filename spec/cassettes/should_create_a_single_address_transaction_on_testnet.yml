@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/unspent/myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:49 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d5fbd6d7f7aa9ce94dffc41766294fa5e1502206909; expires=Wed, 08-Aug-18
+        15:41:49 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - HIT
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:46:49 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b39502e47008f6-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":{"address":"myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8","unspent":[{"tx":"c3d2189220a68c89a41a5c01e19a81c607c8cb62c5292fcf8dfe26bb89c5c972","amount":"0.05700000","n":1,"confirmations":435512,"script":"76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac"},{"tx":"f6b192e6cd0cda81822c4a59506a3ac4113d43530d7d0d16d7ee663a8d3d23da","amount":"0.05800000","n":1,"confirmations":435512,"script":"76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac"},{"tx":"525d2f71e299fc0aa903ebd196b8c2c94d9be64880aa228d057fc6f2697901ac","amount":"0.10000000","n":0,"confirmations":435611,"script":"76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac"},{"tx":"93c8e1d06de7a95cacfaa8b9ba2e541d344523761f6818587ccf391493808712","amount":"0.00100000","n":0,"confirmations":440284,"script":"76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac"}]},"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:49 GMT
+recorded_with: VCR 3.0.3

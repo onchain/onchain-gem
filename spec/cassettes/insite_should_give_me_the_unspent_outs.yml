@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://test-insight.bitpay.com/api/addr/myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - test-insight.bitpay.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:29 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d1cc7de5ed34cbbf284cf17fa4c6e82181502206888; expires=Wed, 08-Aug-18
+        15:41:28 GMT; path=/; domain=.bitpay.com; HttpOnly
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10792'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"443-jcGR6n0T9ZJzhDdpqPnlkg"
+      Vary:
+      - Accept-Encoding
+      Cf-Cache-Status:
+      - REVALIDATED
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3947c8eed69c4-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"address":"myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8","txid":"f6b192e6cd0cda81822c4a59506a3ac4113d43530d7d0d16d7ee663a8d3d23da","vout":1,"scriptPubKey":"76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac","amount":0.058,"satoshis":5800000,"height":721278,"confirmations":435512},{"address":"myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8","txid":"c3d2189220a68c89a41a5c01e19a81c607c8cb62c5292fcf8dfe26bb89c5c972","vout":1,"scriptPubKey":"76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac","amount":0.057,"satoshis":5700000,"height":721278,"confirmations":435512},{"address":"myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8","txid":"525d2f71e299fc0aa903ebd196b8c2c94d9be64880aa228d057fc6f2697901ac","vout":0,"scriptPubKey":"76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac","amount":0.1,"satoshis":10000000,"height":721179,"confirmations":435611},{"address":"myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8","txid":"93c8e1d06de7a95cacfaa8b9ba2e541d344523761f6818587ccf391493808712","vout":0,"scriptPubKey":"76a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac","amount":0.001,"satoshis":100000,"height":716506,"confirmations":440284}]'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:29 GMT
+recorded_with: VCR 3.0.3

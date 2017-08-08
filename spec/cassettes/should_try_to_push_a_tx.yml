@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://btc.blockr.io/api/v1/tx/push
+    body:
+      encoding: UTF-8
+      string: '{"hex":"010000000193c642b373f0f202e292bd17588999b6a908dd4e4f8e55a9bbc507bab7d5935d00000000255121033cd4640df2a12dee1e74a649b05b698df30ea731cfd8056b33bcc66e419c91fc51aeffffffff02102700000000000017a9141e95aa85aec95ceb33250b1c9f445cc7b0341c9487409c00000000000017a914a69b6e946be609cc7c24f1b7d0b9e120a921915c8700000000"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:25 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '113'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=de2d3df060266909ff908c82ece5d6eeb1502206875; expires=Wed, 08-Aug-18
+        15:41:15 GMT; path=/; domain=.blockr.io; HttpOnly
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3942a415d3c83-CDG
+    body:
+      encoding: UTF-8
+      string: '{"status":"fail","data":"Could not push your transaction!","code":500,"message":"Did
+        you sign your transaction?"}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:25 GMT
+recorded_with: VCR 3.0.3

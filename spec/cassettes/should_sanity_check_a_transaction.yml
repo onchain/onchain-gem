@@ -1,0 +1,192 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://blockchain.info/rawtx/26dd62e05c598e36ff41d4e75105509a90551a7f852ffca6306cce70d818e168?format=hex
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:43:51 GMT
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d97f66cbc9f7758c15a9383245e1f75461502207031; expires=Wed, 08-Aug-18
+        15:43:51 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://*.googleapis.com; style-src ''self'' ''unsafe-inline'';
+        frame-src ''none''; child-src ''none''; script-src ''self''; connect-src ''self''
+        *.blockchain.info wss://*.blockchain.info https://blockchain.info wss://ws.blockchain.info;
+        object-src ''none''; media-src ''none''; font-src ''self'';'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Blockchain-Ms:
+      - 'true'
+      X-Blockchain-Cp-F:
+      - vkdg 0.010
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b397fc2e353c2f-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: 0100000001c5d08abe1c8e2859d5a4cba9a4bef59fce19deee02317e2e76d7ef1a50735551000000008a473044022020ad6c2ca082acccfe397033c52ff41ef6a6d56cbbcb45108595b767a819941a022012c54607a82d84fb2d428cf38d69d13ce19ab4701ccab958bef1b7e1f9f00a840141047299bb198fbcd6992000e1557fd63278feb44b313b7a2c4f735ca99fb73e65de24aa9a17858686942e63b4db467f60d50ef77c362b1b50ac6ca2a7eacfe85f3cffffffff03c0c62d00000000001976a914d9bd9780e2a365bb5d4fd7ae63f2398f8d197f4688ac801a0600000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ace0a57e00000000001976a914b3607b90aa91452f234d85ec2809d0037e71f38788ac00000000
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:43:51 GMT
+- request:
+    method: get
+    uri: https://blockchain.info/rawtx/26dd62e05c598e36ff41d4e75105509a90551a7f852ffca6306cce70d818e168?format=hex
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:43:51 GMT
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=df99aa253b7aceb12e6fe949f1514c0051502207031; expires=Wed, 08-Aug-18
+        15:43:51 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://*.googleapis.com; style-src ''self'' ''unsafe-inline'';
+        frame-src ''none''; child-src ''none''; script-src ''self''; connect-src ''self''
+        *.blockchain.info wss://*.blockchain.info https://blockchain.info wss://ws.blockchain.info;
+        object-src ''none''; media-src ''none''; font-src ''self'';'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Blockchain-Ms:
+      - 'true'
+      X-Blockchain-Cp-F:
+      - vkdg 0.011
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b397fc8b443c05-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: 0100000001c5d08abe1c8e2859d5a4cba9a4bef59fce19deee02317e2e76d7ef1a50735551000000008a473044022020ad6c2ca082acccfe397033c52ff41ef6a6d56cbbcb45108595b767a819941a022012c54607a82d84fb2d428cf38d69d13ce19ab4701ccab958bef1b7e1f9f00a840141047299bb198fbcd6992000e1557fd63278feb44b313b7a2c4f735ca99fb73e65de24aa9a17858686942e63b4db467f60d50ef77c362b1b50ac6ca2a7eacfe85f3cffffffff03c0c62d00000000001976a914d9bd9780e2a365bb5d4fd7ae63f2398f8d197f4688ac801a0600000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ace0a57e00000000001976a914b3607b90aa91452f234d85ec2809d0037e71f38788ac00000000
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:43:51 GMT
+- request:
+    method: get
+    uri: https://blockchain.info/rawtx/26dd62e05c598e36ff41d4e75105509a90551a7f852ffca6306cce70d818e168?format=hex
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:43:51 GMT
+      Content-Type:
+      - text/plain;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d2a7c78606e4e5200205251d2fb7f65471502207031; expires=Wed, 08-Aug-18
+        15:43:51 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://*.googleapis.com; style-src ''self'' ''unsafe-inline'';
+        frame-src ''none''; child-src ''none''; script-src ''self''; connect-src ''self''
+        *.blockchain.info wss://*.blockchain.info https://blockchain.info wss://ws.blockchain.info;
+        object-src ''none''; media-src ''none''; font-src ''self'';'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Blockchain-Ms:
+      - 'true'
+      X-Blockchain-Cp-F:
+      - w5d8 0.011
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b397fcdaaa68ae-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: 0100000001c5d08abe1c8e2859d5a4cba9a4bef59fce19deee02317e2e76d7ef1a50735551000000008a473044022020ad6c2ca082acccfe397033c52ff41ef6a6d56cbbcb45108595b767a819941a022012c54607a82d84fb2d428cf38d69d13ce19ab4701ccab958bef1b7e1f9f00a840141047299bb198fbcd6992000e1557fd63278feb44b313b7a2c4f735ca99fb73e65de24aa9a17858686942e63b4db467f60d50ef77c362b1b50ac6ca2a7eacfe85f3cffffffff03c0c62d00000000001976a914d9bd9780e2a365bb5d4fd7ae63f2398f8d197f4688ac801a0600000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ace0a57e00000000001976a914b3607b90aa91452f234d85ec2809d0037e71f38788ac00000000
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:43:51 GMT
+recorded_with: VCR 3.0.3

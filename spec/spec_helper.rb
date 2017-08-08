@@ -1,4 +1,10 @@
 require 'onchain'
+require 'webmock/rspec'
+require 'vcr'    
+require 'support/vcr_setup.rb'
+WebMock.disable_net_connect!(allow: ['explorer.testnet.z.cash', 'explorer.z.cash', 'blockdozer.com', 
+    'test-insight.bitpay.com', 'blockchain.info', 'tbtc.blockr.io', 'insight.bitpay.com', 
+    'z.cash', 'bitstamp.net']) 
 
 MPK = "xpub69n5sWwu7AAuyxEGp6MD5NeW58vBcUYoJB2CMFFsAjxJvpoJkQd78NSRVL3kzjd4rprvrLi2iKnm3QJCTfcTZSsfs5SnQgK7e2mu7EuUko9"
 

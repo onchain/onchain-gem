@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://blockchain.info/unspent?active=13H8HWUgyaeMXJoDnKeUFMcXLJbCQ7s7V5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:43:51 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=df3dc91d038b078568a4e694e16cd82711502207031; expires=Wed, 08-Aug-18
+        15:43:51 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://blockchain.info; style-src ''self'' ''unsafe-inline'';
+        frame-src ''none''; child-src ''none''; script-src ''self''; connect-src ''self''
+        *.blockchain.info wss://*.blockchain.info https://blockchain.info wss://ws.blockchain.info;
+        object-src ''none''; media-src ''none''; font-src ''self'';'
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Blockchain-Ms:
+      - 'true'
+      X-Blockchain-Cp-F:
+      - sdl4 0.034
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b397fb48ce69b8-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: "\n\n{\n    \n    \"unspent_outputs\":[\n    \n        {\n            \"tx_hash\":\"2dc3bc13866c0324e17ad757b0d53ef690ba0107bcfac865891cc9dd2499f5e1\",\n
+        \           \"tx_hash_big_endian\":\"e1f59924ddc91c8965c8fabc0701ba90f63ed5b057d77ae124036c8613bcc32d\",\n
+        \           \"tx_index\":240453788,\n            \"tx_output_n\": 2,\n            \"script\":\"76a91418fcfce40a7bf9ca5b0f7299730698a9e086b31f88ac\",\n
+        \           \"value\": 2167,\n            \"value_hex\": \"0877\",\n            \"confirmations\":18230\n
+        \       }\n      \n    ]\n}\n"
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:43:51 GMT
+recorded_with: VCR 3.0.3

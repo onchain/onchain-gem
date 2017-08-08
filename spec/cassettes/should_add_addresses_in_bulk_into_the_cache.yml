@@ -1,0 +1,126 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://blockchain.info/multiaddr?active=1JCLW7cvVv2aHvcCUc4284unoaKXciftzW%7C&simple=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:25 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d8fcc8beda51a28e471b9f5e3cc3d2bfe1502206885; expires=Wed, 08-Aug-18
+        15:41:25 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://blockchain.info; style-src ''self'' ''unsafe-inline'';
+        frame-src ''none''; child-src ''none''; script-src ''self''; connect-src ''self''
+        *.blockchain.info wss://*.blockchain.info https://blockchain.info wss://ws.blockchain.info;
+        object-src ''none''; media-src ''none''; font-src ''self'';'
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Blockchain-Ms:
+      - 'true'
+      X-Blockchain-Cp-F:
+      - w5d8 0.010
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3946b1a806926-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"1JCLW7cvVv2aHvcCUc4284unoaKXciftzW":{"final_balance":600000,"n_tx":6,"total_received":1600000}}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:25 GMT
+- request:
+    method: get
+    uri: http://btc.blockr.io/api/v1/address/balance/1JCLW7cvVv2aHvcCUc4284unoaKXciftzW,
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - btc.blockr.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:41:25 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d0ea1a071e834c5c08a3997f4bc604d421502206885; expires=Wed, 08-Aug-18
+        15:41:25 GMT; path=/; domain=.blockr.io; HttpOnly
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - HIT
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Tue, 08 Aug 2017 15:46:25 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b3946b6453692c-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":"success","data":[{"address":"1JCLW7cvVv2aHvcCUc4284unoaKXciftzW","balance":0.006,"balance_multisig":0},{"address":"","balance":0,"balance_multisig":0}],"code":200,"message":""}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:41:25 GMT
+recorded_with: VCR 3.0.3

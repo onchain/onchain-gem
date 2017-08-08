@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://bitcoinfees.21.co/api/v1/fees/recommended
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - bitcoinfees.21.co
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 08 Aug 2017 15:43:51 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d15dc0478b6cb8190a0e4f17734fd32cf1502207031; expires=Wed, 08-Aug-18
+        15:43:51 GMT; path=/; domain=.21.co; HttpOnly
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 38b397f8ec3b68ba-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"fastestFee":140,"halfHourFee":120,"hourFee":100}'
+    http_version: 
+  recorded_at: Tue, 08 Aug 2017 15:43:51 GMT
+recorded_with: VCR 3.0.3
