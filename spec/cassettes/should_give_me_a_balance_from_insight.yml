@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:41:28 GMT
+      - Thu, 10 Aug 2017 09:12:17 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -29,8 +29,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=da91d44d6510bb9575c562c99fe5757b41502206888; expires=Wed, 08-Aug-18
-        15:41:28 GMT; path=/; domain=.bitpay.com; HttpOnly
+      - __cfduid=dade2465bed4f63d37afdf9bdb87a4c351502356337; expires=Fri, 10-Aug-18
+        09:12:17 GMT; path=/; domain=.bitpay.com; HttpOnly
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
@@ -53,14 +53,14 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Cf-Cache-Status:
-      - HIT
+      - REVALIDATED
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b3947c4f2c69ca-CDG
+      - 38c1d5224f846968-CDG
     body:
       encoding: UTF-8
       string: '21600000'
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:41:28 GMT
+  recorded_at: Thu, 10 Aug 2017 09:12:17 GMT
 recorded_with: VCR 3.0.3

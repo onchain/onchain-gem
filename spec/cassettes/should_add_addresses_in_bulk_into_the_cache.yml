@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:41:25 GMT
+      - Thu, 10 Aug 2017 09:11:44 GMT
       Content-Type:
       - application/json;charset=UTF-8
       Transfer-Encoding:
@@ -29,8 +29,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d8fcc8beda51a28e471b9f5e3cc3d2bfe1502206885; expires=Wed, 08-Aug-18
-        15:41:25 GMT; path=/; domain=.blockchain.info; HttpOnly
+      - __cfduid=d6bbaa9fd46bded219f496033de92fdd81502356304; expires=Fri, 10-Aug-18
+        09:11:44 GMT; path=/; domain=.blockchain.info; HttpOnly
       Access-Control-Allow-Credentials:
       - 'true'
       Access-Control-Allow-Origin:
@@ -53,7 +53,7 @@ http_interactions:
       X-Blockchain-Ms:
       - 'true'
       X-Blockchain-Cp-F:
-      - w5d8 0.010
+      - sdl4 0.007
       X-Blockchain-Server:
       - BlockchainFE/1.0
       X-Content-Type-Options:
@@ -67,12 +67,12 @@ http_interactions:
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b3946b1a806926-CDG
+      - 38c1d454eba3102b-CDG
     body:
       encoding: ASCII-8BIT
       string: '{"1JCLW7cvVv2aHvcCUc4284unoaKXciftzW":{"final_balance":600000,"n_tx":6,"total_received":1600000}}'
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:41:25 GMT
+  recorded_at: Thu, 10 Aug 2017 09:11:44 GMT
 - request:
     method: get
     uri: http://btc.blockr.io/api/v1/address/balance/1JCLW7cvVv2aHvcCUc4284unoaKXciftzW,
@@ -94,7 +94,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:41:25 GMT
+      - Thu, 10 Aug 2017 09:11:59 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -102,25 +102,25 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d0ea1a071e834c5c08a3997f4bc604d421502206885; expires=Wed, 08-Aug-18
-        15:41:25 GMT; path=/; domain=.blockr.io; HttpOnly
+      - __cfduid=dadf4db295cc1da6024d7c34b31006b141502356304; expires=Fri, 10-Aug-18
+        09:11:44 GMT; path=/; domain=.blockr.io; HttpOnly
       Access-Control-Allow-Origin:
       - "*"
       Cf-Cache-Status:
-      - HIT
+      - STALE
       Vary:
       - Accept-Encoding
       Expires:
-      - Tue, 08 Aug 2017 15:46:25 GMT
+      - Thu, 10 Aug 2017 09:16:59 GMT
       Cache-Control:
       - public, max-age=300
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b3946b6453692c-CDG
+      - 38c1d45514076926-CDG
     body:
       encoding: ASCII-8BIT
       string: '{"status":"success","data":[{"address":"1JCLW7cvVv2aHvcCUc4284unoaKXciftzW","balance":0.006,"balance_multisig":0},{"address":"","balance":0,"balance_multisig":0}],"code":200,"message":""}'
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:41:25 GMT
+  recorded_at: Thu, 10 Aug 2017 09:11:59 GMT
 recorded_with: VCR 3.0.3

@@ -23,7 +23,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:41:34 GMT
+      - Thu, 10 Aug 2017 09:12:22 GMT
       Content-Type:
       - text/html; charset=utf-8
       Content-Length:
@@ -31,14 +31,14 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=dac167463e43a6f5f7a95d81b07b587301502206893; expires=Wed, 08-Aug-18
-        15:41:33 GMT; path=/; domain=.bitpay.com; HttpOnly
+      - __cfduid=d7419d1796e2c943ba48bcec7a6991f9e1502356341; expires=Fri, 10-Aug-18
+        09:12:21 GMT; path=/; domain=.bitpay.com; HttpOnly
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
       - '10800'
       X-Ratelimit-Remaining:
-      - '10760'
+      - '10780'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -53,10 +53,10 @@ http_interactions:
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b3949c6d1268ba-CDG
+      - 38c1d54069a968c6-CDG
     body:
       encoding: UTF-8
       string: transaction already in block chain. Code:-27
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:41:34 GMT
+  recorded_at: Thu, 10 Aug 2017 09:12:22 GMT
 recorded_with: VCR 3.0.3

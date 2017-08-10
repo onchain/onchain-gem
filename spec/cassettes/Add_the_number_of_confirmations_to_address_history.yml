@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:41:15 GMT
+      - Thu, 10 Aug 2017 09:10:43 GMT
       Content-Type:
       - application/json;charset=UTF-8
       Content-Length:
@@ -29,8 +29,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=dfef568ed4f09c8e2b06e9fe8b14a2b1a1502206875; expires=Wed, 08-Aug-18
-        15:41:15 GMT; path=/; domain=.blockchain.info; HttpOnly
+      - __cfduid=d4da3a6aa5237154ff079747494d4d2e61502356243; expires=Fri, 10-Aug-18
+        09:10:43 GMT; path=/; domain=.blockchain.info; HttpOnly
       Content-Language:
       - en
       Content-Security-Policy:
@@ -47,7 +47,7 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Blockchain-Cp-F:
-      - sdl4 0.018
+      - w5d8 0.012
       X-Blockchain-Server:
       - BlockchainFE/1.0
       X-Content-Type-Options:
@@ -61,7 +61,7 @@ http_interactions:
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b39428fd226926-CDG
+      - 38c1d2dadc9408fc-CDG
     body:
       encoding: ASCII-8BIT
       string: |
@@ -195,5 +195,5 @@ http_interactions:
         }]
         }
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:41:15 GMT
+  recorded_at: Thu, 10 Aug 2017 09:10:43 GMT
 recorded_with: VCR 3.0.3

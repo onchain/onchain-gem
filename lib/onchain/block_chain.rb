@@ -35,16 +35,18 @@ class OnChain::BlockChain
         { :provider => OnChain::BlockChaininfo.new,
           # Exclude send_tx as it doesn't support multi sig.
           :excludes => [:send_tx]},
-        { :provider => OnChain::Blockr.new('http://btc.blockr.io/api/v1/') },
         { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/'),
-          :excludes => [:get_address_info] }
+          :excludes => [:get_address_info] },
+        { :provider => OnChain::Blockr.new('http://btc.blockr.io/api/v1/') },
       ]
     },
     :testnet3 => {
       :apis => [
-        { :provider => OnChain::Blockr.new('http://tbtc.blockr.io/api/v1/') },
         { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/'),
-          :excludes => [:get_address_info] }
+          :excludes => [:get_address_info] },
+        { :provider => OnChain::Insight.new('https://testnet.blockexplorer.com/api/'),
+          :excludes => [:get_address_info] },
+        { :provider => OnChain::Blockr.new('http://tbtc.blockr.io/api/v1/') }
       ]
     },
     :zcash_testnet => {

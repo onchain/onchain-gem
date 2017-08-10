@@ -19,7 +19,7 @@ http_interactions:
       message: Internal Server Error
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:41:25 GMT
+      - Thu, 10 Aug 2017 09:49:08 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -27,8 +27,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=de2d3df060266909ff908c82ece5d6eeb1502206875; expires=Wed, 08-Aug-18
-        15:41:15 GMT; path=/; domain=.blockr.io; HttpOnly
+      - __cfduid=d12bf8ed1c217470d7f58d4d7fdd37f831502358547; expires=Fri, 10-Aug-18
+        09:49:07 GMT; path=/; domain=.blockr.io; HttpOnly
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
       Access-Control-Allow-Origin:
@@ -36,11 +36,11 @@ http_interactions:
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b3942a415d3c83-CDG
+      - 38c20b19a77f1031-CDG
     body:
       encoding: UTF-8
       string: '{"status":"fail","data":"Could not push your transaction!","code":500,"message":"Did
         you sign your transaction?"}'
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:41:25 GMT
+  recorded_at: Thu, 10 Aug 2017 09:49:08 GMT
 recorded_with: VCR 3.0.3

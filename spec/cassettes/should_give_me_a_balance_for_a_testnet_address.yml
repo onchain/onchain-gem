@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://tbtc.blockr.io/api/v1/address/balance/myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8
+    uri: https://test-insight.bitpay.com/api/addr/myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8/balance
     body:
       encoding: US-ASCII
       string: ''
@@ -14,40 +14,53 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - tbtc.blockr.io
+      - test-insight.bitpay.com
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:41:42 GMT
+      - Thu, 10 Aug 2017 09:49:37 GMT
       Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
+      - application/json; charset=utf-8
+      Content-Length:
+      - '8'
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d3c4232f5e421c0b45f0bef0395b738381502206894; expires=Wed, 08-Aug-18
-        15:41:34 GMT; path=/; domain=.blockr.io; HttpOnly
+      - __cfduid=d50e19d82e150d43a3bc24266c1c7d3001502358576; expires=Fri, 10-Aug-18
+        09:49:36 GMT; path=/; domain=.bitpay.com; HttpOnly
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10799'
       Access-Control-Allow-Origin:
       - "*"
-      Cf-Cache-Status:
-      - EXPIRED
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"8-D5FqQZXmmNJvh2z7pwCt0Q"
       Vary:
       - Accept-Encoding
-      Expires:
-      - Tue, 08 Aug 2017 15:46:42 GMT
-      Cache-Control:
-      - public, max-age=300
+      Cf-Cache-Status:
+      - REVALIDATED
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b394a2603d1025-CDG
+      - 38c20bd1f84f3bdb-CDG
     body:
-      encoding: ASCII-8BIT
-      string: '{"status":"success","data":{"address":"myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8","balance":0.216,"balance_multisig":0},"code":200,"message":""}'
+      encoding: UTF-8
+      string: '21600000'
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:41:42 GMT
+  recorded_at: Thu, 10 Aug 2017 09:49:37 GMT
 recorded_with: VCR 3.0.3

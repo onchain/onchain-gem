@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:41:33 GMT
+      - Thu, 10 Aug 2017 09:12:21 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -29,8 +29,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d05ea2663d60c0927f4225abb01469a501502206893; expires=Wed, 08-Aug-18
-        15:41:33 GMT; path=/; domain=.bitpay.com; HttpOnly
+      - __cfduid=dfa23a5bd39a3a3c131d6a2743b561fe31502356341; expires=Fri, 10-Aug-18
+        09:12:21 GMT; path=/; domain=.bitpay.com; HttpOnly
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
@@ -57,10 +57,10 @@ http_interactions:
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b3949c0b013c11-CDG
+      - 38c1d53f89b33bdb-CDG
     body:
       encoding: ASCII-8BIT
       string: '{"rawtx":"010000000101ee9e72ac53c71265056f9678a698913c0f07de17ee98b93a03234d7ae6c638000000006a47304402205a1aa8ef7fb07f4878cbe0103163b37bbf8a5c5df2109d9029788b36c056030d02201d64d8f079c1091e3904230b172377d67d2e462eaf9a4d1f3496cd333bdf700e01210203fd215615e20b1c50c4ccae39623dec86b064723ab14657a46f93389f77873bffffffff02a0860100000000001976a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac58060600000000001976a914b6588798023037135a20583ce2c6610e36c6ead888ac00000000"}'
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:41:33 GMT
+  recorded_at: Thu, 10 Aug 2017 09:12:21 GMT
 recorded_with: VCR 3.0.3

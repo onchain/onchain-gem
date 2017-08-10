@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:41:28 GMT
+      - Thu, 10 Aug 2017 09:12:16 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -29,23 +29,23 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d10d8f6eb54044584eee72a06a213859e1502206888; expires=Wed, 08-Aug-18
-        15:41:28 GMT; path=/; domain=.coinmarketcap.com; HttpOnly
+      - __cfduid=df89d51e8864c0ce36b2b86ad9b69e7f41502356336; expires=Fri, 10-Aug-18
+        09:12:16 GMT; path=/; domain=.coinmarketcap.com; HttpOnly
       Access-Control-Allow-Origin:
       - "*"
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b3947b4dae1055-CDG
+      - 38c1d5217acf102b-CDG
     body:
       encoding: ASCII-8BIT
       string: "[\n    {\n        \"id\": \"zclassic\", \n        \"name\": \"ZClassic\",
-        \n        \"symbol\": \"ZCL\", \n        \"rank\": \"285\", \n        \"price_usd\":
-        \"1.32988\", \n        \"price_btc\": \"0.0003914\", \n        \"24h_volume_usd\":
-        \"80522.1\", \n        \"market_cap_usd\": \"2406817.0\", \n        \"available_supply\":
+        \n        \"symbol\": \"ZCL\", \n        \"rank\": \"273\", \n        \"price_usd\":
+        \"1.50836\", \n        \"price_btc\": \"0.00044325\", \n        \"24h_volume_usd\":
+        \"126788.0\", \n        \"market_cap_usd\": \"2729830.0\", \n        \"available_supply\":
         \"1809800.0\", \n        \"total_supply\": \"1809800.0\", \n        \"percent_change_1h\":
-        \"1.55\", \n        \"percent_change_24h\": \"-10.19\", \n        \"percent_change_7d\":
-        \"14.22\", \n        \"last_updated\": \"1502206755\"\n    }\n]"
+        \"-0.85\", \n        \"percent_change_24h\": \"5.83\", \n        \"percent_change_7d\":
+        \"32.4\", \n        \"last_updated\": \"1502356154\"\n    }\n]"
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:41:28 GMT
+  recorded_at: Thu, 10 Aug 2017 09:12:16 GMT
 recorded_with: VCR 3.0.3

@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 08 Aug 2017 15:43:51 GMT
+      - Thu, 10 Aug 2017 09:12:32 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -29,8 +29,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d15dc0478b6cb8190a0e4f17734fd32cf1502207031; expires=Wed, 08-Aug-18
-        15:43:51 GMT; path=/; domain=.21.co; HttpOnly
+      - __cfduid=d200ca51ce84dc3fd98e42551024986cd1502356352; expires=Fri, 10-Aug-18
+        09:12:32 GMT; path=/; domain=.21.co; HttpOnly
       Access-Control-Allow-Credentials:
       - 'true'
       Access-Control-Allow-Origin:
@@ -38,10 +38,10 @@ http_interactions:
       Server:
       - cloudflare-nginx
       Cf-Ray:
-      - 38b397f8ec3b68ba-CDG
+      - 38c1d58069c56968-CDG
     body:
       encoding: ASCII-8BIT
-      string: '{"fastestFee":140,"halfHourFee":120,"hourFee":100}'
+      string: '{"fastestFee":160,"halfHourFee":160,"hourFee":140}'
     http_version: 
-  recorded_at: Tue, 08 Aug 2017 15:43:51 GMT
+  recorded_at: Thu, 10 Aug 2017 09:12:32 GMT
 recorded_with: VCR 3.0.3
