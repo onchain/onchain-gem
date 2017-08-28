@@ -182,7 +182,7 @@ class OnChain::Transaction
         tx.add_out(txout)
       end
 
-      inputs_to_sign = get_inputs_to_sign(tx)
+      inputs_to_sign = get_inputs_to_sign(tx, network)
       
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign, total_input_value
     end
@@ -246,7 +246,7 @@ class OnChain::Transaction
         tx.add_out(txout)
       end
 
-      inputs_to_sign = get_inputs_to_sign tx
+      inputs_to_sign = get_inputs_to_sign(tx, network)
     
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign, total_input_value
     end
@@ -377,10 +377,14 @@ class OnChain::Transaction
       return pubs
     end
     
-    def get_inputs_to_sign(tx)
+    def get_inputs_to_sign(tx, network = :bitcoin)
       inputs_to_sign = []
       tx.in.each_with_index do |txin, index|
         hash = tx.signature_hash_for_input(index, txin.script, 1)
+        
+        if network == :bitcoin_cash
+          hash = tx.signature_hash_for_witness_input(index, txin.script, 1)
+        end
         
         script = Bitcoin::Script.new txin.script
         
