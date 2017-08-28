@@ -29,4 +29,7 @@ module Bitcoin
       p2sh_version: "1CBD"
   })
 
+  NETWORKS[:bitcoin_cash] = NETWORKS[:bitcoin].merge({
+  })
+
 end
