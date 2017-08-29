@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://blockdozer.com/insight-api/addr/1EscrowubAdwjYvRtpYLR2p6JRndNmjef3/utxo
+    uri: http://blockdozer.com/insight-api/addr/19W97njDjfQzEULoGLhr5cT5FS48ihVXWk/utxo
     body:
       encoding: US-ASCII
       string: ''
@@ -23,11 +23,11 @@ http_interactions:
       Server:
       - nginx/1.10.3 (Ubuntu)
       Date:
-      - Tue, 29 Aug 2017 06:44:33 GMT
+      - Tue, 29 Aug 2017 12:37:36 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '545'
+      - '268'
       Connection:
       - keep-alive
       X-Powered-By:
@@ -42,12 +42,12 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Etag:
-      - W/"221-IhzUzx7PAlGn1kw4WvVFldFNoX0"
+      - W/"10c-52bxrZgdt3dc2LnKnvinVm0VTDU"
       Vary:
       - Accept-Encoding
     body:
       encoding: UTF-8
-      string: '[{"address":"1EscrowubAdwjYvRtpYLR2p6JRndNmjef3","txid":"2009d4382d593d08842ad40bdf515446c4cd57c3e79489fb286a4c95c580e2a5","vout":0,"scriptPubKey":"76a914982c5ddef5bb0addf05e3c336004495d95446b0688ac","amount":0.01,"satoshis":1000000,"height":238838,"confirmations":245220},{"address":"1EscrowubAdwjYvRtpYLR2p6JRndNmjef3","txid":"6b0aa3b09e1ee831a570fca770094941432d6820698f3eb0691134387908b24a","vout":0,"scriptPubKey":"76a914982c5ddef5bb0addf05e3c336004495d95446b0688ac","amount":0.01,"satoshis":1000000,"height":238835,"confirmations":245223}]'
+      string: '[{"address":"19W97njDjfQzEULoGLhr5cT5FS48ihVXWk","txid":"bbd87147dd701cff790697c54a4f50286dc7da18e02ff16cc0104cd6db25a2ea","vout":0,"scriptPubKey":"76a9145d43d84d26447d78a5f78ecb28e5a5d1b6c4927b88ac","amount":0.02,"satoshis":2000000,"height":484099,"confirmations":4}]'
     http_version: 
-  recorded_at: Tue, 29 Aug 2017 06:44:33 GMT
+  recorded_at: Tue, 29 Aug 2017 12:37:36 GMT
 recorded_with: VCR 3.0.3

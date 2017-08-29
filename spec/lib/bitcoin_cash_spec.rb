@@ -16,12 +16,12 @@ describe OnChain do
     VCR.use_cassette(the_subject) do
       
       tx, inputs_to_sign = OnChain::Transaction.create_single_address_transaction(
-        '1EscrowubAdwjYvRtpYLR2p6JRndNmjef3', 
-        '1Bte2U2HicLi8F62vaZM9smzBpRcHy7dP1', 4000000, 
-        30000, '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 10000, :bitcoin_cash)
+        '19W97njDjfQzEULoGLhr5cT5FS48ihVXWk', 
+        '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 1000000, 
+        0, '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 10000, :bitcoin_cash)
         
-      expect(tx).to eq('0100000002a5e280c5954c6a28fb8994e7c357cdc4465451df0bd42a84083d592d38d40920000000001976a914982c5ddef5bb0addf05e3c336004495d95446b0688acffffffff4ab2087938341169b03e8f6920682d4341490970a7fc70a531e81e9eb0a30a6b000000001976a914982c5ddef5bb0addf05e3c336004495d95446b0688acffffffff0200093d00000000001976a9147775610833d2a898d9c0613755f24d0767ab454e88ac30750000000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac00000000')
-      expect(inputs_to_sign[0]['1EscrowubAdwjYvRtpYLR2p6JRndNmjef3']['hash']).to eq('d0e8e46dda7fe4b72e68df704fecb9247e4105de52d05bed9e38cfaa872f41ed')
+      expect(tx).to eq('0100000001eaa225dbd64c10c06cf12fe018dac76d28504f4ac5970679ff1c70dd4771d8bb000000001976a9145d43d84d26447d78a5f78ecb28e5a5d1b6c4927b88acffffffff0240420f00000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac301b0f00000000001976a9145d43d84d26447d78a5f78ecb28e5a5d1b6c4927b88ac00000000')
+      expect(inputs_to_sign[0]['19W97njDjfQzEULoGLhr5cT5FS48ihVXWk']['hash']).to eq('f7474ef45ea16ae2a92b1bc36db442bc5da8dfaf5df020dc79a04f60fcfe0f37')
       
     end
     
