@@ -383,7 +383,7 @@ class OnChain::Transaction
         hash = tx.signature_hash_for_input(index, txin.script, 1)
         
         if network == :bitcoin_cash
-          hash = tx.signature_hash_for_witness_input(index, txin.script, 1)
+          hash = tx.signature_hash_for_cash_input(index, txin.script, 1)
         end
         
         script = Bitcoin::Script.new txin.script
