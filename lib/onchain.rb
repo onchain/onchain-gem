@@ -44,15 +44,13 @@ module Bitcoin
 
         hash_type ||= SIGHASH_TYPE[:all]
 
-        script = Bitcoin::Script.new(witness_program)
-
         hash_prevouts = Digest::SHA256.digest(Digest::SHA256.digest(@in.map{|i| [i.prev_out_hash, i.prev_out_index].pack("a32V")}.join))
         hash_sequence = Digest::SHA256.digest(Digest::SHA256.digest(@in.map{|i|i.sequence}.join))
         outpoint = [@in[input_idx].prev_out_hash, @in[input_idx].prev_out_index].pack("a32V")
         amount = [prev_out_value].pack("Q")
         nsequence = @in[input_idx].sequence
 
-        script_code = [["1976a914", script.get_hash160, "88ac"].join].pack("H*")
+        script_code = Bitcoin::Protocol.pack_var_string(witness_program)
 
         hash_outputs = Digest::SHA256.digest(Digest::SHA256.digest(@out.map{|o|o.to_payload}.join))
 
