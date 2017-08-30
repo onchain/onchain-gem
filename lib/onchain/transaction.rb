@@ -9,7 +9,11 @@ class OnChain::Transaction
       
       tx_size = estimate_transaction_size(addresses, amount, network)
       
-      tx_fee = get_recommended_tx_fee["fastestFee"]
+      # If it's not bitcoin then just give it a realatively low fee
+      tx_fee = MINERS_BYTE_FEE
+      if network == :bitcoin
+        tx_fee = get_recommended_tx_fee["fastestFee"]
+      end
       
       return tx_size * tx_fee
       
