@@ -18,20 +18,20 @@ describe OnChain do
   it "should get the price of Bitcoin" do
     
     VCR.use_cassette(the_subject) do
-      rate = OnChain::ExchangeRate.bitcoin_exchange_rate(:EUR).to_f
-      rate = OnChain::ExchangeRate.bitcoin_exchange_rate(:GBP).to_f
-      rate = OnChain::ExchangeRate.bitcoin_exchange_rate(:USD).to_f
+      rate = OnChain::ExchangeRate.exchange_rate(:EUR).to_f
+      rate = OnChain::ExchangeRate.exchange_rate(:GBP).to_f
+      rate = OnChain::ExchangeRate.exchange_rate(:USD).to_f
       
-      expect(rate).to be > 0.1
+      expect(rate).to be > 3000
     end
   end
   
   it "should get the price of zclassic" do
     
     VCR.use_cassette(the_subject) do
-      rate = OnChain::ExchangeRate.alt_exchange_rate(:zclassic)
+      rate = OnChain::ExchangeRate.exchange_rate(:USD, :zclassic)
       
-      expect(rate).to be > 0.0000001
+      expect(rate).to be > 2.5
     end
     
   end

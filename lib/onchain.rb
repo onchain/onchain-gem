@@ -13,6 +13,8 @@ require 'bitcoin'
 
 # Setup the bitcoin gem for zcash
 module Bitcoin
+  
+  # To add a new currency also update the exchange rate code.
 
   NETWORKS[:zcash_testnet] = NETWORKS[:testnet3].merge({
       address_version: "1D25",

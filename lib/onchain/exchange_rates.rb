@@ -6,20 +6,38 @@ class OnChain::ExchangeRate
   class << self
     
     BALANCE_RATE_FOR = 120
-
+    
     def bitcoin_exchange_rate(currency)
+      return exchange_rate(currency, :bitcoin) 
+    end
+
+    def exchange_rate(currency, network = :bitcoin)
       begin
-        ticker = "BTC-" + currency.to_s
+        ticker = network.to_s + "-" + currency.to_s
 
         if OnChain::BlockChain.cache_read(ticker) == nil
           if currency == :USD 
+            
+            coin_market_ticker = case network
+              when :bitcoin_cash then 'bitcoin-cash'
+              when :bitcoin then 'bitcoin'
+              when :zcash then 'zcash'
+              when :zclassic then 'zclassic'
+              else nil
+            end
+            
+            if coin_market_ticker == nil
+              return 0.0
+            end
+            
+            url = 'https://api.coinmarketcap.com/v1/ticker/' + coin_market_ticker + '/'
+            
             begin
-              r = OnChain::BlockChain.fetch_response("https://www.bitstamp.net/api/ticker/")   
-              rate = r["last"]
+              r = OnChain::BlockChain.fetch_response(url)   
+              rate = r[0]['price_usd'].to_f
               OnChain::BlockChain.cache_write(ticker, rate, BALANCE_RATE_FOR)
             rescue
-              r = OnChain::BlockChain.fetch_response("https://blockchain.info/ticker")
-              OnChain::BlockChain.cache_write(ticker, r["USD"]["last"], BALANCE_RATE_FOR)
+              return 0.0
             end
 
           elsif currency == :EUR
@@ -61,21 +79,6 @@ class OnChain::ExchangeRate
         '0'
       end
 
-    end
-    
-    def alt_exchange_rate(alt_currency)
-      
-      url = 'https://api.coinmarketcap.com/v1/ticker/' + alt_currency.to_s + '/'
-      
-      begin
-       resp = OnChain::BlockChain.fetch_response(url)
-       
-       return resp[0]['price_btc'].to_f
-      rescue => e
-        puts e.to_s
-        return 0.0
-      end
-      
     end
 
   end
