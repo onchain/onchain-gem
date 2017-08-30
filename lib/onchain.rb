@@ -35,8 +35,11 @@ module Bitcoin
   # Bitcoin ruby doens't support Bitcoin Cash, so we monkey path in the 
   # FORKID hash code.
   module Protocol
+      
+    Tx::SIGHASH_TYPE[:forkid] = 64
     
     class Tx
+    
       # generate a witness signature hash for input +input_idx+.
       # https://github.com/bitcoin/bips/blob/master/bip-0143.mediawiki
       def signature_hash_for_cash_input(input_idx, witness_program, prev_out_value, hash_type=nil)

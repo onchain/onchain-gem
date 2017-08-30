@@ -261,7 +261,7 @@ class OnChain::Transaction
     #
     # For transactions coming from non multi sig wallets we need to set
     # the pubkey parameter to the full public hex key of the address.
-    def sign_transaction(transaction_hex, sig_list, pubkey = nil)
+    def sign_transaction(transaction_hex, sig_list, pubkey = nil, hash_type = Bitcoin::Script::SIGHASH_TYPE[:all])
       
       tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(transaction_hex)
       
@@ -286,7 +286,7 @@ class OnChain::Transaction
           in_script = Bitcoin::Script.new txin.script
           if in_script.is_hash160?
             sig = sigs[0]
-            txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, OnChain.hex_to_bin(pubkey))
+            txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, OnChain.hex_to_bin(pubkey), hash_type)
           else
             
             # I replace the call to Bitcoin::Script.to_p2sh_multisig_script_sig
@@ -383,7 +383,9 @@ class OnChain::Transaction
         hash = tx.signature_hash_for_input(index, txin.script, 1)
         
         if network == :bitcoin_cash
-          hash = tx.signature_hash_for_cash_input(index, txin.script, unspents[index][3], 65)
+          sig_hash = Bitcoin::Protocol::Tx::SIGHASH_TYPE[:forkid] | Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
+          
+          hash = tx.signature_hash_for_cash_input(index, txin.script, unspents[index][3], sig_hash)
         end
         
         script = Bitcoin::Script.new txin.script
