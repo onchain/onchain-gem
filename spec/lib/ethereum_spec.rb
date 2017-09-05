@@ -27,6 +27,8 @@ describe OnChain do
       bal = OnChain::BlockChain.cache_read(addresses[0])
       
       expect(bal).to eq(1.1014122225579598)
+      
+      OnChain::BlockChain.get_all_balances([], :ethereum)
     end
     
   end
