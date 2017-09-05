@@ -66,6 +66,12 @@ class OnChain::BlockChain
         { :provider => OnChain::Insight.new('http://blockdozer.com/insight-api/'),
           :excludes => [:get_address_info]}
       ] 
+    },
+    :ethereum => {
+      :apis => [
+        { :provider => OnChain::Etherchain.new,
+          :excludes => [:get_address_info, :get_unspent_outs]}
+      ] 
     }
   }
   
