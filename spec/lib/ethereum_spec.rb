@@ -15,4 +15,19 @@ describe OnChain do
     end
     
   end
+  
+  it "should cache a list of balances for ethereum" do
+    
+    VCR.use_cassette(the_subject) do
+    
+      addresses = ['0x4b1306936CFFAF74dC3132f4749E2EA6BE8a1C53']    
+    
+      OnChain::BlockChain.get_all_balances(addresses, :ethereum)
+      
+      bal = OnChain::BlockChain.cache_read(addresses[0])
+      
+      expect(bal).to eq(1.1014122225579598)
+    end
+    
+  end
 end

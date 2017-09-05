@@ -33,6 +33,24 @@ class OnChain::Etherchain
     
     json = OnChain::BlockChain.fetch_response(URI::encode(base))
     
-    json['data'][0]['balance'].to_f / 1_000_000_000_000_000_000.0
+    bal = json['data'][0]['balance'].to_f / 1_000_000_000_000_000_000.0
+    
+    OnChain::BlockChain.cache_write(address, bal, 120)
+    
+    return bal
+  end
+  
+  
+  def etherchain_get_all_balances(addresses)
+    
+    addr = OnChain::BlockChain.get_uncached_addresses(addresses)
+    
+    if addr.length == 0
+      return
+    end
+    
+    addr.each do |address|
+      etherchain_get_balance(address)
+    end
   end
 end
