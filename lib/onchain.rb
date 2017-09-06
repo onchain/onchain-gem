@@ -8,9 +8,11 @@ require 'onchain/providers/bitcoind_api.rb'
 require 'onchain/providers/etherchain_api.rb'
 require 'onchain/block_chain.rb'
 require 'onchain/transaction.rb'
+require 'onchain/ethereum.rb'
 require 'onchain/exchange_rates.rb'
 require 'money-tree'
 require 'bitcoin'
+require 'eth'
 
 # Setup the bitcoin gem for zcash
 module Bitcoin
