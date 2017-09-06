@@ -34,7 +34,7 @@ class OnChain::Etherchain
     json = OnChain::BlockChain.fetch_response(URI::encode(base))
     
     if json['data'][0] == nil
-      bal = 0
+      bal = 0.0
     else
       bal = json['data'][0]['balance'].to_f / 1_000_000_000_000_000_000.0
     end
