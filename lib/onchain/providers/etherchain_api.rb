@@ -47,7 +47,9 @@ class OnChain::Etherchain
   
   def etherchain_get_all_balances(addresses)
     
-    addr = OnChain::BlockChain.get_uncached_addresses(addresses)
+    addrs_net = addresses.map{ |a| a + 'ethereum' }
+    
+    addr = OnChain::BlockChain.get_uncached_addresses(addrs_net)
     
     if addr.length == 0
       return

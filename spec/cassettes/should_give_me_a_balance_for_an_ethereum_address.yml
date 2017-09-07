@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://etherchain.org/api/account/0x4b1306936CFFAF74dC3132f4749E2EA6BE8a1C53
+    uri: https://api.blockcypher.com/v1/eth/main/addrs/0x58382493d401d91af0c6a375af9e949d6e106448/balance?token=b85f0e6d0f944803854e91becc60340e
     body:
       encoding: US-ASCII
       string: ''
@@ -14,45 +14,49 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - etherchain.org
+      - api.blockcypher.com
   response:
     status:
       code: 200
       message: OK
     headers:
+      Server:
+      - nginx/1.13.4
       Date:
-      - Tue, 05 Sep 2017 12:29:56 GMT
+      - Thu, 07 Sep 2017 09:53:35 GMT
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
-      Set-Cookie:
-      - __cfduid=d562f328d30392610fd55e9eedc3708941504614596; expires=Wed, 05-Sep-18
-        12:29:56 GMT; path=/; domain=.etherchain.org; HttpOnly
-      X-Powered-By:
-      - Express
-      X-Ratelimit-Limit:
-      - '10'
-      X-Ratelimit-Remaining:
-      - '9'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE
       Access-Control-Allow-Origin:
       - "*"
-      Etag:
-      - W/"c3-Kq0+s7Nt/YJXVKC4Cl4Ekj+hknE"
-      Server:
-      - cloudflare-nginx
-      Cf-Ray:
-      - 3999326a2fb414eb-CDG
+      X-Ratelimit-Remaining:
+      - '198'
     body:
       encoding: ASCII-8BIT
-      string: '{"status":1,"data":[{"address":"0x4b1306936cffaf74dc3132f4749e2ea6be8a1c53","balance":605552557959792,"nonce":null,"code":"0x","name":null,"storage":null,"firstSeen":"2016-05-13T09:42:27.000Z"}]}'
+      string: |-
+        {
+          "address": "58382493d401d91af0c6a375af9e949d6e106448",
+          "total_received": 12696260000000000,
+          "total_sent": 0,
+          "balance": 12696260000000000,
+          "unconfirmed_balance": 0,
+          "final_balance": 12696260000000000,
+          "n_tx": 1,
+          "unconfirmed_n_tx": 0,
+          "final_n_tx": 1
+        }
     http_version: 
-  recorded_at: Tue, 05 Sep 2017 12:29:56 GMT
+  recorded_at: Thu, 07 Sep 2017 09:53:35 GMT
 - request:
     method: get
-    uri: https://etherchain.org/api/account/0x891f0139e4cb8afbf5847ba6260a4214c64c3658
+    uri: https://api.blockcypher.com/v1/eth/main/addrs/0x891f0139e4cb8afbf5847ba6260a4214c64c3658/balance?token=b85f0e6d0f944803854e91becc60340e
     body:
       encoding: US-ASCII
       string: ''
@@ -64,40 +68,44 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - etherchain.org
+      - api.blockcypher.com
   response:
     status:
       code: 200
       message: OK
     headers:
+      Server:
+      - nginx/1.13.4
       Date:
-      - Tue, 05 Sep 2017 12:29:56 GMT
+      - Thu, 07 Sep 2017 09:53:36 GMT
       Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '22'
+      - application/json
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
-      Set-Cookie:
-      - __cfduid=d00be28e13c27a6f0e1c1db76df1b46991504614596; expires=Wed, 05-Sep-18
-        12:29:56 GMT; path=/; domain=.etherchain.org; HttpOnly
-      X-Powered-By:
-      - Express
-      X-Ratelimit-Limit:
-      - '10'
-      X-Ratelimit-Remaining:
-      - '8'
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE
       Access-Control-Allow-Origin:
       - "*"
-      Etag:
-      - W/"16-vyO4kwGOc3q+TVRV9ghM1VQzdfo"
-      Server:
-      - cloudflare-nginx
-      Cf-Ray:
-      - 3999326a9c4b103d-CDG
+      X-Ratelimit-Remaining:
+      - '197'
     body:
-      encoding: UTF-8
-      string: '{"status":1,"data":[]}'
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "address": "891f0139e4cb8afbf5847ba6260a4214c64c3658",
+          "total_received": 0,
+          "total_sent": 0,
+          "balance": 0,
+          "unconfirmed_balance": 0,
+          "final_balance": 0,
+          "n_tx": 0,
+          "unconfirmed_n_tx": 0,
+          "final_n_tx": 0
+        }
     http_version: 
-  recorded_at: Tue, 05 Sep 2017 12:29:56 GMT
+  recorded_at: Thu, 07 Sep 2017 09:53:36 GMT
 recorded_with: VCR 3.0.3
