@@ -11,10 +11,13 @@ class OnChain::Ethereum
         to: dest_addr,
         value: amount,
       })
-
-      #inputs_to_sign = get_inputs_to_sign(tx, unspents, network)
+      
+      inputs_to_sign = []
+      
       hash_hex = Eth::Utils.bin_to_hex (Eth::Utils.keccak256 tx.unsigned_encoded)
-      return tx.hex, hash_hex
+      inputs_to_sign << { 'hash' => hash_hex }
+
+      return tx.hex, inputs_to_sign
     end
   end
   

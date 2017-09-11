@@ -8,11 +8,11 @@ describe OnChain do
   
   it "should create a transaction" do
     
-    tx_hex, hash_hex = OnChain::Ethereum.create_single_address_transaction(nil, 
+    tx_hex, hashes_to_sign = OnChain::Ethereum.create_single_address_transaction(nil, 
       '0x58382493d401d91af0c6a375af9e949d6e106448', 1000000)
       
     expect(tx_hex).to eq('0xe8018504a817c800832fefd89458382493d401d91af0c6a375af9e949d6e106448830f424000808080')  
-    expect(hash_hex).to eq('4a8ef1d53eb6d76f753229ec5d718812bf1245347f36897c81011e9496ae853b')  
+    expect(hashes_to_sign[0]['hash']).to eq('4a8ef1d53eb6d76f753229ec5d718812bf1245347f36897c81011e9496ae853b')  
     
     # These were generating by ethereum-util
     r = '0x6c81654c41dfd48447c35a7d685f89f6ae1ccf0c02629ebccfa33663baf3d04e'
