@@ -47,7 +47,6 @@ class OnChain::EtherBlockCypher
     
   end
   
-  
   def etherblockcypher_get_all_balances(addresses)
     
     addrs_net = addresses.map{ |a| a + 'ethereum' }
@@ -61,5 +60,23 @@ class OnChain::EtherBlockCypher
     addr.each do |address|
       etherblockcypher_get_balance(address)
     end
+  end
+  
+  def etherblockcypher_send_tx(tx_hex)
+    
+    uri = URI.parse(url + "txs/push")		
+    http = Net::HTTP.new(uri.host, uri.port)		
+	
+    request = Net::HTTP::Post.new(uri.request_uri)		
+    request.body = '{"tx":"' + tx_hex + '"}'		
+    response = http.request(request)
+    
+    res = JSON.parse(response.body)
+
+    
+    tx_hash = res["hash"]
+    ret = "{\"status\":\"\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"\"}"	
+    return JSON.parse(ret)
+    
   end
 end
