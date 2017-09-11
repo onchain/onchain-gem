@@ -20,17 +20,8 @@ describe OnChain do
     v = 27
     
     # Reconstruct it and sign it.
-    tx = Eth::Tx.new({
-      data: '00',
-      gas_limit: 3_141_592,
-      gas_price: 20_000_000_000,
-      nonce: 1,
-      to: '0x58382493d401d91af0c6a375af9e949d6e106448',
-      value: 1000000,
-      v: v,
-      s: s.to_i(16),
-      r: r.to_i(16)
-    })
+    tx = OnChain::Ethereum.finish_single_address_transaction(nil,
+      '0x58382493d401d91af0c6a375af9e949d6e106448', 1000000, r, s, v)
     
     key = Eth::Key.new priv: 'e0f7f55b019272d732a373f8a4855f9ffb5b5abfa6d724e7a78dec136249a6a3'
     expect(key.verify_signature tx.unsigned_encoded, tx.signature).to eq(true)
