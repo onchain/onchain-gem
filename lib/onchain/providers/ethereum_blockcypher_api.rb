@@ -64,19 +64,42 @@ class OnChain::EtherBlockCypher
   
   def etherblockcypher_send_tx(tx_hex)
     
-    uri = URI.parse(url + "txs/push")		
-    http = Net::HTTP.new(uri.host, uri.port)		
+    if tx_hex.start_with? '0x'
+      tx_hex.slice!(0, 2)
+    end
+    
+    uri = URI(url + "txs/push")		
+    request = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
 	
-    request = Net::HTTP::Post.new(uri.request_uri)		
-    request.body = '{"tx":"' + tx_hex + '"}'		
-    response = http.request(request)
+    msg = {tx: tx_hex}.to_json
+    request.body = msg
+    ssl = false
+    if url.start_with? 'https'
+      ssl = true
+    end
+    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: ssl) do |http|
+      http.request(request)
+    end
     
     res = JSON.parse(response.body)
-
     
     tx_hash = res["hash"]
-    ret = "{\"status\":\"\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"\"}"	
-    return JSON.parse(ret)
+
+    if tx_hash == nil
+      
+      ret = {
+        status: "",
+        data: "",
+        message: res["error"]
+      }
+    else  
+      ret = {
+        status: "",
+        data: tx_hash,
+        message: 'Success'
+      }
+    end
+    return ret
     
   end
 end
