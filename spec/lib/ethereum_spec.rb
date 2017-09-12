@@ -19,22 +19,28 @@ describe OnChain do
   it "should create an ethereum transaction" do
     
     VCR.use_cassette(the_subject) do
+      
+      amount_to_send = (0.001 * 1_000_000_000_000_000_000).to_i
+      
       tx_hex, hashes_to_sign = OnChain::Ethereum.create_single_address_transaction(
+        '0x58382493d401d91af0c6a375af9e949d6e106448', 
         '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
-        '0x58382493d401d91af0c6a375af9e949d6e106448', 1000000)
+        amount_to_send)
         
-      expect(tx_hex).to eq('0xe8808504a817c800832fefd89458382493d401d91af0c6a375af9e949d6e106448830f424000808080')  
-      expect(hashes_to_sign[0]['hash']).to eq('d31b70038e117ea0b2f7eb8e738eb796db0ff2995d7e38a75b0d5b94761b056e')  
+      expect(tx_hex).to eq('0xec808504a817c800832fefd894891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
+      
+      expect(hashes_to_sign[0]['hash']).to eq('e1d7483d38b0eec8bcc4719af1e1ba6ec592816621b0a48d083e7c8bca3daa14')  
       
       # These were generating by ethereum-util
-      r = '0x6c81654c41dfd48447c35a7d685f89f6ae1ccf0c02629ebccfa33663baf3d04e'
-      s = '0x77116b84c9a25383f0ca451d274bdd1a53ab86a9e5f3dce3e8f78889ecc9eb0f'
-      v = 27
+      r = '0xbc8914339995ccc9787a2a34090345b349f18cd2a73ae5644996cbb9b5270396'
+      s = '0x11b79f9bc9c95fae0a97bb12be5af1770b370d5498d7f8d7b19489cd922cd67f'
+      v = 28
       
       # Reconstruct it and sign it.
       tx = OnChain::Ethereum.finish_single_address_transaction(
+        '0x58382493d401d91af0c6a375af9e949d6e106448', 
         '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
-        '0x58382493d401d91af0c6a375af9e949d6e106448', 1000000, r, s, v)
+        amount_to_send, r, s, v)
       
       key = Eth::Key.new priv: 'e0f7f55b019272d732a373f8a4855f9ffb5b5abfa6d724e7a78dec136249a6a3'
       expect(key.verify_signature tx.unsigned_encoded, tx.signature).to eq(true)
