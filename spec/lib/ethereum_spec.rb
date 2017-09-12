@@ -16,7 +16,7 @@ describe OnChain do
     end
   end
   
-  it "should create an ethereum transaction" do
+  it "should create an default fees for an ethereum transaction" do
     
     VCR.use_cassette(the_subject) do
       
@@ -26,6 +26,24 @@ describe OnChain do
         '0x58382493d401d91af0c6a375af9e949d6e106448', 
         '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
         amount_to_send)
+        
+      expect(tx_hex).to eq('0xeb808504a817c80082753094891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
+      expect(hashes_to_sign[0]['hash']).to eq('68be621b2210b0ba3a010407a40ba9e57e7e61ca3dac55164fe29c46af247669')  
+   
+    end
+       
+  end
+  
+  it "should create an ethereum transaction" do
+    
+    VCR.use_cassette(the_subject) do
+      
+      amount_to_send = (0.001 * 1_000_000_000_000_000_000).to_i
+      
+      tx_hex, hashes_to_sign = OnChain::Ethereum.create_single_address_transaction(
+        '0x58382493d401d91af0c6a375af9e949d6e106448', 
+        '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
+        amount_to_send, 20_000_000_000, 3_141_592)
         
       expect(tx_hex).to eq('0xec808504a817c800832fefd894891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
       
@@ -40,7 +58,7 @@ describe OnChain do
       tx = OnChain::Ethereum.finish_single_address_transaction(
         '0x58382493d401d91af0c6a375af9e949d6e106448', 
         '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
-        amount_to_send, r, s, v)
+        amount_to_send, r, s, v, 20_000_000_000, 3_141_592)
       
       key = Eth::Key.new priv: 'e0f7f55b019272d732a373f8a4855f9ffb5b5abfa6d724e7a78dec136249a6a3'
       expect(key.verify_signature tx.unsigned_encoded, tx.signature).to eq(true)

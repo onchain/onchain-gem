@@ -1,14 +1,18 @@
 class OnChain::Ethereum
   class << self
     
-    def create_single_address_transaction(orig_addr, dest_addr, amount)
+    GAS_LIMIT = 30_000
+    GAS_PRICE = (0.00000002 * 1_000_000_000_000_000_000).to_i
+    
+    def create_single_address_transaction(orig_addr, dest_addr, amount, 
+      gas_price = GAS_PRICE, gas_limit = GAS_LIMIT)
       
       nonce = OnChain::BlockChain.get_nonce(orig_addr)
 
       tx = Eth::Tx.new({
         data: '00',
-        gas_limit: 3_141_592,
-        gas_price: 20_000_000_000,
+        gas_limit: gas_limit,
+        gas_price: gas_price,
         nonce: nonce,
         to: dest_addr,
         value: amount,
@@ -22,15 +26,16 @@ class OnChain::Ethereum
       return tx.hex, inputs_to_sign
     end
     
-    def finish_single_address_transaction(orig_addr, dest_addr, amount, r, s ,v)
+    def finish_single_address_transaction(orig_addr, dest_addr, amount, r, s ,v, 
+      gas_price = GAS_PRICE, gas_limit = GAS_LIMIT)
   
       nonce = OnChain::BlockChain.get_nonce(orig_addr)
       
       # Reconstruct it and sign it.
       tx = Eth::Tx.new({
         data: '00',
-        gas_limit: 3_141_592,
-        gas_price: 20_000_000_000,
+        gas_limit: gas_limit,
+        gas_price: gas_price,
         nonce: nonce,
         to: dest_addr,
         value: amount,
