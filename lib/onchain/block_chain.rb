@@ -70,7 +70,7 @@ class OnChain::BlockChain
     :ethereum => {
       :apis => [
         { :provider => OnChain::Etherchain.new,
-          :excludes => [:get_address_info, :get_unspent_outs]}
+          :excludes => [:get_address_info, :get_unspent_outs, :send_tx]}
       ] 
     }
   }

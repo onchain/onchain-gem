@@ -90,7 +90,7 @@ class OnChain::EtherBlockCypher
       ret = {
         status: "",
         data: "",
-        message: res["error"]
+        message: res.to_s
       }
     else  
       ret = {
