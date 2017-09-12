@@ -27,8 +27,8 @@ describe OnChain do
         '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
         amount_to_send)
         
-      expect(tx_hex).to eq('0xeb808504a817c80082753094891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
-      expect(hashes_to_sign[0]['hash']).to eq('68be621b2210b0ba3a010407a40ba9e57e7e61ca3dac55164fe29c46af247669')  
+      expect(tx_hex).to eq('0xeb018504a817c80082753094891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
+      expect(hashes_to_sign[0]['hash']).to eq('292d030db74f996a8b43a9f8722a879657054219f3c343047c9b55c2e775cc06')  
    
     end
        
@@ -39,6 +39,8 @@ describe OnChain do
     VCR.use_cassette(the_subject) do
       
       amount_to_send = (0.001 * 1_000_000_000_000_000_000).to_i
+      
+      OnChain::BlockChain.cache_write('0x58382493d401d91af0c6a375af9e949d6e106448nonce', nil)
       
       tx_hex, hashes_to_sign = OnChain::Ethereum.create_single_address_transaction(
         '0x58382493d401d91af0c6a375af9e949d6e106448', 
@@ -85,9 +87,11 @@ describe OnChain do
     
     VCR.use_cassette(the_subject) do
       
+      OnChain::BlockChain.cache_write('0x58382493d401d91af0c6a375af9e949d6e106448nonce', nil)
+      
       nonce = OnChain::BlockChain.get_nonce('0x58382493d401d91af0c6a375af9e949d6e106448', :ethereum)
       
-      expect(nonce).to eq(0)
+      expect(nonce).to eq(1)
       
     end
     

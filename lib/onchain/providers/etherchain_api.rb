@@ -69,15 +69,15 @@ class OnChain::Etherchain
     
     if OnChain::BlockChain.cache_read(address + 'nonce') == nil
       
-      base = "https://etherchain.org/api/account/" + address
+      base = "https://etherchain.org/api/account/" + address + "/nonce"
       
       json = OnChain::BlockChain.fetch_response(URI::encode(base))
       
       nonce = 0
       if json['data'][0] != nil
-        nonce_data = json['data'][0]['nonce']
+        nonce_data = json['data'][0]['accountNonce']
         if nonce_data != nil
-          nonce = nonce_data.to_i
+          nonce = nonce_data.to_i + 1
         end
       end
       
