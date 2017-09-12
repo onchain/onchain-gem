@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (4.23)
+    onchain (4.26)
       bitcoin-ruby
       eth
       google_currency
