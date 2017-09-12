@@ -71,7 +71,7 @@ class OnChain::EtherBlockCypher
     uri = URI(url + "txs/push")		
     request = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
 	
-    msg = {tx: tx_hex}.to_json
+    msg = {tx: tx_hex, token: ENV['BLOCKCYPHER_API_TOKEN']}.to_json
     request.body = msg
     ssl = false
     if url.start_with? 'https'
