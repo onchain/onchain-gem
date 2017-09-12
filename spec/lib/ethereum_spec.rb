@@ -53,6 +53,18 @@ describe OnChain do
     
   end
   
+  it "should give me a nonce for an ethereum address" do
+    
+    VCR.use_cassette(the_subject) do
+      
+      nonce = OnChain::BlockChain.get_nonce('0x58382493d401d91af0c6a375af9e949d6e106448', :ethereum)
+      
+      expect(nonce).to eq(0)
+      
+    end
+    
+  end
+  
   it "should cache a list of balances for ethereum" do
     
     VCR.use_cassette(the_subject) do

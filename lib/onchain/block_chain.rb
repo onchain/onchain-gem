@@ -78,7 +78,7 @@ class OnChain::BlockChain
   # If we have a BlockCypher token, add the blockcypher service.
   if ENV["BLOCKCYPHER_API_TOKEN"] != nil
     block_ether = { :provider => OnChain::EtherBlockCypher.new,
-          :excludes => [:get_address_info, :get_unspent_outs]}
+          :excludes => [:get_address_info, :get_unspent_outs, :get_nonce]}
           
     COINS[:ethereum][:apis].unshift block_ether
   end
@@ -113,6 +113,10 @@ class OnChain::BlockChain
   
     def get_address_info(addresses, network = :bitcoin)
       return call_api_method(:get_address_info, network, addresses)
+    end
+  
+    def get_nonce(address, network = :ethereum)
+      return call_api_method(:get_nonce, network, address)
     end
     ############################################################################
     

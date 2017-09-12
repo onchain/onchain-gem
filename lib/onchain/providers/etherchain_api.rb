@@ -22,6 +22,10 @@ class OnChain::Etherchain
     etherchain_get_all_balances(addresses)
   end
   
+  def get_nonce(address)
+    etherchain_get_nonce(address)
+  end
+  
   def url
     'https://etherchain.org/api/'
   end
@@ -29,21 +33,22 @@ class OnChain::Etherchain
   
   def etherchain_get_balance(address)
     
-    base = "https://etherchain.org/api/account/" + address
-    
-    json = OnChain::BlockChain.fetch_response(URI::encode(base))
-    
-    if json['data'][0] == nil
-      bal = 0.0
-    else
-      bal = json['data'][0]['balance'].to_f / 1_000_000_000_000_000_000.0
+    if OnChain::BlockChain.cache_read(address + 'ethereum') == nil
+      base = "https://etherchain.org/api/account/" + address
+      
+      json = OnChain::BlockChain.fetch_response(URI::encode(base))
+      
+      if json['data'][0] == nil
+        bal = 0.0
+      else
+        bal = json['data'][0]['balance'].to_f / 1_000_000_000_000_000_000.0
+      end
+      
+      OnChain::BlockChain.cache_write(address + 'ethereum', bal, 120)
     end
     
-    OnChain::BlockChain.cache_write(address, bal, 120)
-    
-    return bal
+    return OnChain::BlockChain.cache_read(address + 'ethereum') 
   end
-  
   
   def etherchain_get_all_balances(addresses)
     
@@ -58,5 +63,27 @@ class OnChain::Etherchain
     addr.each do |address|
       etherchain_get_balance(address)
     end
+  end
+  
+  def etherchain_get_nonce(address)
+    
+    if OnChain::BlockChain.cache_read(address + 'nonce') == nil
+      
+      base = "https://etherchain.org/api/account/" + address
+      
+      json = OnChain::BlockChain.fetch_response(URI::encode(base))
+      
+        nonce = 0
+      if json['data'][0] != nil
+        nonce_data = json['data'][0]['nonce']
+        if nonce_data != nil
+          nonce ´nonce_data.to_i
+        end
+      end
+      
+      OnChain::BlockChain.cache_write(address + 'nonce', nonce, 120)
+    end
+    
+    return OnChain::BlockChain.cache_read(address + 'nonce') 
   end
 end
