@@ -12,7 +12,7 @@ describe OnChain do
       
       ret = OnChain::BlockChain.send_tx(tx_hex, :ethereum)
       
-      expect(ret[:message]).to eq('Error validating transaction: Transaction adf9b044b7fbe74472e4cb874c474290f7e78660189a4b0d567504e96541f8fb orphaned, missing reference 0000000000000000000000000000000000000000000000000000000000000000.')
+      expect(ret[:message]).to eq('Success')
     end
   end
   

@@ -68,10 +68,10 @@ class OnChain::EtherBlockCypher
       tx_hex.slice!(0, 2)
     end
     
-    uri = URI(url + "txs/push")		
-    request = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
+    uri = URI(url + "txs/push?token=#{ENV['BLOCKCYPHER_API_TOKEN']}")		
+    request = Net::HTTP::Post.new(uri)
 	
-    msg = {tx: tx_hex, token: ENV['BLOCKCYPHER_API_TOKEN']}.to_json
+    msg = {tx: tx_hex}.to_json
     request.body = msg
     ssl = false
     if url.start_with? 'https'
@@ -83,7 +83,10 @@ class OnChain::EtherBlockCypher
     
     res = JSON.parse(response.body)
     
-    tx_hash = res["hash"]
+    tx_hash = nil
+    if res['tx'] != nil
+      tx_hash = res['tx']['hash']
+    end
 
     if tx_hash == nil
       
