@@ -2,12 +2,14 @@ class OnChain::Ethereum
   class << self
     
     def create_single_address_transaction(orig_addr, dest_addr, amount)
+      
+      nonce = OnChain::BlockChain.get_nonce(orig_addr)
 
       tx = Eth::Tx.new({
         data: '00',
         gas_limit: 3_141_592,
         gas_price: 20_000_000_000,
-        nonce: 1,
+        nonce: nonce,
         to: dest_addr,
         value: amount,
       })
@@ -22,12 +24,14 @@ class OnChain::Ethereum
     
     def finish_single_address_transaction(orig_addr, dest_addr, amount, r, s ,v)
   
+      nonce = OnChain::BlockChain.get_nonce(orig_addr)
+      
       # Reconstruct it and sign it.
       tx = Eth::Tx.new({
         data: '00',
         gas_limit: 3_141_592,
         gas_price: 20_000_000_000,
-        nonce: 1,
+        nonce: nonce,
         to: dest_addr,
         value: amount,
         v: v,

@@ -16,25 +16,29 @@ describe OnChain do
     end
   end
   
-  it "should create a transaction" do
+  it "should create an ethereum transaction" do
     
-    tx_hex, hashes_to_sign = OnChain::Ethereum.create_single_address_transaction(nil, 
-      '0x58382493d401d91af0c6a375af9e949d6e106448', 1000000)
+    VCR.use_cassette(the_subject) do
+      tx_hex, hashes_to_sign = OnChain::Ethereum.create_single_address_transaction(
+        '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
+        '0x58382493d401d91af0c6a375af9e949d6e106448', 1000000)
+        
+      expect(tx_hex).to eq('0xe8808504a817c800832fefd89458382493d401d91af0c6a375af9e949d6e106448830f424000808080')  
+      expect(hashes_to_sign[0]['hash']).to eq('d31b70038e117ea0b2f7eb8e738eb796db0ff2995d7e38a75b0d5b94761b056e')  
       
-    expect(tx_hex).to eq('0xe8018504a817c800832fefd89458382493d401d91af0c6a375af9e949d6e106448830f424000808080')  
-    expect(hashes_to_sign[0]['hash']).to eq('4a8ef1d53eb6d76f753229ec5d718812bf1245347f36897c81011e9496ae853b')  
-    
-    # These were generating by ethereum-util
-    r = '0x6c81654c41dfd48447c35a7d685f89f6ae1ccf0c02629ebccfa33663baf3d04e'
-    s = '0x77116b84c9a25383f0ca451d274bdd1a53ab86a9e5f3dce3e8f78889ecc9eb0f'
-    v = 27
-    
-    # Reconstruct it and sign it.
-    tx = OnChain::Ethereum.finish_single_address_transaction(nil,
-      '0x58382493d401d91af0c6a375af9e949d6e106448', 1000000, r, s, v)
-    
-    key = Eth::Key.new priv: 'e0f7f55b019272d732a373f8a4855f9ffb5b5abfa6d724e7a78dec136249a6a3'
-    expect(key.verify_signature tx.unsigned_encoded, tx.signature).to eq(true)
+      # These were generating by ethereum-util
+      r = '0x6c81654c41dfd48447c35a7d685f89f6ae1ccf0c02629ebccfa33663baf3d04e'
+      s = '0x77116b84c9a25383f0ca451d274bdd1a53ab86a9e5f3dce3e8f78889ecc9eb0f'
+      v = 27
+      
+      # Reconstruct it and sign it.
+      tx = OnChain::Ethereum.finish_single_address_transaction(
+        '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
+        '0x58382493d401d91af0c6a375af9e949d6e106448', 1000000, r, s, v)
+      
+      key = Eth::Key.new priv: 'e0f7f55b019272d732a373f8a4855f9ffb5b5abfa6d724e7a78dec136249a6a3'
+      expect(key.verify_signature tx.unsigned_encoded, tx.signature).to eq(true)
+    end
       
   end
   

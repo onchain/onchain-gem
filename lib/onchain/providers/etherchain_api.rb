@@ -73,11 +73,11 @@ class OnChain::Etherchain
       
       json = OnChain::BlockChain.fetch_response(URI::encode(base))
       
-        nonce = 0
+      nonce = 0
       if json['data'][0] != nil
         nonce_data = json['data'][0]['nonce']
         if nonce_data != nil
-          nonce ´nonce_data.to_i
+          nonce = nonce_data.to_i
         end
       end
       
