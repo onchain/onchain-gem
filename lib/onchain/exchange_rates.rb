@@ -23,6 +23,7 @@ class OnChain::ExchangeRate
               when :bitcoin then 'bitcoin'
               when :zcash then 'zcash'
               when :zclassic then 'zclassic'
+              when :etherum then 'ethereum'
               else nil
             end
             
