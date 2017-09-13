@@ -35,5 +35,15 @@ describe OnChain do
     end
     
   end
+  
+  it "should get the price of etheum" do
+    
+    VCR.use_cassette(the_subject) do
+      rate = OnChain::ExchangeRate.exchange_rate(:USD, :ethereum)
+      
+      expect(rate).to be > 2.5
+    end
+    
+  end
 
 end
