@@ -142,6 +142,9 @@ class OnChain::BlockChain
       providers = get_available_suppliers(method_name, network)
       
       # Call each provider until we get an answer
+        
+      error = ''
+        
       providers.each do |provider|
         
         method = provider.method(method_name)
@@ -149,8 +152,6 @@ class OnChain::BlockChain
         if ! provider.class.method_defined? method_name
           raise "Provider doesn't have method " + method_name
         end
-        
-        error = ''
         begin
           result = method.call(*args)
           return result
