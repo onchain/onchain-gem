@@ -150,22 +150,25 @@ class OnChain::BlockChain
           raise "Provider doesn't have method " + method_name
         end
         
+        error = ''
         begin
           result = method.call(*args)
           return result
         rescue JSON::ParserError => e
           # It's fine continue to the next provider
-          puts e.to_s
+          error = e.backtrace.join("\n")
         rescue StandardError => e2
           # We have the method but it errored. Assume
           # service is down.
-          cache_write(provider.url, 'down', SERVICE_DOWN_FOR)
-          puts e2.to_s
+          error = e.backtrace.join("\n")
+          if NET_HTTP_RESCUES.include? e2
+            cache_write(provider.url, error, SERVICE_DOWN_FOR)
+          end
         end
         
       end
       
-      raise "No available providers for #{method_name.to_s} : #{network.to_s}"
+      raise "No available providers for #{method_name.to_s} : #{network.to_s} : #{error}"
       
     end
     
@@ -281,6 +284,34 @@ class OnChain::BlockChain
       else
         data
       end
+    end
+    
+    def status
+        
+      the_status = ''
+      
+      COINS.keys.each do |network| 
+        
+        COINS[network][:apis].each do |provider|
+          
+          url = provider[:provider].url
+          
+          the_status += url
+          
+          if cache_read(url) != nil
+            the_status += ':Down:' + cache_read(url).to_s
+          else
+            the_status += ':Up'
+          end
+          
+          the_status += "\n"
+          
+        end
+        
+      end
+      
+      return the_status
+      
     end
     
   end
