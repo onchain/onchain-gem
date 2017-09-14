@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.changelly.com/
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"method":"getMinAmount","params":[{"from":"eth","to":"btc"}]}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/json
+      Api-Key:
+      - 04720e618ebf4b60a95905fe017c833a
+      Sign:
+      - '083f5c97ef55fdd00aedbdee01b91d94aa01b9ffdb28f6140eabad5f98b6f43c9f784b3194ae3b6c8467416b91e49ab82a7f69648d5e08382140f3ecae7a9044'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 14 Sep 2017 11:12:59 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '95'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains;
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","id":1,"result":[{"from":"eth","to":"btc","minAmount":"0.07281183916533274"}]}'
+    http_version: 
+  recorded_at: Thu, 14 Sep 2017 11:12:59 GMT
+recorded_with: VCR 3.0.3

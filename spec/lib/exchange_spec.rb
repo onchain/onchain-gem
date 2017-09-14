@@ -8,7 +8,13 @@ describe OnChain do
   
   it "should get the min for an exchange" do
     
-   puts OnChain::Exchange.get_min_amount(:bitcoin)
+    VCR.use_cassette(the_subject) do
+      result_json = OnChain::Exchange.get_min_amount(:bitcoin, :ethereum)
+      
+      expect(result_json['result']).to_not be_nil
+      
+      expect(result_json['result'][0]['minAmount'].to_f).to be > 0.0
+    end
     
   end
 end
