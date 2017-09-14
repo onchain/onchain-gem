@@ -4,13 +4,58 @@ class OnChain::Exchange
     
     def get_min_amount(from, to)
       
-      puts
-      
       message = {
         "jsonrpc": "2.0",
         "id": 1,
         "method": "getMinAmount",
         "params": [ from: 'eth', to: 'btc' ]
+      }
+
+      return fetch_response(message.to_json)
+    end
+    
+    def get_estimate(from, to, amount)
+      
+      message = {
+        "jsonrpc": "2.0",
+        "method": "getExchangeAmount",
+        "params": {
+          "from": from,
+          "to": to,
+          "amount": amount.to_s
+        },
+        "id": 1
+      }
+
+      return fetch_response(message.to_json)
+    end
+    
+    def generate_address(from, to, address)
+      
+      message = {
+        "jsonrpc": "2.0",
+        "method": "generateAddress",
+        "params": {
+          "from": from,
+          "to": to,
+          "address": address,
+          "extraId": null
+        },
+        "id": 1
+      }
+
+      return fetch_response(message.to_json)
+    end
+    
+    def get_status(id)
+      
+      message = {
+        "jsonrpc": "2.0",
+        "method": "getStatus",
+        "params": {
+          "id": id
+        },
+        "id": 1
       }
 
       return fetch_response(message.to_json)
