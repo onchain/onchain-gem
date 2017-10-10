@@ -1,6 +1,7 @@
 class OnChain::Transaction
   class << self
     
+    DUST_SATOSHIES = 548
     MINERS_BYTE_FEE = 100
     CACHE_KEY = 'Bitcoin21Fees'
     CACHE_FOR = 10 # 10 minutes, roughly each block.
@@ -178,8 +179,8 @@ class OnChain::Transaction
       # Add an output for the fee
       add_fee_to_tx(fee_in_satoshi, fee_addr, tx, network)
     
-      # Send the change back.
-      if change > 0
+      # Send the change back. 546 is the dust price for bitcoin.
+      if change > DUST_SATOSHIES
         
         txout = Bitcoin::Protocol::TxOut.new(change, to_address_script(orig_addr, network))
   

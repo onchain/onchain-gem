@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.changelly.com/
     body:
       encoding: UTF-8
-      string: '{"jsonrpc":"2.0","id":1,"method":"getMinAmount","params":[{"from":"eth","to":"btc"}]}'
+      string: '{"jsonrpc":"2.0","id":1,"method":"getMinAmount","params":[{"from":"btc","to":"eth"}]}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -18,7 +18,7 @@ http_interactions:
       Api-Key:
       - 04720e618ebf4b60a95905fe017c833a
       Sign:
-      - '083f5c97ef55fdd00aedbdee01b91d94aa01b9ffdb28f6140eabad5f98b6f43c9f784b3194ae3b6c8467416b91e49ab82a7f69648d5e08382140f3ecae7a9044'
+      - e173a4dad1f860f857889b96087b0643b139d336525d9e25f3b0a566684dd16ff464bd748ac50c8d6c2994befc7b886a50b336b1214dc19bf51713ebaaa91105
   response:
     status:
       code: 200
@@ -27,11 +27,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 14 Sep 2017 11:12:59 GMT
+      - Tue, 10 Oct 2017 12:08:52 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '95'
+      - '86'
       Connection:
       - keep-alive
       Access-Control-Allow-Origin:
@@ -46,7 +46,7 @@ http_interactions:
       - max-age=31536000; includeSubdomains;
     body:
       encoding: UTF-8
-      string: '{"jsonrpc":"2.0","id":1,"result":[{"from":"eth","to":"btc","minAmount":"0.07281183916533274"}]}'
+      string: '{"jsonrpc":"2.0","id":1,"result":[{"from":"btc","to":"eth","minAmount":"0.00092102"}]}'
     http_version: 
-  recorded_at: Thu, 14 Sep 2017 11:12:59 GMT
+  recorded_at: Tue, 10 Oct 2017 12:08:52 GMT
 recorded_with: VCR 3.0.3

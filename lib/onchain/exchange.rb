@@ -8,7 +8,7 @@ class OnChain::Exchange
         "jsonrpc": "2.0",
         "id": 1,
         "method": "getMinAmount",
-        "params": [ from: 'eth', to: 'btc' ]
+        "params": [ from: from, to: to ]
       }
 
       return fetch_response(message.to_json)
@@ -39,7 +39,7 @@ class OnChain::Exchange
           "from": from,
           "to": to,
           "address": address,
-          "extraId": null
+          "extraId": nil
         },
         "id": 1
       }
@@ -47,13 +47,29 @@ class OnChain::Exchange
       return fetch_response(message.to_json)
     end
     
-    def get_status(id)
+    def get_transactions(currency, address)
+      
+      message = {
+        "jsonrpc": "2.0",
+        "method": "getTransactions",
+        "params": {
+          #"currency": currency,
+          #"address": address, 
+          limit: 100
+        },
+        "id": 1
+      }
+
+      return fetch_response(message.to_json)
+    end
+    
+    def get_status(address)
       
       message = {
         "jsonrpc": "2.0",
         "method": "getStatus",
         "params": {
-          "id": id
+          "id": address
         },
         "id": 1
       }
