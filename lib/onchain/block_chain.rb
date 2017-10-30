@@ -57,7 +57,7 @@ class OnChain::BlockChain
     },
     :zcash => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://explorer.z.cash/api/'),
+        { :provider => OnChain::Insight.new('https://explorer.zcha.in/api/'),
           :excludes => [:get_address_info] }
       ] 
     },
