@@ -42,9 +42,9 @@ class OnChain::BlockChain
     },
     :testnet3 => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/'),
-          :excludes => [:get_address_info] },
         { :provider => OnChain::Insight.new('https://testnet.blockexplorer.com/api/'),
+          :excludes => [:get_address_info] },
+        { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/'),
           :excludes => [:get_address_info] },
         { :provider => OnChain::Blockr.new('http://tbtc.blockr.io/api/v1/') }
       ]
