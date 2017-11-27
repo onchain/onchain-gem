@@ -63,7 +63,7 @@ class OnChain::BlockChain
     },
     :bitcoin_cash => {
       :apis => [
-        { :provider => OnChain::Insight.new('http://cashexplorer.bitcoin.com/api/'),
+        { :provider => OnChain::Insight.new('https://cashexplorer.bitcoin.com/api/'),
           :excludes => [:get_address_info]},
         # As of around 27th Nov 2017, balances are incorrect.
         #{ :provider => OnChain::Insight.new('http://blockdozer.com/insight-api/'),
