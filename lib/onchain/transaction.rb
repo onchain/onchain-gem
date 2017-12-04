@@ -388,8 +388,9 @@ class OnChain::Transaction
         hash = tx.signature_hash_for_input(index, txin.script, 1)
         
         if network == :bitcoin_cash
-          prev_out = unspents[index][3]
-          hash = tx.signature_hash_for_input(index, txin.script, 1, prev_out, true)
+          sig_hash = Bitcoin::Protocol::Tx::SIGHASH_TYPE[:forkid] | Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
+          
+          hash = tx.signature_hash_for_cash_input(index, txin.script, unspents[index][3], sig_hash)
         end
         
         script = Bitcoin::Script.new txin.script
