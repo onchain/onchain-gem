@@ -12,7 +12,7 @@ GEM
   specs:
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    bitcoin-ruby (0.0.11)
+    bitcoin-ruby (0.0.13)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.3)
