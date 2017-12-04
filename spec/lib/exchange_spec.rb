@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OnChain do
   
   subject(:the_subject) do |example|
-    example.description
+    "exchange_spec/" + example.description
   end
   
   it "should get the min for an exchange" do

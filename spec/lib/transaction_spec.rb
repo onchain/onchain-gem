@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OnChain do
   
   subject(:the_subject) do |example|
-    example.description
+   "transaction_spec/" +  example.description
   end
   
   REDEMPTION_SCRIPTS = ["522102fd89e243d38f4e24237eaac4cd3a6873ce45aa4036ec0c7b79a4d4ac0fefebc4210396e42d3c584da0300ee44dcbaee0eccaa0e6ae2264fdd2554af6d2953f95bf9952ae",

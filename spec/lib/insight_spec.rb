@@ -8,7 +8,7 @@ describe OnChain do
   end
   
   subject(:the_subject) do |example|
-    example.description
+    "insight_spec/" + example.description
   end
   
   it "should give me a balance from insight" do

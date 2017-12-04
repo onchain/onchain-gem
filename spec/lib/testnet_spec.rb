@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OnChain do
   
   subject(:the_subject) do |example|
-    example.description
+   "testnet_spec/" +  example.description
   end
   
   it "should give me a balance for a testnet address" do

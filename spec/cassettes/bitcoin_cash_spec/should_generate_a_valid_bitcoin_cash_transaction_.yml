@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cashexplorer.bitcoin.com/api/addr/19W97njDjfQzEULoGLhr5cT5FS48ihVXWk/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - cashexplorer.bitcoin.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.3 (Ubuntu)
+      Date:
+      - Mon, 04 Dec 2017 11:15:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '271'
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - Express
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"10f-gQMQtFDNr6KhW9yRxeL8HBYHg3c"
+      Vary:
+      - Accept-Encoding
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '[{"address":"19W97njDjfQzEULoGLhr5cT5FS48ihVXWk","txid":"f31f459907aaedf85d1c4bd548f04b668f6ccaf12c78ab7eefc311a3090280a1","vout":2,"scriptPubKey":"76a9145d43d84d26447d78a5f78ecb28e5a5d1b6c4927b88ac","amount":0.002,"satoshis":200000,"height":504975,"confirmations":2009}]'
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:15:19 GMT
+recorded_with: VCR 3.0.3

@@ -8,7 +8,7 @@ describe OnChain do
   end
   
   subject(:the_subject) do |example|
-    example.description
+     "bitcoin_cash_spec/" + example.description
   end
   
   it "should generate a valid bitcoin cash transaction." do
@@ -20,8 +20,8 @@ describe OnChain do
         '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 1000000, 
         0, '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 10000, :bitcoin_cash)
         
-      expect(tx).to eq('0100000001eaa225dbd64c10c06cf12fe018dac76d28504f4ac5970679ff1c70dd4771d8bb000000001976a9145d43d84d26447d78a5f78ecb28e5a5d1b6c4927b88acffffffff0240420f00000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac301b0f00000000001976a9145d43d84d26447d78a5f78ecb28e5a5d1b6c4927b88ac00000000')
-      expect(inputs_to_sign[0]['19W97njDjfQzEULoGLhr5cT5FS48ihVXWk']['hash']).to eq('f7474ef45ea16ae2a92b1bc36db442bc5da8dfaf5df020dc79a04f60fcfe0f37')
+      expect(tx).to eq('0100000001a1800209a311c3ef7eab782cf1ca6c8f664bf048d54b1c5df8edaa0799451ff3020000001976a9145d43d84d26447d78a5f78ecb28e5a5d1b6c4927b88acffffffff0140420f00000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac00000000')
+      expect(inputs_to_sign[0]['19W97njDjfQzEULoGLhr5cT5FS48ihVXWk']['hash']).to eq('476169f577ec342aaed96c1d328a2038dc1548635068fcb34389db0c4595517b')
       
     end
     

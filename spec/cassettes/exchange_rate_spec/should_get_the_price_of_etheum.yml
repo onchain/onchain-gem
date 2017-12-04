@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.coinmarketcap.com/v1/ticker/ethereum/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.coinmarketcap.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:12 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d136e4e797d1bd161d1b73e14d91c93551512386412; expires=Tue, 04-Dec-18
+        11:20:12 GMT; path=/; domain=.coinmarketcap.com; HttpOnly; Secure
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - HIT
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e6004ec4e103d-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: "[\n    {\n        \"id\": \"ethereum\", \n        \"name\": \"Ethereum\",
+        \n        \"symbol\": \"ETH\", \n        \"rank\": \"2\", \n        \"price_usd\":
+        \"466.994\", \n        \"price_btc\": \"0.0411311\", \n        \"24h_volume_usd\":
+        \"1065270000.0\", \n        \"market_cap_usd\": \"44890569928.0\", \n        \"available_supply\":
+        \"96126652.0\", \n        \"total_supply\": \"96126652.0\", \n        \"max_supply\":
+        null, \n        \"percent_change_1h\": \"0.03\", \n        \"percent_change_24h\":
+        \"-1.76\", \n        \"percent_change_7d\": \"-3.16\", \n        \"last_updated\":
+        \"1512386360\"\n    }\n]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:12 GMT
+recorded_with: VCR 3.0.3

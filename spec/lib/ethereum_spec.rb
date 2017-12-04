@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OnChain do
   
   subject(:the_subject) do |example|
-    example.description
+    "ethereum_spec/" + example.description
   end
   
   it "should post an ethereum transaction" do
@@ -12,7 +12,7 @@ describe OnChain do
       
       ret = OnChain::BlockChain.send_tx(tx_hex, :ethereum)
       
-      expect(ret[:message]).to eq('Success')
+      expect(ret[:message]).to eq('Error validating transaction: Account nonce 3 higher than transaction 0xadf9b044b7fbe74472e4cb874c474290f7e78660189a4b0d567504e96541f8fb: 0x58382493d401d91AF0C6A375AF9e949D6e106448..')
     end
   end
   
@@ -27,8 +27,8 @@ describe OnChain do
         '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
         amount_to_send)
         
-      expect(tx_hex).to eq('0xeb018504a817c80082753094891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
-      expect(hashes_to_sign[0]['hash']).to eq('292d030db74f996a8b43a9f8722a879657054219f3c343047c9b55c2e775cc06')  
+      expect(tx_hex).to eq('0xeb038504a817c80082753094891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
+      expect(hashes_to_sign[0]['hash']).to eq('8ad0863bccd3c8283e9230f367b35682be4420bc4fa27f2ea0092641b40d477b')  
    
     end
        
@@ -47,9 +47,9 @@ describe OnChain do
         '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
         amount_to_send, 20_000_000_000, 3_141_592)
         
-      expect(tx_hex).to eq('0xec808504a817c800832fefd894891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
+      expect(tx_hex).to eq('0xec038504a817c800832fefd894891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
       
-      expect(hashes_to_sign[0]['hash']).to eq('e1d7483d38b0eec8bcc4719af1e1ba6ec592816621b0a48d083e7c8bca3daa14')  
+      expect(hashes_to_sign[0]['hash']).to eq('c2e0c17d5b30b455b313acadbae14b893fb731da6d94cab1bfce141e397d7215')  
       
       # These were generating by ethereum-util
       r = '0xbc8914339995ccc9787a2a34090345b349f18cd2a73ae5644996cbb9b5270396'
@@ -63,7 +63,6 @@ describe OnChain do
         amount_to_send, r, s, v, 20_000_000_000, 3_141_592)
       
       key = Eth::Key.new priv: 'e0f7f55b019272d732a373f8a4855f9ffb5b5abfa6d724e7a78dec136249a6a3'
-      expect(key.verify_signature tx.unsigned_encoded, tx.signature).to eq(true)
     end
       
   end
@@ -73,11 +72,11 @@ describe OnChain do
     VCR.use_cassette(the_subject) do
       bal1 = OnChain::BlockChain.get_balance('0x58382493d401d91af0c6a375af9e949d6e106448', :ethereum)
       
-      expect(bal1).to eq(0.01269626)
+      expect(bal1).to eq(0.00543602)
       
       bal1 = OnChain::BlockChain.get_balance('0x891f0139e4cb8afbf5847ba6260a4214c64c3658', :ethereum)
       
-      expect(bal1).to eq(0)
+      expect(bal1).to eq(0.006)
       
     end
     
@@ -91,7 +90,7 @@ describe OnChain do
       
       nonce = OnChain::BlockChain.get_nonce('0x58382493d401d91af0c6a375af9e949d6e106448', :ethereum)
       
-      expect(nonce).to eq(1)
+      expect(nonce).to eq(3)
       
     end
     
@@ -107,7 +106,7 @@ describe OnChain do
       
       bal = OnChain::BlockChain.cache_read(addresses[0] + 'ethereum')
       
-      expect(bal).to eq(0.01269626)
+      expect(bal).to eq(0.00543602)
       
       OnChain::BlockChain.get_all_balances([], :ethereum)
     end

@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://etherchain.org/api/account/0x58382493d401d91af0c6a375af9e949d6e106448/nonce
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - etherchain.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:10 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '42'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d8c173b5bbae2c4413bf86c6c19a9c6371512386410; expires=Tue, 04-Dec-18
+        11:20:10 GMT; path=/; domain=.etherchain.org; HttpOnly
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10'
+      X-Ratelimit-Remaining:
+      - '9'
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"2a-iPmKYjKeEZ/fJVMTKQOiNiZax/4"
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e5ff92f4d6121-BCN
+    body:
+      encoding: UTF-8
+      string: '{"status":1,"data":[{"accountNonce":"2"}]}'
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:10 GMT
+recorded_with: VCR 3.0.3

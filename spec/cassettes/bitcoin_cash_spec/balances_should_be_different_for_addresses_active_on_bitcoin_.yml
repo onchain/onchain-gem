@@ -1,0 +1,134 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://cashexplorer.bitcoin.com/api/addr/1STRonGxnFTeJiA7pgyneKknR29AwBM77/balance
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - cashexplorer.bitcoin.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.3 (Ubuntu)
+      Date:
+      - Mon, 04 Dec 2017 11:15:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '9'
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - Express
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"9-vqcWfUNXGruWhl2Bzi5EEAKOaAM"
+      Vary:
+      - Accept-Encoding
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '187751754'
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:15:20 GMT
+- request:
+    method: get
+    uri: https://blockchain.info/address/1STRonGxnFTeJiA7pgyneKknR29AwBM77?format=json&limit=0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:15:21 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d55a0b231ac2d073d096949b78cfcb0b01512386120; expires=Tue, 04-Dec-18
+        11:15:20 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Vary:
+      - Accept-Encoding
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://blockchain.info; style-src ''self'' ''unsafe-inline'';
+        frame-src ''self'' bci-ads.blockchain.info; child-src ''self'' bci-ads.blockchain.info;
+        script-src ''self''; connect-src ''self'' *.blockchain.info wss://*.blockchain.info
+        https://blockchain.info wss://ws.blockchain.info; object-src ''none''; media-src
+        ''none''; font-src ''self''; worker-src ''none'';'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Blockchain-Ms:
+      - 'true'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Blockchain-Cp-F:
+      - tr45 1.444
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e58e31c7c6926-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+            "hash160":"04d075b3f501deeef5565143282b6cfe8fad5e94",
+            "address":"1STRonGxnFTeJiA7pgyneKknR29AwBM77",
+            "n_tx":34596,
+            "total_received":50564605825,
+            "total_sent":50550234595,
+            "final_balance":14371230,
+            "txs":[]
+        }
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:15:21 GMT
+recorded_with: VCR 3.0.3

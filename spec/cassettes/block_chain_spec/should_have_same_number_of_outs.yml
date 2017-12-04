@@ -1,0 +1,175 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://blockchain.info/unspent?active=1JCLW7cvVv2aHvcCUc4284unoaKXciftzW
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:17:29 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=def049dcb8a3d4559f06fab7a43b12c1d1512386249; expires=Tue, 04-Dec-18
+        11:17:29 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Vary:
+      - Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://blockchain.info; style-src ''self'' ''unsafe-inline'';
+        frame-src bci-ads.blockchain.info; child-src bci-ads.blockchain.info; script-src
+        ''self''; connect-src ''self'' *.blockchain.info wss://*.blockchain.info https://blockchain.info
+        wss://ws.blockchain.info; object-src ''none''; media-src ''none''; font-src
+        ''self''; worker-src ''none'';'
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Blockchain-Ms:
+      - 'true'
+      X-Blockchain-Cp-F:
+      - x18v 0.016
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e5c0998926926-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: "\n\n{\n    \n    \"unspent_outputs\":[\n    \n        {\n            \"tx_hash\":\"75fe229c43fa1a89412e793bb0048e8cd72cc377c462ae2c4e953811b950f794\",\n
+        \           \"tx_hash_big_endian\":\"94f750b91138954e2cae62c477c32cd78c8e04b03b792e41891afa439c22fe75\",\n
+        \           \"tx_index\":194384761,\n            \"tx_output_n\": 2,\n            \"script\":\"76a914bc9efe4aa8d545bb0bf6c4587eca592c101d941788ac\",\n
+        \           \"value\": 100000,\n            \"value_hex\": \"0186a0\",\n            \"confirmations\":56281\n
+        \       },\n      \n        {\n            \"tx_hash\":\"0afe22c61aa6ad6b066245ae4fca4f1e2f083e61b3d1c58d17ac3173e9ce7b4b\",\n
+        \           \"tx_hash_big_endian\":\"4b7bcee97331ac178dc5d1b3613e082f1e4fca4fae4562066bada61ac622fe0a\",\n
+        \           \"tx_index\":194670695,\n            \"tx_output_n\": 0,\n            \"script\":\"76a914bc9efe4aa8d545bb0bf6c4587eca592c101d941788ac\",\n
+        \           \"value\": 500000,\n            \"value_hex\": \"07a120\",\n            \"confirmations\":56136\n
+        \       }\n      \n    ]\n}\n"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:17:29 GMT
+- request:
+    method: get
+    uri: https://blockchain.info/unspent?active=1JCLW7cvVv2aHvcCUc4284unoaKXciftzW
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - blockchain.info
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:17:29 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d415a1d5d16da30d81ef7e5fbb9d8c2a21512386249; expires=Tue, 04-Dec-18
+        11:17:29 GMT; path=/; domain=.blockchain.info; HttpOnly
+      Vary:
+      - Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Content-Language:
+      - en
+      Content-Security-Policy:
+      - 'img-src ''self'' data: https://blockchain.info; style-src ''self'' ''unsafe-inline'';
+        frame-src bci-ads.blockchain.info; child-src bci-ads.blockchain.info; script-src
+        ''self''; connect-src ''self'' *.blockchain.info wss://*.blockchain.info https://blockchain.info
+        wss://ws.blockchain.info; object-src ''none''; media-src ''none''; font-src
+        ''self''; worker-src ''none'';'
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Blockchain-Ms:
+      - 'true'
+      X-Blockchain-Cp-F:
+      - pqs6 0.013
+      X-Blockchain-Server:
+      - BlockchainFE/1.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Cache-Status:
+      - MISS
+      Via:
+      - 1.1 google
+      Alt-Svc:
+      - clear
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e5c0a7aa51061-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: "\n\n{\n    \n    \"unspent_outputs\":[\n    \n        {\n            \"tx_hash\":\"75fe229c43fa1a89412e793bb0048e8cd72cc377c462ae2c4e953811b950f794\",\n
+        \           \"tx_hash_big_endian\":\"94f750b91138954e2cae62c477c32cd78c8e04b03b792e41891afa439c22fe75\",\n
+        \           \"tx_index\":194384761,\n            \"tx_output_n\": 2,\n            \"script\":\"76a914bc9efe4aa8d545bb0bf6c4587eca592c101d941788ac\",\n
+        \           \"value\": 100000,\n            \"value_hex\": \"0186a0\",\n            \"confirmations\":56281\n
+        \       },\n      \n        {\n            \"tx_hash\":\"0afe22c61aa6ad6b066245ae4fca4f1e2f083e61b3d1c58d17ac3173e9ce7b4b\",\n
+        \           \"tx_hash_big_endian\":\"4b7bcee97331ac178dc5d1b3613e082f1e4fca4fae4562066bada61ac622fe0a\",\n
+        \           \"tx_index\":194670695,\n            \"tx_output_n\": 0,\n            \"script\":\"76a914bc9efe4aa8d545bb0bf6c4587eca592c101d941788ac\",\n
+        \           \"value\": 500000,\n            \"value_hex\": \"07a120\",\n            \"confirmations\":56136\n
+        \       }\n      \n    ]\n}\n"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:17:29 GMT
+recorded_with: VCR 3.0.3

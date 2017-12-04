@@ -9,7 +9,7 @@ describe OnChain do
   end
   
   subject(:the_subject) do |example|
-    example.description
+    "block_chain_spec/" + example.description
   end
   
   it "Should truncate a vast history" do
@@ -17,7 +17,7 @@ describe OnChain do
     VCR.use_cassette(the_subject) do
       test =  OnChain::BlockChain.address_history('1JNSXU4k1F3LJptBMaR7vBG9yWX1svrGdv')
       
-      expect(test.length).to eq(20)
+      expect(test.length).to eq(6)
     end
     
   end
@@ -226,7 +226,7 @@ describe OnChain do
         '3NWnAx1bD3PgoHZ7pJo6emMJn71Ee2vSpB', 
         '38BqfF4LUgpbvoYbGpyYAw44qrpS841GA1'])
         
-      expect(hist.count).to eq(70)
+      expect(hist.count).to eq(42)
     end
   end
   

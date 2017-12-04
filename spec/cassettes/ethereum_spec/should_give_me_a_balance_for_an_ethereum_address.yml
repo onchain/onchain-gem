@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.blockcypher.com/v1/eth/main/addrs/0x58382493d401d91af0c6a375af9e949d6e106448/balance?token=b85f0e6d0f944803854e91becc60340e
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.blockcypher.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.4
+      Date:
+      - Mon, 04 Dec 2017 11:28:52 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Ratelimit-Remaining:
+      - '197'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "address": "58382493d401d91af0c6a375af9e949d6e106448",
+          "total_received": 12696260000000000,
+          "total_sent": 7260240000000000,
+          "balance": 5436020000000000,
+          "unconfirmed_balance": 0,
+          "final_balance": 5436020000000000,
+          "n_tx": 4,
+          "unconfirmed_n_tx": 0,
+          "final_n_tx": 4,
+          "nonce": 3,
+          "pool_nonce": 3
+        }
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:28:52 GMT
+- request:
+    method: get
+    uri: https://api.blockcypher.com/v1/eth/main/addrs/0x891f0139e4cb8afbf5847ba6260a4214c64c3658/balance?token=b85f0e6d0f944803854e91becc60340e
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.blockcypher.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.4
+      Date:
+      - Mon, 04 Dec 2017 11:28:53 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Ratelimit-Remaining:
+      - '196'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "address": "891f0139e4cb8afbf5847ba6260a4214c64c3658",
+          "total_received": 6000000000000000,
+          "total_sent": 0,
+          "balance": 6000000000000000,
+          "unconfirmed_balance": 0,
+          "final_balance": 6000000000000000,
+          "n_tx": 3,
+          "unconfirmed_n_tx": 0,
+          "final_n_tx": 3
+        }
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:28:53 GMT
+recorded_with: VCR 3.0.3

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OnChain do
   
   subject(:the_subject) do |example|
-    example.description
+    "exchange_rate_spec/" + example.description
   end
   
   it "should get a satoshi balance" do
@@ -31,7 +31,7 @@ describe OnChain do
     VCR.use_cassette(the_subject) do
       rate = OnChain::ExchangeRate.exchange_rate(:USD, :zclassic)
       
-      expect(rate).to be > 2.5
+      expect(rate).to be > 2.1
     end
     
   end
@@ -41,7 +41,7 @@ describe OnChain do
     VCR.use_cassette(the_subject) do
       rate = OnChain::ExchangeRate.exchange_rate(:USD, :ethereum)
       
-      expect(rate).to be > 2.5
+      expect(rate).to be > 2.1
     end
     
   end

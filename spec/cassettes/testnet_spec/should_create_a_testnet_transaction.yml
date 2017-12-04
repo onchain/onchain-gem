@@ -1,0 +1,685 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2MxARaew1a1XbKKoEXzETaRqhJFvn3JYPBL/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d8c52b41a344100feb5c7fbe81bda8b1b1512386418; expires=Tue, 04-Dec-18
+        11:20:18 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10797'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"10f-lSXzqe8RMW1MupxOeQMhUw"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e602919df1073-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"address":"2MxARaew1a1XbKKoEXzETaRqhJFvn3JYPBL","txid":"19aced60b72e136d6abf12836e7efbd5da2ac1281871d7a26fae5954c99286c6","vout":1,"scriptPubKey":"a91435f039e361b6dcc054b7dcfb8dcb9283a1c1636587","amount":0.0089,"satoshis":890000,"height":866408,"confirmations":386848}]'
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:18 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2NC1CFifgXNJ7TbTW3bEARhn6UeaLf1wscT/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=da21e39453031bf1849a80a8015405cf21512386418; expires=Tue, 04-Dec-18
+        11:20:18 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10796'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e602b4f516908-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:18 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2N7U7CjdGSNbafWQw7pRUJMn2Tv5XW6rUdt/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=da2b4e683142762070fe920a41ae3a61f1512386418; expires=Tue, 04-Dec-18
+        11:20:18 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10795'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e602c19426938-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:18 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2NDqwDbuBaVSJBVXJNhxp7BVbyobeLUSmmy/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d79486a41e3b6c19687e051ffa8181b231512386418; expires=Tue, 04-Dec-18
+        11:20:18 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10794'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e602e6e0108e4-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:19 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2MwfxrdanpPJRPTgsX5BM3DqDMR2k3e1yff/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d6ad559c92f8c0c186ec9f640700a83a91512386419; expires=Tue, 04-Dec-18
+        11:20:19 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10793'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e6030d9846968-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:19 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2NDAaxHue77CtbnidT47PfMPE8cRuvkHTnK/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d5e992a130ba4ce5e9368804563fbe25e1512386419; expires=Tue, 04-Dec-18
+        11:20:19 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10792'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e6031bf0f3c17-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:19 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2NCsqGxriiYr2wLE1RjWpHzMAwo6HyDuahD/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d6ad559c92f8c0c186ec9f640700a83a91512386419; expires=Tue, 04-Dec-18
+        11:20:19 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10791'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e6033faca6968-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:19 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2N9DhiSwpZe5h9ST2gHFf6ourMFFUMLAyU6/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d5e992a130ba4ce5e9368804563fbe25e1512386419; expires=Tue, 04-Dec-18
+        11:20:19 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10790'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e6034b8783c17-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:20 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2MzFiohCKuKCybgxPjHWCTLWNkg9Je1dqjw/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=dd094b35d2c61f580b04c4eb2921299b91512386420; expires=Tue, 04-Dec-18
+        11:20:20 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10789'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e6036dc116968-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:20 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2NAEFoup2hSW13r9XAxxwvRJMEU9bHTdLZT/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d06128a0baf35d5454ceb0b4a4b2e7f911512386420; expires=Tue, 04-Dec-18
+        11:20:20 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10788'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e6037cfa71043-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:20 GMT
+- request:
+    method: get
+    uri: https://testnet.blockexplorer.com/api/addr/2MuRVP3kb6d6J81D52k7xKGjd5WjBsF8U8W/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testnet.blockexplorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 Dec 2017 11:20:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d0ef5c18e4f3cfa1899bc1e1cb440afa61512386420; expires=Tue, 04-Dec-18
+        11:20:20 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10787'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      Etag:
+      - W/"2-11FxOYiYfpMxmANj4kGJzg"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c7e60388dd368c0-CDG
+    body:
+      encoding: UTF-8
+      string: "[]"
+    http_version: 
+  recorded_at: Mon, 04 Dec 2017 11:20:20 GMT
+recorded_with: VCR 3.0.3
