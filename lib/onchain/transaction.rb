@@ -152,7 +152,7 @@ class OnChain::Transaction
       return true
     end
     
-    def create_single_address_transaction(orig_addr, dest_addr, amount, 
+    def create_single_signature_transaction(orig_addresses, dest_addr, amount, 
       fee_in_satoshi, fee_addr, miners_fee, network = :bitcoin)
 
       tx = Bitcoin::Protocol::Tx.new
@@ -160,7 +160,7 @@ class OnChain::Transaction
       total_amount = amount + fee_in_satoshi + miners_fee
       
       unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(
-        [orig_addr], total_amount, network)
+        orig_addresses, total_amount, network)
       indexes = nil
       
       total_input_value = 0
@@ -182,7 +182,8 @@ class OnChain::Transaction
       # Send the change back. 546 is the dust price for bitcoin.
       if change > DUST_SATOSHIES
         
-        txout = Bitcoin::Protocol::TxOut.new(change, to_address_script(orig_addr, network))
+        txout = Bitcoin::Protocol::TxOut.new(change, 
+          to_address_script(orig_addresses.first, network))
   
         tx.add_out(txout)
       end
@@ -190,6 +191,13 @@ class OnChain::Transaction
       inputs_to_sign = get_inputs_to_sign(tx, unspents, network)
       
       return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign, total_input_value
+    end
+    
+    def create_single_address_transaction(orig_addr, dest_addr, amount, 
+      fee_in_satoshi, fee_addr, miners_fee, network = :bitcoin)
+
+      return create_single_signature_transaction([orig_addr], dest_addr, 
+        amount, fee_in_satoshi, fee_addr, miners_fee, network)
     end
     
     # Given a send address and an amount produce a transaction 
