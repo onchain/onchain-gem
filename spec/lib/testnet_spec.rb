@@ -6,6 +6,21 @@ describe OnChain do
    "testnet_spec/" +  example.description
   end
   
+  
+  it "should create a transaction from pub hexes" do
+    
+    
+    VCR.use_cassette(the_subject) do
+      tx, inputs_to_sign = OnChain::Transaction.create_transaction_from_public_keys(
+        ['03ab4284e59a1724f1f0f58114abfc4f34a98478972d5b8c67608a67a10e188b9a'], 
+        'mx97L7gTbERp8B7EK7Bk8R7bgnq6zUKAgY', 4000000, 
+        30000, 'mkk7dRJz4288ux6kLmFi1w6GcHjJowtFc8', 10000, :testnet3)
+        
+      expect(tx).to eq('0100000001137eae1968bb544b20f6eae79272d541cee6cf71beba8020a4f971d75f6a2256440000001976a91463bf46a9d042006ac36b368133d01026a3d18e7888acffffffff0300093d00000000001976a914b6588798023037135a20583ce2c6610e36c6ead888ac30750000000000001976a9143955d3f58ee2d7b941ff7583de109da70d1b8a6288ac26a7c731000000001976a91463bf46a9d042006ac36b368133d01026a3d18e7888ac00000000')
+    end
+    
+  end
+  
   it "should give me a balance for a testnet address" do
     
     VCR.use_cassette(the_subject) do
@@ -47,6 +62,7 @@ describe OnChain do
         
       expect(tx).to eq('0100000001da233d8d3a66eed7160d7d0d53433d11c43a6a50594a2c8281da0ccde692b1f6010000001976a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88acffffffff0300093d00000000001976a914b6588798023037135a20583ce2c6610e36c6ead888ac30750000000000001976a9143955d3f58ee2d7b941ff7583de109da70d1b8a6288ac00db1a00000000001976a914c2372ca390730d5cb2983736c8aa0959bf9cb9ef88ac00000000')
     end
+    
   end
   
   it "should create a testnet transaction" do

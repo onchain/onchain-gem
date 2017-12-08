@@ -152,6 +152,38 @@ class OnChain::Transaction
       return true
     end
     
+    def create_transaction_from_public_keys(pub_keys, dest_addr, amount, 
+      fee_in_satoshi, fee_addr, miners_fee, network = :bitcoin)
+      
+      orig_addresses = pub_keys.map { |key| pubhex_to_address(key, network) }
+      
+      txhex, inputs_to_sign, total_input_value = create_single_signature_transaction(
+        orig_addresses, dest_addr, amount, 
+        fee_in_satoshi, fee_addr, miners_fee, network)
+       
+      its = []
+      pub_keys.each do |key| 
+        addr = pubhex_to_address(key, :bitcoin)
+        inputs_to_sign.each do |input|
+          if input[addr] != nil
+            its << { key => input[addr] }
+          end
+        end
+      end
+        
+      return txhex, its, total_input_value
+        
+    end
+    
+    def pubhex_to_address(pub_hex, network)
+    
+      address_version = Bitcoin::NETWORKS[network][:address_version]
+      
+      address = Bitcoin.encode_address(Bitcoin.hash160(pub_hex), address_version)
+      
+      return address
+    end
+    
     def create_single_signature_transaction(orig_addresses, dest_addr, amount, 
       fee_in_satoshi, fee_addr, miners_fee, network = :bitcoin)
 
