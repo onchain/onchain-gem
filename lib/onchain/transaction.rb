@@ -302,6 +302,34 @@ class OnChain::Transaction
     # Signatures should be in the format
     #
     # [0]{034000.....' => {'hash' => '345435345....', 'sig' => '435fgdf4553...'}}
+    # [1]{02fee.....' => {'hash' => '122133445....', 'sig' => '435fgdf4553...'}}
+    #
+    def sign_single_signature_transaction(transaction_hex, sig_list, 
+      hash_type = Bitcoin::Script::SIGHASH_TYPE[:all])
+      
+      tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(transaction_hex)
+      
+      tx.in.each_with_index do |txin, index|
+        
+        public_key_hex = sig_list[index].keys.first
+        
+        sig = sig_list[index][public_key_hex]['sig']
+        
+        txin.script = Bitcoin::Script.to_pubkey_script_sig(
+          OnChain.hex_to_bin(sig), 
+          OnChain.hex_to_bin(public_key_hex), hash_type)
+      end
+      
+      return OnChain::bin_to_hex(tx.to_payload)
+    end
+     
+  
+    # Given a transaction in hex string format, apply
+    # the given signature list to it.
+    #
+    # Signatures should be in the format
+    #
+    # [0]{034000.....' => {'hash' => '345435345....', 'sig' => '435fgdf4553...'}}
     # [0]{02fee.....' => {'hash' => '122133445....', 'sig' => '435fgdf4553...'}}
     #
     # For transactions coming from non multi sig wallets we need to set
