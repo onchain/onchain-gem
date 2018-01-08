@@ -61,6 +61,12 @@ class OnChain::BlockChain
           :excludes => [:get_address_info] }
       ] 
     },
+    :zclassic => {
+      :apis => [
+        { :provider => OnChain::Insight.new('http://explorer.zclmine.pro/insight-api-zcash/'),
+          :excludes => [:get_address_info] }
+      ] 
+    },
     :bitcoin_cash => {
       :apis => [
         { :provider => OnChain::Insight.new('https://cashexplorer.bitcoin.com/api/'),
@@ -164,7 +170,7 @@ class OnChain::BlockChain
         rescue StandardError => e2
           # We have the method but it errored. Assume
           # service is down.
-          error = e.backtrace.join("\n")
+          error = e2.backtrace.join("\n")
           if NET_HTTP_RESCUES.include? e2
             cache_write(provider.url, error, SERVICE_DOWN_FOR)
           end
