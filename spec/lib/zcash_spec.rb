@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe OnChain do
   
+  subject(:the_subject) do |example|
+   "zcash_spec/" +  example.description
+  end
+  
   it "should generate the correct address format" do
     
     pk = '92CzBupESg5fmsJJa1PzcLqRwFVaXSMtpgftcWfh75z2FbzRkKK'
@@ -40,6 +44,17 @@ describe OnChain do
     address = Bitcoin.encode_address(hash, address_version)
     
     expect(address).to eq("t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C")
+    
+  end
+  
+  it "should give me a blance for a zcash address" do
+    
+    VCR.use_cassette(the_subject) do
+      
+      bal = OnChain::BlockChain.get_balance('t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C', :zcash)
+      expect(bal).to eq(0)
+      
+    end
     
   end
   
