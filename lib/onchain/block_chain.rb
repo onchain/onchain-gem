@@ -57,7 +57,7 @@ class OnChain::BlockChain
     },
     :zcash => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://explorer.zcha.in/v2/mainnet/'),
+        { :provider => OnChain::Insight.new('https://zec-bitcore2.trezor.io/api/'),
           :excludes => [:get_address_info] }
       ] 
     },

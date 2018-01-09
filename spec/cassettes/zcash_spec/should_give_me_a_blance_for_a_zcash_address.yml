@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://explorer.zcha.in/v2/mainnet/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
+    uri: https://zec-bitcore2.trezor.io/api/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
     body:
       encoding: US-ASCII
       string: ''
@@ -14,44 +14,49 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - explorer.zcha.in
+      - zec-bitcore2.trezor.io
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Tue, 09 Jan 2018 08:11:19 GMT
+      - Tue, 09 Jan 2018 08:27:54 GMT
       Content-Type:
-      - text/html
-      Transfer-Encoding:
-      - chunked
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1'
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=dda3941e3fb65a664d180e3e5b135f5851515485478; expires=Wed, 09-Jan-19
-        08:11:18 GMT; path=/; domain=.zcha.in; HttpOnly
-      Vary:
-      - Accept-Encoding
-      Last-Modified:
-      - Mon, 28 Aug 2017 17:53:11 GMT
-      Strict-Transport-Security:
-      - max-age=15552000; includeSubDomains; preload
+      - __cfduid=d7c22d95c7ab9b3c61f7a7c5ef33e4c6f1515486474; expires=Wed, 09-Jan-19
+        08:27:54 GMT; path=/; domain=.trezor.io; HttpOnly
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10798'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
       X-Content-Type-Options:
       - nosniff
+      Etag:
+      - W/"1-tlifxqsNyCzxIJnRwtQKuZToQQw"
+      Vary:
+      - Accept-Encoding
       Server:
       - cloudflare
       Cf-Ray:
-      - 3da5ecd2caf008f0-CDG
+      - 3da60520ce4269c4-CDG
     body:
-      encoding: ASCII-8BIT
-      string: |-
-        <!doctype html><html class="no-js" lang=""><head><link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png"><link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><meta name="theme-color" content="#ffffff"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Zchain: Zcash Block Explorer, Analytics Platform & API. Browse and search blocks, transactions, accounts, statistics and more."><meta name="og:description" content="Zchain: Zcash Block Explorer, Analytics Platform & API. Browse and search blocks, transactions, accounts, statistics and more."><meta name="author" content="explorer.zcha.in"><meta name="keywords" content="zcash, zchain, explorer, block explorer, zcash explorer, zcash block explorer, blockchain, cryptocurrency, bitcoin, digital currency"><meta name="og:keywords" content="zcash, zchain, explorer, block explorer, zcash explorer, zcash block explorer, blockchain, cryptocurrency, bitcoin, digital currency"><title>Zchain - Zcash Block Explorer & API</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"><link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"></head><script>window.prerenderReady = false;</script><body><div id="app"><script src="/app.js" charset="utf-8"></script></div></body><script src="https://cdn.ravenjs.com/3.7.0/raven.min.js"></script><script>Raven.config('https://d69370937b094f99b214310f728dc89b@sentry.io/108090').install()</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-          ga('create', 'UA-85901219-1', 'auto');
-          ga('send', 'pageview');</script></html>
+      encoding: UTF-8
+      string: '0'
     http_version: 
-  recorded_at: Tue, 09 Jan 2018 08:11:19 GMT
+  recorded_at: Tue, 09 Jan 2018 08:27:54 GMT
 recorded_with: VCR 3.0.3
