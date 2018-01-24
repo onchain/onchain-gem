@@ -4,7 +4,7 @@ describe OnChain do
   
   before(:each) do
     @blockinfo = OnChain::BlockChaininfo.new
-    @insight = OnChain::Insight.new('https://insight.bitpay.com/api/')
+    @insight = OnChain::Insight.new('https://insight.bitpay.com/api/', :bitcoin)
     @blockr = OnChain::Blockr.new('http://btc.blockr.io/api/v1/')
   end
   

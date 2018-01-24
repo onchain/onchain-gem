@@ -1,7 +1,8 @@
 class OnChain::Insight
   
   # We limit the history as it makes repeated calls back to the API.  
-  def initialize(url, history_limit = 6)
+  def initialize(url, coin_type, history_limit = 6)
+    @coin_type = coin_type
     @url = url
     @history_limit = history_limit
   end
@@ -9,27 +10,27 @@ class OnChain::Insight
   ############################################################################
   # The provider methods
   def get_balance(address)
-    insight_get_balance(address)
+    insight_get_balance(address, @coin_type)
   end
   
   def address_history(address)
-    insight_address_history(address)
+    insight_address_history(address, @coin_type)
   end
   
   def send_tx(tx_hex)
-    insight_send_tx(tx_hex)
+    insight_send_tx(tx_hex, @coin_type)
   end
   
   def get_unspent_outs(address)
-    insight_get_unspent_outs(address)
+    insight_get_unspent_outs(address, @coin_type)
   end
   
   def get_transaction(tx_id)
-    insight_get_transaction(tx_id)
+    insight_get_transaction(tx_id, @coin_type)
   end
   
   def get_all_balances(addresses)
-    insight_get_all_balances(addresses)
+    insight_get_all_balances(addresses, @coin_type)
   end
   
   def url

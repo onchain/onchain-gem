@@ -4,7 +4,7 @@ describe OnChain do
   
   before(:each) do
     # testnet3
-    @insight = OnChain::Insight.new('https://test-insight.bitpay.com/api/')
+    @insight = OnChain::Insight.new('https://test-insight.bitpay.com/api/', :testnet3)
   end
   
   subject(:the_subject) do |example|

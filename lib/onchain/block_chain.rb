@@ -35,41 +35,41 @@ class OnChain::BlockChain
         { :provider => OnChain::BlockChaininfo.new,
           # Exclude send_tx as it doesn't support multi sig.
           :excludes => [:send_tx]},
-        { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/'),
+        { :provider => OnChain::Insight.new('https://insight.bitpay.com/api/', :bitcoin),
           :excludes => [:get_address_info] },
         { :provider => OnChain::Blockr.new('http://btc.blockr.io/api/v1/') },
       ]
     },
     :testnet3 => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://testnet.blockexplorer.com/api/'),
+        { :provider => OnChain::Insight.new('https://testnet.blockexplorer.com/api/', :testnet3),
           :excludes => [:get_address_info] },
-        { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/'),
+        { :provider => OnChain::Insight.new('https://test-insight.bitpay.com/api/', :testnet3),
           :excludes => [:get_address_info] },
         { :provider => OnChain::Blockr.new('http://tbtc.blockr.io/api/v1/') }
       ]
     },
     :zcash_testnet => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://explorer.testnet.z.cash/api/'),
+        { :provider => OnChain::Insight.new('https://explorer.testnet.z.cash/api/', :zcash_testnet),
           :excludes => [:get_address_info] }
       ] 
     },
     :zcash => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://zec-bitcore2.trezor.io/api/'),
+        { :provider => OnChain::Insight.new('https://zec-bitcore2.trezor.io/api/', :zcash),
           :excludes => [:get_address_info] }
       ] 
     },
     :zclassic => {
       :apis => [
-        { :provider => OnChain::Insight.new('http://explorer.zclmine.pro/insight-api-zcash/'),
+        { :provider => OnChain::Insight.new('http://explorer.zclmine.pro/insight-api-zcash/', :zclassic),
           :excludes => [:get_address_info] }
       ] 
     },
     :bitcoin_cash => {
       :apis => [
-        { :provider => OnChain::Insight.new('https://cashexplorer.bitcoin.com/api/'),
+        { :provider => OnChain::Insight.new('https://cashexplorer.bitcoin.com/api/', :bitcoin_cash),
           :excludes => [:get_address_info]},
         # As of around 27th Nov 2017, balances are incorrect.
         #{ :provider => OnChain::Insight.new('http://blockdozer.com/insight-api/'),

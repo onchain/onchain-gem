@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://tbtc.blockr.io/api/v1/address/balance/myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - tbtc.blockr.io
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      Date:
+      - Wed, 24 Jan 2018 16:18:34 GMT
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=3600
+      Expires:
+      - Wed, 24 Jan 2018 17:18:34 GMT
+      Location:
+      - https://www.coinbase.com/
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3e244f3553933c0b-CDG
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 24 Jan 2018 16:18:34 GMT
+recorded_with: VCR 3.0.3
