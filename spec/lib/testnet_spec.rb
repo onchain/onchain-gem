@@ -99,6 +99,10 @@ describe OnChain do
       
       expect(hist.length).to eq(3)  
     end
+    
+    # Now see if we have it in the cache
+    hist = OnChain::BlockChain.address_history('2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca', :testnet3)
+    expect(hist.length).to eq(3)  
   end
   
   it "should get history for addresses on testnet" do

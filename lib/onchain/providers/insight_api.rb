@@ -41,10 +41,15 @@ class OnChain::Insight
     
   def insight_address_history(address, network = :bitcoin)
       
-    base_url = @url + "addr/" + address
-    json = OnChain::BlockChain.fetch_response(base_url, true) 
+    if OnChain::BlockChain.cache_read('hist_' + address + network.to_s) == nil
+      base_url = @url + "addr/" + address
+      json = OnChain::BlockChain.fetch_response(base_url, true) 
+      parsed_json = parse_insight_address_tx(address, json, network)
+      OnChain::BlockChain.cache_write('hist_' + address + network.to_s, 
+        parsed_json, 180)
+    end
     
-    return parse_insight_address_tx(address, json, network)
+    return OnChain::BlockChain.cache_read('hist_' + address + network.to_s) 
       
   end
   
