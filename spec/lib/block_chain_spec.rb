@@ -226,7 +226,7 @@ describe OnChain do
         '3NWnAx1bD3PgoHZ7pJo6emMJn71Ee2vSpB', 
         '38BqfF4LUgpbvoYbGpyYAw44qrpS841GA1'])
         
-      expect(hist.count).to eq(42)
+      expect(hist.count).to eq(68)
     end
   end
   

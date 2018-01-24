@@ -212,9 +212,11 @@ class OnChain::BlockChain
     def get_history_for_addresses(addresses, network = :bitcoin)
       history = []
       addresses.each do |address|
-        res = address_history(address, network)
-        res.each do |r|
-          history << r
+        if get_balance(address, network) > 0
+          res = address_history(address, network)
+          res.each do |r|
+            history << r
+          end
         end
       end
       return history
