@@ -63,7 +63,7 @@ class OnChain::BlockChain
     },
     :zclassic => {
       :apis => [
-        { :provider => OnChain::Insight.new('http://explorer.zclmine.pro/insight-api-zcash/', :zclassic),
+        { :provider => OnChain::Insight.new('https://zclassicexplorer.com/api/', :zclassic),
           :excludes => [:get_address_info] }
       ] 
     },
