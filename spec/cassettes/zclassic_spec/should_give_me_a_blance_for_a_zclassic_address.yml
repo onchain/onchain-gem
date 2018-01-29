@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://zclassicexplorer.com/api/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
+    uri: http://149.56.129.104/insight-api-zcash/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
     body:
       encoding: US-ASCII
       string: ''
@@ -14,53 +14,42 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - zclassicexplorer.com
+      - 149.56.129.104
   response:
     status:
       code: 200
       message: OK
     headers:
-      Date:
-      - Mon, 29 Jan 2018 06:01:14 GMT
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10798'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
       Content-Type:
-      - text/html; charset=utf-8
-      Transfer-Encoding:
-      - chunked
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1'
+      Etag:
+      - W/"1-tlifxqsNyCzxIJnRwtQKuZToQQw"
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Mon, 29 Jan 2018 07:32:10 GMT
       Connection:
       - keep-alive
-      Set-Cookie:
-      - __cfduid=d775f595dd3b4d331804bfb5e71709b841517205674; expires=Tue, 29-Jan-19
-        06:01:14 GMT; path=/; domain=.zclassicexplorer.com; HttpOnly
-      X-Served-By:
-      - Namecheap URL Forward
-      Expect-Ct:
-      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 3e49f9c68d9168ae-CDG
     body:
-      encoding: ASCII-8BIT
-      string: |+
-        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
-        <html>
-            <head>
-                <meta http-equiv='content-type' content='text/html; charset=UTF-8'>
-                <meta name="KEYWORDS" content="zclassic,block,explorer">
-                <meta name="DESCRIPTION" content="Insight API block explorer for ZCLASSIC financial freedom">
-                <meta name="VERSION" content="">
-                <link href="" rel="shortcut icon" type="image/x-icon">
-                <title>ZCLASSICexplorer.com</title>
-            </head>
-            <frameset rows='100%, *' frameborder=no framespacing=0 border=0>
-                <frame src="http://149.56.129.104/insight/api/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance" name=mainwindow frameborder=no framespacing=0 marginheight=0 marginwidth=0></frame>
-            </frameset>
-            <noframes>
-                <h2>Your browser does not support frames. We recommend upgrading your browser.</h2><br><br>
-                <center>Click <a href="http://149.56.129.104/insight/api/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance" >here</a> to enter the site.</center>
-            </noframes>
-        </html>
-
+      encoding: UTF-8
+      string: '0'
     http_version: 
-  recorded_at: Mon, 29 Jan 2018 06:01:14 GMT
+  recorded_at: Mon, 29 Jan 2018 07:32:10 GMT
 recorded_with: VCR 3.0.3
