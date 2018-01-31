@@ -82,8 +82,6 @@ class OnChain::Transaction
           # The first out is the require destination
           address = dest
           primary_send += txout.value
-          
-          puts dest + ' ' + primary_send.to_s
         else
           # Other addresses are either chnage or fees.
           if fee_addresses.include? dest
@@ -91,7 +89,6 @@ class OnChain::Transaction
           elsif wallet_addresses.include? dest
             total_change += txout.value
           else
-            puts 'Unrecognised ' + dest
             unrecognised_destination += txout.value
           end
         end
