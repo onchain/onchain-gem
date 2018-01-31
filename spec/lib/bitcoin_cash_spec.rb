@@ -21,7 +21,7 @@ describe OnChain do
         0, '1STRonGxnFTeJiA7pgyneKknR29AwBM77', 10000, :bitcoin_cash)
         
       expect(tx).to eq('0100000001a1800209a311c3ef7eab782cf1ca6c8f664bf048d54b1c5df8edaa0799451ff3020000001976a9145d43d84d26447d78a5f78ecb28e5a5d1b6c4927b88acffffffff0140420f00000000001976a91404d075b3f501deeef5565143282b6cfe8fad5e9488ac00000000')
-      expect(inputs_to_sign[0]['19W97njDjfQzEULoGLhr5cT5FS48ihVXWk']['hash']).to eq('476169f577ec342aaed96c1d328a2038dc1548635068fcb34389db0c4595517b')
+      expect(inputs_to_sign[0]['19W97njDjfQzEULoGLhr5cT5FS48ihVXWk']['hash']).to eq('eb7bb1676bd722de00daad7cf2cc24fae85b0c0aba22fc7af68e57c1fe2689c1')
       
     end
     

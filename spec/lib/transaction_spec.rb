@@ -87,8 +87,6 @@ describe OnChain do
         wallet_addresses,
         ['1JXYMviGfEvjYGP2ZGfDJku6EjnPPEgtr6'], total_input_value)
         
-      puts result
-        
       expect(result[:miners_fee]).to eq(0.000293)
       expect(result[:total_change]).to eq(0.004)
       expect(result[:total_to_send]).to eq(0.01)
