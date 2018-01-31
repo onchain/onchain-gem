@@ -74,26 +74,28 @@ class OnChain::Transaction
       miners_fee = 0
       address = ''
       
-      tx_to_sign.out.each do |txout|
+      tx_to_sign.out.each_with_index do |txout, index|
         
         dest = get_address_from_script(Bitcoin::Script.new(txout.script), network)
         
-        #@total_to_send += txout.value
-        
-        # Is it the users key i.e. a change address
-        if wallet_addresses.include? dest 
-          total_change += txout.value
+        if index == 0
+          # The first out is the require destination
+          address = dest
+          primary_send += txout.value
+          
+          puts dest + ' ' + primary_send.to_s
         else
-          # The first address in the TX is the one the user wants to pay.
-          if address == '' or address == dest
-            primary_send += txout.value
-            address = dest
-          elsif fee_addresses.include? dest
+          # Other addresses are either chnage or fees.
+          if fee_addresses.include? dest
             our_fees += txout.value
+          elsif wallet_addresses.include? dest
+            total_change += txout.value
           else
+            puts 'Unrecognised ' + dest
             unrecognised_destination += txout.value
           end
         end
+        
       end
       
       miners_fee = total_to_send - our_fees - primary_send - total_change

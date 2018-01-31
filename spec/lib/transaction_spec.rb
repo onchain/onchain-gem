@@ -74,6 +74,31 @@ describe OnChain do
     end
   end
   
+  it "should interrogate a bitcoin cash transaction" do
+    
+    VCR.use_cassette(the_subject) do
+      txhex = "0100000001706c1ba9a0dfbd8bd8d462458fe4236a5bbd0cab9910e23784e9834fbfec6aab000000001976a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88acffffffff03400d0300000000001976a914450b0ad6d230ce80a820f46ef8288dd4a0cb211988ac0ca80500000000001976a914c040cbbcdbf5cb6a06ffd800b51990381fa8b2df88ac801a0600000000001976a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac00000000"
+      
+      total_input_value = 1_000_000
+      
+      wallet_addresses = ["1PWBu8o8pBHXCiVY5Y2Hcg4k8JYHw5Cdut", "1HgjW3C7K6FzDrkTxjas6vAgNwDx37HTHT", "1DbJ2kfB4LEFiWCnBfQtip3qNYeCW4fPCT", "18R8zFCeBpKx4Ckz7CSM9N8X5oZUEdwxeE", "1AnWyweX2bckfM2fBw1CGmxY5ae7W9xNb1", "1P6FY4nGEKk2edjm5VTPJnsyQXHNpdMbmr", "17ZrWrszcwo4NpSDdNE2VJihRxCNoW13Xx", "1Pv4G2RN4RYmoE81GG8P7oiv9XgctSrfrC", "1EDPHrjYeUhxAoWDQ9dWoxCi5MbfTEthNe", "14YmndsixbfKvzDj2EaBvssduhHPcBA71o", "17J4rUMLEa2hw8cLGzF4N8FZCXUzUYQotT"]
+        
+      result = OnChain::Transaction.interrogate_transaction(txhex, 
+        wallet_addresses,
+        ['1JXYMviGfEvjYGP2ZGfDJku6EjnPPEgtr6'], total_input_value)
+        
+      puts result
+        
+      expect(result[:miners_fee]).to eq(0.000293)
+      expect(result[:total_change]).to eq(0.004)
+      expect(result[:total_to_send]).to eq(0.01)
+      expect(result[:our_fees]).to eq(0.003707)
+      expect(result[:destination]).to eq("17J4rUMLEa2hw8cLGzF4N8FZCXUzUYQotT")
+      expect(result[:unrecognised_destination]).to eq(0.0)
+      expect(result[:primary_send]).to eq(0.002)
+    end
+  end
+  
   it "should interrogate a transaction" do
     
     VCR.use_cassette(the_subject) do
