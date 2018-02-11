@@ -12,6 +12,7 @@ Gem::Specification.new do |gem|
                       "lib/onchain/transaction.rb",
                       "lib/onchain/exchange_rates.rb",
                       "lib/onchain/exchange.rb",
+                      "lib/onchain/address.rb",
                       "lib/onchain/providers/blockchaininfo_api.rb",
                       "lib/onchain/providers/insight_api.rb",
                       "lib/onchain/providers/bitcoind_api.rb",

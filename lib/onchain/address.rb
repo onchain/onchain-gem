@@ -6,7 +6,8 @@ class OnChain::Address
       return key.addr, key.priv
     end
     
-    def validate_address(address, network = :bitcoin)
+    def valid_address?(address, network = :bitcoin)
+      return Bitcoin.address_type(address) != nil
     end
     
     
