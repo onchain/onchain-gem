@@ -13,7 +13,23 @@ class OnChain::Address
     end
     
     def valid_address?(address, network = :bitcoin)
-      return Bitcoin.address_type(address) != nil
+      
+      hex = Bitcoin.decode_base58(address) rescue nil
+      
+      check =  Bitcoin.checksum( hex[0...hex.bytesize - 8] ) == hex[-8..-1]
+      
+      if check
+        
+        # Check the network version
+        version = Bitcoin::NETWORKS[network][:address_version]
+        
+        if Bitcoin.decode_base58(address).downcase.start_with?(version.downcase)
+          return true
+        end
+        
+      end
+      
+      return false
     end
     
     
