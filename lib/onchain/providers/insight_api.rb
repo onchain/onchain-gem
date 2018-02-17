@@ -145,6 +145,7 @@ class OnChain::Insight
       base_url = @url + "addr/#{address}/unconfirmedBalance" 
       bal_string = OnChain::BlockChain.fetch_response(base_url, false) 
       bal = bal_string.to_i / 100000000.0
+      bal = bal + insight_get_balance(address, network)
       OnChain::BlockChain.cache_write('un' + address + network.to_s, bal, 120)
     end
     

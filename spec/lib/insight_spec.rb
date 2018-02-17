@@ -18,7 +18,7 @@ describe OnChain do
       
       OnChain::BlockChain.cache_write('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', nil)
       
-      expect(bal1).to eq(0.0)
+      expect(bal1).to eq(0.216)
     end
     
   end
