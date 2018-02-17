@@ -13,6 +13,10 @@ class OnChain::Insight
     insight_get_balance(address, @coin_type)
   end
   
+  def get_unconfirmed_balance(address)
+    insight_get_unconfirmed_balance(address, @coin_type)
+  end
+  
   def address_history(address)
     insight_address_history(address, @coin_type)
   end
@@ -132,6 +136,19 @@ class OnChain::Insight
     
     ret = "{\"status\":\"#{stat}\",\"data\":\"#{tx_hash}\",\"code\":200,\"message\":\"#{mess}\"}"	
     return JSON.parse(ret)	
+  end
+
+  def insight_get_unconfirmed_balance(address, network = :bitcoin)
+    
+    if OnChain::BlockChain.cache_read('un' + address + network.to_s) == nil
+      
+      base_url = @url + "addr/#{address}/unconfirmedBalance" 
+      bal_string = OnChain::BlockChain.fetch_response(base_url, false) 
+      bal = bal_string.to_i / 100000000.0
+      OnChain::BlockChain.cache_write('un' + address + network.to_s, bal, 120)
+    end
+    
+    return OnChain::BlockChain.cache_read('un' + address + network.to_s) 
   end
 
   def insight_get_balance(address, network = :bitcoin)

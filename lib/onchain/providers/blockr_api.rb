@@ -10,6 +10,10 @@ class OnChain::Blockr
     blockr_get_balance(address)
   end
   
+  def get_unconfirmed_balance(address)
+    blockr_get_balance(address)
+  end
+  
   def address_history(address)
     blockr_address_history(address)
   end

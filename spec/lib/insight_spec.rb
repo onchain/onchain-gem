@@ -11,6 +11,18 @@ describe OnChain do
     "insight_spec/" + example.description
   end
   
+  it "should give me a unconfirmed balance from insight" do
+    
+    VCR.use_cassette(the_subject) do
+      bal1 = @insight.get_unconfirmed_balance('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8')
+      
+      OnChain::BlockChain.cache_write('myDsUrM5Sd7SjpnWXnQARyTriVAPfLQbt8', nil)
+      
+      expect(bal1).to eq(0.0)
+    end
+    
+  end
+  
   it "should give me a balance from insight" do
     
     VCR.use_cassette(the_subject) do

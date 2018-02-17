@@ -10,6 +10,10 @@ class OnChain::BlockChaininfo
     blockinfo_get_balance(address)
   end
   
+  def get_unconfirmed_balance(address)
+    blockinfo_get_balance(address)
+  end
+  
   def address_history(address)
     blockinfo_address_history(address)
   end

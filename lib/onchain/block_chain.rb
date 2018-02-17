@@ -102,6 +102,10 @@ class OnChain::BlockChain
       return call_api_method(:get_balance, network, address)
     end
     
+    def get_unconfirmed_balance(address, network = :bitcoin)
+      return call_api_method(:get_balance, network, address)
+    end
+    
     def address_history(address, network = :bitcoin)
       return call_api_method(:address_history, network, address)
     end
