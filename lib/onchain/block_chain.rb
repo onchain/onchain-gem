@@ -104,7 +104,7 @@ class OnChain::BlockChain
     
     # The total balance included unconfirmed transactions.
     def get_unconfirmed_balance(address, network = :bitcoin)
-      return call_api_method(:get_balance, network, address)
+      return call_api_method(:get_unconfirmed_balance, network, address)
     end
     
     def address_history(address, network = :bitcoin)
