@@ -83,6 +83,12 @@ class OnChain::BlockChain
         { :provider => OnChain::Etherchain.new,
           :excludes => [:get_address_info, :get_unspent_outs, :send_tx]}
       ] 
+    },
+    :litecoin => {
+      :apis => [
+        { :provider => OnChain::Insight.new('https://ltc-bitcore2.trezor.io/api/', :litecoin),
+          :excludes => [:get_address_info]},
+      ] 
     }
   }
   
