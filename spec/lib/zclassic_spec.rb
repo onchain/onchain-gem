@@ -41,6 +41,10 @@ describe OnChain do
       bal = OnChain::BlockChain.get_balance('t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C', :zclassic)
       expect(bal).to eq(0)
       
+      bal = OnChain::BlockChain.get_balance('t1gNnuUDGnW57oMYS1xqQkVAfNxjNd7Tm7B', :zclassic)
+      
+      expect(bal).not_to eq(0)
+      
     end
     
   end

@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 20 Feb 2018 11:48:55 GMT
+      - Tue, 20 Feb 2018 11:51:26 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -29,14 +29,14 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d9fee9898d2bb118d75ef34c1f9c284911519127335; expires=Wed, 20-Feb-19
-        11:48:55 GMT; path=/; domain=.zcl-explorer.com; HttpOnly; Secure
+      - __cfduid=d71ac208c418dcb193a7b1378f4baea441519127486; expires=Wed, 20-Feb-19
+        11:51:26 GMT; path=/; domain=.zcl-explorer.com; HttpOnly; Secure
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
       - '10800'
       X-Ratelimit-Remaining:
-      - '10797'
+      - '10796'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -55,10 +55,71 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 3f013d571a421359-LHR
+      - 3f0141040b7669ef-LHR
     body:
       encoding: UTF-8
       string: '0'
     http_version: 
-  recorded_at: Tue, 20 Feb 2018 11:48:55 GMT
+  recorded_at: Tue, 20 Feb 2018 11:51:26 GMT
+- request:
+    method: get
+    uri: https://zcl-explorer.com/api/addr/t1gNnuUDGnW57oMYS1xqQkVAfNxjNd7Tm7B/balance
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - zcl-explorer.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 20 Feb 2018 11:51:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '10'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=df6008419f1b13a141f5c34dcf02d83101519127486; expires=Wed, 20-Feb-19
+        11:51:26 GMT; path=/; domain=.zcl-explorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10795'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"a-2hZhupQ/GDHFbh9TGmrI/VF7KHQ"
+      Vary:
+      - Accept-Encoding
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3f01410499726aa3-LHR
+    body:
+      encoding: UTF-8
+      string: '1715589998'
+    http_version: 
+  recorded_at: Tue, 20 Feb 2018 11:51:26 GMT
 recorded_with: VCR 3.0.3
