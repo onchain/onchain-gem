@@ -11,7 +11,6 @@ Gem::Specification.new do |gem|
   gem.files         = ["lib/onchain.rb", "lib/onchain/block_chain.rb", 
                       "lib/onchain/transaction.rb",
                       "lib/onchain/exchange_rates.rb",
-                      "lib/onchain/exchange.rb",
                       "lib/onchain/address.rb",
                       "lib/onchain/providers/blockchaininfo_api.rb",
                       "lib/onchain/providers/insight_api.rb",

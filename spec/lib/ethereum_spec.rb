@@ -7,12 +7,16 @@ describe OnChain do
   end
   
   it "should post an ethereum transaction" do
-    VCR.use_cassette(the_subject) do
-      tx_hex = '0xf86c018504a817c800832fefd894891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c68000001ca05bbf5f7377478cd3547d3a7aa78005675678fb97af7d2211a9f072ec31da2646a00f5d8eaa449311c107b9f9d5cdcb92210461b194f5d3bc0e561e9879e84a4583'
-      
-      ret = OnChain::BlockChain.send_tx(tx_hex, :ethereum)
-      
-      expect(ret[:message]).to eq('Error validating transaction: Account nonce 3 higher than transaction 0xadf9b044b7fbe74472e4cb874c474290f7e78660189a4b0d567504e96541f8fb: 0x58382493d401d91AF0C6A375AF9e949D6e106448..')
+    
+    if ENV["BLOCKCYPHER_API_TOKEN"] != nil
+    
+      VCR.use_cassette(the_subject) do
+        tx_hex = '0xf86c018504a817c800832fefd894891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c68000001ca05bbf5f7377478cd3547d3a7aa78005675678fb97af7d2211a9f072ec31da2646a00f5d8eaa449311c107b9f9d5cdcb92210461b194f5d3bc0e561e9879e84a4583'
+        
+        ret = OnChain::BlockChain.send_tx(tx_hex, :ethereum)
+        
+        expect(ret[:message]).to eq('Error validating transaction: Account nonce 3 higher than transaction 0xadf9b044b7fbe74472e4cb874c474290f7e78660189a4b0d567504e96541f8fb: 0x58382493d401d91AF0C6A375AF9e949D6e106448..')
+      end
     end
   end
   
