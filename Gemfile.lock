@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (4.58)
+    onchain (4.61)
       bitcoin-ruby
       eth
       google_currency
@@ -12,7 +12,7 @@ GEM
   specs:
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    bitcoin-ruby (0.0.15)
+    bitcoin-ruby (0.0.17)
     concurrent-ruby (1.0.5)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -24,14 +24,14 @@ GEM
       money-tree (~> 0.9)
       rlp (~> 0.7.3)
       scrypt (~> 3.0.5)
-    ffi (1.9.18)
+    ffi (1.9.21)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
     google_currency (3.4.0)
       money (~> 6.7)
     hashdiff (0.3.5)
-    i18n (0.9.3)
+    i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     money (6.10.1)
       i18n (>= 0.6.4, < 1.0)

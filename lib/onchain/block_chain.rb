@@ -65,9 +65,7 @@ class OnChain::BlockChain
       :apis => [
         # http://149.56.129.104/insight-api-zcash/peer
         # https://zcl-explorer.com/insight-api-zcash/
-        { :provider => OnChain::Insight.new('https://zcl-explorer.com/insight-api-zcash/', :zclassic),
-          :excludes => [:get_address_info] },
-        { :provider => OnChain::Insight.new('http://149.56.129.104/insight-api-zcash/', :zclassic),
+        { :provider => OnChain::Insight.new('https://zcl-explorer.com/api/', :zclassic),
           :excludes => [:get_address_info] }
       ] 
     },
@@ -239,10 +237,10 @@ class OnChain::BlockChain
     
     # Given a list of addresses, return those
     # that don't have balances in the cahce.
-    def get_uncached_addresses(addresses)
+    def get_uncached_addresses(addresses, suffix = '')
       ret = []
       addresses.each do |address|
-        if cache_read(address) == nil
+        if cache_read(address + suffix) == nil
           ret << address
         end
       end

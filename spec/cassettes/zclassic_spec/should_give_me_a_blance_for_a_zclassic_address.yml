@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://149.56.129.104/insight-api-zcash/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
+    uri: https://zcl-explorer.com/api/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
     body:
       encoding: US-ASCII
       string: ''
@@ -14,18 +14,29 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - 149.56.129.104
+      - zcl-explorer.com
   response:
     status:
       code: 200
       message: OK
     headers:
+      Date:
+      - Tue, 20 Feb 2018 11:48:55 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d9fee9898d2bb118d75ef34c1f9c284911519127335; expires=Wed, 20-Feb-19
+        11:48:55 GMT; path=/; domain=.zcl-explorer.com; HttpOnly; Secure
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
       - '10800'
       X-Ratelimit-Remaining:
-      - '10798'
+      - '10797'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -35,21 +46,19 @@ http_interactions:
         cf-connecting-ip
       X-Content-Type-Options:
       - nosniff
-      Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '1'
       Etag:
       - W/"1-tlifxqsNyCzxIJnRwtQKuZToQQw"
       Vary:
       - Accept-Encoding
-      Date:
-      - Mon, 12 Feb 2018 15:19:43 GMT
-      Connection:
-      - keep-alive
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3f013d571a421359-LHR
     body:
       encoding: UTF-8
       string: '0'
     http_version: 
-  recorded_at: Mon, 12 Feb 2018 15:19:43 GMT
+  recorded_at: Tue, 20 Feb 2018 11:48:55 GMT
 recorded_with: VCR 3.0.3

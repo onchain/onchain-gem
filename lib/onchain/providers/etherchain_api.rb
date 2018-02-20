@@ -27,14 +27,14 @@ class OnChain::Etherchain
   end
   
   def url
-    'https://etherchain.org/api/'
+    'https://www.etherchain.org/api'
   end
   ############################################################################
   
   def etherchain_get_balance(address)
     
     if OnChain::BlockChain.cache_read(address + 'ethereum') == nil
-      base = "https://etherchain.org/api/account/" + address
+      base = url + "/account/" + address
       
       json = OnChain::BlockChain.fetch_response(URI::encode(base))
       
@@ -52,9 +52,7 @@ class OnChain::Etherchain
   
   def etherchain_get_all_balances(addresses)
     
-    addrs_net = addresses.map{ |a| a + 'ethereum' }
-    
-    addr = OnChain::BlockChain.get_uncached_addresses(addrs_net)
+    addr = OnChain::BlockChain.get_uncached_addresses(addresses, 'ethereum')
     
     if addr.length == 0
       return
@@ -69,7 +67,7 @@ class OnChain::Etherchain
     
     if OnChain::BlockChain.cache_read(address + 'nonce') == nil
       
-      base = "https://etherchain.org/api/account/" + address + "/nonce"
+      base = url + "/account/" + address + "/nonce"
       
       json = OnChain::BlockChain.fetch_response(URI::encode(base))
       
