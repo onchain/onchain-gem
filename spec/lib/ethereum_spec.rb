@@ -72,11 +72,7 @@ describe OnChain do
     VCR.use_cassette(the_subject) do
       bal1 = OnChain::BlockChain.get_balance('0x58382493d401d91af0c6a375af9e949d6e106448', :ethereum)
       
-      expect(bal1).to eq(0.00543602)
-      
-      bal1 = OnChain::BlockChain.get_balance('0x891f0139e4cb8afbf5847ba6260a4214c64c3658', :ethereum)
-      
-      expect(bal1).to eq(0.006)
+      expect(bal1).to eq(0.000543602)
       
     end
     
@@ -106,7 +102,7 @@ describe OnChain do
       
       bal = OnChain::BlockChain.cache_read(addresses[0] + 'ethereum')
       
-      expect(bal).to eq(0.00543602)
+      expect(bal).to eq(0.000543602)
       
       OnChain::BlockChain.get_all_balances([], :ethereum)
     end
