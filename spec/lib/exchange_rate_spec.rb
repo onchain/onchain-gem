@@ -19,7 +19,13 @@ describe OnChain do
     
     VCR.use_cassette(the_subject) do
       rate = OnChain::ExchangeRate.exchange_rate(:EUR).to_f
+      
+      expect(rate).to be > 3000
+      
       rate = OnChain::ExchangeRate.exchange_rate(:GBP).to_f
+      
+      expect(rate).to be > 3000
+      
       rate = OnChain::ExchangeRate.exchange_rate(:USD).to_f
       
       expect(rate).to be > 3000

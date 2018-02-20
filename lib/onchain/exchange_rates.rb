@@ -1,5 +1,3 @@
-require 'money'
-require 'money/bank/google_currency'
 
 class OnChain::ExchangeRate
 
@@ -41,36 +39,23 @@ class OnChain::ExchangeRate
               return 0.0
             end
 
-          elsif currency == :EUR
+          else 
+          
+            url = 'https://api.fixer.io/latest?base=USD'
+            
+            begin
+              r = OnChain::BlockChain.fetch_response(url)   
+              usd_eur = r['rates'][currency.to_s].to_f 
+              
+              btc_usd = bitcoin_exchange_rate(:USD).to_f
+            
+              rate = usd_eur * btc_usd
 
-            Money.default_bank = Money::Bank::GoogleCurrency.new
-            
-            btc_usd = bitcoin_exchange_rate(:USD).to_f
-            
-            money = Money.new(1_00, "USD") 
-            
-            usd_eur = money.exchange_to(:EUR).to_f
-            
-            rate = usd_eur * btc_usd
+              OnChain::BlockChain.cache_write(ticker, rate.to_s, BALANCE_RATE_FOR)
 
-            OnChain::BlockChain.cache_write(ticker, rate.to_s, BALANCE_RATE_FOR)
-
-          elsif currency == :GBP
-
-            Money.default_bank = Money::Bank::GoogleCurrency.new
-            
-            btc_usd = bitcoin_exchange_rate(:USD).to_f
-            
-            money = Money.new(1_00, "USD") 
-            
-            usd_gbp = money.exchange_to(:GBP).to_f
-            
-            rate = usd_gbp * btc_usd
-
-            OnChain::BlockChain.cache_write(ticker, rate.to_s, BALANCE_RATE_FOR)
-
-          else
-            OnChain::BlockChain.cache_write(ticker, "0", BALANCE_RATE_FOR)
+            rescue
+              return 0.0
+            end
           end
 
         end

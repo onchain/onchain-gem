@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 04 Dec 2017 11:20:12 GMT
+      - Tue, 20 Feb 2018 14:33:16 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -29,28 +29,30 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=dbe7d885a370c03dc8cbd7893f44264ef1512386412; expires=Tue, 04-Dec-18
-        11:20:12 GMT; path=/; domain=.coinmarketcap.com; HttpOnly; Secure
+      - __cfduid=df4fbb734c87942655f1e7f1ed47362661519137196; expires=Wed, 20-Feb-19
+        14:33:16 GMT; path=/; domain=.coinmarketcap.com; HttpOnly; Secure
       Access-Control-Allow-Origin:
       - "*"
       Cf-Cache-Status:
-      - EXPIRED
+      - HIT
       Vary:
       - Accept-Encoding
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
-      - cloudflare-nginx
+      - cloudflare
       Cf-Ray:
-      - 3c7e6003c8573c17-CDG
+      - 3f022e13cb9ba8c3-CDG
     body:
       encoding: ASCII-8BIT
       string: "[\n    {\n        \"id\": \"zclassic\", \n        \"name\": \"ZClassic\",
-        \n        \"symbol\": \"ZCL\", \n        \"rank\": \"393\", \n        \"price_usd\":
-        \"2.17645\", \n        \"price_btc\": \"0.00019169\", \n        \"24h_volume_usd\":
-        \"135206.0\", \n        \"market_cap_usd\": \"3938939.0\", \n        \"available_supply\":
-        \"1809800.0\", \n        \"total_supply\": \"1809800.0\", \n        \"max_supply\":
-        null, \n        \"percent_change_1h\": \"0.18\", \n        \"percent_change_24h\":
-        \"1.9\", \n        \"percent_change_7d\": \"10.71\", \n        \"last_updated\":
-        \"1512386358\"\n    }\n]"
+        \n        \"symbol\": \"ZCL\", \n        \"rank\": \"41\", \n        \"price_usd\":
+        \"178.452\", \n        \"price_btc\": \"0.0154848\", \n        \"24h_volume_usd\":
+        \"22119600.0\", \n        \"market_cap_usd\": \"597994883.0\", \n        \"available_supply\":
+        \"3351013.0\", \n        \"total_supply\": \"3351013.0\", \n        \"max_supply\":
+        \"21000000.0\", \n        \"percent_change_1h\": \"-0.41\", \n        \"percent_change_24h\":
+        \"-9.33\", \n        \"percent_change_7d\": \"37.6\", \n        \"last_updated\":
+        \"1519136948\"\n    }\n]"
     http_version: 
-  recorded_at: Mon, 04 Dec 2017 11:20:12 GMT
+  recorded_at: Tue, 20 Feb 2018 14:33:16 GMT
 recorded_with: VCR 3.0.3

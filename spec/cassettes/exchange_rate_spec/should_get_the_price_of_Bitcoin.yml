@@ -2,6 +2,49 @@
 http_interactions:
 - request:
     method: get
+    uri: https://api.fixer.io/latest?base=USD
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.fixer.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.8
+      Date:
+      - Tue, 20 Feb 2018 14:33:15 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '458'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - public, must-revalidate, max-age=900
+      Last-Modified:
+      - Mon, 19 Feb 2018 00:00:00 GMT
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: '{"base":"USD","date":"2018-02-19","rates":{"AUD":1.2632,"BGN":1.576,"BRL":3.2334,"CAD":1.2564,"CHF":0.92772,"CNY":6.3444,"CZK":20.409,"DKK":6.0016,"EUR":0.8058,"GBP":0.71386,"HKD":7.8223,"HRK":5.994,"HUF":250.73,"IDR":13553.0,"ILS":3.5192,"INR":64.253,"ISK":100.48,"JPY":106.56,"KRW":1066.9,"MXN":18.544,"MYR":3.8905,"NOK":7.782,"NZD":1.3554,"PHP":52.458,"PLN":3.3409,"RON":3.7561,"RUB":56.463,"SEK":7.9899,"SGD":1.3131,"THB":31.38,"TRY":3.753,"ZAR":11.653}}'
+    http_version: 
+  recorded_at: Tue, 20 Feb 2018 14:33:15 GMT
+- request:
+    method: get
     uri: https://api.coinmarketcap.com/v1/ticker/bitcoin/
     body:
       encoding: US-ASCII
@@ -21,7 +64,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 04 Dec 2017 11:20:11 GMT
+      - Tue, 20 Feb 2018 14:33:15 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -29,33 +72,35 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=df1e1998ed54af38c260aad901a0243ba1512386411; expires=Tue, 04-Dec-18
-        11:20:11 GMT; path=/; domain=.coinmarketcap.com; HttpOnly; Secure
+      - __cfduid=d5178f92814f4e1a0f7ba3d293b23c7501519137195; expires=Wed, 20-Feb-19
+        14:33:15 GMT; path=/; domain=.coinmarketcap.com; HttpOnly; Secure
       Access-Control-Allow-Origin:
       - "*"
       Cf-Cache-Status:
       - HIT
       Vary:
       - Accept-Encoding
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
-      - cloudflare-nginx
+      - cloudflare
       Cf-Ray:
-      - 3c7e5ffe3e4a3c41-CDG
+      - 3f022e116fab3c7d-CDG
     body:
       encoding: ASCII-8BIT
       string: "[\n    {\n        \"id\": \"bitcoin\", \n        \"name\": \"Bitcoin\",
         \n        \"symbol\": \"BTC\", \n        \"rank\": \"1\", \n        \"price_usd\":
-        \"11459.6\", \n        \"price_btc\": \"1.0\", \n        \"24h_volume_usd\":
-        \"7074190000.0\", \n        \"market_cap_usd\": \"191594622365\", \n        \"available_supply\":
-        \"16719137.0\", \n        \"total_supply\": \"16719137.0\", \n        \"max_supply\":
-        \"21000000.0\", \n        \"percent_change_1h\": \"-0.07\", \n        \"percent_change_24h\":
-        \"0.43\", \n        \"percent_change_7d\": \"18.33\", \n        \"last_updated\":
-        \"1512386352\"\n    }\n]"
+        \"11630.3\", \n        \"price_btc\": \"1.0\", \n        \"24h_volume_usd\":
+        \"9055520000.0\", \n        \"market_cap_usd\": \"196271628576\", \n        \"available_supply\":
+        \"16875887.0\", \n        \"total_supply\": \"16875887.0\", \n        \"max_supply\":
+        \"21000000.0\", \n        \"percent_change_1h\": \"0.17\", \n        \"percent_change_24h\":
+        \"5.27\", \n        \"percent_change_7d\": \"35.09\", \n        \"last_updated\":
+        \"1519136968\"\n    }\n]"
     http_version: 
-  recorded_at: Mon, 04 Dec 2017 11:20:11 GMT
+  recorded_at: Tue, 20 Feb 2018 14:33:15 GMT
 - request:
     method: get
-    uri: http://www.google.com/finance/converter?a=1&from=USD&to=EUR
+    uri: https://api.fixer.io/latest?base=USD
     body:
       encoding: US-ASCII
       string: ''
@@ -66,73 +111,34 @@ http_interactions:
       - "*/*"
       User-Agent:
       - Ruby
+      Host:
+      - api.fixer.io
   response:
     status:
-      code: 403
-      message: Forbidden
+      code: 200
+      message: OK
     headers:
-      Content-Length:
-      - '1103'
-      Content-Type:
-      - text/html; charset=UTF-8
+      Server:
+      - nginx/1.13.8
       Date:
-      - Mon, 04 Dec 2017 11:20:11 GMT
+      - Tue, 20 Feb 2018 14:33:16 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '458'
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - public, must-revalidate, max-age=900
+      Last-Modified:
+      - Mon, 19 Feb 2018 00:00:00 GMT
+      Vary:
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
     body:
       encoding: UTF-8
-      string: '<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><title>Sorry...</title><style>
-        body { font-family: verdana, arial, sans-serif; background-color: #fff; color:
-        #000; }</style></head><body><div><table><tr><td><b><font face=sans-serif size=10><font
-        color=#4285f4>G</font><font color=#ea4335>o</font><font color=#fbbc05>o</font><font
-        color=#4285f4>g</font><font color=#34a853>l</font><font color=#ea4335>e</font></font></b></td><td
-        style="text-align: left; vertical-align: bottom; padding-bottom: 15px; width:
-        50%"><div style="border-bottom: 1px solid #dfdfdf;">Sorry...</div></td></tr></table></div><div
-        style="margin-left: 4em;"><h1>We''re sorry...</h1><p>... but your computer
-        or network may be sending automated queries. To protect our users, we can''t
-        process your request right now.</p></div><div style="margin-left: 4em;">See
-        <a href="https://support.google.com/websearch/answer/86640">Google Help</a>
-        for more information.<br/><br/></div><div style="text-align: center; border-top:
-        1px solid #dfdfdf;"><a href="https://www.google.com">Google Home</a></div></body></html>'
+      string: '{"base":"USD","date":"2018-02-19","rates":{"AUD":1.2632,"BGN":1.576,"BRL":3.2334,"CAD":1.2564,"CHF":0.92772,"CNY":6.3444,"CZK":20.409,"DKK":6.0016,"EUR":0.8058,"GBP":0.71386,"HKD":7.8223,"HRK":5.994,"HUF":250.73,"IDR":13553.0,"ILS":3.5192,"INR":64.253,"ISK":100.48,"JPY":106.56,"KRW":1066.9,"MXN":18.544,"MYR":3.8905,"NOK":7.782,"NZD":1.3554,"PHP":52.458,"PLN":3.3409,"RON":3.7561,"RUB":56.463,"SEK":7.9899,"SGD":1.3131,"THB":31.38,"TRY":3.753,"ZAR":11.653}}'
     http_version: 
-  recorded_at: Mon, 04 Dec 2017 11:20:11 GMT
-- request:
-    method: get
-    uri: http://www.google.com/finance/converter?a=1&from=USD&to=GBP
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 403
-      message: Forbidden
-    headers:
-      Content-Length:
-      - '1103'
-      Content-Type:
-      - text/html; charset=UTF-8
-      Date:
-      - Mon, 04 Dec 2017 11:20:12 GMT
-    body:
-      encoding: UTF-8
-      string: '<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><title>Sorry...</title><style>
-        body { font-family: verdana, arial, sans-serif; background-color: #fff; color:
-        #000; }</style></head><body><div><table><tr><td><b><font face=sans-serif size=10><font
-        color=#4285f4>G</font><font color=#ea4335>o</font><font color=#fbbc05>o</font><font
-        color=#4285f4>g</font><font color=#34a853>l</font><font color=#ea4335>e</font></font></b></td><td
-        style="text-align: left; vertical-align: bottom; padding-bottom: 15px; width:
-        50%"><div style="border-bottom: 1px solid #dfdfdf;">Sorry...</div></td></tr></table></div><div
-        style="margin-left: 4em;"><h1>We''re sorry...</h1><p>... but your computer
-        or network may be sending automated queries. To protect our users, we can''t
-        process your request right now.</p></div><div style="margin-left: 4em;">See
-        <a href="https://support.google.com/websearch/answer/86640">Google Help</a>
-        for more information.<br/><br/></div><div style="text-align: center; border-top:
-        1px solid #dfdfdf;"><a href="https://www.google.com">Google Home</a></div></body></html>'
-    http_version: 
-  recorded_at: Mon, 04 Dec 2017 11:20:12 GMT
+  recorded_at: Tue, 20 Feb 2018 14:33:16 GMT
 recorded_with: VCR 3.0.3
