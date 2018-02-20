@@ -15,6 +15,15 @@ describe OnChain do
     end
   end
   
+  it "should get prices with BTC as base currency" do
+    
+    VCR.use_cassette(the_subject) do
+      rate = OnChain::ExchangeRate.exchange_rate(:BTC, :zcash)
+      
+      expect(rate).to be > 0
+    end
+  end
+  
   it "should get the price of Bitcoin" do
     
     VCR.use_cassette(the_subject) do

@@ -12,22 +12,31 @@ class OnChain::ExchangeRate
     def exchange_rate(currency, network = :bitcoin)
       begin
         ticker = network.to_s + "-" + currency.to_s
+            
+        coin_market_ticker = case network
+          when :bitcoin_cash then 'bitcoin-cash'
+          when :bitcoin then 'bitcoin'
+          when :zcash then 'zcash'
+          when :zclassic then 'zclassic'
+          when :ethereum then 'ethereum'
+          else network.to_s
+        end
 
         if OnChain::BlockChain.cache_read(ticker) == nil
-          if currency == :USD 
+          
+          if currency == :BTC
             
-            coin_market_ticker = case network
-              when :bitcoin_cash then 'bitcoin-cash'
-              when :bitcoin then 'bitcoin'
-              when :zcash then 'zcash'
-              when :zclassic then 'zclassic'
-              when :ethereum then 'ethereum'
-              else nil
-            end
+            url = 'https://api.coinmarketcap.com/v1/ticker/' + coin_market_ticker + '/'
             
-            if coin_market_ticker == nil
+            begin
+              r = OnChain::BlockChain.fetch_response(url)   
+              rate = r[0]['price_btc'].to_f
+              OnChain::BlockChain.cache_write(ticker, rate, BALANCE_RATE_FOR)
+            rescue
               return 0.0
             end
+            
+          elsif currency == :USD 
             
             url = 'https://api.coinmarketcap.com/v1/ticker/' + coin_market_ticker + '/'
             
