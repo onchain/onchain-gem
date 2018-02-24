@@ -41,6 +41,8 @@ module Bitcoin
   })
 
   NETWORKS[:bitcoin_gold] = NETWORKS[:bitcoin].merge({
+    address_version: "26",
+    p2sh_version: "17",
     fork_id: 64
   })
   

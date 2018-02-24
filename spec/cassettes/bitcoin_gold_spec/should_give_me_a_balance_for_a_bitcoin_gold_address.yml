@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://explorer.bitcoingold.org/insight-api/addr/GK18bp4UzC6wqYKKNLkaJ3hzQazTc3TWBw/balance
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - explorer.bitcoingold.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 24 Feb 2018 18:47:44 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '13'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d9875c3176decaa41ae5564ca79966f1c1519498063; expires=Sun, 24-Feb-19
+        18:47:43 GMT; path=/; domain=.bitcoingold.org; HttpOnly
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10757'
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"d-xNusAo2qv+fl4n98bftOqH/w5gY"
+      Vary:
+      - Accept-Encoding
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3f249853eefc6451-FRA
+    body:
+      encoding: UTF-8
+      string: '1020198163313'
+    http_version: 
+  recorded_at: Sat, 24 Feb 2018 18:47:44 GMT
+recorded_with: VCR 3.0.3
