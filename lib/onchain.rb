@@ -37,6 +37,11 @@ module Bitcoin
   })
 
   NETWORKS[:bitcoin_cash] = NETWORKS[:bitcoin].merge({
+    fork_id: 0
+  })
+
+  NETWORKS[:bitcoin_gold] = NETWORKS[:bitcoin].merge({
+      fork_id: 64
   })
   
 
