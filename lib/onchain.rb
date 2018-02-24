@@ -41,7 +41,7 @@ module Bitcoin
   })
 
   NETWORKS[:bitcoin_gold] = NETWORKS[:bitcoin].merge({
-      fork_id: 64
+    fork_id: 64
   })
   
 

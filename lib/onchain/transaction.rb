@@ -455,15 +455,13 @@ class OnChain::Transaction
         hash = tx.signature_hash_for_input(index, txin.script, 
           Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all])
         
-        if network == :bitcoin_cash
+        # For the coins with replay protection.
+        if Bitcoin::NETWORKS[network][:fork_id] != nil
           
           sig_hash = Bitcoin::Protocol::Tx::SIGHASH_TYPE[:forkid] | Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
           
-          # Old way. Hopefully delete this and method in onchain.rb
-          #hash = tx.signature_hash_for_cash_input(index, txin.script, unspents[index][3], sig_hash)
-          
           hash = tx.signature_hash_for_input(index, txin.script, 
-            sig_hash, unspents[index][3], 0)
+            sig_hash, unspents[index][3], Bitcoin::NETWORKS[network][:fork_id])
         end
         
         script = Bitcoin::Script.new txin.script
