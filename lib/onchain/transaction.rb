@@ -459,21 +459,16 @@ class OnChain::Transaction
         if Bitcoin::NETWORKS[network][:fork_id] != nil
           
           sig_hash = Bitcoin::Protocol::Tx::SIGHASH_TYPE[:forkid] | Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
-          
-            
-          # According to the spec, we should modify the sighash by replacing the 24 most significant
-          # bits of the sighash TYPE with the fork ID.
-          # https://github.com/bitcoincashorg/spec/blob/master/replay-protected-sighash.md
-          #hash = hash | (Bitcoin::NETWORKS[network][:fork_id] << 8)
-          sig_hash = sig_hash | Bitcoin::NETWORKS[network][:fork_id]
-          
-          
+        
           # This is not implemented in bitcoin ruby 
           # see https://github.com/lian/bitcoin-ruby/blob/05eae36cf04b0dd426930dbea34d48769272f9d2/lib/bitcoin/protocol/tx.rb#L188
           #hash = tx.signature_hash_for_input(index, txin.script, 
           #  sig_hash, unspents[index][3], Bitcoin::NETWORKS[network][:fork_id])
-          hash = tx.signature_hash_for_input(index, txin.script, 
-            sig_hash, unspents[index][3], 0)
+          
+          script_code = Bitcoin::Protocol.pack_var_string(txin.script)
+          sig_hash ||= SIGHASH_TYPE[:all]
+          hash = signature_hash_with_a_fork_id(tx, index, script_code, 
+            unspents[index][3], sig_hash,  Bitcoin::NETWORKS[network][:fork_id])
         end
         
         script = Bitcoin::Script.new txin.script
@@ -514,6 +509,49 @@ class OnChain::Transaction
       when :hash160; Bitcoin::Script.to_hash160_script(hash160)
       when :p2sh;    Bitcoin::Script.to_p2sh_script(hash160)
       end
+    end
+    
+    private
+    
+    def signature_hash_with_a_fork_id(tx, input_idx, 
+      script_code, prev_out_value, hash_type, fork_id)
+     
+      hash_prevouts = Digest::SHA256.digest(Digest::SHA256.digest(
+        tx.in.map{|i| [i.prev_out_hash, i.prev_out_index].pack("a32V")}.join))
+        
+      hash_sequence = Digest::SHA256.digest(Digest::SHA256.digest(
+        tx.in.map{|i|i.sequence}.join))
+        
+      outpoint = [tx.in[input_idx].prev_out_hash, 
+        tx.in[input_idx].prev_out_index].pack("a32V")
+        
+      amount = [prev_out_value].pack("Q")
+      
+      nsequence = tx.in[input_idx].sequence
+
+      hash_outputs = Digest::SHA256.digest(Digest::SHA256.digest(tx.out.map{|o|o.to_payload}.join))
+
+      case (hash_type & 0x1f)
+        when Bitcoin::Protocol::Tx::SIGHASH_TYPE[:single]
+          hash_outputs = input_idx >= @out.size ? 
+            "\x00".ljust(32, "\x00") : Digest::SHA256.digest(
+              Digest::SHA256.digest(tx.out[input_idx].to_payload))
+          hash_sequence = "\x00".ljust(32, "\x00")
+        when Bitcoin::Protocol::Tx::SIGHASH_TYPE[:none]
+          hash_sequence = hash_outputs = "\x00".ljust(32, "\x00")
+      end
+
+      if (hash_type & Bitcoin::Protocol::Tx::SIGHASH_TYPE[:anyonecanpay]) != 0
+        hash_prevouts = hash_sequence ="\x00".ljust(32, "\x00")
+      end
+      
+      hash_type |= fork_id << 8
+
+      buf = [ [tx.ver].pack("V"), hash_prevouts, hash_sequence, outpoint,
+              script_code, amount, nsequence, hash_outputs, 
+              [tx.lock_time, hash_type].pack("VV")].join
+
+      Digest::SHA256.digest( Digest::SHA256.digest( buf ) )
     end
       
   end
