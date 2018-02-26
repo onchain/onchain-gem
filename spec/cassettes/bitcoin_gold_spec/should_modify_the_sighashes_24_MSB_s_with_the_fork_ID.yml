@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://explorer.bitcoingold.org/insight-api/addr/GWViUY2b3HAYWY9BbeGeFjc6rKdrBffzHa/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - explorer.bitcoingold.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 26 Feb 2018 12:12:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d63edbd34bf95f5ab40c2d94d547e00951519647140; expires=Tue, 26-Feb-19
+        12:12:20 GMT; path=/; domain=.bitcoingold.org; HttpOnly
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10799'
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"116-Fdb5gAJ6h1qUX9KgIHhpVwCUnuQ"
+      Vary:
+      - Accept-Encoding
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3f32cfe32e9e3c77-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"address":"GWViUY2b3HAYWY9BbeGeFjc6rKdrBffzHa","txid":"5759c39e49cc831ea5e12342e03d83a52de70dde4281ebce286c66bf3706a253","vout":0,"scriptPubKey":"76a9148ac7591107aec68c282488cd74096014108844dd88ac","amount":12.37761638,"satoshis":1237761638,"height":515832,"confirmations":1}]'
+    http_version: 
+  recorded_at: Mon, 26 Feb 2018 12:12:20 GMT
+recorded_with: VCR 3.0.3

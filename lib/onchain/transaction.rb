@@ -460,8 +460,20 @@ class OnChain::Transaction
           
           sig_hash = Bitcoin::Protocol::Tx::SIGHASH_TYPE[:forkid] | Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
           
+            
+          # According to the spec, we should modify the sighash by replacing the 24 most significant
+          # bits of the sighash TYPE with the fork ID.
+          # https://github.com/bitcoincashorg/spec/blob/master/replay-protected-sighash.md
+          #hash = hash | (Bitcoin::NETWORKS[network][:fork_id] << 8)
+          sig_hash = sig_hash | Bitcoin::NETWORKS[network][:fork_id]
+          
+          
+          # This is not implemented in bitcoin ruby 
+          # see https://github.com/lian/bitcoin-ruby/blob/05eae36cf04b0dd426930dbea34d48769272f9d2/lib/bitcoin/protocol/tx.rb#L188
+          #hash = tx.signature_hash_for_input(index, txin.script, 
+          #  sig_hash, unspents[index][3], Bitcoin::NETWORKS[network][:fork_id])
           hash = tx.signature_hash_for_input(index, txin.script, 
-            sig_hash, unspents[index][3], Bitcoin::NETWORKS[network][:fork_id])
+            sig_hash, unspents[index][3], 0)
         end
         
         script = Bitcoin::Script.new txin.script
