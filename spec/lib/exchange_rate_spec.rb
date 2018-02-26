@@ -60,5 +60,15 @@ describe OnChain do
     end
     
   end
+  
+  it "should get the price of litecoin" do
+    
+    VCR.use_cassette(the_subject) do
+      rate = OnChain::ExchangeRate.exchange_rate(:USD, :litecoin)
+      
+      expect(rate).to be > 2.1
+    end
+    
+  end
 
 end

@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.coinmarketcap.com/v1/ticker/litecoin/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.coinmarketcap.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 26 Feb 2018 06:03:48 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=dfdd76f344323ae20f66a2a82258ec26c1519625028; expires=Tue, 26-Feb-19
+        06:03:48 GMT; path=/; domain=.coinmarketcap.com; HttpOnly; Secure
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - HIT
+      Vary:
+      - Accept-Encoding
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3f30b40cffd76950-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: "[\n    {\n        \"id\": \"litecoin\", \n        \"name\": \"Litecoin\",
+        \n        \"symbol\": \"LTC\", \n        \"rank\": \"5\", \n        \"price_usd\":
+        \"227.107\", \n        \"price_btc\": \"0.0236156\", \n        \"24h_volume_usd\":
+        \"1283850000.0\", \n        \"market_cap_usd\": \"12577971031.0\", \n        \"available_supply\":
+        \"55383458.0\", \n        \"total_supply\": \"55383458.0\", \n        \"max_supply\":
+        \"84000000.0\", \n        \"percent_change_1h\": \"-1.47\", \n        \"percent_change_24h\":
+        \"9.25\", \n        \"percent_change_7d\": \"3.14\", \n        \"last_updated\":
+        \"1519624741\"\n    }\n]"
+    http_version: 
+  recorded_at: Mon, 26 Feb 2018 06:03:48 GMT
+recorded_with: VCR 3.0.3
