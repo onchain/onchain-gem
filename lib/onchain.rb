@@ -45,6 +45,11 @@ module Bitcoin
     p2sh_version: "17",
     fork_id: 79
   })
+
+  NETWORKS[:dash] = NETWORKS[:bitcoin].merge({
+    address_version: "4C",
+    p2sh_version: "10"
+  })
   
 
 end

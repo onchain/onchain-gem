@@ -92,6 +92,12 @@ class OnChain::BlockChain
         { :provider => OnChain::Insight.new('https://ltc-bitcore2.trezor.io/api/', :litecoin),
           :excludes => [:get_address_info]},
       ] 
+    },
+    :dash => {
+      :apis => [
+        { :provider => OnChain::Insight.new('https://insight.dash.org/insight-api-dash/', :dash),
+          :excludes => [:get_address_info]},
+      ] 
     }
   }
   
