@@ -188,7 +188,7 @@ class OnChain::Insight
       unspent << line
     end
     
-    return unspent
+    return unspent.uniq
   end
 
   def insight_get_transaction(txhash, network = :bitcoin)
