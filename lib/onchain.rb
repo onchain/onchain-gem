@@ -50,6 +50,17 @@ module Bitcoin
     address_version: "4C",
     p2sh_version: "10"
   })
+
+  NETWORKS[:doge] = NETWORKS[:bitcoin].merge({
+    address_version: "1E",
+    p2sh_version: "16"
+  })
+
+  NETWORKS[:bitcoin_private] = NETWORKS[:bitcoin].merge({
+    address_version: "1325",
+    p2sh_version: "13AF",
+    fork_id: 42
+  })
   
 
 end

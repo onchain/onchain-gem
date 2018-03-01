@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (4.69)
+    onchain (4.70)
       bitcoin-ruby
       eth
       money-tree
@@ -64,4 +64,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.15.4
+   1.16.1

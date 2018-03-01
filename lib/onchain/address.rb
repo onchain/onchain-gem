@@ -21,9 +21,13 @@ class OnChain::Address
       if check
         
         # Check the network version
-        version = Bitcoin::NETWORKS[network][:address_version]
+        version = Bitcoin::NETWORKS[network][:address_version].downcase
+        p2sh_version = Bitcoin::NETWORKS[network][:p2sh_version].downcase
         
-        if Bitcoin.decode_base58(address).downcase.start_with?(version.downcase)
+        add = Bitcoin.decode_base58(address).downcase
+        
+        # Check single and multi sig version of the address.
+        if add.start_with?(version) or add.start_with?(p2sh_version)
           return true
         end
         

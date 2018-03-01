@@ -32,6 +32,12 @@ describe OnChain do
       
     expect(valid).to eq(true)
     
+    # Try a multi sig address
+    valid = OnChain::Address.valid_address?(
+      '2MwpZJ67K9s8Q3bdaTziW6u1qWffjXHM7ca', :testnet3)
+      
+    expect(valid).to eq(true)
+    
   end
 
 end
