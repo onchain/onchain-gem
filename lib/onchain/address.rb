@@ -14,23 +14,30 @@ class OnChain::Address
     
     def valid_address?(address, network = :bitcoin)
       
-      hex = Bitcoin.decode_base58(address) rescue nil
-      
-      check =  Bitcoin.checksum( hex[0...hex.bytesize - 8] ) == hex[-8..-1]
-      
-      if check
+      if network == :ethereum
         
-        # Check the network version
-        version = Bitcoin::NETWORKS[network][:address_version].downcase
-        p2sh_version = Bitcoin::NETWORKS[network][:p2sh_version].downcase
+        a = Eth::Address.new address
+        return a.valid?
         
-        add = Bitcoin.decode_base58(address).downcase
+      else
+        hex = Bitcoin.decode_base58(address) rescue nil
         
-        # Check single and multi sig version of the address.
-        if add.start_with?(version) or add.start_with?(p2sh_version)
-          return true
+        check =  Bitcoin.checksum( hex[0...hex.bytesize - 8] ) == hex[-8..-1]
+        
+        if check
+          
+          # Check the network version
+          version = Bitcoin::NETWORKS[network][:address_version].downcase
+          p2sh_version = Bitcoin::NETWORKS[network][:p2sh_version].downcase
+          
+          add = Bitcoin.decode_base58(address).downcase
+          
+          # Check single and multi sig version of the address.
+          if add.start_with?(version) or add.start_with?(p2sh_version)
+            return true
+          end
+          
         end
-        
       end
       
       return false

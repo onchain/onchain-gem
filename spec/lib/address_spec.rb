@@ -38,6 +38,12 @@ describe OnChain do
       
     expect(valid).to eq(true)
     
+    # Try ethereum
+    valid = OnChain::Address.valid_address?(
+      '0xCB53ab94D84d6b2368013b47B002Bb31Bb36110e', :ethereum)
+      
+    expect(valid).to eq(true)
+    
   end
 
 end

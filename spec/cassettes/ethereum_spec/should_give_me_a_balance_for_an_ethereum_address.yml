@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://www.etherchain.org/api/account/0x58382493d401d91af0c6a375af9e949d6e106448
+    uri: https://api.blockcypher.com/v1/eth/main/addrs/0x58382493d401d91af0c6a375af9e949d6e106448/balance?token=b85f0e6d0f944803854e91becc60340e
     body:
       encoding: US-ASCII
       string: ''
@@ -14,56 +14,46 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - www.etherchain.org
+      - api.blockcypher.com
   response:
     status:
       code: 200
       message: OK
     headers:
+      Server:
+      - nginx/1.13.4
       Date:
-      - Tue, 20 Feb 2018 13:57:12 GMT
+      - Fri, 02 Mar 2018 11:41:32 GMT
       Content-Type:
-      - application/json; charset=utf-8
+      - application/json
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
-      Set-Cookie:
-      - __cfduid=dd13e4f62febcf91b7593b7f8b42d42331519135032; expires=Wed, 20-Feb-19
-        13:57:12 GMT; path=/; domain=.etherchain.org; HttpOnly
-      - connect.sid=s%3AFCZGBjZ4P2rYitTs9BqboULof3ol1ZF3.ELQ9nKaQazhJD6mNvwIa3%2BOFtq2mB2Cx9DrKOHEcXtU;
-        Path=/; HttpOnly
-      Vary:
-      - Accept-Encoding
-      X-Dns-Prefetch-Control:
-      - 'off'
-      X-Frame-Options:
-      - SAMEORIGIN
-      Strict-Transport-Security:
-      - max-age=15552000; includeSubDomains
-      X-Download-Options:
-      - noopen
-      X-Content-Type-Options:
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Cache-Control:
-      - public, max-age=60
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Access-Control-Allow-Methods:
+      - GET, POST, PUT, DELETE
       Access-Control-Allow-Origin:
       - "*"
-      Etag:
-      - W/"e0-xzf13q2Wu2A3OOdeFioe+RJSORs"
-      X-Cache-Status:
-      - MISS
-      Expect-Ct:
-      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 3f01f93fae713c77-CDG
+      X-Ratelimit-Remaining:
+      - '154'
     body:
       encoding: ASCII-8BIT
-      string: '{"address":"58382493d401d91af0c6a375af9e949d6e106448","balance":"543602000000000","name":null,"firstseen":"2017-09-06T15:12:03.000Z","createdby":"","lastseen":"2017-12-04T18:28:38.000Z","blocksmined":0,"unclesmined":0,"nameverified":null}'
+      string: |-
+        {
+          "address": "58382493d401d91af0c6a375af9e949d6e106448",
+          "total_received": 12696260000000000,
+          "total_sent": 12696260000000000,
+          "balance": 0,
+          "unconfirmed_balance": 0,
+          "final_balance": 0,
+          "n_tx": 5,
+          "unconfirmed_n_tx": 0,
+          "final_n_tx": 5,
+          "nonce": 4,
+          "pool_nonce": 4
+        }
     http_version: 
-  recorded_at: Tue, 20 Feb 2018 13:57:12 GMT
+  recorded_at: Fri, 02 Mar 2018 11:41:32 GMT
 recorded_with: VCR 3.0.3

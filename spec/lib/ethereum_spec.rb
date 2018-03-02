@@ -15,7 +15,7 @@ describe OnChain do
         
         ret = OnChain::BlockChain.send_tx(tx_hex, :ethereum)
         
-        expect(ret[:message]).to eq('Error validating transaction: Account nonce 3 higher than transaction 0xadf9b044b7fbe74472e4cb874c474290f7e78660189a4b0d567504e96541f8fb: 0x58382493d401d91AF0C6A375AF9e949D6e106448..')
+        expect(ret[:message]).to eq('Error validating transaction: Account nonce 4 higher than transaction 0xadf9b044b7fbe74472e4cb874c474290f7e78660189a4b0d567504e96541f8fb: 0x58382493d401d91AF0C6A375AF9e949D6e106448..')
       end
     end
   end
@@ -76,7 +76,7 @@ describe OnChain do
     VCR.use_cassette(the_subject) do
       bal1 = OnChain::BlockChain.get_balance('0x58382493d401d91af0c6a375af9e949d6e106448', :ethereum)
       
-      expect(bal1).to eq(0.000543602)
+      expect(bal1).to eq(0.0)
       
     end
     
@@ -106,7 +106,7 @@ describe OnChain do
       
       bal = OnChain::BlockChain.cache_read(addresses[0] + 'ethereum')
       
-      expect(bal).to eq(0.000543602)
+      expect(bal).to eq(0.0)
       
       OnChain::BlockChain.get_all_balances([], :ethereum)
     end
