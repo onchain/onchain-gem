@@ -14,40 +14,118 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - etherchain.org
+      - www.etherchain.org
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Mon, 04 Dec 2017 11:20:10 GMT
+      - Fri, 02 Mar 2018 14:26:21 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '42'
+      - '11'
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d8c173b5bbae2c4413bf86c6c19a9c6371512386410; expires=Tue, 04-Dec-18
-        11:20:10 GMT; path=/; domain=.etherchain.org; HttpOnly
-      X-Powered-By:
-      - Express
-      X-Ratelimit-Limit:
-      - '10'
-      X-Ratelimit-Remaining:
-      - '9'
+      - __cfduid=d03ed490c0dd9a39387aa1d49954aca181520000780; expires=Sat, 02-Mar-19
+        14:26:20 GMT; path=/; domain=.etherchain.org; HttpOnly
+      - connect.sid=s%3ArhoVbgaiMAqWik0dKgAN8d3NJS760ZbT.q6x%2Fpac1HQ5nxAPcVH2f9mRINVWcbgS6acJTyIUXy2s;
+        Path=/; HttpOnly
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - public, max-age=1
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"2a-iPmKYjKeEZ/fJVMTKQOiNiZax/4"
+      - W/"b-QbgBG61oOjINTKIiPgQ7ks72Wb8"
+      X-Cache-Status:
+      - MISS
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
-      - cloudflare-nginx
+      - cloudflare
       Cf-Ray:
-      - 3c7e5ff92f4d6121-BCN
+      - 3f5489b0bff03c35-CDG
     body:
       encoding: UTF-8
-      string: '{"status":1,"data":[{"accountNonce":"2"}]}'
+      string: '{"nonce":3}'
     http_version: 
-  recorded_at: Mon, 04 Dec 2017 11:20:10 GMT
+  recorded_at: Fri, 02 Mar 2018 14:26:21 GMT
+- request:
+    method: get
+    uri: https://www.etherchain.org/api/account/0x58382493d401d91af0c6a375af9e949d6e106448/nonce
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - www.etherchain.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 02 Mar 2018 14:26:21 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '11'
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d3c3998320c37be1822ccfb20c2b94e691520000781; expires=Sat, 02-Mar-19
+        14:26:21 GMT; path=/; domain=.etherchain.org; HttpOnly
+      - connect.sid=s%3A8O5L3kgk72VTndKJ57KbRyH2uA7XEuvR.44m7LxAQeFsbsWE8ATH%2F4gBLlUMbqyNqLcisjwweZCw;
+        Path=/; HttpOnly
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - public, max-age=1
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"b-QbgBG61oOjINTKIiPgQ7ks72Wb8"
+      X-Cache-Status:
+      - MISS
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3f5489b23f75a863-CDG
+    body:
+      encoding: UTF-8
+      string: '{"nonce":3}'
+    http_version: 
+  recorded_at: Fri, 02 Mar 2018 14:26:21 GMT
 recorded_with: VCR 3.0.3

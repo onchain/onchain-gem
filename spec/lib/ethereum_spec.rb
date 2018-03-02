@@ -92,6 +92,11 @@ describe OnChain do
       
       expect(nonce).to eq(3)
       
+      nonce = OnChain::BlockChain.get_nonce('0xCB53ab94D84d6b2368013b47B002Bb31Bb36110e', :ethereum)
+      
+      expect(nonce).to eq(0)
+      
+      
     end
     
   end

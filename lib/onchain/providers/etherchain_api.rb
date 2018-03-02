@@ -77,13 +77,6 @@ class OnChain::Etherchain
         return json['nonce']
       end
       
-      if json['data'][0] != nil
-        nonce_data = json['data'][0]['accountNonce']
-        if nonce_data != nil
-          nonce = nonce_data.to_i + 1
-        end
-      end
-      
       OnChain::BlockChain.cache_write(address + 'nonce', nonce, 120)
     end
     

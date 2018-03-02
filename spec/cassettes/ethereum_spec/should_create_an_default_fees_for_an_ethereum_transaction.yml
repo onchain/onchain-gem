@@ -14,40 +14,54 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - etherchain.org
+      - www.etherchain.org
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Mon, 04 Dec 2017 11:20:10 GMT
+      - Fri, 02 Mar 2018 14:26:01 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '42'
+      - '11'
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=dd3cfe26180f47d0b3fa70738d54350a71512386410; expires=Tue, 04-Dec-18
-        11:20:10 GMT; path=/; domain=.etherchain.org; HttpOnly
-      X-Powered-By:
-      - Express
-      X-Ratelimit-Limit:
-      - '10'
-      X-Ratelimit-Remaining:
-      - '9'
+      - __cfduid=dcc35f303583e28033b06745b415e3dc51520000761; expires=Sat, 02-Mar-19
+        14:26:01 GMT; path=/; domain=.etherchain.org; HttpOnly
+      - connect.sid=s%3A89EaMq6j4clnawrNg3umz6jZyVuz3_jD.m5MCotI7NDPF6HZ5acM3%2Bf8quq9iI8TMOx5cD%2Fnm5T4;
+        Path=/; HttpOnly
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - public, max-age=1
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"2a-iPmKYjKeEZ/fJVMTKQOiNiZax/4"
+      - W/"b-QbgBG61oOjINTKIiPgQ7ks72Wb8"
+      X-Cache-Status:
+      - MISS
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
-      - cloudflare-nginx
+      - cloudflare
       Cf-Ray:
-      - 3c7e5ff7ec3f6169-BCN
+      - 3f548935df6114fd-CDG
     body:
       encoding: UTF-8
-      string: '{"status":1,"data":[{"accountNonce":"2"}]}'
+      string: '{"nonce":3}'
     http_version: 
-  recorded_at: Mon, 04 Dec 2017 11:20:10 GMT
+  recorded_at: Fri, 02 Mar 2018 14:26:01 GMT
 recorded_with: VCR 3.0.3
