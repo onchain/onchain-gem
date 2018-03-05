@@ -98,7 +98,14 @@ class OnChain::BlockChain
         { :provider => OnChain::Insight.new('https://insight.dash.org/insight-api-dash/', :dash),
           :excludes => [:get_address_info]},
       ] 
+    },
+    :bitcoin_private => {
+      :apis => [
+        { :provider => OnChain::Insight.new('https://explorer.btcprivate.org/api/', :bitcoin_private),
+          :excludes => [:get_address_info]},
+      ] 
     }
+    
   }
   
   # If we have a BlockCypher token, add the blockcypher service.
