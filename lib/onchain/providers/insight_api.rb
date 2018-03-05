@@ -85,17 +85,21 @@ class OnChain::Insight
           end
         end
         
-        tx_json["vout"].each do |out|
-          out_addr = out["scriptPubKey"]["addresses"][0]
-          row[:outs][out_addr] = out_addr
-          if recv == "Y" and out_addr == address
-            val = val + out["value"].to_f
-          elsif recv == "N" and out_addr != address
-            val = val + out["value"].to_f
+        if tx_json["vout"]
+          tx_json["vout"].each do |out|
+            if out["scriptPubKey"] != nil and out["scriptPubKey"]["addresses"] != nil
+              out_addr = out["scriptPubKey"]["addresses"][0]
+              row[:outs][out_addr] = out_addr
+              if recv == "Y" and out_addr == address
+                val = val + out["value"].to_f
+              elsif recv == "N" and out_addr != address
+                val = val + out["value"].to_f
+              end
+            end
           end
+          row[:total] = val
+          row[:recv] = recv
         end
-        row[:total] = val
-        row[:recv] = recv
         hist << row
         
         if hist.count == @history_limit

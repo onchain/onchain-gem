@@ -26,4 +26,21 @@ describe OnChain do
     
   end
   
+  it "should give me a litecoin address history" do
+    
+    VCR.use_cassette(the_subject) do
+      
+      test = [{:hash=>"8a2b0a4fd4e8519f325298ce286e28551ffe5acf5d118803e23f185bafdf6d64", 
+        :time=>1520032335, 
+        :addr=>{"LMhb7STao6j1GNztHC3TwjKwEGbPp7p7cj"=>"LMhb7STao6j1GNztHC3TwjKwEGbPp7p7cj"}, 
+        :outs=>{"LbzPdP41rXBD46WjRzLUk23F228G5LyEeJ"=>"LbzPdP41rXBD46WjRzLUk23F228G5LyEeJ"}, 
+        :total=>0.05142032, :recv=>"Y"}]
+      
+      history = OnChain::BlockChain.address_history('LbzPdP41rXBD46WjRzLUk23F228G5LyEeJ', :litecoin)
+      expect(history.to_json).to eq(test.to_json)
+      
+    end
+    
+  end
+  
 end
