@@ -16,6 +16,7 @@ class OnChain::ExchangeRate
         coin_market_ticker = case network
           when :bitcoin_cash then 'bitcoin-cash'
           when :bitcoin_gold then 'bitcoin-gold'
+          when :bitcoin_private then 'bitcoin-private'
           else network.to_s
         end
 
