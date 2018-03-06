@@ -12,10 +12,10 @@ describe OnChain do
       
       # Insight API
       test1 =  OnChain::BlockChain.get_balance(
-        'b1FXnBitEhacvi8urCJ4BHRX4eQDgBNjSym', :bitcoin_private)
+        'b1SyPaKe8ZLKdKzp72gTGDB3RkaFN8SQK9N', :bitcoin_private)
       
       
-      expect(test1).to eq(0.01)
+      expect(test1).to eq(32.66721836)
     end
     
   end

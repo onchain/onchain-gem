@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://explorer.btcprivate.org/api/addr/b1FXnBitEhacvi8urCJ4BHRX4eQDgBNjSym/balance
+    uri: https://explorer.btcprivate.org/api/addr/b1SyPaKe8ZLKdKzp72gTGDB3RkaFN8SQK9N/balance
     body:
       encoding: US-ASCII
       string: ''
@@ -17,83 +17,50 @@ http_interactions:
       - explorer.btcprivate.org
   response:
     status:
-      code: 503
-      message: Service Temporarily Unavailable
+      code: 200
+      message: OK
     headers:
       Date:
-      - Mon, 05 Mar 2018 05:34:21 GMT
+      - Tue, 06 Mar 2018 08:14:09 GMT
       Content-Type:
-      - text/html; charset=UTF-8
-      Transfer-Encoding:
-      - chunked
+      - application/json; charset=utf-8
+      Content-Length:
+      - '10'
       Connection:
-      - close
+      - keep-alive
       Set-Cookie:
-      - __cfduid=d963053a00b55e570d7977f4783971c2e1520228061; expires=Tue, 05-Mar-19
-        05:34:21 GMT; path=/; domain=.btcprivate.org; HttpOnly; Secure
-      X-Frame-Options:
-      - SAMEORIGIN
-      Cache-Control:
-      - no-cache
+      - __cfduid=df874fbbc1d4d61182a8a6e2c53206f2e1520324049; expires=Wed, 06-Mar-19
+        08:14:09 GMT; path=/; domain=.btcprivate.org; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10798'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"a-JAoD5C/z5Dsr2tibypCFPzBTurs"
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 google
       Expect-Ct:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Cf-Ray:
-      - 3f6a3687b9d468d8-CDG
+      - 3f735dfb8ce4a869-CDG
     body:
       encoding: UTF-8
-      string: "<!DOCTYPE HTML>\n<html lang=\"en-US\">\n<head>\n  <meta charset=\"UTF-8\"
-        />\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"
-        />\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\" />\n
-        \ <meta name=\"robots\" content=\"noindex, nofollow\" />\n  <meta name=\"viewport\"
-        content=\"width=device-width, initial-scale=1, maximum-scale=1\" />\n  <title>Just
-        a moment...</title>\n  <style type=\"text/css\">\n    html, body {width: 100%;
-        height: 100%; margin: 0; padding: 0;}\n    body {background-color: #ffffff;
-        font-family: Helvetica, Arial, sans-serif; font-size: 100%;}\n    h1 {font-size:
-        1.5em; color: #404040; text-align: center;}\n    p {font-size: 1em; color:
-        #404040; text-align: center; margin: 10px 0 0 0;}\n    #spinner {margin: 0
-        auto 30px auto; display: block;}\n    .attribution {margin-top: 20px;}\n    @-webkit-keyframes
-        bubbles { 33%: { -webkit-transform: translateY(10px); transform: translateY(10px);
-        } 66% { -webkit-transform: translateY(-10px); transform: translateY(-10px);
-        } 100% { -webkit-transform: translateY(0); transform: translateY(0); } }\n
-        \   @keyframes bubbles { 33%: { -webkit-transform: translateY(10px); transform:
-        translateY(10px); } 66% { -webkit-transform: translateY(-10px); transform:
-        translateY(-10px); } 100% { -webkit-transform: translateY(0); transform: translateY(0);
-        } }\n    .bubbles { background-color: #404040; width:15px; height: 15px; margin:2px;
-        border-radius:100%; -webkit-animation:bubbles 0.6s 0.07s infinite ease-in-out;
-        animation:bubbles 0.6s 0.07s infinite ease-in-out; -webkit-animation-fill-mode:both;
-        animation-fill-mode:both; display:inline-block; }\n  </style>\n\n    <script
-        type=\"text/javascript\">\n  //<![CDATA[\n  (function(){\n    var a = function()
-        {try{return !!window.addEventListener} catch(e) {return !1} },\n    b = function(b,
-        c) {a() ? document.addEventListener(\"DOMContentLoaded\", b, c) : document.attachEvent(\"onreadystatechange\",
-        b)};\n    b(function(){\n      var a = document.getElementById('cf-content');a.style.display
-        = 'block';\n      setTimeout(function(){\n        var s,t,o,p,b,r,e,a,k,i,n,g,f,
-        RYvWJnP={\"aNDueEp\":+((!+[]+!![]+[])+(!+[]+!![]+!![]+!![]+!![]+!![]+!![]))};\n
-        \       t = document.createElement('div');\n        t.innerHTML=\"<a href='/'>x</a>\";\n
-        \       t = t.firstChild.href;r = t.match(/https?:\\/\\//)[0];\n        t
-        = t.substr(r.length); t = t.substr(0,t.length-1);\n        a = document.getElementById('jschl-answer');\n
-        \       f = document.getElementById('challenge-form');\n        ;RYvWJnP.aNDueEp-=+((+!![]+[])+(+!![]));RYvWJnP.aNDueEp-=!+[]+!![]+!![]+!![];RYvWJnP.aNDueEp+=+((!+[]+!![]+!![]+!![]+[])+(!+[]+!![]+!![]+!![]+!![]+!![]));RYvWJnP.aNDueEp*=+((+!![]+[])+(!+[]+!![]+!![]));RYvWJnP.aNDueEp+=+((!+[]+!![]+[])+(+[]));RYvWJnP.aNDueEp-=!+[]+!![]+!![]+!![]+!![]+!![]+!![]+!![];a.value
-        = parseInt(RYvWJnP.aNDueEp, 10) + t.length; '; 121'\n        f.action += location.hash;\n
-        \       f.submit();\n      }, 4000);\n    }, false);\n  })();\n  //]]>\n</script>\n\n\n</head>\n<body>\n
-        \ <table width=\"100%\" height=\"100%\" cellpadding=\"20\">\n    <tr>\n      <td
-        align=\"center\" valign=\"middle\">\n          <div class=\"cf-browser-verification
-        cf-im-under-attack\">\n  <noscript><h1 data-translate=\"turn_on_js\" style=\"color:#bd2426;\">Please
-        turn JavaScript on and reload the page.</h1></noscript>\n  <div id=\"cf-content\"
-        style=\"display:none\">\n    \n    <div>\n      <div class=\"bubbles\"></div>\n
-        \     <div class=\"bubbles\"></div>\n      <div class=\"bubbles\"></div>\n
-        \   </div>\n    <h1><span data-translate=\"checking_browser\">Checking your
-        browser before accessing</span> btcprivate.org.</h1>\n    \n    <p data-translate=\"process_is_automatic\">This
-        process is automatic. Your browser will redirect to your requested content
-        shortly.</p>\n    <p data-translate=\"allow_5_secs\">Please allow up to 5
-        seconds&hellip;</p>\n  </div>\n   \n  <form id=\"challenge-form\" action=\"/cdn-cgi/l/chk_jschl\"
-        method=\"get\">\n    <input type=\"hidden\" name=\"jschl_vc\" value=\"b9d02e94c1d5066815061e2cd6db1e2b\"/>\n
-        \   <input type=\"hidden\" name=\"pass\" value=\"1520228065.395-WzWVU112xb\"/>\n
-        \   <input type=\"hidden\" id=\"jschl-answer\" name=\"jschl_answer\"/>\n  </form>\n</div>\n\n
-        \         \n          <div class=\"attribution\">\n            <a href=\"https://www.cloudflare.com/5xx-error-landing?utm_source=iuam\"
-        target=\"_blank\" style=\"font-size: 12px;\">DDoS protection by Cloudflare</a>\n
-        \           <br>\n            Ray ID: 3f6a3687b9d468d8\n          </div>\n
-        \     </td>\n     \n    </tr>\n  </table>\n</body>\n</html>\n"
+      string: '3266721836'
     http_version: 
-  recorded_at: Mon, 05 Mar 2018 05:34:21 GMT
+  recorded_at: Tue, 06 Mar 2018 08:14:09 GMT
 recorded_with: VCR 3.0.3
