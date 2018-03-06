@@ -20,8 +20,13 @@ describe OnChain do
     
   end
   
-  it "should get unspent outs." do
+  it "should create and sign a valid bitcoin private transaction." do
+    
+    wif = 'L1BaRvRHhVVtq3AAWRCdaa1QJFHFpoQXXiyoLWoBurf7UznREdNw'
+    
+    public_key = OnChain::Address.address_from_wif(wif, :bitcoin_private)
       
+    expect(public_key).to eq('b17e5xisoAzgwr5ZQ7k9h7NQyKgSnhm7WeC')
     #VCR.use_cassette(the_subject) do
        
     #end

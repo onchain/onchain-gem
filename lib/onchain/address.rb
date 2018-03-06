@@ -7,9 +7,18 @@ class OnChain::Address
       
       version = Bitcoin::NETWORKS[network][:address_version]
       address = Bitcoin::encode_address(key.hash160, version)
-        
-      key = Bitcoin::Key.generate(network)
-      return address, key.priv
+      
+      return address, key.to_base58
+    end
+    
+    def address_from_wif(wif, network = :bitcoin)
+      
+      key = Bitcoin::Key.from_base58 wif
+      
+      version = Bitcoin::NETWORKS[network][:address_version]
+      address = Bitcoin::encode_address(key.hash160, version)
+      
+      return address
     end
     
     def valid_address?(address, network = :bitcoin)
