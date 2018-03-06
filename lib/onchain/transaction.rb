@@ -254,7 +254,8 @@ class OnChain::Transaction
         generate_address_of_redemption_script(rs, network)
       }
       
-      unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(addresses, total_amount, network)
+      unspents, indexes, change = OnChain::BlockChain.get_unspent_for_amount(
+        addresses, total_amount, network)
       
       # OK, let's build a transaction.
       tx = Bitcoin::Protocol::Tx.new
@@ -333,7 +334,8 @@ class OnChain::Transaction
     #
     # For transactions coming from non multi sig wallets we need to set
     # the pubkey parameter to the full public hex key of the address.
-    def sign_transaction(transaction_hex, sig_list, pubkey = nil, hash_type = Bitcoin::Script::SIGHASH_TYPE[:all])
+    def sign_transaction(transaction_hex, sig_list, pubkey = nil, 
+      hash_type = Bitcoin::Script::SIGHASH_TYPE[:all])
       
       tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(transaction_hex)
       
@@ -358,7 +360,8 @@ class OnChain::Transaction
           in_script = Bitcoin::Script.new txin.script
           if in_script.is_hash160?
             sig = sigs[0]
-            txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, OnChain.hex_to_bin(pubkey), hash_type)
+            txin.script = Bitcoin::Script.to_pubkey_script_sig(sig, 
+              OnChain.hex_to_bin(pubkey), hash_type)
           else
             
             # I replace the call to Bitcoin::Script.to_p2sh_multisig_script_sig
@@ -412,12 +415,15 @@ class OnChain::Transaction
         # Check for affiliate
         if fee_addr.kind_of?(Array)
           affil_fee = fee / 2
-          txout1 = Bitcoin::Protocol::TxOut.new(affil_fee, to_address_script(fee_addr[0], network))
-          txout2 = Bitcoin::Protocol::TxOut.new(affil_fee, to_address_script(fee_addr[1], network))
+          txout1 = Bitcoin::Protocol::TxOut.new(affil_fee, 
+            to_address_script(fee_addr[0], network))
+          txout2 = Bitcoin::Protocol::TxOut.new(affil_fee, 
+            to_address_script(fee_addr[1], network))
           tx.add_out(txout1)
           tx.add_out(txout2)
         else
-          txout = Bitcoin::Protocol::TxOut.new(fee, to_address_script(fee_addr, network))
+          txout = Bitcoin::Protocol::TxOut.new(fee, 
+            to_address_script(fee_addr, network))
           tx.add_out(txout)
         end
       end
@@ -513,6 +519,14 @@ class OnChain::Transaction
     
     private
     
+    # Used by bitocin cash with a fork_id of zero.
+    #
+    # Bitcoin Private has a fork id of 42 and Gold 79.
+    #
+    # Electrum code for Gold. https://github.com/BTCGPU/electrum/blob/master/lib/transaction.py#L849
+    #
+    # Elecrum code for Bitocin Private https://github.com/BTCPrivate/electrum-btcp/blob/712117fece1a0028c7f5192c0448ab7cc85e9c3c/lib/transaction.py#L764
+    #
     def signature_hash_with_a_fork_id(tx, input_idx, 
       script_code, prev_out_value, hash_type, fork_id)
      
@@ -529,7 +543,8 @@ class OnChain::Transaction
       
       nsequence = tx.in[input_idx].sequence
       
-      hash_outputs = Digest::SHA256.digest(Digest::SHA256.digest(tx.out.map{|o|o.to_payload}.join))
+      hash_outputs = Digest::SHA256.digest(Digest::SHA256.digest(
+        tx.out.map{|o|o.to_payload}.join))
       
       hash_type |= fork_id << 8
 
