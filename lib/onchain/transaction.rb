@@ -368,7 +368,7 @@ class OnChain::Transaction
             # as it didn't work for my smaller 2 of 2 redemption scripts
             sig_script = '00'
             sigs.each do |sigg|
-              sigg << 1
+              sigg << hash_type
               sig_script += sigg.length.to_s(16)
               sig_script += OnChain.bin_to_hex(sigg)
             end
@@ -540,6 +540,8 @@ class OnChain::Transaction
         tx.in[input_idx].prev_out_index].pack("a32V")
         
       amount = [prev_out_value].pack("Q")
+      
+      puts ':::::::::' + prev_out_value.to_s
       
       nsequence = tx.in[input_idx].sequence
       
