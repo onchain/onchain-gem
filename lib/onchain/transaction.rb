@@ -259,6 +259,7 @@ class OnChain::Transaction
       
       # OK, let's build a transaction.
       tx = Bitcoin::Protocol::Tx.new
+      tx.ver = 2 if network == :bitcoin_private
       
       total_input_value = 0
       # Process the unpsent outs.
