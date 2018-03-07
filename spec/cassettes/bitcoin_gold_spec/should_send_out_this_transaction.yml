@@ -1,0 +1,172 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://explorer.bitcoingold.org/insight-api/addr/GgM7KG85o2tpHBnq1UgQ3SQe3UL8tv1xUT/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - explorer.bitcoingold.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 07 Mar 2018 06:43:31 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d169dee5376479a48b386f684dd337af11520405011; expires=Thu, 07-Mar-19
+        06:43:31 GMT; path=/; domain=.bitcoingold.org; HttpOnly
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10794'
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"21d-MWm0otEeLCBNFj7EZCBEvlarPgM"
+      Vary:
+      - Accept-Encoding
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3f7b16974b313c6b-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"address":"GgM7KG85o2tpHBnq1UgQ3SQe3UL8tv1xUT","txid":"338f7ccd9664c10b178de7e01d30832661d21f8b185f2b58c63531528288ac65","vout":0,"scriptPubKey":"76a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac","amount":0.001,"satoshis":100000,"height":517118,"confirmations":131},{"address":"GgM7KG85o2tpHBnq1UgQ3SQe3UL8tv1xUT","txid":"689a3b0c38145803c1969caa009727922db19513d626ffed43b72cfd3779c7e2","vout":1,"scriptPubKey":"76a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac","amount":0.29,"satoshis":29000000,"height":515731,"confirmations":1518}]'
+    http_version: 
+  recorded_at: Wed, 07 Mar 2018 06:43:31 GMT
+- request:
+    method: get
+    uri: https://explorer.bitcoingold.org/insight-api/addr/GgM7KG85o2tpHBnq1UgQ3SQe3UL8tv1xUT/utxo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - explorer.bitcoingold.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 07 Mar 2018 06:43:31 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=da201800c3ee1b7f949bbca7c571616131520405011; expires=Thu, 07-Mar-19
+        06:43:31 GMT; path=/; domain=.bitcoingold.org; HttpOnly
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10793'
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"21d-MWm0otEeLCBNFj7EZCBEvlarPgM"
+      Vary:
+      - Accept-Encoding
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3f7b1697bf70a86f-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"address":"GgM7KG85o2tpHBnq1UgQ3SQe3UL8tv1xUT","txid":"338f7ccd9664c10b178de7e01d30832661d21f8b185f2b58c63531528288ac65","vout":0,"scriptPubKey":"76a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac","amount":0.001,"satoshis":100000,"height":517118,"confirmations":131},{"address":"GgM7KG85o2tpHBnq1UgQ3SQe3UL8tv1xUT","txid":"689a3b0c38145803c1969caa009727922db19513d626ffed43b72cfd3779c7e2","vout":1,"scriptPubKey":"76a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac","amount":0.29,"satoshis":29000000,"height":515731,"confirmations":1518}]'
+    http_version: 
+  recorded_at: Wed, 07 Mar 2018 06:43:31 GMT
+- request:
+    method: post
+    uri: https://explorer.bitcoingold.org/insight-api/tx/send
+    body:
+      encoding: UTF-8
+      string: '{"rawtx":"010000000265ac8882523135c6582b5f188b1fd2612683301de0e78d170bc16496cd7c8f33000000006b4830450221009a4cec3b661d9e000409e466985c4fbdea02e604a278586c3eb10831a9ffea9402203e04e4c3f332512924f35c0935b06c377004eb539fad3a27eca2ce969ba8a565412102f82f91a780f3493c891479fc1829b3591938e1bcce0e4fa7d75229115e01fdb5ffffffffe2c77937fd2cb743edff26d61395b12d92279700aa9c96c1035814380c3b9a68010000006b483045022100fbb377ac59d12b360d5eb91ab0a3fe567f4148f6d4027cf17137564d0513569702207443315f987ed1a3ae38fcdeb97d1fad1d5d86aee7e8e2571898baa978cd1e10412102f82f91a780f3493c891479fc1829b3591938e1bcce0e4fa7d75229115e01fdb5ffffffff0320a10700000000001976a9143a48bfebcdc52c7b3831eab75a1955e58744c7e388ac58610500000000001976a914b705b67a8c0caeb68bbafe8377da8c19aff1e2e788ac3f4cae01000000001976a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac00000000"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - explorer.bitcoingold.org
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Wed, 07 Mar 2018 06:43:31 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d3f2bbf905d3689c34343573b998418991520405011; expires=Thu, 07-Mar-19
+        06:43:31 GMT; path=/; domain=.bitcoingold.org; HttpOnly
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10792'
+      Vary:
+      - Accept-Encoding
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 3f7b169828513c83-CDG
+    body:
+      encoding: UTF-8
+      string: '16: mandatory-script-verify-flag-failed (Signature must be zero for
+        failed CHECK(MULTI)SIG operation). Code:-26'
+    http_version: 
+  recorded_at: Wed, 07 Mar 2018 06:43:31 GMT
+recorded_with: VCR 3.0.3

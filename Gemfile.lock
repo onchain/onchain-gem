@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (4.77)
+    onchain (4.78)
       bitcoin-ruby
       eth
       money-tree
