@@ -6,32 +6,66 @@ describe OnChain do
      "bitcoin_private_spec/" + example.description
   end
   
-  it "shoud pull aprt a working bitocin priuvate tx" do
+  it "should create a valid payment" do
+    VCR.turned_off do
     
-    johns_tx = "010000000129d0eebba829bc4fc616362e78c87a77248e30feec4e5a48c4380b4831b4cb90000000001976a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88acffffffff0320a10700000000001976a9143a48bfebcdc52c7b3831eab75a1955e58744c7e388ac0ca80500000000001976a9148a1dde437f546b20222b4a4434c8b9dd4d8b05ba88acc0b7d903000000001976a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac00000000"
-    raw_tx = "0100000001de5f22267d5bab37056c350c77e2205088b6ae07256ebc6f4f62d55aafe57460000000006b483045022100f82d1f1d42fb98b3969cb6f9e61f81c6df4644db2d3c1c25590375820de66a3e02203143cb86bf6ccf8acb41bad06cc34ae7ce36ee71afdfef60ff4b2243fada58464121037792c39eb69d126bf0860739f8ce8fdc4bf0385f3f61366df218d461211d7848fdffffff0264e10000000000001976a914c3a0de2709217d56a63f5e493d360125a04df94f88aca0bb0d00000000001976a914e217172318431eb8eceeeff1c160bfbfaf55b13c88acda4b0400"
+      pk = ENV['private_key']
+      
+      if ! pk
+        throw 'Set private key in env'
+      end
+      
+      key = Bitcoin::Key.from_base58 pk
+      
+      stub_request(:get, "https://explorer.btcprivate.org/api/addr/b1H4VhwWAoVGMqnXM8oqsKK2WzpMGkbRamm/utxo").
+         with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Host'=>'explorer.btcprivate.org', 'User-Agent'=>'Ruby'}).
+         to_return(status: 200, body: '[{"address":"b1H4VhwWAoVGMqnXM8oqsKK2WzpMGkbRamm","txid":"db832d5b046eb2a297d2f3044c22a891d9c4adb9806396e39e1ec2cf531c0375","vout":0,"scriptPubKey":"76a9148a1dde437f546b20222b4a4434c8b9dd4d8b05ba88ac","amount":0.005,"satoshis":500000,"height":272358,"confirmations":9711},{"address":"b1H4VhwWAoVGMqnXM8oqsKK2WzpMGkbRamm","txid":"9f416e184a3e918e96095f27fbb20452bf4cb113cabd514046cdec43c8acccbc","vout":0,"scriptPubKey":"76a9148a1dde437f546b20222b4a4434c8b9dd4d8b05ba88ac","amount":0.005,"satoshis":500000,"height":272353,"confirmations":9716}]', headers: {})
+      
+      tx_hex, inputs_to_sign = OnChain::Transaction.create_single_address_transaction(
+        'b1H4VhwWAoVGMqnXM8oqsKK2WzpMGkbRamm', 
+        'b19nP23vNEyWiyz6B9G5hFnt7w12RAPbsU9', 482699, 
+        17000, 'b19nP23vNEyWiyz6B9G5hFnt7w12RAPbsU9', 300, :bitcoin_private)
+        
+      puts tx_hex
+      
+      puts inputs_to_sign
+      
+      sign_with_eckey(inputs_to_sign, key)
+      
+      puts
+      
+      puts inputs_to_sign
+      
     
-    tx = Bitcoin::Protocol::Tx.new(raw_tx)
+      hash_type = Bitcoin::Script::SIGHASH_TYPE[:all]
+      hash_type = hash_type | Bitcoin::Script::SIGHASH_TYPE[:forkid]
+      
+      signed_tx = OnChain::Transaction.sign_transaction(
+        tx_hex, inputs_to_sign, key.pub, hash_type)
+        
+      puts
+      puts "Signed TX"
+      puts signed_tx
+          
+    end
+  end
+  
+  
+  def sign_with_eckey(inputs_to_sign, pk)
     
-    #puts tx.in[0]
+    pub_hex = pk.addr
     
-    puts tx.in[0].parsed_script.to_string
-    
-    puts tx.in[0].parsed_script.is_witness?
-    
-    #puts tx.in[0].to_hash
-    #puts tx.in.size #=> 4
-    #puts tx.out.size #=> 2
-    #puts 'hash ' + tx.hash 
-    tx = Bitcoin::Protocol::Tx.new(johns_tx)
-    
-    puts
-    
-   # puts tx.in[0]
-    
-    puts tx.in[0].parsed_script.to_string
-    
-    #puts tx.in[0].to_hash
+    inputs_to_sign.each do |input|
+      
+      if input[pub_hex] != nil
+        
+        hash_to_sign = input[pub_hex]["hash"]
+        
+        sig =  OnChain.bin_to_hex(pk.sign(OnChain.hex_to_bin(hash_to_sign)))
+        
+        input[pub_hex]["sig"] = sig
+      end
+    end
   end
   
   it "should be able to retrieve a balance." do

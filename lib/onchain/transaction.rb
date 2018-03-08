@@ -259,7 +259,6 @@ class OnChain::Transaction
       
       # OK, let's build a transaction.
       tx = Bitcoin::Protocol::Tx.new
-      tx.ver = 2 if network == :bitcoin_private
       
       total_input_value = 0
       # Process the unpsent outs.
@@ -541,8 +540,6 @@ class OnChain::Transaction
         tx.in[input_idx].prev_out_index].pack("a32V")
         
       amount = [prev_out_value].pack("Q")
-      
-      puts ':::::::::' + prev_out_value.to_s
       
       nsequence = tx.in[input_idx].sequence
       

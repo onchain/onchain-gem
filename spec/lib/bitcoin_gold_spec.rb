@@ -64,7 +64,6 @@ describe OnChain do
       hash_type = Bitcoin::Script::SIGHASH_TYPE[:all]
     
       if Bitcoin::NETWORKS[:bitcoin_gold][:fork_id] != nil
-        puts "Using forkid"
         hash_type = hash_type | Bitcoin::Script::SIGHASH_TYPE[:forkid]
       end
     
@@ -74,7 +73,6 @@ describe OnChain do
       expect(signed_payload).to eq('010000000265ac8882523135c6582b5f188b1fd2612683301de0e78d170bc16496cd7c8f33000000006b4830450221009a4cec3b661d9e000409e466985c4fbdea02e604a278586c3eb10831a9ffea9402203e04e4c3f332512924f35c0935b06c377004eb539fad3a27eca2ce969ba8a565412102f82f91a780f3493c891479fc1829b3591938e1bcce0e4fa7d75229115e01fdb5ffffffffe2c77937fd2cb743edff26d61395b12d92279700aa9c96c1035814380c3b9a68010000006b483045022100fbb377ac59d12b360d5eb91ab0a3fe567f4148f6d4027cf17137564d0513569702207443315f987ed1a3ae38fcdeb97d1fad1d5d86aee7e8e2571898baa978cd1e10412102f82f91a780f3493c891479fc1829b3591938e1bcce0e4fa7d75229115e01fdb5ffffffff0320a10700000000001976a9143a48bfebcdc52c7b3831eab75a1955e58744c7e388ac58610500000000001976a914b705b67a8c0caeb68bbafe8377da8c19aff1e2e788ac3f4cae01000000001976a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac00000000')
       
       res = OnChain::BlockChain.send_tx(signed_payload, :bitcoin_gold)    
-      puts res
     end
     
   end
