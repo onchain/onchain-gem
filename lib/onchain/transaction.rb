@@ -458,12 +458,24 @@ class OnChain::Transaction
     def get_inputs_to_sign(tx, unspents, network = :bitcoin)
       inputs_to_sign = []
       tx.in.each_with_index do |txin, index|
-        hash = tx.signature_hash_for_input(index, txin.script, 
-          Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all])
-        
-        # For the coins with replay protection.
-        if Bitcoin::NETWORKS[network][:fork_id] != nil
-          
+
+        if Bitcoin::NETWORKS[network][:fork_id] == nil
+
+          # The Bitcoin and statndard forks implement the hash
+          hash = tx.signature_hash_for_input(index, txin.script, 
+            Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all])
+
+        elsif network == :bitcoin_private
+
+          # Bitcoin private
+          sig_hash = Bitcoin::Protocol::Tx::SIGHASH_TYPE[:forkid] | 
+            Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
+          hash = signature_hash_for_bitcoin_private_input(tx, index, txin.script, 
+            sig_hash, Bitcoin::NETWORKS[network][:fork_id])
+
+        else
+          # Replay protection as used by bitcoin cash and bitcoin gold
+
           sig_hash = Bitcoin::Protocol::Tx::SIGHASH_TYPE[:forkid] | 
             Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
         
@@ -554,6 +566,39 @@ class OnChain::Transaction
 
       Digest::SHA256.digest( Digest::SHA256.digest( buf ) )
     end
-      
+
+
+    # Bitcoin Private way of hashing inputs for signing
+    def signature_hash_for_bitcoin_private_input(tx, input_idx, subscript, 
+      hash_type, fork_id)
+      # https://github.com/BTCPrivate/BitcoinPrivate/blob/master/src/script/interpreter.cpp#L1102
+      # https://github.com/BTCGPU/BTCGPU/blob/master/src/script/interpreter.cpp#L1212
+
+      hash_type ||= SIGHASH_TYPE[:all]
+
+      pin  = tx.in.map.with_index{|input,idx|
+        subscript = subscript.out[ input.prev_out_index ].script if 
+          subscript.respond_to?(:out) # legacy api (outpoint_tx)
+
+        # Remove all instances of OP_CODESEPARATOR from the script.
+        parsed_subscript = Bitcoin::Script.new(subscript)
+        parsed_subscript.chunks.delete(Bitcoin::Script::OP_CODESEPARATOR)
+        subscript = parsed_subscript.to_binary
+
+        input.to_payload(subscript)
+      }
+
+      pout = tx.out.map(&:to_payload)
+      in_size, out_size = Bitcoin::Protocol.pack_var_int(tx.in.size), 
+        Bitcoin::Protocol.pack_var_int(tx.out.size)
+
+      fork_hash_type = hash_type
+      fork_hash_type |= fork_id << 8
+
+      buf = [ [tx.ver].pack("V"), in_size, pin, out_size, pout, 
+        [tx.lock_time, fork_hash_type].pack("VV") ].join
+
+      Digest::SHA256.digest( Digest::SHA256.digest( buf ) )
+    end
   end
 end
