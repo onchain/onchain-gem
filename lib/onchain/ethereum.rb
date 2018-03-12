@@ -13,7 +13,7 @@ class OnChain::Ethereum
         data: '00',
         gas_limit: gas_limit,
         gas_price: gas_price,
-        nonce: nonce + 1,
+        nonce: nonce,
         to: dest_addr,
         value: amount,
       })
@@ -36,7 +36,7 @@ class OnChain::Ethereum
         data: '00',
         gas_limit: gas_limit,
         gas_price: gas_price,
-        nonce: nonce + 1,
+        nonce: nonce,
         to: dest_addr,
         value: amount,
         v: v,
