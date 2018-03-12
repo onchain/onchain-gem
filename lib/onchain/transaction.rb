@@ -65,12 +65,32 @@ class OnChain::Transaction
       total_to_send, network = :bitcoin)
       
       if network == :ethereum
-        return interrogate_transaction_ethereum(txhex, wallet_addresses, 
-          fee_addresses, total_to_send, network)
+        return interrogate_transaction_ethereum(txhex, wallet_addresses)
       end
       
       return interrogate_transaction_bitcoin_and_forks(txhex, wallet_addresses, 
         fee_addresses, total_to_send, network)
+    end
+    
+    def interrogate_transaction_ethereum(txhex, wallet_addresses)
+      
+      our_fees = 0
+      unrecognised_destination = 0
+      total_change = 0
+      miners_fee = 0
+      
+      tx = Eth::Tx.decode txhex
+      address = Eth::Utils.format_address(Eth::Utils.bin_to_hex(tx.to))
+      
+      miners_fee = tx.gas_price * tx.gas_limit / 1_000000_000000_000000.0
+      
+      total_to_send = tx.value / 1_000000_000000_000000.0
+      
+      return { miners_fee: miners_fee, total_change: 0,
+        total_to_send: total_to_send, our_fees: 0,
+        destination: address, unrecognised_destination: nil, 
+        primary_send: total_to_send 
+      }
     end
     
     # Once a transaction is created we rip it aaprt again to make sure it is not

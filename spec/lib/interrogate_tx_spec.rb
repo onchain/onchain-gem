@@ -33,6 +33,25 @@ describe OnChain do
     end
   end
   
+  it "should interrogate an ethereum transaction" do
+    
+      txhex = "0xeb808504a817c80082753094b488665b25c51f0c5838e39164f68b9379f8cd5487038d7ea4c6800000808080"
+      
+      wallet_addresses = ["0x46FC2341DC457BA023cF6d60Cb0729E5928A81E6	"]
+        
+      result = OnChain::Transaction.interrogate_transaction(txhex, 
+        wallet_addresses, nil, nil, :ethereum)
+        
+      expect(result[:destination]).to eq("0xB488665B25c51f0c5838E39164f68b9379F8Cd54")
+      expect(result[:miners_fee]).to eq(0.0006)
+      expect(result[:total_change]).to eq(0)
+      expect(result[:total_to_send]).to eq(0.001)
+      expect(result[:our_fees]).to eq(0)
+      expect(result[:unrecognised_destination]).to eq(nil)
+      expect(result[:primary_send]).to eq(0.001)
+      
+  end
+  
   it "should interrogate a bitcoin cash transaction" do
     
     VCR.use_cassette(the_subject) do
