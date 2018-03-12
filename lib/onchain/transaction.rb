@@ -64,6 +64,20 @@ class OnChain::Transaction
     def interrogate_transaction(txhex, wallet_addresses, fee_addresses, 
       total_to_send, network = :bitcoin)
       
+      if network == :ethereum
+        return interrogate_transaction_ethereum(txhex, wallet_addresses, 
+          fee_addresses, total_to_send, network)
+      end
+      
+      return interrogate_transaction_bitcoin_and_forks(txhex, wallet_addresses, 
+        fee_addresses, total_to_send, network)
+    end
+    
+    # Once a transaction is created we rip it aaprt again to make sure it is not
+    # overspending the users funds.
+    def interrogate_transaction_bitcoin_and_forks(txhex, wallet_addresses, 
+      fee_addresses, total_to_send, network = :bitcoin)
+      
       tx_bin = txhex.scan(/../).map { |x| x.hex }.pack('c*')
       tx_to_sign = Bitcoin::Protocol::Tx.new(tx_bin)
       
