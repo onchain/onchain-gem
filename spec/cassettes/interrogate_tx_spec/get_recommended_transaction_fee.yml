@@ -21,27 +21,35 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 04 Dec 2017 11:20:22 GMT
+      - Mon, 12 Mar 2018 08:19:05 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '47'
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d35df22ab89d7a7c22f854d4a298e77c21512386422; expires=Tue, 04-Dec-18
-        11:20:22 GMT; path=/; domain=.21.co; HttpOnly
+      - __cfduid=d84af0a27659de4afa4db146eec3fd5571520842745; expires=Tue, 12-Mar-19
+        08:19:05 GMT; path=/; domain=.21.co; HttpOnly
       Access-Control-Allow-Credentials:
       - 'true'
       Access-Control-Allow-Origin:
       - "*"
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
-      - cloudflare-nginx
+      - cloudflare
       Cf-Ray:
-      - 3c7e60453f3e1067-CDG
+      - 3fa4d576289c3c89-CDG
     body:
-      encoding: ASCII-8BIT
-      string: '{"fastestFee":160,"halfHourFee":160,"hourFee":140}'
+      encoding: UTF-8
+      string: '{"fastestFee":20,"halfHourFee":10,"hourFee":10}'
     http_version: 
-  recorded_at: Mon, 04 Dec 2017 11:20:22 GMT
+  recorded_at: Mon, 12 Mar 2018 08:19:05 GMT
 recorded_with: VCR 3.0.3
