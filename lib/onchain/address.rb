@@ -11,6 +11,16 @@ class OnChain::Address
       return address, key.to_base58
     end
     
+    def address_from_pub_hex(pub_hex, network = :bitcoin)
+      
+      version = Bitcoin::NETWORKS[network][:address_version]
+      hash160 = Bitcoin.hash160(pub_hex)
+      address = Bitcoin::encode_address(hash160, version)
+      
+      return address
+      
+    end
+    
     def address_from_wif(wif, network = :bitcoin)
       
       key = Bitcoin::Key.from_base58 wif

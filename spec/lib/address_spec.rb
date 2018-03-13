@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OnChain do
   
-  it "should generate a valid bitcoin cash transaction." do
+  it "should generate a valid addresses for diffrent networks." do
   
     address, priv = OnChain::Address.generate_address_pair(:bitcoin)
     
@@ -13,6 +13,14 @@ describe OnChain do
     expect(address[0]).to eq('t')
     
     OnChain::Address.valid_address?(address[0], :zcash)
+  end
+  
+  it "should generate addresses form pub keys" do
+  
+    pubhex = '0428a450cfd9cc029658a7588d6bd515201d6231275b5431b0a6fc420606b0fecd34d3b804335c64f8fcb481eadccc8cb85078f2a0d27f0c86748f3d832c894a2d'
+  
+    expect(OnChain::Address.address_from_pub_hex(pubhex)).to eq('1STRonGxnFTeJiA7pgyneKknR29AwBM77')
+  
   end
   
   it "should generate a validate addresses by network." do
