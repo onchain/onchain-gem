@@ -609,22 +609,28 @@ class OnChain::Transaction
       # https://github.com/BTCGPU/BTCGPU/blob/master/src/script/interpreter.cpp#L1212
 
       hash_type ||= SIGHASH_TYPE[:all]
+      
+      puts input_idx
+      
+      # This is what we useds to do.
+      #pin  = tx.in.map.with_index{|input,idx|
+      #  subscript = subscript.out[ input.prev_out_index ].script if 
+      #    subscript.respond_to?(:out) # legacy api (outpoint_tx)
+      #
+      #  # Remove all instances of OP_CODESEPARATOR from the script.
+      #  parsed_subscript = Bitcoin::Script.new(subscript)
+      #  parsed_subscript.chunks.delete(Bitcoin::Script::OP_CODESEPARATOR)
+      #  subscript = parsed_subscript.to_binary
+      #
+      #  input.to_payload(subscript)
+      #}
 
-      pin  = tx.in.map.with_index{|input,idx|
-        subscript = subscript.out[ input.prev_out_index ].script if 
-          subscript.respond_to?(:out) # legacy api (outpoint_tx)
-
-        # Remove all instances of OP_CODESEPARATOR from the script.
-        parsed_subscript = Bitcoin::Script.new(subscript)
-        parsed_subscript.chunks.delete(Bitcoin::Script::OP_CODESEPARATOR)
-        subscript = parsed_subscript.to_binary
-
-        input.to_payload(subscript)
-      }
+      pin = tx.in.map(&:to_payload)
 
       pout = tx.out.map(&:to_payload)
-      in_size, out_size = Bitcoin::Protocol.pack_var_int(tx.in.size), 
-        Bitcoin::Protocol.pack_var_int(tx.out.size)
+      
+      in_size = Bitcoin::Protocol.pack_var_int(tx.in.size)
+      out_size = Bitcoin::Protocol.pack_var_int(tx.out.size)
 
       fork_hash_type = hash_type
       fork_hash_type |= fork_id << 8
