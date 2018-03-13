@@ -32,9 +32,9 @@ describe OnChain do
       hash1 = inputs_to_sign.first['1PWBu8o8pBHXCiVY5Y2Hcg4k8JYHw5Cdut']['hash']
       hash2 = inputs_to_sign.last['1PWBu8o8pBHXCiVY5Y2Hcg4k8JYHw5Cdut']['hash']
       
-      expect(hash1).to eq('eb4050b807321d423acdfdf5436dc1c21d089384ae8365de9dfc2e0403e922d0')
+      expect(hash1).to eq('80a4c6be4e34f09ed64d09452e7440bd08fb70093fabb2736e2cfc9986699c74')
       
-      expect(hash2).to eq('89db560019e770cb1f4d9f3a933962752b47a8250f2533db940a7f7dcd7c2e38')
+      expect(hash2).to eq('daed2963f464983c6991e5b899c856b2aa6142b99a748e00eb7a30d383510832')
       
       equal = hash1 == hash2
       
