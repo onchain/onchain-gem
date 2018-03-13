@@ -610,8 +610,6 @@ class OnChain::Transaction
 
       hash_type ||= SIGHASH_TYPE[:all]
       
-      puts input_idx
-      
       # This is what we useds to do.
       #pin  = tx.in.map.with_index{|input,idx|
       #  subscript = subscript.out[ input.prev_out_index ].script if 
@@ -625,7 +623,7 @@ class OnChain::Transaction
       #  input.to_payload(subscript)
       #}
 
-      pin = tx.in.map(&:to_payload)
+      pin = tx.in[input_idx].to_payload
 
       pout = tx.out.map(&:to_payload)
       

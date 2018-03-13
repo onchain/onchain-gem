@@ -32,13 +32,43 @@ describe OnChain do
       hash1 = inputs_to_sign.first['1PWBu8o8pBHXCiVY5Y2Hcg4k8JYHw5Cdut']['hash']
       hash2 = inputs_to_sign.last['1PWBu8o8pBHXCiVY5Y2Hcg4k8JYHw5Cdut']['hash']
       
-      expect(hash1).to eq('35cc246e12b15474a4e473253806a9400cb0340eb11877039f08228932e10932')
+      expect(hash1).to eq('eb4050b807321d423acdfdf5436dc1c21d089384ae8365de9dfc2e0403e922d0')
       
-      expect(hash2).to eq('35cc246e12b15474a4e473253806a9400cb0340eb11877039f08228932e10932')
+      expect(hash2).to eq('89db560019e770cb1f4d9f3a933962752b47a8250f2533db940a7f7dcd7c2e38')
       
       equal = hash1 == hash2
       
       expect(equal).to be(false)
+    end
+  
+  end
+  
+  it "should generate a tx of 1 input" do
+  
+    VCR.turned_off do
+      
+      public_key = 'b1SyPaKe8ZLKdKzp72gTGDB3RkaFN8SQK9N'
+    
+      stub_request(:get, "https://explorer.btcprivate.org/api/addr/#{public_key}/utxo").
+        with(headers: {'Accept'=>'*/*', 
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 
+          'Host'=>'explorer.btcprivate.org', 'User-Agent'=>'Ruby'}).
+        to_return(status: 200, body: 
+          '[{"address":"b1SyPaKe8ZLKdKzp72gTGDB3RkaFN8SQK9N","txid":"b167a4ee51b48d276f81c257b74312e59f6d2e014cd5e0a045dc3e4e5ab9fa27","vout":2,"scriptPubKey":"76a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac","amount":0.628,"satoshis":62800000,"height":284578,"confirmations":366},{"address":"b1SyPaKe8ZLKdKzp72gTGDB3RkaFN8SQK9N","txid":"5d0df199aeb0ff93ed2681a46819073688df0eba4d859f08647a8461f0df7ca9","vout":0,"scriptPubKey":"76a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac","amount":30,"satoshis":3000000000,"height":272939,"confirmations":12005},{"address":"b1SyPaKe8ZLKdKzp72gTGDB3RkaFN8SQK9N","txid":"0b51b283c65d3c4bc453f5e87947d0278c537dd6efda8a44d7a03c55399ee561","vout":0,"scriptPubKey":"76a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac","amount":2,"satoshis":200000000,"height":272938,"confirmations":12006},{"address":"b1SyPaKe8ZLKdKzp72gTGDB3RkaFN8SQK9N","txid":"00cc6fefe7605596c2447ffe316401e6c7e8b15dbe322d366c29d2db2e8b9902","vout":2,"scriptPubKey":"76a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac","amount":0.01221836,"satoshis":1221836,"height":272851,"confirmations":12093}]', 
+          headers: {})
+          
+      tx_hex, inputs_to_sign = OnChain::Transaction.create_single_address_transaction(
+        "#{public_key}", 
+        'b19nP23vNEyWiyz6B9G5hFnt7w12RAPbsU9', 50000, 
+        0, 'b19nP23vNEyWiyz6B9G5hFnt7w12RAPbsU9', 300, :bitcoin_private)
+          
+      expect(tx_hex).to eq('010000000127fab95a4e3edc45a0e0d54c012e6d9fe51243b757c2816f278db451eea467b1020000001976a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88acffffffff0250c30000000000001976a9143a48bfebcdc52c7b3831eab75a1955e58744c7e388ac047cbd03000000001976a914f6d7ed94dc8eb238c7347fc0120bf7cd9db5bb7b88ac00000000')
+      
+      #puts
+      
+      hash1 = inputs_to_sign.first['1PWBu8o8pBHXCiVY5Y2Hcg4k8JYHw5Cdut']['hash']
+      
+      expect(hash1).to eq('d51beb7c8768492c2033e5800b857acf64bb0dba135ad99926f50bb1ecb8db7c')
     end
   
   end
