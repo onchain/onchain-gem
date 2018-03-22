@@ -3,8 +3,8 @@ class OnChain::Etherscan
   ############################################################################
   # The provider methods
   
-  def get_token_balance(contract, address)
-    etherchain_get_token_balance(contract, address)
+  def get_token_balance(contract, address, decimalplaces = 18)
+    etherscan_get_token_balance(contract, address, decimalplaces)
   end
   
   def url
@@ -12,7 +12,7 @@ class OnChain::Etherscan
   end
   ############################################################################
   
-  def etherchain_get_token_balance(contract, address, decimalplaces = 18)
+  def etherscan_get_token_balance(contract, address, decimalplaces)
     
     cache_name = address + contract + 'tokbal'
     

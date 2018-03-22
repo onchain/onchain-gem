@@ -13,7 +13,7 @@ describe OnChain do
       contract = '0x1175a66a5c3343bbf06aa818bb482ddec30858e0'
       address = '0x46FC2341DC457BA023cF6d60Cb0729E5928A81E6'
       
-      bal = OnChain::BlockChain.get_token_balance(contract, address, :ethereum)
+      bal = OnChain::BlockChain.get_token_balance(contract, address, 18, :ethereum)
       
       expect(bal).to eq(150)
       

@@ -162,8 +162,10 @@ class OnChain::BlockChain
       return call_api_method(:get_nonce, network, address)
     end
   
-    def get_token_balance(contract, address, network = :ethereum)
-      return call_api_method(:get_token_balance, network, contract, address)
+    def get_token_balance(contract, address, decimalplaces, 
+        network = :ethereum)
+      return call_api_method(:get_token_balance, network, contract, 
+        address, decimalplaces)
     end
     ############################################################################
     
