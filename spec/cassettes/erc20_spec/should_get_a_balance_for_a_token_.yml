@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.etherscan.io/api?action=tokenbalance&address=0x46FC2341DC457BA023cF6d60Cb0729E5928A81E6&contractaddress=0x1175a66a5c3343bbf06aa818bb482ddec30858e0&module=account&tag=latest
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.etherscan.io
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/10.0
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Content-Type
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS
+      X-Frame-Options:
+      - SAMEORIGIN
+      Date:
+      - Thu, 22 Mar 2018 13:36:39 GMT
+      Content-Length:
+      - '62'
+    body:
+      encoding: UTF-8
+      string: '{"status":"1","message":"OK","result":"150000000000000000000"}'
+    http_version: 
+  recorded_at: Thu, 22 Mar 2018 13:36:40 GMT
+recorded_with: VCR 3.0.3

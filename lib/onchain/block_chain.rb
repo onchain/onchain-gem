@@ -84,7 +84,11 @@ class OnChain::BlockChain
     :ethereum => {
       :apis => [
         { :provider => OnChain::Etherchain.new,
-          :excludes => [:get_address_info, :get_unspent_outs, :send_tx]}
+          :excludes => [:get_address_info, :get_unspent_outs, :send_tx,
+          :get_token_balance]},
+        { :provider => OnChain::Etherscan.new,
+          :excludes => [:get_balance, :get_address_info, :get_unspent_outs, 
+          :send_tx, :get_address_info, :get_unspent_outs, :get_nonce]}
       ] 
     },
     :litecoin => {
@@ -111,7 +115,8 @@ class OnChain::BlockChain
   # If we have a BlockCypher token, add the blockcypher service.
   if ENV["BLOCKCYPHER_API_TOKEN"] != nil
     block_ether = { :provider => OnChain::EtherBlockCypher.new,
-          :excludes => [:get_address_info, :get_unspent_outs, :get_nonce]}
+          :excludes => [:get_address_info, :get_unspent_outs, 
+            :get_nonce, :get_token_balance]}
           
     COINS[:ethereum][:apis].unshift block_ether
   end
@@ -155,6 +160,10 @@ class OnChain::BlockChain
   
     def get_nonce(address, network = :ethereum)
       return call_api_method(:get_nonce, network, address)
+    end
+  
+    def get_token_balance(contract, address, network = :ethereum)
+      return call_api_method(:get_token_balance, network, contract, address)
     end
     ############################################################################
     

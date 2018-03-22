@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
                       "lib/onchain/providers/insight_api.rb",
                       "lib/onchain/providers/bitcoind_api.rb",
                       "lib/onchain/providers/etherchain_api.rb",
+                      "lib/onchain/providers/etherscan_api.rb",
                       "lib/onchain/providers/ethereum_blockcypher_api.rb",
                       "lib/onchain/providers/blockr_api.rb"]
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
