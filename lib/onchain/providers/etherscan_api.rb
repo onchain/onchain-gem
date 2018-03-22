@@ -12,7 +12,7 @@ class OnChain::Etherscan
   end
   ############################################################################
   
-  def etherchain_get_token_balance(contract, address)
+  def etherchain_get_token_balance(contract, address, decimalplaces = 18)
     
     cache_name = address + contract + 'tokbal'
     
@@ -23,8 +23,6 @@ class OnChain::Etherscan
       base = base + "&address=" + address
       base = base + '&tag=latest'
       #base = base + '&apikey=YourApiKeyToken'
-      
-      puts base
       
       json = OnChain::BlockChain.fetch_response(URI::encode(base))
       
@@ -37,6 +35,6 @@ class OnChain::Etherscan
       OnChain::BlockChain.cache_write(cache_name, bal, 120)
     end
     
-    return OnChain::BlockChain.cache_read(cache_name) 
+    return OnChain::BlockChain.cache_read(cache_name) / (10 ** decimalplaces)
   end
 end
