@@ -57,4 +57,14 @@ describe OnChain do
     end
     
   end
+  
+  it "should finalize a token transfer." do
+    
+    tx = "0xf869808504a817c800827530941175a66a5c3343bbf06aa818bb482ddec30858e080b844a9059cbb000000000000000000000000d61c98f88d0a6156e9a7775abf9c1c751658a04500000000000000000000000000000000000000000000000000000000000000b4808080"
+    
+    details = OnChain::Transaction.interrogate_token(tx, 18)
+    
+    puts details
+    
+  end
 end

@@ -72,11 +72,40 @@ class OnChain::Transaction
         fee_addresses, total_to_send, network)
     end
     
+    # Pull apart the ERC20 transaction
+    def interrogate_token(txhex, token_decimals)
+      
+      miners_fee = 0
+      
+      tx = Eth::Tx.decode txhex
+      
+      if tx.value != 0
+        throw 'Token transaction is sending Ethereum.'
+      end
+      
+      miners_fee = tx.gas_price * tx.gas_limit / 1_000000_000000_000000.0
+      
+      #total_to_send = tx.value / 1_000000_000000_000000.0
+      data = tx.data_hex
+      
+      address = '0x' + data[34..73]
+      
+      amount_hex = data[74 .. data.length - 1]
+      amount_hex.sub!(/^[0]+/,'')
+      
+      total_to_send = amount_hex.to_i(16)
+      
+      total_to_send = total_to_send / (10 ** token_decimals)
+      
+      return { miners_fee: miners_fee, total_change: 0,
+        total_to_send: total_to_send, our_fees: 0,
+        destination: address, unrecognised_destination: nil, 
+        primary_send: total_to_send 
+      }
+    end
+    
     def interrogate_transaction_ethereum(txhex, wallet_addresses)
       
-      our_fees = 0
-      unrecognised_destination = 0
-      total_change = 0
       miners_fee = 0
       
       tx = Eth::Tx.decode txhex
