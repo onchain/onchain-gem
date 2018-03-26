@@ -29,7 +29,7 @@ describe OnChain do
         '0x46FC2341DC457BA023cF6d60Cb0729E5928A81E6', # from me
         '0x46FC2341DC457BA023cF6d60Cb0729E5928A81E6', # to someone
         '0x1175a66a5c3343bbf06aa818bb482ddec30858e0', # this is the contract
-        1, 18) # Amount and decimal places.
+        1.0, 18) # Amount and decimal places.
         
       expect(hex).to eq('0xf869808504a817c800827530941175a66a5c3343bbf06aa818bb482ddec30858e080b844a9059cbb00000000000000000000000046fc2341dc457ba023cf6d60cb0729e5928a81e60000000000000000000000000000000000000000000000000de0b6b3a7640000808080')
       

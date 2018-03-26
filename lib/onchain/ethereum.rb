@@ -111,7 +111,7 @@ class OnChain::Ethereum
       destination_padded = Eth::Utils.remove_hex_prefix destination_addr.downcase  
       destination_padded = destination_padded.rjust(64, '0')
       
-      amount_padded_32 = (amount * (10 ** decimal_places)).to_s(16)
+      amount_padded_32 = (amount * (10 ** decimal_places)).to_i.to_s(16)
       amount_padded_32 = amount_padded_32.rjust(64, '0')
       
       return function_selector + destination_padded + amount_padded_32
