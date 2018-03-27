@@ -2,12 +2,13 @@ class OnChain::Ethereum
   class << self
     
     GAS_LIMIT = 30_000
+    GAS_LIMIT_TOKEN = 100_000
     GAS_PRICE = (0.00000002 * 1_000_000_000_000_000_000).to_i
     
     def create_single_address_transaction(orig_addr, dest_addr, amount, 
       gas_price = GAS_PRICE, gas_limit = GAS_LIMIT)
       
-      nonce = OnChain::BlockChain.get_nonce(orig_addr)
+      nonce = OnChain::BlockChain.get_next_nonce(orig_addr)
 
       tx = Eth::Tx.new({
         data: '00',
@@ -29,7 +30,7 @@ class OnChain::Ethereum
     def finish_single_address_transaction(orig_addr, dest_addr, amount, r, s ,v, 
       gas_price = GAS_PRICE, gas_limit = GAS_LIMIT)
   
-      nonce = OnChain::BlockChain.get_nonce(orig_addr)
+      nonce = OnChain::BlockChain.get_next_nonce(orig_addr)
       
       # Reconstruct it and sign it.
       tx = Eth::Tx.new({
@@ -51,9 +52,10 @@ class OnChain::Ethereum
     ERC20_TRANSFER_ABI = 'transfer(address,uint256)'
     
     def create_token_transfer(orig_addr, dest_addr, contract_addr, 
-      amount, decimal_places, gas_price = GAS_PRICE, gas_limit = GAS_LIMIT)
+      amount, decimal_places, gas_price = GAS_PRICE, 
+      gas_limit = GAS_LIMIT_TOKEN)
       
-      nonce = OnChain::BlockChain.get_nonce(orig_addr)
+      nonce = OnChain::BlockChain.get_next_nonce(orig_addr)
       
       data = erc20_transfer_data(dest_addr, amount, decimal_places)
 
@@ -76,9 +78,9 @@ class OnChain::Ethereum
     
     def finish_token_transfer(orig_addr, dest_addr, contract_addr, 
       amount, decimal_places, r, s ,v, 
-      gas_price = GAS_PRICE, gas_limit = GAS_LIMIT)
+      gas_price = GAS_PRICE, gas_limit = GAS_LIMIT_TOKEN)
   
-      nonce = OnChain::BlockChain.get_nonce(orig_addr)
+      nonce = OnChain::BlockChain.get_next_nonce(orig_addr)
       
       data = erc20_transfer_data(dest_addr, amount, decimal_places)
       

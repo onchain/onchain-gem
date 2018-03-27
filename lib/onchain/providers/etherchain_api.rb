@@ -22,8 +22,8 @@ class OnChain::Etherchain
     etherchain_get_all_balances(addresses)
   end
   
-  def get_nonce(address)
-    etherchain_get_nonce(address)
+  def get_next_nonce(address)
+    etherchain_get_next_nonce(address)
   end
   
   def url
@@ -63,7 +63,7 @@ class OnChain::Etherchain
     end
   end
   
-  def etherchain_get_nonce(address)
+  def etherchain_get_next_nonce(address)
     
     if OnChain::BlockChain.cache_read(address + 'nonce') == nil
       
@@ -74,7 +74,7 @@ class OnChain::Etherchain
       nonce = 0
       
       if json['nonce'] != nil
-        return json['nonce']
+        nonce = json['nonce'] + 1
       end
       
       OnChain::BlockChain.cache_write(address + 'nonce', nonce, 120)

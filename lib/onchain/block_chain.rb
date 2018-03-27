@@ -88,7 +88,7 @@ class OnChain::BlockChain
           :get_token_balance]},
         { :provider => OnChain::Etherscan.new,
           :excludes => [:get_balance, :get_address_info, :get_unspent_outs, 
-          :send_tx, :get_address_info, :get_unspent_outs, :get_nonce]}
+          :send_tx, :get_address_info, :get_unspent_outs, :get_next_nonce]}
       ] 
     },
     :litecoin => {
@@ -116,7 +116,7 @@ class OnChain::BlockChain
   if ENV["BLOCKCYPHER_API_TOKEN"] != nil
     block_ether = { :provider => OnChain::EtherBlockCypher.new,
           :excludes => [:get_address_info, :get_unspent_outs, 
-            :get_nonce, :get_token_balance]}
+            :get_next_nonce, :get_token_balance]}
           
     COINS[:ethereum][:apis].unshift block_ether
   end
@@ -158,8 +158,8 @@ class OnChain::BlockChain
       return call_api_method(:get_address_info, network, addresses)
     end
   
-    def get_nonce(address, network = :ethereum)
-      return call_api_method(:get_nonce, network, address)
+    def get_next_nonce(address, network = :ethereum)
+      return call_api_method(:get_next_nonce, network, address)
     end
   
     def get_token_balance(contract, address, decimalplaces, 

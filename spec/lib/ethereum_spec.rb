@@ -31,8 +31,8 @@ describe OnChain do
         '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
         amount_to_send)
         
-      expect(tx_hex).to eq('0xeb038504a817c80082753094891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
-      expect(hashes_to_sign[0]['hash']).to eq('8ad0863bccd3c8283e9230f367b35682be4420bc4fa27f2ea0092641b40d477b')  
+      expect(tx_hex).to eq('0xeb048504a817c80082753094891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
+      expect(hashes_to_sign[0]['hash']).to eq('d3dc0883d6c3f27e388bfb239b02f4a01935cc391a7c4b1f7031964e293eedde')  
    
     end
        
@@ -51,9 +51,9 @@ describe OnChain do
         '0x891f0139e4cb8afbf5847ba6260a4214c64c3658', 
         amount_to_send, 20_000_000_000, 3_141_592)
         
-      expect(tx_hex).to eq('0xec038504a817c800832fefd894891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
+      expect(tx_hex).to eq('0xec048504a817c800832fefd894891f0139e4cb8afbf5847ba6260a4214c64c365887038d7ea4c6800000808080')  
       
-      expect(hashes_to_sign[0]['hash']).to eq('c2e0c17d5b30b455b313acadbae14b893fb731da6d94cab1bfce141e397d7215')  
+      expect(hashes_to_sign[0]['hash']).to eq('bb3347926011f2394a146f177306c332aeca51bc553b1293b2136807b81cb564')  
       
       # These were generating by ethereum-util
       r = '0xbc8914339995ccc9787a2a34090345b349f18cd2a73ae5644996cbb9b5270396'
@@ -88,11 +88,11 @@ describe OnChain do
       
       OnChain::BlockChain.cache_write('0x58382493d401d91af0c6a375af9e949d6e106448nonce', nil)
       
-      nonce = OnChain::BlockChain.get_nonce('0x58382493d401d91af0c6a375af9e949d6e106448', :ethereum)
+      nonce = OnChain::BlockChain.get_next_nonce('0x58382493d401d91af0c6a375af9e949d6e106448', :ethereum)
       
-      expect(nonce).to eq(3)
+      expect(nonce).to eq(4)
       
-      nonce = OnChain::BlockChain.get_nonce('0xCB53ab94D84d6b2368013b47B002Bb31Bb36110e', :ethereum)
+      nonce = OnChain::BlockChain.get_next_nonce('0xCB53ab94D84d6b2368013b47B002Bb31Bb36110e', :ethereum)
       
       expect(nonce).to eq(0)
       
