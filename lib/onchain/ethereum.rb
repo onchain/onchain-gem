@@ -90,7 +90,7 @@ class OnChain::Ethereum
         gas_limit: gas_limit,
         gas_price: gas_price,
         nonce: nonce,
-        to: dest_addr,
+        to: contract_addr,
         value: 0,
         v: v,
         s: s.to_i(16),
