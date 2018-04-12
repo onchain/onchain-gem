@@ -65,7 +65,7 @@ class OnChain::BlockChain
       :apis => [
         # http://149.56.129.104/insight-api-zcash/peer
         # https://zcl-explorer.com/insight-api-zcash/
-        { :provider => OnChain::Insight.new('https://zcl-explorer.com/api/', :zclassic),
+        { :provider => OnChain::Insight.new('http://explorer.zclassicblue.org:3001/insight-api-zcash/', :zclassic),
           :excludes => [:get_address_info] }
       ] 
     },

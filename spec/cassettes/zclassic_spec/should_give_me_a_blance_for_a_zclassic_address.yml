@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://zcl-explorer.com/api/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
+    uri: http://explorer.zclassicblue.org:3001/insight-api-zcash/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
     body:
       encoding: US-ASCII
       string: ''
@@ -14,56 +14,47 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - zcl-explorer.com
+      - explorer.zclassicblue.org:3001
   response:
     status:
       code: 200
       message: OK
     headers:
-      Date:
-      - Tue, 20 Feb 2018 11:51:26 GMT
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10799'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      X-Content-Type-Options:
+      - nosniff
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
       - '1'
-      Connection:
-      - keep-alive
-      Set-Cookie:
-      - __cfduid=d71ac208c418dcb193a7b1378f4baea441519127486; expires=Wed, 20-Feb-19
-        11:51:26 GMT; path=/; domain=.zcl-explorer.com; HttpOnly; Secure
-      X-Powered-By:
-      - Express
-      X-Ratelimit-Limit:
-      - '10800'
-      X-Ratelimit-Remaining:
-      - '10796'
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Allow-Methods:
-      - GET, HEAD, PUT, POST, OPTIONS
-      Access-Control-Allow-Headers:
-      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
-        cf-connecting-ip
-      X-Content-Type-Options:
-      - nosniff
       Etag:
       - W/"1-tlifxqsNyCzxIJnRwtQKuZToQQw"
       Vary:
       - Accept-Encoding
-      Expect-Ct:
-      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 3f0141040b7669ef-LHR
+      Date:
+      - Thu, 12 Apr 2018 06:56:15 GMT
+      Connection:
+      - keep-alive
     body:
       encoding: UTF-8
       string: '0'
     http_version: 
-  recorded_at: Tue, 20 Feb 2018 11:51:26 GMT
+  recorded_at: Thu, 12 Apr 2018 06:56:15 GMT
 - request:
     method: get
-    uri: https://zcl-explorer.com/api/addr/t1gNnuUDGnW57oMYS1xqQkVAfNxjNd7Tm7B/balance
+    uri: http://explorer.zclassicblue.org:3001/insight-api-zcash/addr/t1gNnuUDGnW57oMYS1xqQkVAfNxjNd7Tm7B/balance
     body:
       encoding: US-ASCII
       string: ''
@@ -75,29 +66,18 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - zcl-explorer.com
+      - explorer.zclassicblue.org:3001
   response:
     status:
       code: 200
       message: OK
     headers:
-      Date:
-      - Tue, 20 Feb 2018 11:51:26 GMT
-      Content-Type:
-      - application/json; charset=utf-8
-      Content-Length:
-      - '10'
-      Connection:
-      - keep-alive
-      Set-Cookie:
-      - __cfduid=df6008419f1b13a141f5c34dcf02d83101519127486; expires=Wed, 20-Feb-19
-        11:51:26 GMT; path=/; domain=.zcl-explorer.com; HttpOnly; Secure
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
       - '10800'
       X-Ratelimit-Remaining:
-      - '10795'
+      - '10798'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -107,19 +87,21 @@ http_interactions:
         cf-connecting-ip
       X-Content-Type-Options:
       - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '9'
       Etag:
-      - W/"a-2hZhupQ/GDHFbh9TGmrI/VF7KHQ"
+      - W/"9-VGHEVjgNkDUnUIJF3Jwh3fLg1Ww"
       Vary:
       - Accept-Encoding
-      Expect-Ct:
-      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 3f01410499726aa3-LHR
+      Date:
+      - Thu, 12 Apr 2018 06:56:15 GMT
+      Connection:
+      - keep-alive
     body:
       encoding: UTF-8
-      string: '1715589998'
+      string: '129581789'
     http_version: 
-  recorded_at: Tue, 20 Feb 2018 11:51:26 GMT
+  recorded_at: Thu, 12 Apr 2018 06:56:15 GMT
 recorded_with: VCR 3.0.3
