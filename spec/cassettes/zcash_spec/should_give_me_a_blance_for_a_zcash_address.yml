@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://zec-bitcore2.trezor.io/api/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
+    uri: https://zcash.blockexplorer.com/api/addr/t3PUpXFR7vsoqiBDaoHRi6HxMLZuh2tnu3C/balance
     body:
       encoding: US-ASCII
       string: ''
@@ -14,14 +14,14 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - zec-bitcore2.trezor.io
+      - zcash.blockexplorer.com
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Tue, 09 Jan 2018 08:27:54 GMT
+      - Tue, 03 Jul 2018 06:17:50 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -29,14 +29,14 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d7c22d95c7ab9b3c61f7a7c5ef33e4c6f1515486474; expires=Wed, 09-Jan-19
-        08:27:54 GMT; path=/; domain=.trezor.io; HttpOnly
+      - __cfduid=df05944b23a889f06b391a374293337621530598670; expires=Wed, 03-Jul-19
+        06:17:50 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
       - '10800'
       X-Ratelimit-Remaining:
-      - '10798'
+      - '10799'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -50,13 +50,15 @@ http_interactions:
       - W/"1-tlifxqsNyCzxIJnRwtQKuZToQQw"
       Vary:
       - Accept-Encoding
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Cf-Ray:
-      - 3da60520ce4269c4-CDG
+      - 43473b3949d06926-CDG
     body:
       encoding: UTF-8
       string: '0'
     http_version: 
-  recorded_at: Tue, 09 Jan 2018 08:27:54 GMT
+  recorded_at: Tue, 03 Jul 2018 06:17:50 GMT
 recorded_with: VCR 3.0.3

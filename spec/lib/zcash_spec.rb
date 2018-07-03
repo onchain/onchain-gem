@@ -58,4 +58,15 @@ describe OnChain do
     
   end
   
+  it "should generate an over winter tx" do
+    
+    pk = "L2ZDeyeJcuqewNwG4VEttFUjLm3tG8cSo13MWPNdHaWfa7oGJrog"
+
+    Bitcoin.network = :zcash
+    key = Bitcoin::Key.from_base58(pk)
+    
+    expect(key.addr).to eq("t1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ")
+  
+  end
+  
 end
