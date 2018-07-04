@@ -1,8 +1,9 @@
 PATH
   remote: .
   specs:
-    onchain (5.07)
+    onchain (5.08)
       bitcoin-ruby
+      blake2
       eth
       money-tree
 
@@ -12,6 +13,7 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     bitcoin-ruby (0.0.18)
+    blake2 (0.5.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.3)

@@ -5,6 +5,12 @@ class OnChain::Transaction
     MINERS_BYTE_FEE = 100
     CACHE_KEY = 'Bitcoin21Fees'
     CACHE_FOR = 10 # 10 minutes, roughly each block.
+    
+    # Zcash
+    ZCASH_PREVOUTS_HASH_PERSONALIZATION = 'ZcashPrevoutHash'
+    ZCASH_SEQUENCE_HASH_PERSONALIZATION = 'ZcashSequenceHash'
+    ZCASH_OUTPUTS_HASH_PERSONALIZATION = 'ZcashOutputsHash'
+    ZCASH_JOINSPLITS_HASH_PERSONALIZATION = 'ZcashJSplitsHash'
       
     def calculate_miners_fee(addresses, amount, network = :bitcoin)
       
@@ -522,12 +528,20 @@ class OnChain::Transaction
       inputs_to_sign = []
       tx.in.each_with_index do |txin, index|
 
-        if Bitcoin::NETWORKS[network][:fork_id] == nil
+
+        if network == :zcash
+
+          # ZCash
+          script_code = Bitcoin::Protocol.pack_var_string(txin.script)
+          sig_hash =  Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
+          hash = signature_hash_for_zcash(tx, index, txin.script, 
+            unspents[index][3], sig_hash)
+
+        elsif Bitcoin::NETWORKS[network][:fork_id] == nil
 
           # The Bitcoin and statndard forks implement the hash
           hash = tx.signature_hash_for_input(index, txin.script, 
             Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all])
-
         elsif network == :bitcoin_private
 
           # Bitcoin private
@@ -593,6 +607,73 @@ class OnChain::Transaction
     end
     
     private
+    
+    # ZCash over winter.
+    #
+    # https://github.com/zcash/zips/blob/master/zip-0143.rst
+    #
+    def signature_hash_for_zcash(tx, input_idx, 
+      script_code, prev_out_value, hash_type)
+     
+      hash_prevouts = OnChain::hex_to_bin(Blake2.hex(
+        tx.in.map{|i| [i.prev_out_hash, i.prev_out_index].pack("a32V")}.join,
+        Blake2::Key.from_string(ZCASH_PREVOUTS_HASH_PERSONALIZATION)))
+        
+      hash_sequence = OnChain::hex_to_bin(Blake2.hex(
+        tx.in.map{|i|i.sequence}.join, 
+        Blake2::Key.from_string(ZCASH_SEQUENCE_HASH_PERSONALIZATION)))
+        
+      outpoint = [tx.in[input_idx].prev_out_hash, 
+        tx.in[input_idx].prev_out_index].pack("a32V")
+        
+      amount = [prev_out_value].pack("Q")
+      
+      nsequence = tx.in[input_idx].sequence
+      
+      hash_outputs = OnChain::hex_to_bin(Blake2.hex(
+        tx.out.map{|o|o.to_payload}.join, 
+        Blake2::Key.from_string(ZCASH_OUTPUTS_HASH_PERSONALIZATION)))
+        
+      hash_joins        = OnChain::hex_to_bin("0" * 64)
+      hash_type         = [hash_type].pack("V")
+      lock_time         = [tx.lock_time].pack("V")
+      expiry_height     = [0].pack("V")
+      version           = [1 | 0x80000000].pack("V")
+      version_group_id  = [0x03c48270].pack("V")
+
+      buf = [ 
+        version,                                  # 1. nVersion | fOverwintered
+        version_group_id,                         # 2. nVersionGroupId
+        hash_prevouts,                            # 3. hashPrevouts
+        hash_sequence,                            # 4. hashSequence
+        hash_outputs,                             # 5. hashOutputs
+        hash_joins,                               # 6. hashJoinSplits
+        lock_time,                                # 7. nLockTime
+        expiry_height,                            # 8. expiryHeight
+        hash_type,                                # 9. nHashType
+        outpoint,                                 # 10a. outpoint
+        script_code,                              # 10b. scriptCode
+        amount,                                   # 10c. value
+        nsequence                                 # 10d. nSequence
+      ].join
+      
+      
+      puts OnChain::bin_to_hex(version) + "\t\t\t\t\t\t\t\t\t# 1. nVersion | fOverwintered"
+      puts OnChain::bin_to_hex(version_group_id) + "\t\t\t\t\t\t\t\t\t# 2. nVersionGroupId"
+      puts OnChain::bin_to_hex(hash_prevouts) + "\t\t# 3. hashPrevouts"
+      puts OnChain::bin_to_hex(hash_sequence) + "\t\t# 4. hashSequence"
+      puts OnChain::bin_to_hex(hash_outputs) + "\t\t# 5. hash_outputs"
+      puts OnChain::bin_to_hex(hash_joins) + "\t\t# 6. hashJoinSplits"
+      puts OnChain::bin_to_hex(lock_time) + "\t\t\t\t\t\t\t\t\t# 7. nLockTime"
+      puts OnChain::bin_to_hex(hash_type) + "\t\t\t\t\t\t\t\t\t# 9. nHashType"
+      puts OnChain::bin_to_hex(outpoint) + "\t# 10a. outpoint"
+      puts OnChain::bin_to_hex(script_code) + "\t\t\t\t# 10b. scriptCode"
+      puts OnChain::bin_to_hex(amount) + "\t\t\t\t\t\t\t\t# 10c. value"
+      puts OnChain::bin_to_hex(nsequence) + "\t\t\t\t\t\t\t\t\t# 10d. nSequence"
+
+      puts Blake2.hex(buf, Blake2::Key.from_string(ZCASH_OUTPUTS_HASH_PERSONALIZATION))
+      Digest::SHA256.digest( Digest::SHA256.digest( buf ) )
+    end
     
     # Used by bitocin cash with a fork_id of zero.
     #

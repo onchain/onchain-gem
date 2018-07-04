@@ -60,13 +60,21 @@ describe OnChain do
   
   it "should generate an over winter tx" do
     
-    pk = "L2ZDeyeJcuqewNwG4VEttFUjLm3tG8cSo13MWPNdHaWfa7oGJrog"
-
-    Bitcoin.network = :zcash
-    key = Bitcoin::Key.from_base58(pk)
     
-    expect(key.addr).to eq("t1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ")
+    VCR.use_cassette(the_subject) do
+      pk = "L2ZDeyeJcuqewNwG4VEttFUjLm3tG8cSo13MWPNdHaWfa7oGJrog"
   
+      Bitcoin.network = :zcash
+      key = Bitcoin::Key.from_base58(pk)
+      
+      expect(key.addr).to eq("t1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ")
+    
+      tx, inputs_to_sign = OnChain::Transaction.create_transaction_from_public_keys(
+        ['02a8c45cc289f1a2707f7df4ca5f12348d56e8f48ee9abe86d3b9213e17922cbc8'], 
+        't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 4000000, 
+        30000, 't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 10000, :zcash)
+        
+    end
   end
   
 end
