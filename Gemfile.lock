@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onchain (5.08)
+    onchain (5.09)
       bitcoin-ruby
       blake2
       eth

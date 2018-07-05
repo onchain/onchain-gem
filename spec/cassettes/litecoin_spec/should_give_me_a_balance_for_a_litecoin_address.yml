@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://ltc-bitcore2.trezor.io/api/addr/LUbnkC2CwM3QtELafmaARDMnrfmdHAKjLP/balance
+    uri: https://insight.litecore.io/api/addr/LUbnkC2CwM3QtELafmaARDMnrfmdHAKjLP/balance
     body:
       encoding: US-ASCII
       string: ''
@@ -14,14 +14,14 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - ltc-bitcore2.trezor.io
+      - insight.litecore.io
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Mon, 19 Feb 2018 14:24:44 GMT
+      - Thu, 05 Jul 2018 08:41:46 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -29,14 +29,10 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d761811900f14e9dcb3ad4e81d9a6380e1519050283; expires=Tue, 19-Feb-19
-        14:24:43 GMT; path=/; domain=.trezor.io; HttpOnly
+      - __cfduid=d2cbd64a87f0396d8d46e5a98c5b757631530780105; expires=Fri, 05-Jul-19
+        08:41:45 GMT; path=/; domain=.litecore.io; HttpOnly
       X-Powered-By:
       - Express
-      X-Ratelimit-Limit:
-      - '10800'
-      X-Ratelimit-Remaining:
-      - '10796'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -44,21 +40,25 @@ http_interactions:
       Access-Control-Allow-Headers:
       - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
         cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
       X-Content-Type-Options:
       - nosniff
       Etag:
       - W/"1-tlifxqsNyCzxIJnRwtQKuZToQQw"
       Vary:
       - Accept-Encoding
+      X-Cache-Status:
+      - MISS
       Expect-Ct:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Cf-Ray:
-      - 3ef9e432dd676902-CDG
+      - 435888cd2fc73bcf-CDG
     body:
       encoding: UTF-8
       string: '0'
     http_version: 
-  recorded_at: Mon, 19 Feb 2018 14:24:44 GMT
+  recorded_at: Thu, 05 Jul 2018 08:41:46 GMT
 recorded_with: VCR 3.0.3

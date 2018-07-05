@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.blockcypher.com/v1/eth/main/addrs/0x58382493d401d91af0c6a375af9e949d6e106448/balance?token=b85f0e6d0f944803854e91becc60340e
+    uri: https://www.etherchain.org/api/account/0x58382493d401d91af0c6a375af9e949d6e106448
     body:
       encoding: US-ASCII
       string: ''
@@ -14,46 +14,56 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - api.blockcypher.com
+      - www.etherchain.org
   response:
     status:
       code: 200
       message: OK
     headers:
-      Server:
-      - nginx/1.13.4
       Date:
-      - Fri, 02 Mar 2018 11:41:32 GMT
+      - Thu, 05 Jul 2018 08:50:58 GMT
       Content-Type:
-      - application/json
+      - application/json; charset=utf-8
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
-      Access-Control-Allow-Headers:
-      - Origin, X-Requested-With, Content-Type, Accept
-      Access-Control-Allow-Methods:
-      - GET, POST, PUT, DELETE
+      Set-Cookie:
+      - __cfduid=d564b26e5434ba2ef3c56e8bb17dc98b31530780658; expires=Fri, 05-Jul-19
+        08:50:58 GMT; path=/; domain=.etherchain.org; HttpOnly
+      - connect.sid=s%3AXubw7AtbnVVjHR9w2gLXjWfQJkuL0eVp.x4gMxgOO93XD3M7Mn3i40HWMz3hyhvO0usNTvYltT2s;
+        Path=/; HttpOnly
+      Vary:
+      - Accept-Encoding
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - public, max-age=60
       Access-Control-Allow-Origin:
       - "*"
-      X-Ratelimit-Remaining:
-      - '154'
+      Etag:
+      - W/"151-eiGFzEA4G1Au9T/FJnk9vv/R87A"
+      X-Cache-Status:
+      - MISS
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 43589649ce3da8c3-CDG
     body:
       encoding: ASCII-8BIT
-      string: |-
-        {
-          "address": "58382493d401d91af0c6a375af9e949d6e106448",
-          "total_received": 12696260000000000,
-          "total_sent": 12696260000000000,
-          "balance": 0,
-          "unconfirmed_balance": 0,
-          "final_balance": 0,
-          "n_tx": 5,
-          "unconfirmed_n_tx": 0,
-          "final_n_tx": 5,
-          "nonce": 4,
-          "pool_nonce": 4
-        }
+      string: '{"address":"58382493d401d91af0c6a375af9e949d6e106448","balance":"0","nonce":null,"code":"","creationbytecode":"","creationbytecodehash":"","constructorargs":"","name":null,"firstseen":"2017-09-06T15:12:03.000Z","createdby":"","swarmhash":"","lastseen":"2017-12-04T18:28:38.000Z","blocksmined":0,"unclesmined":0,"txsent":4,"txreceived":1}'
     http_version: 
-  recorded_at: Fri, 02 Mar 2018 11:41:32 GMT
+  recorded_at: Thu, 05 Jul 2018 08:50:58 GMT
 recorded_with: VCR 3.0.3

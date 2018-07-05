@@ -11,6 +11,7 @@ class OnChain::Transaction
     ZCASH_SEQUENCE_HASH_PERSONALIZATION = 'ZcashSequenceHash'
     ZCASH_OUTPUTS_HASH_PERSONALIZATION = 'ZcashOutputsHash'
     ZCASH_JOINSPLITS_HASH_PERSONALIZATION = 'ZcashJSplitsHash'
+    ZCASH_SIG_HASH_PERSONALIZATION = 'ZcashSigHash\x19\x1b\xa8\x5b'
       
     def calculate_miners_fee(addresses, amount, network = :bitcoin)
       
@@ -228,7 +229,7 @@ class OnChain::Transaction
       txhex, inputs_to_sign, total_input_value = create_single_signature_transaction(
         orig_addresses, dest_addr, amount, 
         fee_in_satoshi, fee_addr, miners_fee, network)
-       
+      
       its = []
       pub_keys.each do |key| 
         addr = pubhex_to_address(key, :bitcoin)
@@ -671,8 +672,10 @@ class OnChain::Transaction
       puts OnChain::bin_to_hex(amount) + "\t\t\t\t\t\t\t\t# 10c. value"
       puts OnChain::bin_to_hex(nsequence) + "\t\t\t\t\t\t\t\t\t# 10d. nSequence"
 
-      puts Blake2.hex(buf, Blake2::Key.from_string(ZCASH_OUTPUTS_HASH_PERSONALIZATION))
-      Digest::SHA256.digest( Digest::SHA256.digest( buf ) )
+      blake_result = Blake2.hex(buf, 
+        Blake2::Key.from_string(ZCASH_SIG_HASH_PERSONALIZATION))
+      
+      return OnChain::hex_to_bin(blake_result)
     end
     
     # Used by bitocin cash with a fork_id of zero.

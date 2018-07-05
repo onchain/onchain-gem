@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://ltc-bitcore2.trezor.io/api/addr/LbzPdP41rXBD46WjRzLUk23F228G5LyEeJ
+    uri: https://insight.litecore.io/api/addr/LbzPdP41rXBD46WjRzLUk23F228G5LyEeJ
     body:
       encoding: US-ASCII
       string: ''
@@ -14,14 +14,14 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - ltc-bitcore2.trezor.io
+      - insight.litecore.io
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Mon, 05 Mar 2018 14:12:41 GMT
+      - Thu, 05 Jul 2018 08:41:56 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -29,14 +29,10 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=dd751d3a598d326da5b3df7eb035256ee1520259161; expires=Tue, 05-Mar-19
-        14:12:41 GMT; path=/; domain=.trezor.io; HttpOnly
+      - __cfduid=d50d32db062f1c095af0cea55681de1a91530780115; expires=Fri, 05-Jul-19
+        08:41:55 GMT; path=/; domain=.litecore.io; HttpOnly
       X-Powered-By:
       - Express
-      X-Ratelimit-Limit:
-      - '10800'
-      X-Ratelimit-Remaining:
-      - '10799'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -44,26 +40,30 @@ http_interactions:
       Access-Control-Allow-Headers:
       - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
         cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
       X-Content-Type-Options:
       - nosniff
       Etag:
       - W/"161-DBaYS2LcLolHkGM2MFbUHditTfk"
       Vary:
       - Accept-Encoding
+      X-Cache-Status:
+      - MISS
       Expect-Ct:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Cf-Ray:
-      - 3f6d2dcdfddba88d-CDG
+      - 4358890c2ff63bd5-CDG
     body:
       encoding: ASCII-8BIT
       string: '{"addrStr":"LbzPdP41rXBD46WjRzLUk23F228G5LyEeJ","balance":0.05142032,"balanceSat":5142032,"totalReceived":0.05142032,"totalReceivedSat":5142032,"totalSent":0,"totalSentSat":0,"unconfirmedBalance":0,"unconfirmedBalanceSat":0,"unconfirmedTxApperances":0,"txApperances":1,"transactions":["8a2b0a4fd4e8519f325298ce286e28551ffe5acf5d118803e23f185bafdf6d64"]}'
     http_version: 
-  recorded_at: Mon, 05 Mar 2018 14:12:41 GMT
+  recorded_at: Thu, 05 Jul 2018 08:41:56 GMT
 - request:
     method: get
-    uri: https://ltc-bitcore2.trezor.io/api/tx/8a2b0a4fd4e8519f325298ce286e28551ffe5acf5d118803e23f185bafdf6d64
+    uri: https://insight.litecore.io/api/tx/8a2b0a4fd4e8519f325298ce286e28551ffe5acf5d118803e23f185bafdf6d64
     body:
       encoding: US-ASCII
       string: ''
@@ -75,14 +75,14 @@ http_interactions:
       User-Agent:
       - Ruby
       Host:
-      - ltc-bitcore2.trezor.io
+      - insight.litecore.io
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Mon, 05 Mar 2018 14:12:41 GMT
+      - Thu, 05 Jul 2018 08:41:56 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -90,14 +90,10 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d7b0775dba4d695aa6625a2413270ceb11520259161; expires=Tue, 05-Mar-19
-        14:12:41 GMT; path=/; domain=.trezor.io; HttpOnly
+      - __cfduid=dafc47c092b4d94a6da33cddb597faeb81530780116; expires=Fri, 05-Jul-19
+        08:41:56 GMT; path=/; domain=.litecore.io; HttpOnly
       X-Powered-By:
       - Express
-      X-Ratelimit-Limit:
-      - '10800'
-      X-Ratelimit-Remaining:
-      - '10798'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -105,24 +101,28 @@ http_interactions:
       Access-Control-Allow-Headers:
       - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
         cf-connecting-ip
+      Cache-Control:
+      - public, max-age=30
       X-Content-Type-Options:
       - nosniff
       Etag:
-      - W/"611-N3sqgUani0VRV7cBdUUAPAJUGjQ"
+      - W/"612-W+Hg7HD0OwFGamGt71PNEXw5e94"
       Vary:
       - Accept-Encoding
+      X-Cache-Status:
+      - MISS
       Expect-Ct:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Cf-Ray:
-      - 3f6d2dce8e736944-CDG
+      - 4358890d8f483bc3-CDG
     body:
       encoding: ASCII-8BIT
       string: '{"txid":"8a2b0a4fd4e8519f325298ce286e28551ffe5acf5d118803e23f185bafdf6d64","version":1,"locktime":0,"vin":[{"txid":"31c7bad1234c73ea146d7f18a5016e48e4d3c89511d90789e3cb9bec15cdbf44","vout":43,"sequence":4294967295,"n":0,"scriptSig":{"hex":"473044022059a0f60b1cbd4b10a0298512a4157083f6c131d0b6ee32eb20e6d22fce32d91b022064a059c7e9d8e500d54865b46b807ef1d0c461c8a1f771ae08a0f69dfd9e71300121024ebb57037e4a74ea7eb2215cfe45a2e19b474d9bcfe8bdcdb905d42d5941b797","asm":"3044022059a0f60b1cbd4b10a0298512a4157083f6c131d0b6ee32eb20e6d22fce32d91b022064a059c7e9d8e500d54865b46b807ef1d0c461c8a1f771ae08a0f69dfd9e7130[ALL]
         024ebb57037e4a74ea7eb2215cfe45a2e19b474d9bcfe8bdcdb905d42d5941b797"},"addr":"LMhb7STao6j1GNztHC3TwjKwEGbPp7p7cj","valueSat":5218033,"value":0.05218033,"doubleSpentTxID":null}],"vout":[{"value":"0.05142032","n":0,"scriptPubKey":{"hex":"76a914b7e97d0c1f7e19b9bade9c3484872027894c575888ac","asm":"OP_DUP
         OP_HASH160 b7e97d0c1f7e19b9bade9c3484872027894c5758 OP_EQUALVERIFY OP_CHECKSIG","addresses":["LbzPdP41rXBD46WjRzLUk23F228G5LyEeJ"],"type":"pubkeyhash"},"spentTxId":null,"spentIndex":null,"spentHeight":null},{"value":"0.00053701","n":1,"scriptPubKey":{"hex":"0014011a001fd0e45026df9192728bf0fb515238f15c","asm":"0
-        011a001fd0e45026df9192728bf0fb515238f15c"},"spentTxId":null,"spentIndex":null,"spentHeight":null}],"blockhash":"c54b0598daceeaa36dd17be2224fe86735be527da21a0e1dde637f369a8c4a23","blockheight":1378179,"confirmations":1562,"time":1520032335,"blocktime":1520032335,"valueOut":0.05195733,"size":222,"valueIn":0.05218033,"fees":0.000223}'
+        011a001fd0e45026df9192728bf0fb515238f15c"},"spentTxId":null,"spentIndex":null,"spentHeight":null}],"blockhash":"c54b0598daceeaa36dd17be2224fe86735be527da21a0e1dde637f369a8c4a23","blockheight":1378179,"confirmations":72828,"time":1520032335,"blocktime":1520032335,"valueOut":0.05195733,"size":222,"valueIn":0.05218033,"fees":0.000223}'
     http_version: 
-  recorded_at: Mon, 05 Mar 2018 14:12:41 GMT
+  recorded_at: Thu, 05 Jul 2018 08:41:56 GMT
 recorded_with: VCR 3.0.3
