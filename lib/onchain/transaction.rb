@@ -659,18 +659,18 @@ class OnChain::Transaction
       ].join
       
       
-      puts OnChain::bin_to_hex(version) + "\t\t\t\t\t\t\t\t\t# 1. nVersion | fOverwintered"
-      puts OnChain::bin_to_hex(version_group_id) + "\t\t\t\t\t\t\t\t\t# 2. nVersionGroupId"
-      puts OnChain::bin_to_hex(hash_prevouts) + "\t\t# 3. hashPrevouts"
-      puts OnChain::bin_to_hex(hash_sequence) + "\t\t# 4. hashSequence"
-      puts OnChain::bin_to_hex(hash_outputs) + "\t\t# 5. hash_outputs"
-      puts OnChain::bin_to_hex(hash_joins) + "\t\t# 6. hashJoinSplits"
-      puts OnChain::bin_to_hex(lock_time) + "\t\t\t\t\t\t\t\t\t# 7. nLockTime"
-      puts OnChain::bin_to_hex(hash_type) + "\t\t\t\t\t\t\t\t\t# 9. nHashType"
-      puts OnChain::bin_to_hex(outpoint) + "\t# 10a. outpoint"
-      puts OnChain::bin_to_hex(script_code) + "\t\t\t\t# 10b. scriptCode"
-      puts OnChain::bin_to_hex(amount) + "\t\t\t\t\t\t\t\t# 10c. value"
-      puts OnChain::bin_to_hex(nsequence) + "\t\t\t\t\t\t\t\t\t# 10d. nSequence"
+      #puts OnChain::bin_to_hex(version) + "\t\t\t\t\t\t\t\t\t# 1. nVersion | fOverwintered"
+      #puts OnChain::bin_to_hex(version_group_id) + "\t\t\t\t\t\t\t\t\t# 2. nVersionGroupId"
+      #puts OnChain::bin_to_hex(hash_prevouts) + "\t\t# 3. hashPrevouts"
+      #puts OnChain::bin_to_hex(hash_sequence) + "\t\t# 4. hashSequence"
+      #puts OnChain::bin_to_hex(hash_outputs) + "\t\t# 5. hash_outputs"
+      #puts OnChain::bin_to_hex(hash_joins) + "\t\t# 6. hashJoinSplits"
+      #puts OnChain::bin_to_hex(lock_time) + "\t\t\t\t\t\t\t\t\t# 7. nLockTime"
+      #puts OnChain::bin_to_hex(hash_type) + "\t\t\t\t\t\t\t\t\t# 9. nHashType"
+      #puts OnChain::bin_to_hex(outpoint) + "\t# 10a. outpoint"
+      #puts OnChain::bin_to_hex(script_code) + "\t\t\t\t# 10b. scriptCode"
+      #puts OnChain::bin_to_hex(amount) + "\t\t\t\t\t\t\t\t# 10c. value"
+      #puts OnChain::bin_to_hex(nsequence) + "\t\t\t\t\t\t\t\t\t# 10d. nSequence"
 
       blake_result = Blake2.hex(buf, 
         Blake2::Key.from_string(ZCASH_SIG_HASH_PERSONALIZATION))
