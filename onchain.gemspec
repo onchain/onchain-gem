@@ -33,5 +33,4 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'money-tree'
   gem.add_dependency 'bitcoin-ruby'
   gem.add_dependency 'eth'
-  gem.add_dependency 'blake2'
 end

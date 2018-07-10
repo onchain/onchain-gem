@@ -616,13 +616,13 @@ class OnChain::Transaction
     def signature_hash_for_zcash(tx, input_idx, 
       script_code, prev_out_value, hash_type)
      
-      hash_prevouts = OnChain::hex_to_bin(Blake2.hex(
-        tx.in.map{|i| [i.prev_out_hash, i.prev_out_index].pack("a32V")}.join,
-        Blake2::Key.from_string(ZCASH_PREVOUTS_HASH_PERSONALIZATION)))
-        
-      hash_sequence = OnChain::hex_to_bin(Blake2.hex(
-        tx.in.map{|i|i.sequence}.join, 
-        Blake2::Key.from_string(ZCASH_SEQUENCE_HASH_PERSONALIZATION)))
+      prev_outs_bin = tx.in.map{|i| [i.prev_out_hash, i.prev_out_index].pack("a32V")}.join
+      blake_hex = OnChain.blake2b(OnChain::bin_to_hex(prev_outs_bin), ZCASH_PREVOUTS_HASH_PERSONALIZATION)
+      hash_prevouts = OnChain::hex_to_bin(blake_hex)
+      
+      sequence_bin = tx.in.map{|i|i.sequence}.join
+      blake_hex = OnChain.blake2b(OnChain::bin_to_hex(sequence_bin), ZCASH_SEQUENCE_HASH_PERSONALIZATION)
+      hash_sequence = OnChain::hex_to_bin(blake_hex)
         
       outpoint = [tx.in[input_idx].prev_out_hash, 
         tx.in[input_idx].prev_out_index].pack("a32V")
@@ -631,9 +631,9 @@ class OnChain::Transaction
       
       nsequence = tx.in[input_idx].sequence
       
-      hash_outputs = OnChain::hex_to_bin(Blake2.hex(
-        tx.out.map{|o|o.to_payload}.join, 
-        Blake2::Key.from_string(ZCASH_OUTPUTS_HASH_PERSONALIZATION)))
+      outputs_bin = tx.out.map{|o|o.to_payload}.join
+      blake_hex = OnChain.blake2b(OnChain::bin_to_hex(outputs_bin), ZCASH_OUTPUTS_HASH_PERSONALIZATION)
+      hash_outputs = OnChain::hex_to_bin(blake_hex)
         
       hash_joins        = OnChain::hex_to_bin("0" * 64)
       hash_type         = [hash_type].pack("V")
@@ -672,10 +672,9 @@ class OnChain::Transaction
       #puts OnChain::bin_to_hex(amount) + "\t\t\t\t\t\t\t\t# 10c. value"
       #puts OnChain::bin_to_hex(nsequence) + "\t\t\t\t\t\t\t\t\t# 10d. nSequence"
 
-      blake_result = Blake2.hex(buf, 
-        Blake2::Key.from_string(ZCASH_SIG_HASH_PERSONALIZATION))
+      blake_hex = OnChain.blake2b(OnChain::bin_to_hex(buf), ZCASH_SIG_HASH_PERSONALIZATION)
       
-      return OnChain::hex_to_bin(blake_result)
+      return OnChain::hex_to_bin(blake_hex)
     end
     
     # Used by bitocin cash with a fork_id of zero.

@@ -22,6 +22,11 @@ class OnChain
     def hex_to_bin(hex)
       return hex.scan(/../).map { |x| x.hex }.pack('c*')
     end
+    
+    def blake2b(data, person)
+      cmd = "python3 #{__dir__}/../blake2b.py '#{data}' '#{person}'"
+      return `#{cmd}`.strip
+    end
   end
 end
 

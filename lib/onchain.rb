@@ -16,7 +16,6 @@ require 'onchain/exchange_rates.rb'
 require 'money-tree'
 require 'bitcoin'
 require 'eth'
-require 'blake2'
 
 # Setup the bitcoin gem for zcash
 module Bitcoin

@@ -81,4 +81,14 @@ describe OnChain do
     end
   end
   
+  it "should create a blake2 (Needs python3 > 3.6)" do
+    
+    expect(OnChain::blake2b('', 'ZcashPrevoutHash')).to eq('d53a633bbecf82fe9e9484d8a0e727c73bb9e68c96e72dec30144f6a84afa136')
+   
+    expect(OnChain::blake2b('', 'ZcashSequencHash')).to eq('a5f25f01959361ee6eb56a7401210ee268226f6ce764a4f10b7f29e54db37272')
+    
+    expect(OnChain::blake2b('8f739811893e0000095200ac6551ac636565b1a45a0805750200025151', 'ZcashOutputsHash')).to eq('ec55f4afc6cebfe1c35bdcded7519ff6efb381ab1d5a8dd0060c13b2a512932b')
+    
+  end
+  
 end
