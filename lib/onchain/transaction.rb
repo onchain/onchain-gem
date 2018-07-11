@@ -7,11 +7,11 @@ class OnChain::Transaction
     CACHE_FOR = 10 # 10 minutes, roughly each block.
     
     # Zcash
-    ZCASH_PREVOUTS_HASH_PERSONALIZATION = 'ZcashPrevoutHash'
-    ZCASH_SEQUENCE_HASH_PERSONALIZATION = 'ZcashSequenceHash'
-    ZCASH_OUTPUTS_HASH_PERSONALIZATION = 'ZcashOutputsHash'
+    ZCASH_PREVOUTS_HASH_PERSONALIZATION   = 'ZcashPrevoutHash'
+    ZCASH_SEQUENCE_HASH_PERSONALIZATION   = 'ZcashSequencHash'
+    ZCASH_OUTPUTS_HASH_PERSONALIZATION    = 'ZcashOutputsHash'
     ZCASH_JOINSPLITS_HASH_PERSONALIZATION = 'ZcashJSplitsHash'
-    ZCASH_SIG_HASH_PERSONALIZATION = 'ZcashSigHash\x19\x1b\xa8\x5b'
+    ZCASH_SIG_HASH_PERSONALIZATION        = 'ZcashSigHash'
       
     def calculate_miners_fee(addresses, amount, network = :bitcoin)
       

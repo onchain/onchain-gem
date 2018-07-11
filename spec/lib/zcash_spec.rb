@@ -75,8 +75,7 @@ describe OnChain do
         't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 4000000, 
         30000, 't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 10000, :zcash)
         
-      puts "Inputs to sign"
-      puts inputs_to_sign.to_json
+      expect(inputs_to_sign.to_json.include?('1138e9f7284d79baa641c0c7247705473c76911d922cf172a00fc7a03432a62b')).to eq(true)
         
     end
   end
@@ -88,6 +87,8 @@ describe OnChain do
     expect(OnChain::blake2b('', 'ZcashSequencHash')).to eq('a5f25f01959361ee6eb56a7401210ee268226f6ce764a4f10b7f29e54db37272')
     
     expect(OnChain::blake2b('8f739811893e0000095200ac6551ac636565b1a45a0805750200025151', 'ZcashOutputsHash')).to eq('ec55f4afc6cebfe1c35bdcded7519ff6efb381ab1d5a8dd0060c13b2a512932b')
+    
+    expect(OnChain::blake2b('', 'ZcashSigHash')).to eq('a8b7d33290ca936765a88d37c2a8fe739fecc2670df3068082a31209cd311ddd')
     
   end
   
