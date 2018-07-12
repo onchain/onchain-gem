@@ -75,7 +75,7 @@ describe OnChain do
         't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 4000000, 
         30000, 't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 10000, :zcash)
         
-      expect(inputs_to_sign.to_json.include?('1138e9f7284d79baa641c0c7247705473c76911d922cf172a00fc7a03432a62b')).to eq(true)
+      expect(inputs_to_sign.to_json.include?('edc141074be182fb')).to eq(true)
         
     end
   end

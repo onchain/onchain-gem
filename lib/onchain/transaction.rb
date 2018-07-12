@@ -257,6 +257,7 @@ class OnChain::Transaction
       fee_in_satoshi, fee_addr, miners_fee, network = :bitcoin)
 
       tx = Bitcoin::Protocol::Tx.new
+      tx.ver = 3 if network == :zcash
       
       total_amount = amount + fee_in_satoshi + miners_fee
       
@@ -639,7 +640,7 @@ class OnChain::Transaction
       hash_type         = [hash_type].pack("V")
       lock_time         = [tx.lock_time].pack("V")
       expiry_height     = [0].pack("V")
-      version           = [1 | 0x80000000].pack("V")
+      version           = [tx.ver | 0x80000000].pack("V")
       version_group_id  = [0x03c48270].pack("V")
 
       buf = [ 
