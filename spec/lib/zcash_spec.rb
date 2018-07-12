@@ -69,15 +69,30 @@ describe OnChain do
       expect(key.addr).to eq("t1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ")
       Bitcoin.network = :bitcoin
       
+      pub_hex = '02a8c45cc289f1a2707f7df4ca5f12348d56e8f48ee9abe86d3b9213e17922cbc8'
     
       tx, inputs_to_sign = OnChain::Transaction.create_transaction_from_public_keys(
-        ['02a8c45cc289f1a2707f7df4ca5f12348d56e8f48ee9abe86d3b9213e17922cbc8'], 
+        [pub_hex], 
         't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 4000000, 
         30000, 't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 10000, :zcash)
         
       expect(inputs_to_sign.to_json.include?('edc141074be182fb')).to eq(true)
       
       expect(tx).to eq('030000807082c4030138e86e187f471ce1ebbaf30463d9995bd56fdd49a25ed5269b148f306245e06f010000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88acffffffff0200093d00000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac30750000000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac000000000000000000')
+      
+      the_hash = inputs_to_sign.first[pub_hex]["hash"]
+      sig =  OnChain.bin_to_hex(key.sign(OnChain.hex_to_bin(the_hash)))
+      inputs_to_sign.first[pub_hex]["sig"] = sig
+      
+      hash_type = Bitcoin::Script::SIGHASH_TYPE[:all]
+      hash_type = hash_type | Bitcoin::Script::SIGHASH_TYPE[:forkid]
+      
+      signed_tx = OnChain::Transaction.sign_single_signature_transaction(
+        tx, inputs_to_sign, hash_type, :zcash)
+        
+      res = OnChain::BlockChain.send_tx(signed_tx, :zcash)
+      
+      puts res
         
     end
   end
@@ -91,6 +106,19 @@ describe OnChain do
     expect(OnChain::blake2b('8f739811893e0000095200ac6551ac636565b1a45a0805750200025151', 'ZcashOutputsHash')).to eq('ec55f4afc6cebfe1c35bdcded7519ff6efb381ab1d5a8dd0060c13b2a512932b')
     
     expect(OnChain::blake2b('', 'ZcashSigHash')).to eq('a8b7d33290ca936765a88d37c2a8fe739fecc2670df3068082a31209cd311ddd')
+    
+  end
+  
+  it "should parse and reproduce a zcash transaction" do
+    
+    # Test vector 1
+    tx_hex = '030000807082c40300028f739811893e0000095200ac6551ac636565b1a45a0805750200025151481cdd86b3cc431800'
+    
+    tx = Bitcoin::Protocol::Tx.create_from_hex(tx_hex, :zcash)
+    
+    tx_generated = OnChain::bin_to_hex(tx.to_network_payload(:zcash))
+    
+    expect(tx_hex).to eq(tx_generated)
     
   end
   

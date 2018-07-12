@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 03 Jul 2018 13:45:27 GMT
+      - Thu, 12 Jul 2018 11:38:51 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -29,8 +29,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d63048c9c4db7079b9ff3d2a8a12137fa1530625527; expires=Wed, 03-Jul-19
-        13:45:27 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      - __cfduid=d747eade1c2e23ecacb25d6db6574c5a21531395531; expires=Fri, 12-Jul-19
+        11:38:51 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
@@ -47,7 +47,7 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Etag:
-      - W/"114-YJMoiZAu0wKw7qhFinUtttxOsxE"
+      - W/"116-wyvGjBv28JVT1UIZU9iuqHc9VO4"
       Vary:
       - Accept-Encoding
       Expect-Ct:
@@ -55,10 +55,69 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 4349cae93de03c53-CDG
+      - 439339d6fcd868f6-CDG
     body:
       encoding: ASCII-8BIT
-      string: '[{"address":"t1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ","txid":"6fe04562308f149b26d55ea249dd6fd55b99d96304f3baebe11c477f186ee838","vout":1,"scriptPubKey":"76a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac","amount":0.03526091,"satoshis":3526091,"height":351764,"confirmations":51}]'
+      string: '[{"address":"t1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ","txid":"6fe04562308f149b26d55ea249dd6fd55b99d96304f3baebe11c477f186ee838","vout":1,"scriptPubKey":"76a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac","amount":0.03526091,"satoshis":3526091,"height":351764,"confirmations":5156}]'
     http_version: 
-  recorded_at: Tue, 03 Jul 2018 13:45:27 GMT
+  recorded_at: Thu, 12 Jul 2018 11:38:51 GMT
+- request:
+    method: post
+    uri: https://zcash.blockexplorer.com/api/tx/send
+    body:
+      encoding: UTF-8
+      string: '{"rawtx":"030000807082c4030138e86e187f471ce1ebbaf30463d9995bd56fdd49a25ed5269b148f306245e06f010000006a47304402200300b0c712514bc2d0968a2c14e423e0f85cb4b3c7da0cf82a1b5441c15d4cc7022002ccaa2d3b74cc936a9711add83dee1e6be595a8592f7db240090dc89b4e9239412102a8c45cc289f1a2707f7df4ca5f12348d56e8f48ee9abe86d3b9213e17922cbc8ffffffff0200093d00000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac30750000000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac000000000000000000"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - zcash.blockexplorer.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Thu, 12 Jul 2018 11:38:52 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d1a8df944db5f9e2b8d3c58216838eaf91531395532; expires=Fri, 12-Jul-19
+        11:38:52 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      X-Powered-By:
+      - Express
+      X-Ratelimit-Limit:
+      - '10800'
+      X-Ratelimit-Remaining:
+      - '10798'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, HEAD, PUT, POST, OPTIONS
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept, Content-Length, Cache-Control,
+        cf-connecting-ip
+      Vary:
+      - Accept-Encoding
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 439339db6af6691a-CDG
+    body:
+      encoding: UTF-8
+      string: '16: bad-txns-in-belowout. Code:-26'
+    http_version: 
+  recorded_at: Thu, 12 Jul 2018 11:38:52 GMT
 recorded_with: VCR 3.0.3

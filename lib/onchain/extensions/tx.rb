@@ -8,18 +8,18 @@ module Bitcoin
         tx = Bitcoin::Protocol::Tx.new
         if network == :zcash
           tx.ver = 3
+          tx.version_group_id = '0x03c48270'
+          tx.expiry_height = 0
         end
         return tx
       end
       
       def self.create_from_hex(tx_hex, network = :bitcoin)
-        tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(tx_hex)
         if network == :zcash
-          tx.ver = 3
+          return parse_zcash_from_hex(tx_hex)
         end
-        return tx
+        return Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(tx_hex)
       end
-        
         
       # output transaction in raw binary format
       def to_network_payload(network)

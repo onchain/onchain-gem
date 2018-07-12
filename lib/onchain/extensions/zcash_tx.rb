@@ -3,6 +3,9 @@ module Bitcoin
 
     class Tx
       
+      attr_accessor :expiry_height
+      attr_accessor :version_group_id
+      
       # Zcash
       ZCASH_PREVOUTS_HASH_PERSONALIZATION   = 'ZcashPrevoutHash'
       ZCASH_SEQUENCE_HASH_PERSONALIZATION   = 'ZcashSequencHash'
@@ -31,12 +34,46 @@ module Bitcoin
           Protocol.pack_var_int(@out.size),
           pout,
           [@lock_time].pack("V"),
-          [0].pack("V"),
+          [@expiry_height].pack("V"),
           Protocol.pack_var_int(0) # Number of join splits
         ].join
         
         return buf
       
+      end
+      
+      # parse raw binary data
+      def self.parse_zcash_from_hex(tx_hex)
+        
+        tx = Bitcoin::Protocol::Tx.new
+        
+        data = OnChain::hex_to_bin(tx_hex)
+        buf = data.is_a?(String) ? StringIO.new(data) : data
+
+        tx.ver = buf.read(4).unpack("V")[0]
+        tx.version_group_id = buf.read(4).unpack("V")[0]
+
+        in_size = Protocol.unpack_var_int_from_io(buf)
+
+        in_size.times{
+          break if buf.eof?
+          tx.add_in TxIn.from_io(buf)
+        }
+
+        return false if buf.eof?
+
+        out_size = Protocol.unpack_var_int_from_io(buf)
+        out_size.times{
+          break if buf.eof?
+          tx.add_out TxOut.from_io(buf)
+        }
+
+        return false if buf.eof?
+
+        tx.lock_time = buf.read(4).unpack("V")[0]
+        tx.expiry_height = buf.read(4).unpack("V")[0]
+
+        return tx
       end
     
       # ZCash over winter.
