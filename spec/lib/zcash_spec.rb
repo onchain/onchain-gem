@@ -60,7 +60,6 @@ describe OnChain do
   
   it "should generate an over winter tx" do
     
-    
     VCR.use_cassette(the_subject) do
       pk = "L2ZDeyeJcuqewNwG4VEttFUjLm3tG8cSo13MWPNdHaWfa7oGJrog"
   
@@ -116,10 +115,26 @@ describe OnChain do
     
     tx = Bitcoin::Protocol::Tx.create_from_hex(tx_hex, :zcash)
     
+    # hashPrevouts:
+    #  BLAKE2b-256('ZcashPrevoutHash', b'')
+    # = d53a633bbecf82fe9e9484d8a0e727c73bb9e68c96e72dec30144f6a84afa136
+    expect(tx.zcash_prev_out_hash).to eq('d53a633bbecf82fe9e9484d8a0e727c73bb9e68c96e72dec30144f6a84afa136')
+    
+    # hashSequence:
+    #  BLAKE2b-256('ZcashSequencHash', b'')
+    # = a5f25f01959361ee6eb56a7401210ee268226f6ce764a4f10b7f29e54db37272
+    expect(tx.zcash_sequence_hash).to eq('a5f25f01959361ee6eb56a7401210ee268226f6ce764a4f10b7f29e54db37272')
+    
+    # hashOutputs:
+    #   BLAKE2b-256('ZcashOutputsHash', 8f739811893e0000095200ac6551ac636565b1a45a0805750200025151)
+    # = ec55f4afc6cebfe1c35bdcded7519ff6efb381ab1d5a8dd0060c13b2a512932b
+    expect(tx.zcash_outputs_hash).to eq('ec55f4afc6cebfe1c35bdcded7519ff6efb381ab1d5a8dd0060c13b2a512932b')
+    
+    expect(OnChain.bin_to_hex(tx.signature_hash_for_zcash(0, nil, nil, 1, false))).to eq('5f0957950939a65c5a76128eaf552ca8e86066387325bd831f3cd32962ce1a65')
+    
     tx_generated = OnChain::bin_to_hex(tx.to_network_payload(:zcash))
     
-    expect(tx_hex).to eq(tx_generated)
-    
+    expect(tx_generated).to eq(tx_hex)
   end
   
 end
