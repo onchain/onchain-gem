@@ -5,13 +5,6 @@ class OnChain::Transaction
     MINERS_BYTE_FEE = 100
     CACHE_KEY = 'Bitcoin21Fees'
     CACHE_FOR = 10 # 10 minutes, roughly each block.
-    
-    # Zcash
-    ZCASH_PREVOUTS_HASH_PERSONALIZATION   = 'ZcashPrevoutHash'
-    ZCASH_SEQUENCE_HASH_PERSONALIZATION   = 'ZcashSequencHash'
-    ZCASH_OUTPUTS_HASH_PERSONALIZATION    = 'ZcashOutputsHash'
-    ZCASH_JOINSPLITS_HASH_PERSONALIZATION = 'ZcashJSplitsHash'
-    ZCASH_SIG_HASH_PERSONALIZATION        = 'ZcashSigHash'
       
     def calculate_miners_fee(addresses, amount, network = :bitcoin)
       
@@ -134,8 +127,7 @@ class OnChain::Transaction
     def interrogate_transaction_bitcoin_and_forks(txhex, wallet_addresses, 
       fee_addresses, total_to_send, network = :bitcoin)
       
-      tx_bin = txhex.scan(/../).map { |x| x.hex }.pack('c*')
-      tx_to_sign = Bitcoin::Protocol::Tx.new(tx_bin)
+      tx_to_sign = Bitcoin::Protocol::Tx.create_from_hex(txhex, network)
       
       primary_send = 0
       our_fees = 0
@@ -186,7 +178,7 @@ class OnChain::Transaction
     # can identify it here.
     def check_integrity(txhex, amount, orig_addresses, dest_addr, tolerence)
       
-      tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(txhex)
+      tx = Bitcoin::Protocol::Tx.create_from_hex(txhex)
       
       input_amount = 0
       # Let's add up the value of all the inputs.
@@ -197,7 +189,7 @@ class OnChain::Transaction
         
         # Get the amount for the previous output
         prevhex = OnChain::BlockChain.get_transaction(prev_hash)
-        prev_tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(prevhex)
+        prev_tx = Bitcoin::Protocol::Tx.create_from_hex(prevhex)
         
         input_amount += prev_tx.out[prev_index].value
         
@@ -256,8 +248,7 @@ class OnChain::Transaction
     def create_single_signature_transaction(orig_addresses, dest_addr, amount, 
       fee_in_satoshi, fee_addr, miners_fee, network = :bitcoin)
 
-      tx = Bitcoin::Protocol::Tx.new
-      tx.ver = 3 if network == :zcash
+      tx = Bitcoin::Protocol::Tx.create_for_network(network)
       
       total_amount = amount + fee_in_satoshi + miners_fee
       
@@ -290,9 +281,9 @@ class OnChain::Transaction
         tx.add_out(txout)
       end
 
-      inputs_to_sign = get_inputs_to_sign(tx, unspents, network)
+      inputs_to_sign = tx.get_inputs_to_sign(unspents, network)
       
-      return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign, total_input_value
+      return OnChain::bin_to_hex(tx.to_network_payload(network)), inputs_to_sign, total_input_value
     end
     
     def create_single_address_transaction(orig_addr, dest_addr, amount, 
@@ -329,7 +320,7 @@ class OnChain::Transaction
         addresses, total_amount, network)
       
       # OK, let's build a transaction.
-      tx = Bitcoin::Protocol::Tx.new
+      tx = Bitcoin::Protocol::Tx.create_for_network(network)
       
       total_input_value = 0
       # Process the unpsent outs.
@@ -362,9 +353,9 @@ class OnChain::Transaction
         tx.add_out(txout)
       end
 
-      inputs_to_sign = get_inputs_to_sign(tx, unspents, network)
+      inputs_to_sign = tx.get_inputs_to_sign(unspents, network)
     
-      return OnChain::bin_to_hex(tx.to_payload), inputs_to_sign, total_input_value
+      return OnChain::bin_to_hex(tx.to_network_payload(network)), inputs_to_sign, total_input_value
     end
   
     # Given a transaction in hex string format, apply
@@ -376,9 +367,10 @@ class OnChain::Transaction
     # [1]{02fee.....' => {'hash' => '122133445....', 'sig' => '435fgdf4553...'}}
     #
     def sign_single_signature_transaction(transaction_hex, sig_list, 
-      hash_type = Bitcoin::Script::SIGHASH_TYPE[:all])
+      hash_type = Bitcoin::Script::SIGHASH_TYPE[:all],
+      network = :bitcoin)
       
-      tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(transaction_hex)
+      tx = Bitcoin::Protocol::Tx.create_from_hex(transaction_hex, network)
       
       tx.in.each_with_index do |txin, index|
         
@@ -391,7 +383,7 @@ class OnChain::Transaction
           OnChain.hex_to_bin(public_key_hex), hash_type)
       end
       
-      return OnChain::bin_to_hex(tx.to_payload)
+      return OnChain::bin_to_hex(tx.to_network_payload(network))
     end
      
   
@@ -406,9 +398,10 @@ class OnChain::Transaction
     # For transactions coming from non multi sig wallets we need to set
     # the pubkey parameter to the full public hex key of the address.
     def sign_transaction(transaction_hex, sig_list, pubkey = nil, 
-      hash_type = Bitcoin::Script::SIGHASH_TYPE[:all])
+      hash_type = Bitcoin::Script::SIGHASH_TYPE[:all],
+      network = :bitcoin)
       
-      tx = Bitcoin::Protocol::Tx.new OnChain::hex_to_bin(transaction_hex)
+      tx = Bitcoin::Protocol::Tx.create_from_hex(transaction_hex, network)
       
       tx.in.each_with_index do |txin, index|
         
@@ -416,7 +409,7 @@ class OnChain::Transaction
         
         rscript = Bitcoin::Script.new txin.script
         
-        pub_keys = get_public_keys_from_script(rscript)
+        pub_keys = Bitcoin::Protocol::Tx.get_public_keys_from_script(rscript)
         pub_keys.each do |hkey|
           
           if sig_list[index][hkey] != nil and sig_list[index][hkey]['sig'] != nil
@@ -459,7 +452,7 @@ class OnChain::Transaction
         #raise "Signature error " + index.to_s  if ! tx.verify_input_signature(index, in_script.to_payload)
       end
       
-      return OnChain::bin_to_hex(tx.to_payload)
+      return OnChain::bin_to_hex(tx.to_network_payload(network))
     end
     
     # Run through the signature list and check it is all signed.
@@ -512,75 +505,6 @@ class OnChain::Transaction
         return Bitcoin.encode_address(script.get_hash160, address_version)
       end
     end
-    
-    def get_public_keys_from_script(script)
-  
-      if script.is_hash160?
-        return [Bitcoin.hash160_to_address(script.get_hash160)]
-      end
-      
-      pubs = []
-      script.get_multisig_pubkeys.each do |pub|
-        pubs << OnChain.bin_to_hex(pub)
-      end
-      return pubs
-    end
-    
-    def get_inputs_to_sign(tx, unspents, network = :bitcoin)
-      inputs_to_sign = []
-      tx.in.each_with_index do |txin, index|
-
-
-        if network == :zcash
-
-          # ZCash
-          script_code = Bitcoin::Protocol.pack_var_string(txin.script)
-          sig_hash =  Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
-          hash = signature_hash_for_zcash(tx, index, txin.script, 
-            unspents[index][3], sig_hash)
-
-        elsif Bitcoin::NETWORKS[network][:fork_id] == nil
-
-          # The Bitcoin and statndard forks implement the hash
-          hash = tx.signature_hash_for_input(index, txin.script, 
-            Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all])
-        elsif network == :bitcoin_private
-
-          # Bitcoin private
-          sig_hash = Bitcoin::Protocol::Tx::SIGHASH_TYPE[:forkid] | 
-            Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
-          hash = signature_hash_for_bitcoin_private_input(tx, index, txin.script, 
-            sig_hash, Bitcoin::NETWORKS[network][:fork_id])
-
-        else
-          # Replay protection as used by bitcoin cash and bitcoin gold
-
-          sig_hash = Bitcoin::Protocol::Tx::SIGHASH_TYPE[:forkid] | 
-            Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
-        
-          # This is not implemented in bitcoin ruby 
-          # see https://github.com/lian/bitcoin-ruby/blob/05eae36cf04b0dd426930dbea34d48769272f9d2/lib/bitcoin/protocol/tx.rb#L188
-          #hash = tx.signature_hash_for_input(index, txin.script, 
-          #  sig_hash, unspents[index][3], Bitcoin::NETWORKS[network][:fork_id])
-          
-          script_code = Bitcoin::Protocol.pack_var_string(txin.script)
-          hash = signature_hash_with_a_fork_id(tx, index, script_code, 
-            unspents[index][3], sig_hash, Bitcoin::NETWORKS[network][:fork_id])
-        end
-        
-        script = Bitcoin::Script.new txin.script
-        
-        pubkeys = get_public_keys_from_script(script)
-        pubkeys.each do |key|
-          
-          if inputs_to_sign[index] == nil
-            inputs_to_sign[index] = {}
-          end
-          inputs_to_sign[index][key] = {'hash' => OnChain::bin_to_hex(hash)}
-        end
-      end
-      return inputs_to_sign
-    end
   
     def generate_address_of_redemption_script(script, network = :bitcoin)
       
@@ -608,176 +532,5 @@ class OnChain::Transaction
       end
     end
     
-    private
-    
-    # ZCash over winter.
-    #
-    # https://github.com/zcash/zips/blob/master/zip-0143.rst
-    #
-    def signature_hash_for_zcash(tx, input_idx, 
-      script_code, prev_out_value, hash_type)
-     
-      prev_outs_bin = tx.in.map{|i| [i.prev_out_hash, i.prev_out_index].pack("a32V")}.join
-      blake_hex = OnChain.blake2b(OnChain::bin_to_hex(prev_outs_bin), ZCASH_PREVOUTS_HASH_PERSONALIZATION)
-      hash_prevouts = OnChain::hex_to_bin(blake_hex)
-      
-      sequence_bin = tx.in.map{|i|i.sequence}.join
-      blake_hex = OnChain.blake2b(OnChain::bin_to_hex(sequence_bin), ZCASH_SEQUENCE_HASH_PERSONALIZATION)
-      hash_sequence = OnChain::hex_to_bin(blake_hex)
-        
-      outpoint = [tx.in[input_idx].prev_out_hash, 
-        tx.in[input_idx].prev_out_index].pack("a32V")
-        
-      amount = [prev_out_value].pack("Q")
-      
-      nsequence = tx.in[input_idx].sequence
-      
-      outputs_bin = tx.out.map{|o|o.to_payload}.join
-      blake_hex = OnChain.blake2b(OnChain::bin_to_hex(outputs_bin), ZCASH_OUTPUTS_HASH_PERSONALIZATION)
-      hash_outputs = OnChain::hex_to_bin(blake_hex)
-        
-      hash_joins        = OnChain::hex_to_bin("0" * 64)
-      hash_type         = [hash_type].pack("V")
-      lock_time         = [tx.lock_time].pack("V")
-      expiry_height     = [0].pack("V")
-      version           = [tx.ver | 0x80000000].pack("V")
-      version_group_id  = [0x03c48270].pack("V")
-
-      buf = [ 
-        version,                                  # 1. nVersion | fOverwintered
-        version_group_id,                         # 2. nVersionGroupId
-        hash_prevouts,                            # 3. hashPrevouts
-        hash_sequence,                            # 4. hashSequence
-        hash_outputs,                             # 5. hashOutputs
-        hash_joins,                               # 6. hashJoinSplits
-        lock_time,                                # 7. nLockTime
-        expiry_height,                            # 8. expiryHeight
-        hash_type,                                # 9. nHashType
-        outpoint,                                 # 10a. outpoint
-        script_code,                              # 10b. scriptCode
-        amount,                                   # 10c. value
-        nsequence                                 # 10d. nSequence
-      ].join
-      
-      
-      #puts OnChain::bin_to_hex(version) + "\t\t\t\t\t\t\t\t\t# 1. nVersion | fOverwintered"
-      #puts OnChain::bin_to_hex(version_group_id) + "\t\t\t\t\t\t\t\t\t# 2. nVersionGroupId"
-      #puts OnChain::bin_to_hex(hash_prevouts) + "\t\t# 3. hashPrevouts"
-      #puts OnChain::bin_to_hex(hash_sequence) + "\t\t# 4. hashSequence"
-      #puts OnChain::bin_to_hex(hash_outputs) + "\t\t# 5. hash_outputs"
-      #puts OnChain::bin_to_hex(hash_joins) + "\t\t# 6. hashJoinSplits"
-      #puts OnChain::bin_to_hex(lock_time) + "\t\t\t\t\t\t\t\t\t# 7. nLockTime"
-      #puts OnChain::bin_to_hex(hash_type) + "\t\t\t\t\t\t\t\t\t# 9. nHashType"
-      #puts OnChain::bin_to_hex(outpoint) + "\t# 10a. outpoint"
-      #puts OnChain::bin_to_hex(script_code) + "\t\t\t\t# 10b. scriptCode"
-      #puts OnChain::bin_to_hex(amount) + "\t\t\t\t\t\t\t\t# 10c. value"
-      #puts OnChain::bin_to_hex(nsequence) + "\t\t\t\t\t\t\t\t\t# 10d. nSequence"
-
-      blake_hex = OnChain.blake2b(OnChain::bin_to_hex(buf), ZCASH_SIG_HASH_PERSONALIZATION)
-      
-      return OnChain::hex_to_bin(blake_hex)
-    end
-    
-    # Used by bitocin cash with a fork_id of zero.
-    #
-    # Bitcoin Private has a fork id of 42 and Gold 79.
-    #
-    # Electrum code for Gold. https://github.com/BTCGPU/electrum/blob/master/lib/transaction.py#L849
-    #
-    # Elecrum code for Bitocin Private https://github.com/BTCPrivate/electrum-btcp/blob/712117fece1a0028c7f5192c0448ab7cc85e9c3c/lib/transaction.py#L764
-    #
-    def signature_hash_with_a_fork_id(tx, input_idx, 
-      script_code, prev_out_value, hash_type, fork_id)
-     
-      hash_prevouts = Digest::SHA256.digest(Digest::SHA256.digest(
-        tx.in.map{|i| [i.prev_out_hash, i.prev_out_index].pack("a32V")}.join))
-        
-      hash_sequence = Digest::SHA256.digest(Digest::SHA256.digest(
-        tx.in.map{|i|i.sequence}.join))
-        
-      outpoint = [tx.in[input_idx].prev_out_hash, 
-        tx.in[input_idx].prev_out_index].pack("a32V")
-        
-      amount = [prev_out_value].pack("Q")
-      
-      nsequence = tx.in[input_idx].sequence
-      
-      hash_outputs = Digest::SHA256.digest(Digest::SHA256.digest(
-        tx.out.map{|o|o.to_payload}.join))
-      
-      hash_type |= fork_id << 8
-
-      buf = [ [tx.ver].pack("V"), hash_prevouts, hash_sequence, outpoint,
-              script_code, amount, nsequence, hash_outputs, 
-              [tx.lock_time, hash_type].pack("VV")].join
-
-      Digest::SHA256.digest( Digest::SHA256.digest( buf ) )
-    end
-
-
-    # Bitcoin Private way of hashing inputs for signing
-    def signature_hash_for_bitcoin_private_input(tx, input_idx, subscript, 
-      hash_type, fork_id)
-      # https://github.com/BTCPrivate/BitcoinPrivate/blob/master/src/script/interpreter.cpp#L1102
-      # https://github.com/BTCGPU/BTCGPU/blob/master/src/script/interpreter.cpp#L1212
-      # https://github.com/BTCPrivate/BitcoinPrivate/blob/master/src/script/interpreter.cpp#L1047
-
-      hash_type ||= SIGHASH_TYPE[:all]
-      
-      # This is what we useds to do.
-      #pin  = tx.in.map.with_index{|input,idx|
-      #  subscript = subscript.out[ input.prev_out_index ].script if 
-      #    subscript.respond_to?(:out) # legacy api (outpoint_tx)
-      #
-      #  # Remove all instances of OP_CODESEPARATOR from the script.
-      #  parsed_subscript = Bitcoin::Script.new(subscript)
-      #  parsed_subscript.chunks.delete(Bitcoin::Script::OP_CODESEPARATOR)
-      #  subscript = parsed_subscript.to_binary
-      #
-      #  input.to_payload(subscript)
-      #}
-
-      #for (unsigned int nInput = 0; nInput < nInputs; nInput++)
-      #       SerializeInput(s, nInput, nType, nVersion);
-      pin  = tx.in.map.with_index{|input,idx|
-        if idx == input_idx
-          subscript = subscript.out[ input.prev_out_index ].script if subscript.respond_to?(:out) # legacy api (outpoint_tx)
-
-          # Remove all instances of OP_CODESEPARATOR from the script.
-          parsed_subscript = Bitcoin::Script.new(subscript)
-          parsed_subscript.chunks.delete(Bitcoin::Script::OP_CODESEPARATOR)
-          subscript = parsed_subscript.to_binary
-
-          input.to_payload(subscript)
-        else
-          case (hash_type & 0x1f)
-          when Bitcoin::Script::SIGHASH_TYPE[:none];   input.to_payload("", "\x00\x00\x00\x00")
-          when Bitcoin::Script::SIGHASH_TYPE[:single]; input.to_payload("", "\x00\x00\x00\x00")
-          else;                       input.to_payload("")
-          end
-        end
-      }
-
-      #for (unsigned int nOutput = 0; nOutput < nOutputs; nOutput++)
-      #       SerializeOutput(s, nOutput, nType, nVersion);
-      pout = tx.out.map(&:to_payload)
-      
-      in_size = Bitcoin::Protocol.pack_var_int(tx.in.size)
-      out_size = Bitcoin::Protocol.pack_var_int(tx.out.size)
-
-      fork_hash_type = hash_type
-      fork_hash_type |= fork_id << 8
-
-      buf = [ [tx.ver].pack("V"),       # ::Serialize(s, txTo.nVersion, nType, nVersion);
-        in_size,                        # unsigned int nInputs = fAnyoneCanPay ? 1 : txTo.vin.size();
-        pin, 
-        out_size,                       # unsigned int nOutputs = fHashNone ? 0 : (fHashSingle ? nIn+1 : txTo.vout.size());
-        pout, 
-        [tx.lock_time].pack("V"),
-        [fork_hash_type].pack("V") 
-      ].join
-
-      Digest::SHA256.digest( Digest::SHA256.digest( buf ) )
-    end
   end
 end
