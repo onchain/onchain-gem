@@ -23,6 +23,9 @@ module Bitcoin
         
       # output transaction in raw binary format
       def to_network_payload(network)
+        if network == :zcash
+          return to_zcash_payload
+        end
         witness? ? to_witness_payload : to_old_payload
       end
       
