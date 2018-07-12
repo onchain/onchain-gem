@@ -72,12 +72,10 @@ describe OnChain do
     
       tx, inputs_to_sign = OnChain::Transaction.create_transaction_from_public_keys(
         [pub_hex], 
-        't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 4000000, 
+        't1coURaGEsTgaG6Jp8Y2rA2sUppakecfJKC', 3000000, 
         30000, 't1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ', 10000, :zcash)
         
-      expect(inputs_to_sign.to_json.include?('edc141074be182fb')).to eq(true)
-      
-      expect(tx).to eq('030000807082c4030138e86e187f471ce1ebbaf30463d9995bd56fdd49a25ed5269b148f306245e06f010000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88acffffffff0200093d00000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac30750000000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac000000000000000000')
+      expect(tx).to eq('030000807082c4030138e86e187f471ce1ebbaf30463d9995bd56fdd49a25ed5269b148f306245e06f010000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88acffffffff03c0c62d00000000001976a914cfa26596e91ba32e19b0c448523058059841cf8788ac30750000000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88accb6a0700000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac000000000000000000')
       
       the_hash = inputs_to_sign.first[pub_hex]["hash"]
       sig =  OnChain.bin_to_hex(key.sign(OnChain.hex_to_bin(the_hash)))

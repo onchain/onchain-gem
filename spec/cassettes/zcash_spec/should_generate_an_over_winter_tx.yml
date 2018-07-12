@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 12 Jul 2018 11:38:51 GMT
+      - Thu, 12 Jul 2018 14:21:09 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -29,14 +29,14 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d747eade1c2e23ecacb25d6db6574c5a21531395531; expires=Fri, 12-Jul-19
-        11:38:51 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      - __cfduid=db22b1577db80e1ad7be1318206d238721531405268; expires=Fri, 12-Jul-19
+        14:21:08 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
       - '10800'
       X-Ratelimit-Remaining:
-      - '10799'
+      - '10794'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -47,7 +47,7 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Etag:
-      - W/"116-wyvGjBv28JVT1UIZU9iuqHc9VO4"
+      - W/"116-7KceeSwjZd72M4G8JWC+YpGf7Vk"
       Vary:
       - Accept-Encoding
       Expect-Ct:
@@ -55,18 +55,18 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 439339d6fcd868f6-CDG
+      - 43942790893a6956-CDG
     body:
       encoding: ASCII-8BIT
-      string: '[{"address":"t1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ","txid":"6fe04562308f149b26d55ea249dd6fd55b99d96304f3baebe11c477f186ee838","vout":1,"scriptPubKey":"76a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac","amount":0.03526091,"satoshis":3526091,"height":351764,"confirmations":5156}]'
+      string: '[{"address":"t1WnesYVsCCh96VorkF3oLaCyiyniNoPdhZ","txid":"6fe04562308f149b26d55ea249dd6fd55b99d96304f3baebe11c477f186ee838","vout":1,"scriptPubKey":"76a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac","amount":0.03526091,"satoshis":3526091,"height":351764,"confirmations":5220}]'
     http_version: 
-  recorded_at: Thu, 12 Jul 2018 11:38:51 GMT
+  recorded_at: Thu, 12 Jul 2018 14:21:09 GMT
 - request:
     method: post
     uri: https://zcash.blockexplorer.com/api/tx/send
     body:
       encoding: UTF-8
-      string: '{"rawtx":"030000807082c4030138e86e187f471ce1ebbaf30463d9995bd56fdd49a25ed5269b148f306245e06f010000006a47304402200300b0c712514bc2d0968a2c14e423e0f85cb4b3c7da0cf82a1b5441c15d4cc7022002ccaa2d3b74cc936a9711add83dee1e6be595a8592f7db240090dc89b4e9239412102a8c45cc289f1a2707f7df4ca5f12348d56e8f48ee9abe86d3b9213e17922cbc8ffffffff0200093d00000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac30750000000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac000000000000000000"}'
+      string: '{"rawtx":"030000807082c4030138e86e187f471ce1ebbaf30463d9995bd56fdd49a25ed5269b148f306245e06f010000006b48304502210095db7405aeb29f88d961ba3c936b9e623982f7450240d8a5290cf341b9425a2c0220661c8016069833b67827739ef9adb9cae6298990e0b609efda4811dd038bb6ff412102a8c45cc289f1a2707f7df4ca5f12348d56e8f48ee9abe86d3b9213e17922cbc8ffffffff03c0c62d00000000001976a914cfa26596e91ba32e19b0c448523058059841cf8788ac30750000000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88accb6a0700000000001976a9148da9f29035effc39e4e8f37e82cb8e27fd7ae61c88ac000000000000000000"}'
     headers:
       Content-Type:
       - application/json
@@ -84,7 +84,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Thu, 12 Jul 2018 11:38:52 GMT
+      - Thu, 12 Jul 2018 14:21:10 GMT
       Content-Type:
       - text/html; charset=utf-8
       Transfer-Encoding:
@@ -92,14 +92,14 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d1a8df944db5f9e2b8d3c58216838eaf91531395532; expires=Fri, 12-Jul-19
-        11:38:52 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
+      - __cfduid=d91493e2072285bb3e20e8c3866ce3bc61531405269; expires=Fri, 12-Jul-19
+        14:21:09 GMT; path=/; domain=.blockexplorer.com; HttpOnly; Secure
       X-Powered-By:
       - Express
       X-Ratelimit-Limit:
       - '10800'
       X-Ratelimit-Remaining:
-      - '10798'
+      - '10793'
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -114,10 +114,11 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 439339db6af6691a-CDG
+      - 43942795be7eb789-CDG
     body:
       encoding: UTF-8
-      string: '16: bad-txns-in-belowout. Code:-26'
+      string: '16: mandatory-script-verify-flag-failed (Signature hash type missing
+        or not understood). Code:-26'
     http_version: 
-  recorded_at: Thu, 12 Jul 2018 11:38:52 GMT
+  recorded_at: Thu, 12 Jul 2018 14:21:10 GMT
 recorded_with: VCR 3.0.3
