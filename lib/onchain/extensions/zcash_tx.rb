@@ -22,6 +22,7 @@ module Bitcoin
         version           = [@ver | 0x80000000].pack("V")
         version_group_id  = [0x03c48270].pack("V")
   
+        # https://github.com/zcash/zips/blob/master/zip-0202.rst
         buf = [          
           version,
           version_group_id,
@@ -30,7 +31,8 @@ module Bitcoin
           Protocol.pack_var_int(@out.size),
           pout,
           [@lock_time].pack("V"),
-          [0].pack("V")
+          [0].pack("V"),
+          Protocol.pack_var_int(0) # Number of join splits
         ].join
         
         return buf
