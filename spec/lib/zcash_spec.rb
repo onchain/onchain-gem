@@ -143,5 +143,15 @@ describe OnChain do
     tx_generated = OnChain::bin_to_hex(tx.to_network_payload(:zcash))
     
     expect(tx_generated).to eq(tx_hex)
+
+    tx_hex = "030000807082c40301571727cd8cd142a73814ec9b98ee79dff42cc0cdeb797b55678c4039c2d6cffc010000006a47304402202cc010bb764262c1d3a3e9fc67e9c91384e7544ffa3ecb62a0e536958c8806e302205e3d122ecc929f76f51088f26f71e2fcbbcf34fcc6758509031fcf7a775e3be0012102010a560c7325827df0212bca20f5cf6556b1345991b6b64b469c616e758230a5ffffffff02b2b19300000000001976a914c8b56e00740e62449a053c15bdd4809f720b5cb588acd0e0bb01000000001976a914c3df1bbbf84b4f021e0c894b2506ef33f01d2b5b88ac000000009374050000"
+  
+    tx = Bitcoin::Protocol::Tx.create_from_hex(tx_hex, :zcash)
+
+    tx_generated = OnChain::bin_to_hex(tx.to_network_payload(:zcash))
+    
+    expect(tx_generated).to eq(tx_hex)
   end
+
+  
 end
