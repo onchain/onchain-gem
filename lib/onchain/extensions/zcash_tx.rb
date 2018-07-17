@@ -19,8 +19,6 @@ module Bitcoin
         pout = ""
         @out.each{|output| pout << output.to_payload }
 
-        [@ver].pack("V") << Protocol.pack_var_int(@in.size) << pin << Protocol.pack_var_int(@out.size) << pout << [@lock_time].pack("V")
-      
         version           = [@ver | 0x80000000].pack("V")
         version_group_id  = [0x03c48270].pack("V")
   

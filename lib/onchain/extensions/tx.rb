@@ -40,7 +40,7 @@ module Bitcoin
             # ZCash
             script_code = Bitcoin::Protocol.pack_var_string(txin.script)
             sig_hash =  Bitcoin::Protocol::Tx::SIGHASH_TYPE[:all] 
-            hash = signature_hash_for_zcash(index, txin.script, 
+            hash = signature_hash_for_zcash(index, script_code, 
               unspents[index][3], sig_hash)
   
           elsif Bitcoin::NETWORKS[network][:fork_id] == nil

@@ -79,6 +79,7 @@ describe OnChain do
       
       the_hash = inputs_to_sign.first[pub_hex]["hash"]
       sig =  OnChain.bin_to_hex(key.sign(OnChain.hex_to_bin(the_hash)))
+      
       inputs_to_sign.first[pub_hex]["sig"] = sig
       
       hash_type = Bitcoin::Script::SIGHASH_TYPE[:all]
