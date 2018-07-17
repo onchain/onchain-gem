@@ -83,7 +83,6 @@ describe OnChain do
       inputs_to_sign.first[pub_hex]["sig"] = sig
       
       hash_type = Bitcoin::Script::SIGHASH_TYPE[:all]
-      hash_type = hash_type | Bitcoin::Script::SIGHASH_TYPE[:forkid]
       
       signed_tx = OnChain::Transaction.sign_single_signature_transaction(
         tx, inputs_to_sign, hash_type, :zcash)
