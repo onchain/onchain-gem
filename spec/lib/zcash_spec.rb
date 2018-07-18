@@ -152,6 +152,24 @@ describe OnChain do
     
     expect(tx_generated).to eq(tx_hex)
   end
+  
+  it "should generate another winter tx" do
+    
+    VCR.use_cassette(the_subject) do  
+      pub_hex = '028f883177988f212f2f1b89bc0aa1fb0683899c3665b62167b0daa998018f85d7'
+      
+      tx, inputs_to_sign = OnChain::Transaction.create_transaction_from_public_keys(
+        [pub_hex], 
+        't1coURaGEsTgaG6Jp8Y2rA2sUppakecfJKC', 
+        100000, 
+        (0.004 * 100_000_000.0).to_i, 
+        't1aZLWNcFHR3apVoMuAPzEjGbdbR2qGfcAw', 
+        40000, :zcash)
+        
+      expect(tx).to eq('030000807082c40301f293c1b1d289fba09d0eb40a622a69f70f7b0e5bc3c77bca6ff6db543ce0a209010000001976a9143a48bfebcdc52c7b3831eab75a1955e58744c7e388acffffffff03a0860100000000001976a914cfa26596e91ba32e19b0c448523058059841cf8788ac801a0600000000001976a914b705b67a8c0caeb68bbafe8377da8c19aff1e2e788ac64952e00000000001976a9143a48bfebcdc52c7b3831eab75a1955e58744c7e388ac000000000000000000')
+      
+    end
+  end
 
   
 end
