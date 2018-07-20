@@ -148,4 +148,18 @@ describe OnChain do
     end
   end
   
+  it "should interrogate a zcash transaction" do
+    
+    tx = "030000807082c40301e945216e95294293841575caddfb4b8d0674e51eed80d67c8d9206382aba0714020000001976a9143a48bfebcdc52c7b3831eab75a1955e58744c7e388acffffffff03d0fb0100000000001976a914cfa26596e91ba32e19b0c448523058059841cf8788ac801a0600000000001976a914b705b67a8c0caeb68bbafe8377da8c19aff1e2e788acd5e22500000000001976a9143a48bfebcdc52c7b3831eab75a1955e58744c7e388ac000000000000000000"
+    
+    
+      total_input_value = 600_000
+      
+      result = OnChain::Transaction.interrogate_transaction(tx, 
+        ['1JCLW7cvVv2aHvcCUc4284unoaKXciftzW'], 
+        ['1STRonGxnFTeJiA7pgyneKknR29AwBM77', 
+        '1C931w9YKHeogc8N4zRUKSvitoPcTPKPFf'], total_input_value, :zcash)
+    
+  end
+  
 end

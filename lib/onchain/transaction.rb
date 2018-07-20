@@ -127,7 +127,11 @@ class OnChain::Transaction
     def interrogate_transaction_bitcoin_and_forks(txhex, wallet_addresses, 
       fee_addresses, total_to_send, network = :bitcoin)
       
-      tx_to_sign = Bitcoin::Protocol::Tx.create_from_hex(txhex, network)
+      if network == :zcash_outputs_hash
+        tx_to_sign = Bitcoin::Protocol::Tx.parse_zcash_from_hex(txhex)
+      else
+        tx_to_sign = Bitcoin::Protocol::Tx.create_from_hex(txhex, network)
+      end
       
       primary_send = 0
       our_fees = 0
